@@ -15,7 +15,8 @@ import ScoringHistoryCard from "@/components/ScoringHistoryCard"
 import { downloadPDF } from "@/components/PDFReport"
 
 export default function ConsumerProfile() {
-  const { id } = useParams()
+  const params = useParams<{ id: string }>()
+  const id = params?.id
   const [consumer, setConsumer] = useState<any>(null)
   const [loading, setLoading] = useState(true)
 
