@@ -13,7 +13,7 @@ export default function ScoreTrendChart({ data }: ScoreTrendChartProps) {
         <YAxis stroke="#9ca3af" domain={[690, 710]} />
         <Tooltip
           contentStyle={{ backgroundColor: "#fff", border: "1px solid #e5e7eb", borderRadius: "8px" }}
-          formatter={(value) => [`${value}`, "Avg Score"]}
+          formatter={(value: number) => [`${value}`, "Avg Score"]}
         />
         <Line type="monotone" dataKey="avg" stroke="#3b82f6" strokeWidth={3} dot={{ fill: "#3b82f6", r: 5 }} />
       </LineChart>

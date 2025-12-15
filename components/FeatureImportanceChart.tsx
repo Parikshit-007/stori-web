@@ -13,7 +13,7 @@ export default function FeatureImportanceChart({ data }: FeatureImportanceChartP
         <YAxis dataKey="feature" type="category" width={195} stroke="#9ca3af" tick={{ fontSize: 12 }} />
         <Tooltip
           contentStyle={{ backgroundColor: "#fff", border: "1px solid #e5e7eb", borderRadius: "8px" }}
-          formatter={(value) => `${value.toFixed(2)}%`}
+          formatter={(value: number) => `${value.toFixed(2)}%`}
         />
         <Bar dataKey="importance" fill="#6366f1" radius={[0, 8, 8, 0]} />
       </BarChart>

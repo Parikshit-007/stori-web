@@ -21,7 +21,7 @@ export default function RiskSegmentationChart({ data }: RiskSegmentationChartPro
             <Cell key={`cell-${index}`} fill={color} />
           ))}
         </Pie>
-        <Tooltip formatter={(value) => `${value.toFixed(1)}%`} />
+        <Tooltip formatter={(value: number) => `${value.toFixed(1)}%`} />
         <Legend />
       </PieChart>
     </ResponsiveContainer>
