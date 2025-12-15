@@ -13,7 +13,7 @@ export default function DefaultRateChart({ data }: DefaultRateChartProps) {
         <YAxis stroke="#9ca3af" />
         <Tooltip
           contentStyle={{ backgroundColor: "#fff", border: "1px solid #e5e7eb", borderRadius: "8px" }}
-          formatter={(value) => [`${(value * 100).toFixed(2)}%`, "Default Prob"]}
+          formatter={(value: number) => [`${(value * 100).toFixed(2)}%`, "Default Prob"]}
         />
         <Bar dataKey="defaultProb" fill="#ef4444" radius={[8, 8, 0, 0]} />
       </BarChart>
