@@ -25,7 +25,7 @@ export default function Explainability() {
 
   if (loading) return <div className="flex items-center justify-center h-96">Loading...</div>
 
-  const mockSHAPData = [
+  const mockSHAPData: Array<{ feature: string; value: number; impact: "positive" | "negative" }> = [
     { feature: "Income Stability", value: 85, impact: "positive" },
     { feature: "Average Balance", value: 72, impact: "positive" },
     { feature: "EMI Burden", value: -45, impact: "negative" },
