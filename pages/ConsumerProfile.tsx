@@ -1,0 +1,133 @@
+"use client"
+import { useState, useEffect } from "react"
+import { useParams } from "next/navigation"
+import { mockApi } from "@/lib/mockApi"
+import { ArrowLeft, Download, FileText } from "lucide-react"
+import Link from "next/link"
+import IdentityDemographicsCard from "@/components/IdentityDemographicsCard"
+import IncomeCashflowCard from "@/components/IncomeCashflowCard"
+import AssetsLiabilitiesCard from "@/components/AssetsLiabilitiesCard"
+import BehaviouralSignalsCard from "@/components/BehaviouralSignalsCard"
+import FraudIdentityCard from "@/components/FraudIdentityCard"
+import TransactionsUtilityCard from "@/components/TransactionsUtilityCard"
+import SummaryCard from "@/components/SummaryCard"
+import ScoringHistoryCard from "@/components/ScoringHistoryCard"
+import { downloadPDF } from "@/components/PDFReport"
+
+export default function ConsumerProfile() {
+  const { id } = useParams()
+  const [consumer, setConsumer] = useState<any>(null)
+  const [loading, setLoading] = useState(true)
+
+  useEffect(() => {
+    const fetchConsumer = async () => {
+      try {
+        const data = await mockApi.getConsumerById(id as string)
+        setConsumer(data)
+      } catch (error) {
+        console.error("Error fetching consumer:", error)
+      } finally {
+        setLoading(false)
+      }
+    }
+    if (id) fetchConsumer()
+  }, [id])
+
+  if (loading) return <div className="flex items-center justify-center h-96">Loading...</div>
+  if (!consumer) return <div className="flex items-center justify-center h-96">Consumer not found</div>
+
+  const getRiskColor = (risk: string) => {
+    switch (risk) {
+      case "Low":
+        return "bg-green-50 border-green-200 text-green-800"
+      case "Medium":
+        return "bg-yellow-50 border-yellow-200 text-yellow-800"
+      case "High":
+        return "bg-red-50 border-red-200 text-red-800"
+      default:
+        return "bg-gray-50 border-gray-200 text-gray-800"
+    }
+  }
+
+  return (
+    <div className="space-y-6">
+      {/* Header */}
+      <div className="flex items-start justify-between">
+        <div>
+          <Link href="/consumers" className="inline-flex items-center gap-2 text-blue-600 hover:text-blue-700 mb-4">
+            <ArrowLeft className="w-4 h-4" />
+            Back to Consumers
+          </Link>
+          <div className="flex items-center gap-4">
+            <div className="w-16 h-16 bg-gradient-to-br from-blue-500 to-purple-600 rounded-full flex items-center justify-center text-white font-bold text-2xl">
+              {consumer.name.charAt(0)}
+            </div>
+            <div>
+              <h1 className="text-3xl font-bold text-gray-900">{consumer.name}</h1>
+              <p className="text-gray-600">
+                {consumer.persona} • {consumer.email}
+              </p>
+            </div>
+          </div>
+        </div>
+        <div className="flex flex-col items-end gap-2">
+          <div className={`px-4 py-2 rounded-lg border ${getRiskColor(consumer.riskBucket)}`}>
+            <p className="text-xs font-semibold">RISK BUCKET</p>
+            <p className="text-xl font-bold">{consumer.riskBucket}</p>
+          </div>
+          <div className="bg-blue-50 border border-blue-200 px-4 py-2 rounded-lg">
+            <p className="text-xs font-semibold text-blue-700">FINANCIAL HEALTH SCORE</p>
+            <p className="text-2xl font-bold text-blue-900">{consumer.summary.financialHealthScore}</p>
+          </div>
+          <button 
+            onClick={() => downloadPDF(consumer)}
+            className="mt-2 inline-flex items-center gap-2 px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition font-medium"
+          >
+            <FileText className="w-4 h-4" />
+            Download Summary
+          </button>
+        </div>
+      </div>
+
+      {/* Summary Card - Full Width */}
+      <SummaryCard consumer={consumer} />
+
+      {/* 1. Identity & Demographics + 2. Income & Cashflow */}
+      <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+        <IdentityDemographicsCard consumer={consumer} />
+        <IncomeCashflowCard consumer={consumer} />
+      </div>
+
+      {/* 3. Assets & Liabilities + 4. Behavioural Signals */}
+      <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+        <AssetsLiabilitiesCard consumer={consumer} />
+        <BehaviouralSignalsCard consumer={consumer} />
+      </div>
+
+      {/* 5. Fraud & Identity + 6. Transactions & Utility */}
+      <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+        <FraudIdentityCard consumer={consumer} />
+        <TransactionsUtilityCard consumer={consumer} />
+      </div>
+
+      {/* Scoring History + Quick Actions */}
+      <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+        <ScoringHistoryCard consumer={consumer} />
+        <div className="bg-white rounded-2xl shadow-sm border border-gray-200 p-6">
+          <h3 className="text-lg font-semibold text-gray-900 mb-4">Quick Actions</h3>
+          <div className="space-y-3">
+            <button className="w-full px-4 py-3 bg-blue-50 text-blue-600 rounded-lg hover:bg-blue-100 transition font-medium">
+              Re-Score with Current GBM
+            </button>
+            <button className="w-full px-4 py-3 bg-purple-50 text-purple-600 rounded-lg hover:bg-purple-100 transition font-medium">
+              Generate Full Report
+            </button>
+            <button className="w-full px-4 py-3 bg-gray-50 text-gray-600 rounded-lg hover:bg-gray-100 transition font-medium">
+              Request Manual Review
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  )
+}
