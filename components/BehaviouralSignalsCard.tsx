@@ -7,7 +7,7 @@ interface BehaviouralSignalsCardProps {
 }
 
 export default function BehaviouralSignalsCard({ consumer }: BehaviouralSignalsCardProps) {
-  const { behaviour } = consumer
+  const { behaviour, income } = consumer
 
   const getArchetypeColor = (type: string) => {
     const colors: Record<string, string> = {
@@ -112,8 +112,8 @@ export default function BehaviouralSignalsCard({ consumer }: BehaviouralSignalsC
         </div>
       </div>
 
-      {/* (D) Subscriptions, (E) Micro-commitment, (F) Emotional */}
-      <div className="grid grid-cols-3 gap-2 mb-5">
+      {/* (D) Subscriptions, (E) Micro-commitment, (F) Emotional, (G) Impulse */}
+      <div className="grid grid-cols-4 gap-2 mb-5">
         <div className="bg-gray-50 rounded-lg p-2">
           <p className="text-xs font-semibold text-gray-600">(D) Subscriptions</p>
           <p className="text-lg font-bold">{behaviour.subscriptions?.active || 0}</p>
@@ -134,13 +134,20 @@ export default function BehaviouralSignalsCard({ consumer }: BehaviouralSignalsC
           </p>
           <p className="text-xs text-gray-500">Late night: {behaviour.emotionalPurchasing?.lateNightSpending || 0}%</p>
         </div>
+        <div className="bg-gray-50 rounded-lg p-2">
+          <p className="text-xs font-semibold text-gray-600">(G) Impulse</p>
+          <p className={`text-lg font-bold ${(income?.salaryRetention?.impulseScore || 0) <= 30 ? 'text-green-600' : (income?.salaryRetention?.impulseScore || 0) <= 50 ? 'text-amber-600' : 'text-red-600'}`}>
+            {income?.salaryRetention?.impulseScore || 0}
+          </p>
+          <p className="text-xs text-gray-500">{income?.salaryRetention?.impatienceLevel || ((income?.salaryRetention?.impulseScore || 0) <= 30 ? 'Low' : (income?.salaryRetention?.impulseScore || 0) <= 50 ? 'Medium' : 'High')}</p>
+        </div>
       </div>
 
-      {/* (G) Savings Consistency */}
+      {/* (H) Savings Consistency */}
       <div className="mb-5">
         <div className="flex items-center gap-1 mb-2">
           <TrendingUp className="w-3 h-3 text-gray-500" />
-          <h4 className="font-semibold text-gray-800 text-xs">(G) Savings Consistency</h4>
+          <h4 className="font-semibold text-gray-800 text-xs">(H) Savings Consistency</h4>
         </div>
         <div className="grid grid-cols-4 gap-2 text-center bg-gray-50 rounded-lg p-2">
           <div>
@@ -169,7 +176,7 @@ export default function BehaviouralSignalsCard({ consumer }: BehaviouralSignalsC
         <div className="bg-gray-50 rounded-lg p-2">
           <div className="flex items-center gap-1 mb-1">
             <Heart className="w-3 h-3 text-gray-500" />
-            <p className="text-xs font-semibold text-gray-600">(H) Personality Stability</p>
+            <p className="text-xs font-semibold text-gray-600">(H) Financial Stability</p>
           </div>
           <p className={`font-bold ${behaviour.moneyPersonalityStability?.stability === 'Very Stable' || behaviour.moneyPersonalityStability?.stability === 'Stable' ? 'text-green-600' : 'text-amber-600'}`}>
             {behaviour.moneyPersonalityStability?.stability || 'N/A'}

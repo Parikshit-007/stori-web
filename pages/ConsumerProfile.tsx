@@ -11,7 +11,6 @@ import BehaviouralSignalsCard from "@/components/BehaviouralSignalsCard"
 import FraudIdentityCard from "@/components/FraudIdentityCard"
 import TransactionsUtilityCard from "@/components/TransactionsUtilityCard"
 import SummaryCard from "@/components/SummaryCard"
-import ScoringHistoryCard from "@/components/ScoringHistoryCard"
 import { downloadPDF } from "@/components/PDFReport"
 
 export default function ConsumerProfile() {
@@ -133,9 +132,8 @@ export default function ConsumerProfile() {
         <TransactionsUtilityCard consumer={consumer} />
       </div>
 
-      {/* Scoring History + Quick Actions */}
+      {/* Quick Actions */}
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-        <ScoringHistoryCard consumer={consumer} />
         <div className="bg-white rounded-2xl shadow-sm border border-gray-200 p-6">
           <h3 className="text-lg font-semibold text-gray-900 mb-4">Quick Actions</h3>
           <div className="space-y-3">

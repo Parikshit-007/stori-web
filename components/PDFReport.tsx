@@ -283,20 +283,31 @@ export function generatePDFContent(consumer: any): string {
         <div class="info-row"><span class="info-label">Income Authenticity</span><span class="info-value">${transactions.incomeAuthenticity?.status}</span></div>
         <div class="info-row"><span class="info-label">Inflow Consistency</span><span class="info-value">${transactions.incomeAuthenticity?.inflowTimeConsistency}%</span></div>
         <div class="info-row"><span class="info-label">Salary:UPI Ratio</span><span class="info-value">${transactions.incomeAuthenticity?.salaryToUpiRatio}x</span></div>
-        <table style="margin-top: 8px;">
-          <thead>
-            <tr>
-              <th>Utility Type</th>
-              <th>Consistency</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr><td>Recharge</td><td>${transactions.utilityPayments?.rechargeConsistency}%</td></tr>
-            <tr><td>Electricity</td><td>${transactions.utilityPayments?.electricityConsistency}%</td></tr>
-            <tr><td>Rent</td><td>${transactions.utilityPayments?.rentConsistency}%</td></tr>
-            <tr><td>Subscriptions</td><td>${transactions.utilityPayments?.subscriptionConsistency}%</td></tr>
-          </tbody>
-        </table>
+        <div style="margin-top: 10px;">
+          <div style="font-size: 8px; color: #6b7280; margin-bottom: 6px; font-weight: 600;">Utility Payment Consistency</div>
+          ${(() => {
+            const utilities = [
+              { label: 'Recharge', value: transactions.utilityPayments?.rechargeConsistency || 0 },
+              { label: 'Electricity', value: transactions.utilityPayments?.electricityConsistency || 0 },
+              { label: 'Rent', value: transactions.utilityPayments?.rentConsistency || 0 },
+              { label: 'Subscriptions', value: transactions.utilityPayments?.subscriptionConsistency || 0 }
+            ]
+            return utilities.map(util => {
+              const color = util.value >= 90 ? '#10b981' : util.value >= 75 ? '#f59e0b' : '#ef4444'
+              return `
+                <div style="margin-bottom: 8px;">
+                  <div style="display: flex; justify-content: space-between; margin-bottom: 2px;">
+                    <span style="font-size: 8px; color: #6b7280;">${util.label}</span>
+                    <span style="font-weight: bold; font-size: 9px; color: ${color};">${util.value}%</span>
+                  </div>
+                  <div style="width: 100%; height: 6px; background: #e5e7eb; border-radius: 3px; overflow: hidden;">
+                    <div style="width: ${util.value}%; height: 100%; background: ${color}; border-radius: 3px;"></div>
+                  </div>
+                </div>
+              `
+            }).join('')
+          })()}
+        </div>
       </div>
 
     </div>

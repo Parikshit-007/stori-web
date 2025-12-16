@@ -61,12 +61,6 @@ export default function FraudIdentityCard({ consumer }: FraudIdentityCardProps) 
               {fraud.identityMatching?.geoLocationMatch || 0}%
             </p>
           </div>
-          <div className="bg-gray-50 rounded-lg p-3">
-            <p className="text-xs text-gray-500">Social Media Match</p>
-            <p className={`font-bold text-lg ${(fraud.identityMatching?.socialMediaMatch || 0) >= 90 ? 'text-green-600' : 'text-amber-600'}`}>
-              {fraud.identityMatching?.socialMediaMatch || 0}%
-            </p>
-          </div>
         </div>
         <div className="flex items-center gap-2 p-2 bg-gray-50 rounded-lg">
           <MapPin className="w-4 h-4 text-gray-400" />

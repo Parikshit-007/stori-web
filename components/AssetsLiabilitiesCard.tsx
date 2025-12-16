@@ -128,13 +128,17 @@ export default function AssetsLiabilitiesCard({ consumer }: AssetsLiabilitiesCar
               <div className="p-2 bg-gray-50 rounded-lg text-sm">
                 <p className="text-gray-500 text-xs mb-1">Loan Repayment</p>
                 <p className={`font-semibold ${liabilities.loanRepaymentHistory === 'Excellent' ? 'text-green-600' : liabilities.loanRepaymentHistory === 'Good' ? 'text-amber-600' : 'text-gray-900'}`}>
-                  {liabilities.loanRepaymentHistory}
+                  {liabilities.loanRepaymentHistory === 'Excellent' ? '10/10 paid on time' : 
+                   liabilities.loanRepaymentHistory === 'Good' ? '8/10 paid on time' : 
+                   liabilities.loanRepaymentHistory || 'N/A'}
                 </p>
               </div>
               <div className="p-2 bg-gray-50 rounded-lg text-sm">
                 <p className="text-gray-500 text-xs mb-1">Credit Card</p>
                 <p className={`font-semibold ${liabilities.creditCardRepaymentHistory === 'Excellent' ? 'text-green-600' : liabilities.creditCardRepaymentHistory === 'Good' ? 'text-amber-600' : 'text-gray-900'}`}>
-                  {liabilities.creditCardRepaymentHistory}
+                  {liabilities.creditCardRepaymentHistory === 'Excellent' ? '10/10 paid on time' : 
+                   liabilities.creditCardRepaymentHistory === 'Good' ? '8/10 paid on time' : 
+                   liabilities.creditCardRepaymentHistory || 'N/A'}
                 </p>
               </div>
               <div className="p-2 bg-gray-50 rounded-lg text-sm">
