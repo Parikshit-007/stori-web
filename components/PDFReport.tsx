@@ -84,6 +84,10 @@ export function generatePDFContent(consumer: any): string {
   </div>
 
   <div class="summary-box">
+    <div style="text-align: center; margin-bottom: 15px; padding-bottom: 10px; border-bottom: 1px solid rgba(255,255,255,0.2);">
+      <div style="font-size: 10px; opacity: 0.9; margin-bottom: 5px;">PAN Number</div>
+      <div style="font-size: 16px; font-weight: bold; letter-spacing: 2px;">${identity.pan}</div>
+    </div>
     <div class="summary-grid">
       <div class="summary-metric">
         <div class="summary-value">${summary.financialHealthScore}</div>
@@ -104,6 +108,22 @@ export function generatePDFContent(consumer: any): string {
     </div>
   </div>
 
+  <div class="section" style="margin-top: 15px;">
+    <div class="section-title">CIBIL Proximity</div>
+    <table class="grade-table">
+      <thead>
+        <tr><th>CIBIL</th><th>Health Score</th><th>Grade</th></tr>
+      </thead>
+      <tbody>
+        <tr ${getRiskGrade(summary.financialHealthScore) === 'A' ? 'class="highlight"' : ''}><td>800+</td><td>85-100</td><td>A</td></tr>
+        <tr ${getRiskGrade(summary.financialHealthScore) === 'B' ? 'class="highlight"' : ''}><td>740-800</td><td>75-84</td><td>B</td></tr>
+        <tr ${getRiskGrade(summary.financialHealthScore) === 'C' ? 'class="highlight"' : ''}><td>700-740</td><td>56-74</td><td>C</td></tr>
+        <tr ${getRiskGrade(summary.financialHealthScore) === 'D' ? 'class="highlight"' : ''}><td>650-699</td><td>40-55</td><td>D</td></tr>
+        <tr ${getRiskGrade(summary.financialHealthScore) === 'E' ? 'class="highlight"' : ''}><td>&lt;650</td><td>0-39</td><td>E</td></tr>
+      </tbody>
+    </table>
+  </div>
+
   <div class="two-col">
     <div>
       <div class="section">
@@ -122,11 +142,6 @@ export function generatePDFContent(consumer: any): string {
             <div class="metric-value blue">${identity.socialCapital?.level || (identity.socialCapital?.overallScore >= 70 ? 'High' : identity.socialCapital?.overallScore >= 50 ? 'Medium' : 'Low')}</div>
           </div>
         </div>
-        <div class="info-row"><span class="info-label">Address</span><span class="info-value">${identity.address}</span></div>
-        <div class="info-row"><span class="info-label">Device Age</span><span class="info-value">${identity.digitalIdentity?.deviceAge} months</span></div>
-        <div class="info-row"><span class="info-label">SIM Age</span><span class="info-value">${identity.digitalIdentity?.simAge} months</span></div>
-        <div class="info-row"><span class="info-label">Job Stability</span><span class="info-value">${identity.lifeStability?.jobStability?.avgEmploymentDuration}y avg, ${identity.lifeStability?.jobStability?.salaryHikes} hikes</span></div>
-        <div class="info-row"><span class="info-label">Residence</span><span class="info-value">${identity.lifeStability?.residenceStability?.yearsAtCurrentAddress}y, ${identity.lifeStability?.residenceStability?.rentPaymentPattern}</span></div>
       </div>
 
       <div class="section">
@@ -147,10 +162,36 @@ export function generatePDFContent(consumer: any): string {
         </div>
         <div class="info-row"><span class="info-label">Monthly Inflow</span><span class="info-value">${formatAmount(income.monthlyInflow || income.monthlyIncome)}</span></div>
         <div class="info-row"><span class="info-label">Monthly Outflow</span><span class="info-value">${formatAmount(income.monthlyOutflow || income.survivability?.monthlyOutflow)}</span></div>
-        <div class="info-row"><span class="info-label">Volatility Index</span><span class="info-value">${income.incomeVolatility?.volatilityIndex}%</span></div>
+        <div class="info-row"><span class="info-label">Income Source Verification</span><span class="info-value" style="color: ${transactions?.incomeAuthenticity?.status === 'Verified' ? '#10b981' : '#ef4444'}; font-weight: bold;">${transactions?.incomeAuthenticity?.status === 'Verified' ? '✓ Verified' : '✗ Not Verified'}</span></div>
         <div class="info-row"><span class="info-label">Emergency Funds</span><span class="info-value">${formatAmount(income.survivability?.emergencyFunds || income.totalBalance)}</span></div>
-        <div class="info-row"><span class="info-label">One-off Inflation</span><span class="info-value">${income.oneOffTransactionInflation ? 'Yes' : 'No'}</span></div>
-        <div class="info-row"><span class="info-label">Impulse Score</span><span class="info-value">${income.salaryRetention?.impulseScore} (${income.salaryRetention?.impatienceLevel || (income.salaryRetention?.impulseScore <= 30 ? 'Low' : 'Medium')})</span></div>
+        <div class="info-row"><span class="info-label">One-off Transaction to Increase Average</span><span class="info-value">${income.oneOffTransactionInflation ? 'Yes' : 'No'}</span></div>
+      </div>
+
+      <div class="section">
+        <div class="section-title">(E) Expense Rigidity Score</div>
+        <div style="margin-bottom: 8px; font-size: 8px; color: #6b7280;">Categorize all transactions (Spending Analytics):</div>
+        ${income.expenseCategories ? `
+        <div class="info-row"><span class="info-label">Fixed Essential</span><span class="info-value">${formatAmount(income.expenseCategories.fixedEssential?.amount)} (${income.expenseCategories.fixedEssential?.percentage}%) - ${income.expenseCategories.fixedEssential?.items?.join(', ') || 'Rent, EMIs, Groceries'}</span></div>
+        <div class="info-row"><span class="info-label">Variable Essential</span><span class="info-value">${formatAmount(income.expenseCategories.variableEssential?.amount)} (${income.expenseCategories.variableEssential?.percentage}%) - ${income.expenseCategories.variableEssential?.items?.join(', ') || 'Utilities, Transport'}</span></div>
+        <div class="info-row"><span class="info-label">Entertainment</span><span class="info-value">${formatAmount(income.expenseCategories.entertainment?.amount)} (${income.expenseCategories.entertainment?.percentage}%) - ${income.expenseCategories.entertainment?.items?.join(', ') || 'OTT, Dining'}</span></div>
+        <div class="info-row"><span class="info-label">Shopping</span><span class="info-value">${formatAmount(income.expenseCategories.shopping?.amount)} (${income.expenseCategories.shopping?.percentage}%) - ${income.expenseCategories.shopping?.items?.join(', ') || 'Clothing, Electronics'}</span></div>
+        <div class="info-row"><span class="info-label">Lifestyle</span><span class="info-value">${formatAmount(income.expenseCategories.lifestyle?.amount)} (${income.expenseCategories.lifestyle?.percentage}%) - ${income.expenseCategories.lifestyle?.items?.join(', ') || 'Gym, Events, Concerts, Shows'}</span></div>
+        ` : '<div class="info-row"><span class="info-value" style="color: #9ca3af;">Not Available</span></div>'}
+        <div style="margin-top: 8px; padding-top: 8px; border-top: 1px solid #e5e7eb;">
+          <div style="font-size: 8px; color: #6b7280; margin-bottom: 4px;">Number of days the salary stays in the account:</div>
+          <div class="info-row"><span class="info-label">First Week Balance</span><span class="info-value">${formatAmount(income.salaryRetention?.firstWeekBalance || 0)}</span></div>
+          <div class="info-row"><span class="info-label">Last Week Balance</span><span class="info-value">${formatAmount(income.salaryRetention?.lastWeekBalance || 0)}</span></div>
+          <div class="info-row"><span class="info-label">Adjusted for Investments</span><span class="info-value">${formatAmount(income.salaryRetention?.adjustedForInvestments || 0)}</span></div>
+          <div class="info-row"><span class="info-label">Impulse Score</span><span class="info-value">${income.salaryRetention?.impulseScore || 'N/A'} (${income.salaryRetention?.impatienceLevel || (income.salaryRetention?.impulseScore <= 30 ? 'Low' : income.salaryRetention?.impulseScore <= 50 ? 'Medium' : 'High')} Impatience)</span></div>
+        </div>
+      </div>
+
+      <div class="section">
+        <div class="section-title">(B) Insurance</div>
+        <div class="info-row"><span class="info-label">Types of Insurance</span><span class="info-value">${insurance.policies?.map((p: any) => p.type).join(', ') || 'None'}</span></div>
+        ${insurance.policies?.length > 0 ? insurance.policies.map((p: any) => `<div class="info-row"><span class="info-label">${p.type} (${p.provider})</span><span class="info-value">${formatAmount(p.premium)}</span></div>`).join('') : ''}
+        <div class="info-row"><span class="info-label">Premium Payment Date</span><span class="info-value">${insurance.paymentBehaviour?.avgDaysBeforeDue || 0} days before due date</span></div>
+        <div class="info-row"><span class="info-label">Late Payments (Last 6 months)</span><span class="info-value" style="color: ${(insurance.paymentBehaviour?.latePaymentsLast6Months || 0) === 0 ? '#10b981' : '#ef4444'};">${insurance.paymentBehaviour?.latePaymentsLast6Months || 0} instances</span></div>
       </div>
 
       <div class="section">
@@ -164,10 +205,18 @@ export function generatePDFContent(consumer: any): string {
           ${assets.investments.rd > 0 ? `<div class="mini-box"><div class="mini-label">RD</div><div class="mini-value">${formatAmount(assets.investments.rd)}</div></div>` : ''}
         </div>
         <div class="info-row"><span class="info-label">ITR Filed</span><span class="info-value">${assets.itrFiled ? `Yes (${assets.itrYear || 'Available'})` : 'No'}</span></div>
-        <div class="info-row"><span class="info-label">Insurance</span><span class="info-value">${insurance.policies?.map((p: any) => p.type).join(', ') || 'None'}</span></div>
-        <div class="info-row"><span class="info-label">Premium Payment</span><span class="info-value">${insurance.paymentBehaviour?.avgDaysBeforeDue}d before due</span></div>
-        <div class="info-row"><span class="info-label">Liabilities</span><span class="info-value">${liabilities.available ? `${liabilities.activeLoans?.length || 0} active` : 'Not Available (NTC)'}</span></div>
-        <div class="info-row"><span class="info-label">Credit Enquiries</span><span class="info-value">${liabilities.creditEnquiries}</span></div>
+      </div>
+
+      <div class="section">
+        <div class="section-title">(C) Liabilities</div>
+        ${liabilities.available ? `
+        <div class="info-row"><span class="info-label">Status</span><span class="info-value">Available</span></div>
+        <div class="info-row"><span class="info-label">Active Loans</span><span class="info-value">${liabilities.activeLoans?.length || 0}</span></div>
+        ${liabilities.activeLoans?.length > 0 ? liabilities.activeLoans.map((loan: any) => `<div class="info-row"><span class="info-label">${loan.type} (${loan.bank})</span><span class="info-value">Outstanding: ${formatAmount(loan.outstanding)}, EMI: ${formatAmount(loan.emi)}</span></div>`).join('') : ''}
+        <div class="info-row"><span class="info-label">Loan Repayment History</span><span class="info-value" style="color: ${liabilities.loanRepaymentHistory === 'Excellent' ? '#10b981' : liabilities.loanRepaymentHistory === 'Good' ? '#f59e0b' : '#ef4444'};">${liabilities.loanRepaymentHistory || 'N/A'}</span></div>
+        <div class="info-row"><span class="info-label">Credit Card Repayment History</span><span class="info-value" style="color: ${liabilities.creditCardRepaymentHistory === 'Excellent' ? '#10b981' : liabilities.creditCardRepaymentHistory === 'Good' ? '#f59e0b' : '#ef4444'};">${liabilities.creditCardRepaymentHistory || 'N/A'}</span></div>
+        <div class="info-row"><span class="info-label">Number of Credit Enquiries</span><span class="info-value">${liabilities.creditEnquiries || 0}</span></div>
+        ` : '<div class="info-row"><span class="info-label">Status</span><span class="info-value" style="color: #9ca3af;">Not Available (NTC)</span></div>'}
         <div style="margin-top: 6px; font-weight: 600;">Saturation Levels:</div>
         <div class="info-row"><span class="info-label">EMI ÷ Income</span><span class="info-value">${saturation.emiToIncome}%</span></div>
         <div class="info-row"><span class="info-label">Rent ÷ Income</span><span class="info-value">${saturation.rentToIncome}%</span></div>
@@ -193,6 +242,15 @@ export function generatePDFContent(consumer: any): string {
           </div>
         </div>
         <div class="info-row"><span class="info-label">Bill Payment Score</span><span class="info-value">${behaviour.billPayment?.overallScore}/100</span></div>
+        <div class="info-row"><span class="info-label">Micro-payments Commitment Score</span><span class="info-value">${behaviour.microCommitment?.consistencyScore || 'N/A'}/100</span></div>
+        <div style="margin-top: 8px; padding-top: 8px; border-top: 1px solid #e5e7eb;">
+          <div style="font-size: 8px; color: #6b7280; margin-bottom: 4px; font-weight: 600;">(F) Emotional Purchasing Window</div>
+          <div class="info-row"><span class="info-label">Level</span><span class="info-value">${behaviour.emotionalPurchasing?.level || (behaviour.emotionalPurchasing?.lateNightSpending > 20 ? 'High' : behaviour.emotionalPurchasing?.lateNightSpending > 10 ? 'Medium' : 'Low')}</span></div>
+          ${behaviour.emotionalPurchasing ? `<div class="info-row"><span class="info-label">Pattern</span><span class="info-value">${behaviour.emotionalPurchasing.pattern || 'N/A'}</span></div>
+          <div class="info-row"><span class="info-label">Late Night Spending</span><span class="info-value">${behaviour.emotionalPurchasing.lateNightSpending || 0}%</span></div>
+          <div class="info-row"><span class="info-label">Weekend Spending</span><span class="info-value">${behaviour.emotionalPurchasing.weekendSpending || 0}%</span></div>
+          <div class="info-row"><span class="info-label">Weekday Spending</span><span class="info-value">${behaviour.emotionalPurchasing.weekdaySpending || 0}%</span></div>` : ''}
+        </div>
         <div class="info-row"><span class="info-label">Auto-debit</span><span class="info-value">${behaviour.billPayment?.autoDebitEnabled ? 'Enabled' : 'Disabled'}</span></div>
         <div class="info-row"><span class="info-label">Late (6mo)</span><span class="info-value">Util: ${behaviour.billPayment?.latePaymentsLast6Months?.utility}, Rent: ${behaviour.billPayment?.latePaymentsLast6Months?.rent}, Subs: ${behaviour.billPayment?.latePaymentsLast6Months?.subscriptions}</span></div>
         <div class="info-row"><span class="info-label">Active SIPs</span><span class="info-value">${behaviour.savingsConsistency?.activeSips} (${formatAmount(behaviour.savingsConsistency?.totalSipValue)}/mo)</span></div>
@@ -241,21 +299,6 @@ export function generatePDFContent(consumer: any): string {
         </table>
       </div>
 
-      <div class="section">
-        <div class="section-title">CIBIL Proximity</div>
-        <table class="grade-table">
-          <thead>
-            <tr><th>CIBIL</th><th>Health Score</th><th>Grade</th></tr>
-          </thead>
-          <tbody>
-            <tr ${getRiskGrade(summary.financialHealthScore) === 'A' ? 'class="highlight"' : ''}><td>800+</td><td>85-100</td><td>A</td></tr>
-            <tr ${getRiskGrade(summary.financialHealthScore) === 'B' ? 'class="highlight"' : ''}><td>740-800</td><td>75-84</td><td>B</td></tr>
-            <tr ${getRiskGrade(summary.financialHealthScore) === 'C' ? 'class="highlight"' : ''}><td>700-740</td><td>56-74</td><td>C</td></tr>
-            <tr ${getRiskGrade(summary.financialHealthScore) === 'D' ? 'class="highlight"' : ''}><td>650-699</td><td>40-55</td><td>D</td></tr>
-            <tr ${getRiskGrade(summary.financialHealthScore) === 'E' ? 'class="highlight"' : ''}><td>&lt;650</td><td>0-39</td><td>E</td></tr>
-          </tbody>
-        </table>
-      </div>
     </div>
   </div>
 

@@ -72,13 +72,35 @@ export default function ConsumerProfile() {
           </div>
         </div>
         <div className="flex flex-col items-end gap-2">
-          <div className={`px-4 py-2 rounded-lg border ${getRiskColor(consumer.riskBucket)}`}>
-            <p className="text-xs font-semibold">RISK BUCKET</p>
-            <p className="text-xl font-bold">{consumer.riskBucket}</p>
+          {/* PAN Number */}
+          <div className="bg-gray-100 border border-gray-300 px-4 py-2 rounded-lg">
+            <p className="text-xs font-semibold text-gray-600">PAN NUMBER</p>
+            <p className="text-lg font-bold text-gray-900 tracking-wider">{consumer.identity?.pan || "ABCDE1234F"}</p>
           </div>
-          <div className="bg-blue-50 border border-blue-200 px-4 py-2 rounded-lg">
-            <p className="text-xs font-semibold text-blue-700">FINANCIAL HEALTH SCORE</p>
-            <p className="text-2xl font-bold text-blue-900">{consumer.summary.financialHealthScore}</p>
+          {/* Key Metrics Row */}
+          <div className="flex gap-3">
+            <div className="bg-blue-50 border border-blue-200 px-4 py-2 rounded-lg text-center">
+              <p className="text-2xl font-bold text-blue-900">{consumer.summary?.financialHealthScore || 82}</p>
+              <p className="text-xs font-semibold text-blue-700">Financial Health Score</p>
+            </div>
+            <div className={`px-4 py-2 rounded-lg border text-center ${getRiskColor(consumer.riskBucket)}`}>
+              <p className="text-2xl font-bold">{consumer.summary?.riskGrade || "B"}</p>
+              <p className="text-xs font-semibold">Risk Grade</p>
+            </div>
+            <div className="bg-green-50 border border-green-200 px-4 py-2 rounded-lg text-center">
+              <p className="text-2xl font-bold text-green-900">
+                ₹{consumer.summary?.maxLoanAmount >= 10000000 
+                  ? `${(consumer.summary.maxLoanAmount / 10000000).toFixed(1)}Cr` 
+                  : consumer.summary?.maxLoanAmount >= 100000 
+                    ? `${(consumer.summary.maxLoanAmount / 100000).toFixed(1)}L`
+                    : `${((consumer.summary?.maxLoanAmount || 1500000) / 1000).toFixed(0)}K`}
+              </p>
+              <p className="text-xs font-semibold text-green-700">Max Loan Amount</p>
+            </div>
+            <div className="bg-orange-50 border border-orange-200 px-4 py-2 rounded-lg text-center">
+              <p className="text-2xl font-bold text-orange-900">{consumer.summary?.probabilityOfDefault || "3.2"}%</p>
+              <p className="text-xs font-semibold text-orange-700">Default Probability</p>
+            </div>
           </div>
           <button 
             onClick={() => downloadPDF(consumer)}
@@ -93,19 +115,19 @@ export default function ConsumerProfile() {
       {/* Summary Card - Full Width */}
       <SummaryCard consumer={consumer} />
 
-      {/* 1. Identity & Demographics + 2. Income & Cashflow */}
+      {/* 1. Identity (Left) + 2. Income (Right) */}
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
         <IdentityDemographicsCard consumer={consumer} />
         <IncomeCashflowCard consumer={consumer} />
       </div>
 
-      {/* 3. Assets & Liabilities + 4. Behavioural Signals */}
+      {/* 3. Assets & Liabilities (Left) + 4. Behavioural (Right) */}
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
         <AssetsLiabilitiesCard consumer={consumer} />
         <BehaviouralSignalsCard consumer={consumer} />
       </div>
 
-      {/* 5. Fraud & Identity + 6. Transactions & Utility */}
+      {/* 5. Fraud (Left) + 6. Transactions & Utility (Right) */}
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
         <FraudIdentityCard consumer={consumer} />
         <TransactionsUtilityCard consumer={consumer} />

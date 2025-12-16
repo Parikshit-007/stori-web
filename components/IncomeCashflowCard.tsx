@@ -71,7 +71,7 @@ export default function IncomeCashflowCard({ consumer }: IncomeCashflowCardProps
             <span className="font-bold text-blue-700">{formatAmount(income.transactionValueExcludingP2P)}</span>
           </div>
           <div className={`p-2 rounded-lg flex justify-between ${income.oneOffTransactionInflation ? 'bg-red-50' : 'bg-green-50'}`}>
-            <span className={`text-xs ${income.oneOffTransactionInflation ? 'text-red-700' : 'text-green-700'}`}>One-off Inflation</span>
+            <span className={`text-xs ${income.oneOffTransactionInflation ? 'text-red-700' : 'text-green-700'}`}>One-off Transaction to Increase Average</span>
             <span className={`font-bold ${income.oneOffTransactionInflation ? 'text-red-700' : 'text-green-700'}`}>
               {income.oneOffTransactionInflation ? 'Yes ⚠️' : 'No ✓'}
             </span>
@@ -146,26 +146,41 @@ export default function IncomeCashflowCard({ consumer }: IncomeCashflowCardProps
           <Clock className="w-4 h-4 text-gray-500" />
           <h4 className="font-semibold text-gray-800 text-sm">Salary Retention (Impulse Check)</h4>
         </div>
-        <div className="grid grid-cols-4 gap-2 text-sm">
-          <div className="text-center">
-            <p className="text-gray-500 text-xs">Week 1 Bal</p>
-            <p className="font-bold">{formatAmount(income.salaryRetention?.firstWeekBalance)}</p>
-          </div>
-          <div className="text-center">
-            <p className="text-gray-500 text-xs">Week 4 Bal</p>
-            <p className="font-bold">{formatAmount(income.salaryRetention?.lastWeekBalance)}</p>
-          </div>
-          <div className="text-center">
-            <p className="text-gray-500 text-xs">Days in A/c</p>
-            <p className="font-bold">{income.salaryRetention?.daysInAccount || 'N/A'}</p>
-          </div>
-          <div className="text-center">
-            <p className="text-gray-500 text-xs">Impulse Score</p>
-            <p className={`font-bold ${(income.salaryRetention?.impulseScore || 0) <= 30 ? 'text-green-600' : (income.salaryRetention?.impulseScore || 0) <= 50 ? 'text-amber-600' : 'text-red-600'}`}>
-              {income.salaryRetention?.impulseScore}
-            </p>
-          </div>
-        </div>
+        {(() => {
+          const firstWeek = income.salaryRetention?.firstWeekBalance || 0
+          const lastWeek = income.salaryRetention?.lastWeekBalance || 0
+          const adjusted = income.salaryRetention?.adjustedForInvestments || 0
+          // Calculate days in account: if balance retention is high, days are high
+          // Estimate: if lastWeek is > 50% of firstWeek, assume ~20-25 days, else calculate based on retention %
+          const retentionRatio = firstWeek > 0 ? (lastWeek + adjusted) / firstWeek : 0
+          const calculatedDays = income.salaryRetention?.daysInAccount || 
+            (retentionRatio > 0.7 ? Math.round(25 + (retentionRatio - 0.7) * 20) : 
+             retentionRatio > 0.5 ? Math.round(15 + (retentionRatio - 0.5) * 10) :
+             retentionRatio > 0.3 ? Math.round(10 + (retentionRatio - 0.3) * 5) :
+             Math.round(retentionRatio * 10))
+          return (
+            <div className="grid grid-cols-4 gap-2 text-sm">
+              <div className="text-center">
+                <p className="text-gray-500 text-xs">Week 1 Bal</p>
+                <p className="font-bold">{formatAmount(firstWeek)}</p>
+              </div>
+              <div className="text-center">
+                <p className="text-gray-500 text-xs">Week 4 Bal</p>
+                <p className="font-bold">{formatAmount(lastWeek)}</p>
+              </div>
+              <div className="text-center">
+                <p className="text-gray-500 text-xs">Days in A/c</p>
+                <p className="font-bold">{calculatedDays}</p>
+              </div>
+              <div className="text-center">
+                <p className="text-gray-500 text-xs">Impulse Score</p>
+                <p className={`font-bold ${(income.salaryRetention?.impulseScore || 0) <= 30 ? 'text-green-600' : (income.salaryRetention?.impulseScore || 0) <= 50 ? 'text-amber-600' : 'text-red-600'}`}>
+                  {income.salaryRetention?.impulseScore}
+                </p>
+              </div>
+            </div>
+          )
+        })()}
         <p className={`text-xs mt-2 font-medium ${income.salaryRetention?.impatienceLevel === 'Low' ? 'text-green-600' : income.salaryRetention?.impatienceLevel === 'Medium' ? 'text-amber-600' : 'text-red-600'}`}>
           Impatience Level: {income.salaryRetention?.impatienceLevel || (income.salaryRetention?.impulseScore <= 30 ? 'Low' : income.salaryRetention?.impulseScore <= 50 ? 'Medium' : 'High')}
         </p>

@@ -112,14 +112,11 @@ export default function AssetsLiabilitiesCard({ consumer }: AssetsLiabilitiesCar
             {liabilities.activeLoans?.length > 0 ? (
               <div className="space-y-2 mb-3">
                 {liabilities.activeLoans.map((loan: any, idx: number) => (
-                  <div key={idx} className="flex justify-between items-center p-2 bg-gray-50 rounded-lg text-sm">
-                    <div>
-                      <span className="text-gray-800 font-medium">{loan.type}</span>
-                      <span className="text-gray-500 text-xs ml-2">({loan.bank})</span>
-                    </div>
-                    <div className="text-right">
-                      <p className="font-semibold">{formatAmount(loan.outstanding)}</p>
-                      <p className="text-xs text-gray-500">EMI: {formatAmount(loan.emi)}</p>
+                  <div key={idx} className="p-2 bg-gray-50 rounded-lg text-sm">
+                    <p className="text-gray-800 font-medium mb-1">{loan.type}({loan.bank})</p>
+                    <div className="flex justify-between items-center">
+                      <span className="font-semibold">{formatAmount(loan.outstanding)}</span>
+                      <span className="text-gray-600">EMI: {formatAmount(loan.emi)}</span>
                     </div>
                   </div>
                 ))}
@@ -127,41 +124,33 @@ export default function AssetsLiabilitiesCard({ consumer }: AssetsLiabilitiesCar
             ) : (
               <p className="text-gray-500 text-sm mb-3 p-2 bg-gray-50 rounded-lg">No active loans</p>
             )}
-            <div className="grid grid-cols-2 gap-2 text-sm">
-              <div className="p-2 bg-gray-50 rounded-lg">
-                <p className="text-gray-500 text-xs">Loan Repayment</p>
-                <p className="font-semibold">{liabilities.loanRepaymentHistory}</p>
+            <div className="space-y-2 mb-3">
+              <div className="p-2 bg-gray-50 rounded-lg text-sm">
+                <p className="text-gray-500 text-xs mb-1">Loan Repayment</p>
+                <p className={`font-semibold ${liabilities.loanRepaymentHistory === 'Excellent' ? 'text-green-600' : liabilities.loanRepaymentHistory === 'Good' ? 'text-amber-600' : 'text-gray-900'}`}>
+                  {liabilities.loanRepaymentHistory}
+                </p>
               </div>
-              <div className="p-2 bg-gray-50 rounded-lg">
-                <p className="text-gray-500 text-xs">Credit Card</p>
-                <p className="font-semibold">{liabilities.creditCardRepaymentHistory}</p>
+              <div className="p-2 bg-gray-50 rounded-lg text-sm">
+                <p className="text-gray-500 text-xs mb-1">Credit Card</p>
+                <p className={`font-semibold ${liabilities.creditCardRepaymentHistory === 'Excellent' ? 'text-green-600' : liabilities.creditCardRepaymentHistory === 'Good' ? 'text-amber-600' : 'text-gray-900'}`}>
+                  {liabilities.creditCardRepaymentHistory}
+                </p>
               </div>
-              <div className="p-2 bg-gray-50 rounded-lg">
-                <p className="text-gray-500 text-xs">Credit Enquiries</p>
+              <div className="p-2 bg-gray-50 rounded-lg text-sm">
+                <p className="text-gray-500 text-xs mb-1">Credit Enquiries</p>
                 <p className="font-semibold">{liabilities.creditEnquiries}</p>
               </div>
-              <div className="p-2 bg-gray-50 rounded-lg">
-                <p className="text-gray-500 text-xs">Default History</p>
+              <div className="p-2 bg-gray-50 rounded-lg text-sm">
+                <p className="text-gray-500 text-xs mb-1">Default History</p>
                 <p className={`font-semibold ${liabilities.defaultHistory === 'None' || liabilities.defaultHistory === 'Not Available' ? 'text-green-600' : 'text-red-600'}`}>
                   {liabilities.defaultHistory}
                 </p>
               </div>
             </div>
-            {liabilities.goodDebtVsBadDebt && (
-              <div className="mt-2 p-2 bg-gray-50 rounded-lg text-sm">
-                <p className="text-gray-500 text-xs mb-1">Good Debt vs Bad Debt</p>
-                <div className="flex justify-between">
-                  <span>Good: {formatAmount(liabilities.goodDebtVsBadDebt.goodDebt)}</span>
-                  <span>Bad: {formatAmount(liabilities.goodDebtVsBadDebt.badDebt)}</span>
-                  <span className={`font-bold ${liabilities.goodDebtVsBadDebt.index >= 0.7 ? 'text-green-600' : 'text-amber-600'}`}>
-                    Index: {(liabilities.goodDebtVsBadDebt.index * 100).toFixed(0)}%
-                  </span>
-                </div>
-              </div>
-            )}
-            <div className="mt-2 p-2 bg-gray-50 rounded-lg text-sm">
-              <p className="text-gray-500 text-xs">BNPL History</p>
-              <p className="font-semibold">{liabilities.bnplHistory?.repaymentStatus} (Active: {liabilities.bnplHistory?.active})</p>
+            <div className="mb-3 p-2 bg-gray-50 rounded-lg text-sm">
+              <p className="text-gray-500 text-xs mb-1">BNPL History</p>
+              <p className="font-semibold">{liabilities.bnplHistory?.repaymentStatus || 'N/A'} (Active: {liabilities.bnplHistory?.active || 0})</p>
             </div>
           </>
         ) : (
@@ -181,32 +170,32 @@ export default function AssetsLiabilitiesCard({ consumer }: AssetsLiabilitiesCar
             {saturation.status}
           </span>
         </div>
-        <div className="space-y-2">
-          <div className="flex items-center justify-between">
-            <span className="text-sm text-gray-600">EMI ÷ Income</span>
-            <div className="flex items-center gap-2">
-              <div className="w-32 bg-gray-200 rounded-full h-2">
-                <div className={`h-2 rounded-full ${saturation.emiToIncome <= 40 ? 'bg-green-500' : saturation.emiToIncome <= 60 ? 'bg-amber-500' : 'bg-red-500'}`} style={{ width: `${Math.min(saturation.emiToIncome, 100)}%` }} />
-              </div>
-              <span className={`font-semibold text-sm w-12 text-right ${getSaturationColor(saturation.emiToIncome)}`}>{saturation.emiToIncome}%</span>
+        <div className="space-y-3">
+          <div className="p-2 bg-gray-50 rounded-lg">
+            <div className="flex items-center justify-between mb-1">
+              <span className="text-sm text-gray-600">EMI ÷ Income</span>
+              <span className={`font-semibold text-sm ${getSaturationColor(saturation.emiToIncome)}`}>{saturation.emiToIncome}%</span>
+            </div>
+            <div className="w-full bg-gray-200 rounded-full h-2">
+              <div className={`h-2 rounded-full ${saturation.emiToIncome <= 40 ? 'bg-green-500' : saturation.emiToIncome <= 60 ? 'bg-amber-500' : 'bg-red-500'}`} style={{ width: `${Math.min(saturation.emiToIncome, 100)}%` }} />
             </div>
           </div>
-          <div className="flex items-center justify-between">
-            <span className="text-sm text-gray-600">Rent ÷ Income</span>
-            <div className="flex items-center gap-2">
-              <div className="w-32 bg-gray-200 rounded-full h-2">
-                <div className={`h-2 rounded-full ${saturation.rentToIncome <= 30 ? 'bg-green-500' : saturation.rentToIncome <= 45 ? 'bg-amber-500' : 'bg-red-500'}`} style={{ width: `${Math.min(saturation.rentToIncome, 100)}%` }} />
-              </div>
-              <span className={`font-semibold text-sm w-12 text-right ${getSaturationColor(saturation.rentToIncome)}`}>{saturation.rentToIncome}%</span>
+          <div className="p-2 bg-gray-50 rounded-lg">
+            <div className="flex items-center justify-between mb-1">
+              <span className="text-sm text-gray-600">Rent ÷ Income</span>
+              <span className={`font-semibold text-sm ${getSaturationColor(saturation.rentToIncome)}`}>{saturation.rentToIncome}%</span>
+            </div>
+            <div className="w-full bg-gray-200 rounded-full h-2">
+              <div className={`h-2 rounded-full ${saturation.rentToIncome <= 30 ? 'bg-green-500' : saturation.rentToIncome <= 45 ? 'bg-amber-500' : 'bg-red-500'}`} style={{ width: `${Math.min(saturation.rentToIncome, 100)}%` }} />
             </div>
           </div>
-          <div className="flex items-center justify-between">
-            <span className="text-sm text-gray-600">Utility ÷ Income</span>
-            <div className="flex items-center gap-2">
-              <div className="w-32 bg-gray-200 rounded-full h-2">
-                <div className="h-2 rounded-full bg-green-500" style={{ width: `${Math.min(saturation.utilityToIncome * 5, 100)}%` }} />
-              </div>
-              <span className="font-semibold text-sm w-12 text-right text-green-600">{saturation.utilityToIncome}%</span>
+          <div className="p-2 bg-gray-50 rounded-lg">
+            <div className="flex items-center justify-between mb-1">
+              <span className="text-sm text-gray-600">Utility ÷ Income</span>
+              <span className="font-semibold text-sm text-green-600">{saturation.utilityToIncome}%</span>
+            </div>
+            <div className="w-full bg-gray-200 rounded-full h-2">
+              <div className="h-2 rounded-full bg-green-500" style={{ width: `${Math.min(saturation.utilityToIncome * 5, 100)}%` }} />
             </div>
           </div>
         </div>

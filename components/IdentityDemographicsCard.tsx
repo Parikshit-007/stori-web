@@ -175,9 +175,6 @@ export default function IdentityDemographicsCard({ consumer }: IdentityDemograph
             <p className="font-bold text-lg">{identity.socialCapital?.professionalNetworkPayments || 0}%</p>
           </div>
         </div>
-        <p className="text-xs text-gray-400 mt-2 italic">
-          Highly connected individuals almost always repay - microfinance principle
-        </p>
       </div>
     </div>
   )

@@ -61,7 +61,7 @@ export default function SummaryCard({ consumer }: SummaryCardProps) {
               </svg>
               <span className="absolute text-xl font-bold text-gray-900">{summary.financialHealthScore}</span>
             </div>
-            <p className="text-sm font-medium text-gray-600">Financial Health</p>
+            <p className="text-sm font-medium text-gray-600">Financial Health Score</p>
           </div>
 
           {/* Risk Grade */}

@@ -282,6 +282,7 @@ export const mockConsumers = [
       maxLoanAmount: 1500000,
       probabilityOfDefault: 3.2,
       recommendation: "Approved",
+      riskGrade: "B",
     },
 
     scoringHistory: [
@@ -540,6 +541,7 @@ export const mockConsumers = [
       maxLoanAmount: 400000,
       probabilityOfDefault: 12.8,
       recommendation: "Conditional Approval",
+      riskGrade: "C",
     },
 
     scoringHistory: [{ date: "2025-01-12", score: 658, method: "GBM v1.2.3" }],
@@ -799,6 +801,7 @@ export const mockConsumers = [
       maxLoanAmount: 5000000,
       probabilityOfDefault: 1.8,
       recommendation: "Pre-Approved",
+      riskGrade: "A",
     },
 
     scoringHistory: [{ date: "2025-01-14", score: 812, method: "GBM v1.2.3" }],
@@ -1048,6 +1051,7 @@ export const mockConsumers = [
       maxLoanAmount: 50000,
       probabilityOfDefault: 18.5,
       recommendation: "High Risk - Manual Review",
+      riskGrade: "D",
     },
 
     scoringHistory: [{ date: "2025-01-10", score: 542, method: "GBM v1.2.3" }],
@@ -1305,6 +1309,7 @@ export const mockConsumers = [
       maxLoanAmount: 2000000,
       probabilityOfDefault: 2.8,
       recommendation: "Approved",
+      riskGrade: "A",
     },
 
     scoringHistory: [{ date: "2025-01-13", score: 765, method: "GBM v1.2.3" }],
