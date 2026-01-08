@@ -1,6 +1,6 @@
 // MSME API Service - Connects to MSME Credit Scoring Backend
 // Using Nginx proxy at https://mycfo.club/stori/api/
-const MSME_API_BASE_URL = process.env.NEXT_PUBLIC_MSME_API_URL || 'https://mycfo.club/stori/api'
+const MSME_API_BASE_URL = process.env.NEXT_PUBLIC_MSME_API_URL || 'https://mycfo.club/stori'
 const MSME_API_TOKEN = process.env.NEXT_PUBLIC_MSME_API_TOKEN || 'msme_prod_token_67890'
 
 // All features from the CSV - must match backend MSMEFeatureInput model
@@ -282,9 +282,6 @@ export const msmeApi = {
       alpha: request.alpha || 0.7,
       include_explanation: request.include_explanation ?? true
     }
-    
-    console.log('Scoring request payload:', payload)
-    console.log('Features count:', Object.keys(cleanedFeatures).length)
     
     return apiRequest<MSMEScoreResponse>('/api/score', {
       method: 'POST',

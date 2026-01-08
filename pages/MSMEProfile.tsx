@@ -27,35 +27,18 @@ export default function MSMEProfile() {
   
   // Debug: Log when msme changes
   useEffect(() => {
-    if (msme) {
-      console.log('[MSMEProfile] ===== MSME State Updated =====')
-      console.log('[MSMEProfile] ID:', msme.id)
-      console.log('[MSMEProfile] Name:', msme.businessName)
-      console.log('[MSMEProfile] currentScore:', msme.currentScore)
-      console.log('[MSMEProfile] hasScoreResponse:', !!msme.scoreResponse)
-      console.log('[MSMEProfile] hasSummary:', !!msme.summary)
-      console.log('[MSMEProfile] hasCategoryContributions:', !!msme.category_contributions)
-      console.log('[MSMEProfile] scoreResponse object:', msme.scoreResponse)
-      console.log('[MSMEProfile] ===============================')
-    }
+    // MSME state tracking for debugging (removed in production)
   }, [msme])
 
   useEffect(() => {
     const fetchMSME = async () => {
       try {
-        console.log('[MSMEProfile] Loading MSME with ID:', id)
-        
         // FIRST: Try sessionStorage (fastest, just navigated here)
         const sessionMSME = sessionStorage.getItem('current_msme')
         if (sessionMSME) {
           try {
             const parsed = JSON.parse(sessionMSME)
             if (parsed.id === id) {
-              console.log('[MSMEProfile] ✅ Found in sessionStorage:', parsed.businessName)
-              console.log('[MSMEProfile] SessionStorage data - currentScore:', parsed.currentScore)
-              console.log('[MSMEProfile] SessionStorage data - hasScoreResponse:', !!parsed.scoreResponse)
-              console.log('[MSMEProfile] SessionStorage data - hasSummary:', !!parsed.summary)
-              console.log('[MSMEProfile] SessionStorage data - scoreResponse:', parsed.scoreResponse)
               setMsme(parsed)
               setLoading(false)
               return
@@ -72,7 +55,6 @@ export default function MSMEProfile() {
             const allMsmes = JSON.parse(cachedBusinesses)
             const found = allMsmes.find((m: MSMEBusiness) => m.id === id)
             if (found) {
-              console.log('[MSMEProfile] ✅ Found in cached businesses:', found.businessName)
               // Check for stored score
               const storedScore = getValidScore(found.id, found.features)
               if (storedScore) {
@@ -102,16 +84,13 @@ export default function MSMEProfile() {
         }
         
         // THIRD: Try to fetch from API data
-        console.log('[MSMEProfile] Fetching from /api/msme-data...')
         const response = await fetch('/api/msme-data')
         if (response.ok) {
           const allMsmes = await response.json()
-          console.log('[MSMEProfile] API returned', Array.isArray(allMsmes) ? allMsmes.length : 'error', 'items')
           
           if (Array.isArray(allMsmes)) {
             const found = allMsmes.find((m: MSMEBusiness) => m.id === id)
             if (found) {
-              console.log('[MSMEProfile] ✅ Found via API:', found.businessName)
               // Check for stored score
               const storedScore = getValidScore(found.id, found.features)
               if (storedScore) {
@@ -142,10 +121,8 @@ export default function MSMEProfile() {
         }
 
         // FOURTH: Try to get from backend scoring API
-        console.log('[MSMEProfile] Trying backend API...')
         try {
           const featuresData = await msmeApi.getBusinessFeatures(id as string)
-          console.log('[MSMEProfile] ✅ Got from backend API')
           
           const msmeData: MSMEBusiness = {
             id: featuresData.business_id,
@@ -404,17 +381,9 @@ export default function MSMEProfile() {
       </div>
 
       {/* Summary Card - Full Width (always shown if scored) */}
-      {(() => {
-        const shouldShow = msme.currentScore !== undefined || msme.scoreResponse
-        console.log('[MSMEProfile] ===== Summary Card Check =====')
-        console.log('[MSMEProfile] hasCurrentScore:', msme.currentScore !== undefined)
-        console.log('[MSMEProfile] currentScore value:', msme.currentScore)
-        console.log('[MSMEProfile] hasScoreResponse:', !!msme.scoreResponse)
-        console.log('[MSMEProfile] hasSummary:', !!msme.summary)
-        console.log('[MSMEProfile] SHOULD SHOW SUMMARY CARD:', shouldShow)
-        console.log('[MSMEProfile] ==============================')
-        return shouldShow ? <MSMESummaryCard msme={msme} /> : null
-      })()}
+      {(msme.currentScore !== undefined || msme.scoreResponse) && (
+        <MSMESummaryCard msme={msme} />
+      )}
 
       {/* Director/Promoter Details - Full Width */}
       <DirectorDetailsCard msme={msme} />

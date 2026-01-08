@@ -48,10 +48,8 @@ export default function MSMEList() {
     setLoading(true)
     try {
       // Use mock data directly - simplest solution
-      console.log('[MSMEList] Generating mock data')
       const { generateMockMSMEs } = await import('@/lib/mockMSMEData')
       const data = generateMockMSMEs(100)
-      console.log('[MSMEList] Generated', data.length, 'businesses')
       // Load data WITHOUT any pre-calculated scores
         // Only apply scores from localStorage IF they exist
         const msmesWithScores = data.map((msme: MSMEBusiness) => {
@@ -88,12 +86,10 @@ export default function MSMEList() {
           }
         })
         
-      console.log('[MSMEList] Setting', msmesWithScores.length, 'businesses in state')
       setMsmes(msmesWithScores)
       
       // Store in sessionStorage for persistence
       sessionStorage.setItem('msme_businesses', JSON.stringify(msmesWithScores))
-      console.log('[MSMEList] ✅ Saved to sessionStorage')
     } catch (error) {
       console.error("[MSMEList] Error generating data:", error)
     } finally {
@@ -172,7 +168,6 @@ export default function MSMEList() {
       const updated = [newMSME, ...prev]
       // Save to sessionStorage
       sessionStorage.setItem('msme_businesses', JSON.stringify(updated))
-      console.log('[MSMEList] ✅ Added manual MSME and saved to sessionStorage:', newMSME.businessName)
       return updated
     })
     setShowAddForm(false)
@@ -242,14 +237,6 @@ export default function MSMEList() {
         category_contributions: result.category_contributions,
         scoreResponse: result
       }
-      
-      console.log('[MSMEList] Scored MSME details:', {
-        id: scoredMsme.id,
-        score: scoredMsme.currentScore,
-        riskBucket: scoredMsme.riskBucket,
-        originalRiskCategory: result.risk_category,
-        normalizedRisk: normalizedRisk
-      })
 
       // Update the MSME with the score
       setMsmes(prev => prev.map(m => m.id === msme.id ? scoredMsme! : m))
@@ -312,22 +299,12 @@ export default function MSMEList() {
       
       // Store the scored MSME in sessionStorage for the detail page
       if (scoredMsme) {
-        console.log('[MSMEList] ===== Storing Scored MSME =====')
-        console.log('[MSMEList] ID:', scoredMsme.id)
-        console.log('[MSMEList] currentScore:', scoredMsme.currentScore)
-        console.log('[MSMEList] hasScoreResponse:', !!scoredMsme.scoreResponse)
-        console.log('[MSMEList] hasSummary:', !!scoredMsme.summary)
-        console.log('[MSMEList] scoreResponse:', scoredMsme.scoreResponse)
-        console.log('[MSMEList] ==============================')
-        
         sessionStorage.setItem('current_msme', JSON.stringify(scoredMsme))
-        console.log('[MSMEList] ✅ Stored scored MSME in sessionStorage:', scoredMsme.id)
       } else {
         console.error('[MSMEList] ❌ scoredMsme is null!')
       }
       
       // Navigate to detail page
-      console.log('[MSMEList] Navigating to /msmes/' + msme.id)
       router.push(`/msmes/${msme.id}`)
     }, 20000)
   }
@@ -402,20 +379,6 @@ export default function MSMEList() {
   const scoredCount = filteredMSMEs.filter(m => m.currentScore !== undefined).length
   const lowRiskCount = filteredMSMEs.filter(m => m.riskBucket === 'Low' || m.riskBucket === 'Very Low').length
   const highRiskCount = filteredMSMEs.filter(m => m.riskBucket === 'High' || m.riskBucket === 'Very High').length
-  
-  console.log('[MSMEList] Card Counts:', {
-    total: msmes.length,
-    filtered: filteredMSMEs.length,
-    scored: scoredCount,
-    lowRisk: lowRiskCount,
-    highRisk: highRiskCount,
-    scoredMSMEs: filteredMSMEs.filter(m => m.currentScore !== undefined).map(m => ({
-      id: m.id,
-      name: m.businessName,
-      score: m.currentScore,
-      risk: m.riskBucket
-    }))
-  })
 
   return (
     <div className="space-y-6">

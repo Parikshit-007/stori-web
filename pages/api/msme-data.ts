@@ -7,7 +7,6 @@ export default function handler(req: NextApiRequest, res: NextApiResponse) {
   }
 
   try {
-    console.log('[MSME API] Generating 100 mock businesses')
     const businesses = generateMockMSMEs(100)
     return res.status(200).json(businesses)
   } catch (error) {
