@@ -1,0 +1,32 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 180 180">
+  <defs>
+    <linearGradient id="appleGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#667eea;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#764ba2;stop-opacity:1" />
+    </linearGradient>
+  </defs>
+  
+  <!-- Background - no rounded corners for Apple -->
+  <rect width="180" height="180" fill="url(#appleGrad)"/>
+  
+  <!-- "S" Letter -->
+  <path d="M 90 35 
+           C 120 35, 135 45, 135 63
+           C 135 75, 127 83, 110 86
+           L 105 87
+           C 92 90, 85 97, 85 107
+           C 85 119, 95 127, 110 127
+           C 122 127, 130 122, 137 113
+           L 150 122
+           C 143 137, 130 142, 110 142
+           C 83 142, 63 130, 63 105
+           C 63 92, 72 83, 90 80
+           L 95 79
+           C 108 76, 115 69, 115 57
+           C 115 45, 105 38, 90 38
+           C 75 38, 65 45, 60 54
+           L 47 45
+           C 54 32, 67 35, 90 35 Z"
+     fill="#ffffff"/>
+</svg>
+
