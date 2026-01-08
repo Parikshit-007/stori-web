@@ -131,24 +131,6 @@ export default function ConsumerProfile() {
         <FraudIdentityCard consumer={consumer} />
         <TransactionsUtilityCard consumer={consumer} />
       </div>
-
-      {/* Quick Actions */}
-      <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-        <div className="bg-white rounded-2xl shadow-sm border border-gray-200 p-6">
-          <h3 className="text-lg font-semibold text-gray-900 mb-4">Quick Actions</h3>
-          <div className="space-y-3">
-            <button className="w-full px-4 py-3 bg-blue-50 text-blue-600 rounded-lg hover:bg-blue-100 transition font-medium">
-              Re-Score with Current GBM
-            </button>
-            <button className="w-full px-4 py-3 bg-purple-50 text-purple-600 rounded-lg hover:bg-purple-100 transition font-medium">
-              Generate Full Report
-            </button>
-            <button className="w-full px-4 py-3 bg-gray-50 text-gray-600 rounded-lg hover:bg-gray-100 transition font-medium">
-              Request Manual Review
-            </button>
-          </div>
-        </div>
-      </div>
     </div>
   )
 }

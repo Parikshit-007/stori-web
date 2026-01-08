@@ -47,6 +47,55 @@ export default function RevenuePerformanceCard({ msme }: RevenuePerformanceCardP
         </div>
       </div>
 
+      {/* Cash In Hand */}
+      <div className="grid grid-cols-2 gap-4 mb-6">
+        <div className="bg-gradient-to-br from-purple-50 to-pink-50 rounded-xl p-4">
+          <p className="text-xs font-semibold text-purple-900 uppercase">Weekly Cash In Hand</p>
+          <p className="text-2xl font-bold text-purple-600 mt-1">
+            {formatCurrency((features.weekly_cash_in_hand || revenue.weekly_cash_in_hand || weeklyGTV * 0.15))}
+          </p>
+        </div>
+        <div className="bg-gradient-to-br from-orange-50 to-amber-50 rounded-xl p-4">
+          <p className="text-xs font-semibold text-orange-900 uppercase">Monthly Cash In Hand</p>
+          <p className="text-2xl font-bold text-orange-600 mt-1">
+            {formatCurrency((features.monthly_cash_in_hand || revenue.monthly_cash_in_hand || monthlyGTV * 0.15))}
+          </p>
+        </div>
+      </div>
+
+      {/* Revenue - Expenses Breakdown */}
+      <div className="mb-6">
+        <h4 className="font-semibold text-gray-800 text-sm mb-3 flex items-center gap-2">
+          <DollarSign className="w-4 h-4 text-gray-500" />
+          Revenue vs Expenses
+        </h4>
+        <div className="bg-gradient-to-br from-slate-50 to-gray-100 rounded-xl p-4">
+          <div className="space-y-3">
+            <div className="flex items-center justify-between">
+              <span className="text-sm font-medium text-gray-700">Total Revenue</span>
+              <span className="text-lg font-bold text-green-600">{formatCurrency(monthlyGTV)}</span>
+            </div>
+            <div className="flex items-center justify-between">
+              <span className="text-sm font-medium text-gray-700">Total Expenses</span>
+              <span className="text-lg font-bold text-red-600">
+                {formatCurrency((features.monthly_expenses || revenue.monthly_expenses || monthlyGTV * (1 - (profitMargin || 0.06))))}
+              </span>
+            </div>
+            <div className="pt-3 border-t-2 border-gray-300">
+              <div className="flex items-center justify-between">
+                <span className="text-sm font-bold text-gray-900">Net Profit</span>
+                <span className={`text-xl font-bold ${(monthlyGTV * (profitMargin || 0.06)) >= 0 ? 'text-green-600' : 'text-red-600'}`}>
+                  {formatCurrency(monthlyGTV * (profitMargin || 0.06))}
+                </span>
+              </div>
+              <p className="text-xs text-gray-500 mt-1 text-right">
+                Profit Margin: {formatPercent(profitMargin || 0.06)}
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+
       {/* Transaction Metrics */}
       <div className="grid grid-cols-3 gap-3 mb-6">
         <div className="bg-gray-50 rounded-lg p-3 text-center">

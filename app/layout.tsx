@@ -9,8 +9,8 @@ const _geist = Geist({ subsets: ["latin"] })
 const _geistMono = Geist_Mono({ subsets: ["latin"] })
 
 export const metadata: Metadata = {
-  title: "Kaj NBFC",
-  description: "Kaj NBFC Credit Scoring Platform",
+  title: "Stori AI",
+  description: "Stori AI Credit Scoring Platform",
   icons: {
     icon: [
       {
@@ -36,8 +36,8 @@ export default function RootLayout({
   children: React.ReactNode
 }>) {
   return (
-    <html lang="en">
-      <body className={`font-sans antialiased`}>
+    <html lang="en" suppressHydrationWarning>
+      <body className={`font-sans antialiased`} suppressHydrationWarning>
         <Layout>{children}</Layout>
         <Analytics />
       </body>

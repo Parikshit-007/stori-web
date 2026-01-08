@@ -1,6 +1,6 @@
 "use client"
 
-import { Wallet, TrendingUp, TrendingDown, Clock, AlertCircle } from "lucide-react"
+import { Wallet, TrendingUp, TrendingDown, Clock, AlertCircle, Building } from "lucide-react"
 
 interface CashflowBankingCardProps {
   msme: any
@@ -9,6 +9,13 @@ interface CashflowBankingCardProps {
 export default function CashflowBankingCard({ msme }: CashflowBankingCardProps) {
   const features = msme.features || {}
   const cashflow = msme.cashflow || {}
+  
+  // Mock bank accounts data
+  const bankAccounts = [
+    { bank: 'HDFC Bank', accountType: 'Current', balance: features.avg_bank_balance * 0.6 || 0, status: 'Active' },
+    { bank: 'ICICI Bank', accountType: 'Current', balance: features.avg_bank_balance * 0.3 || 0, status: 'Active' },
+    { bank: 'Axis Bank', accountType: 'Savings', balance: features.avg_bank_balance * 0.1 || 0, status: 'Active' }
+  ]
 
   const formatCurrency = (amount: number) => {
     if (!amount) return '₹0'
@@ -54,6 +61,33 @@ export default function CashflowBankingCard({ msme }: CashflowBankingCardProps) 
               {formatPercent(Math.abs(balanceTrend))}
             </p>
           </div>
+        </div>
+      </div>
+
+      {/* Bank Accounts */}
+      <div className="mb-6">
+        <h4 className="font-semibold text-gray-800 text-sm mb-3 flex items-center gap-2">
+          <Building className="w-4 h-4 text-gray-500" />
+          Connected Bank Accounts
+        </h4>
+        <div className="space-y-2">
+          {bankAccounts.map((account, idx) => (
+            <div key={idx} className="bg-gray-50 rounded-lg p-3 flex items-center justify-between">
+              <div className="flex items-center gap-3">
+                <div className="w-10 h-10 bg-gradient-to-br from-blue-500 to-indigo-600 rounded-lg flex items-center justify-center text-white font-bold text-sm">
+                  {account.bank.substring(0, 2).toUpperCase()}
+                </div>
+                <div>
+                  <p className="font-semibold text-gray-900 text-sm">{account.bank}</p>
+                  <p className="text-xs text-gray-500">{account.accountType} Account</p>
+                </div>
+              </div>
+              <div className="text-right">
+                <p className="font-bold text-gray-900">{formatCurrency(account.balance)}</p>
+                <p className="text-xs text-green-600">{account.status}</p>
+              </div>
+            </div>
+          ))}
         </div>
       </div>
 

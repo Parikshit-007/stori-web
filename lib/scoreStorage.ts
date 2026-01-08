@@ -67,10 +67,13 @@ export function saveScore(
   
   const scores = getAllStoredScores()
   
+  // Normalize risk category (remove " Risk" suffix from backend)
+  const normalizedRisk = scoreResponse.risk_category.replace(' Risk', '')
+  
   const storedScore: StoredScore = {
     msmeId,
     score: scoreResponse.score,
-    riskCategory: scoreResponse.risk_category,
+    riskCategory: normalizedRisk,
     probDefault: scoreResponse.prob_default_90dpd,
     recommendation: scoreResponse.recommended_decision,
     categoryContributions: scoreResponse.category_contributions,

@@ -1,11 +1,12 @@
 "use client"
 import { useState, useEffect, useRef } from "react"
 import { useRouter } from "next/navigation"
-import { Search, Building2, Upload, Plus, X, Loader2, Zap, Eye } from "lucide-react"
+import { Search, Building2, Upload, Plus, X, Loader2, Zap } from "lucide-react"
 import { MSMEBusiness, MSMEFeatures, msmeApi, MSMEScoreResponse } from "@/lib/msmeApi"
 import { parseCSVToMSMEs, MSME_FEATURE_CATEGORIES, createEmptyMSME } from "@/data/msmeData"
 import { getValidScore, saveScore, StoredScore } from "@/lib/scoreStorage"
-import ScoreResultModal from "@/components/msme/ScoreResultModal"
+import { convertScoreTo100, getScoreColor as get100ScoreColor } from "@/lib/scoreUtils"
+import MSMEExtractionModal from "@/components/msme/MSMEExtractionModal"
 
 const segments = ["All", "micro_new", "micro_established", "small_trading", "small_manufacturing", "small_services", "medium_enterprise"]
 const riskCategories = ["All", "Very Low", "Low", "Medium", "High", "Very High"]
@@ -30,10 +31,11 @@ export default function MSMEList() {
   const [scoringId, setScoringId] = useState<string | null>(null)
   const [scoringLoading, setScoringLoading] = useState(false)
   
-  // Modal state
-  const [showScoreModal, setShowScoreModal] = useState(false)
-  const [currentScoreResult, setCurrentScoreResult] = useState<MSMEScoreResponse | null>(null)
-  const [currentBusinessName, setCurrentBusinessName] = useState("")
+  // Extraction state (like consumer flow)
+  const [extracting, setExtracting] = useState(false)
+  const [extractingMSME, setExtractingMSME] = useState<MSMEBusiness | null>(null)
+  const [extractionProgress, setExtractionProgress] = useState(0)
+  const [completedSources, setCompletedSources] = useState<number[]>([])
 
   const itemsPerPage = 10
 
@@ -45,23 +47,28 @@ export default function MSMEList() {
   const loadCSVData = async () => {
     setLoading(true)
     try {
-      const response = await fetch('/api/msme-data')
-      if (response.ok) {
-        const data = await response.json()
-        
-        // Apply stored scores to loaded data
+      // Use mock data directly - simplest solution
+      console.log('[MSMEList] Generating mock data')
+      const { generateMockMSMEs } = await import('@/lib/mockMSMEData')
+      const data = generateMockMSMEs(100)
+      console.log('[MSMEList] Generated', data.length, 'businesses')
+      // Load data WITHOUT any pre-calculated scores
+        // Only apply scores from localStorage IF they exist
         const msmesWithScores = data.map((msme: MSMEBusiness) => {
           const storedScore = getValidScore(msme.id, msme.features)
           if (storedScore) {
+            // Normalize risk category (handle old format with " Risk" suffix)
+            const normalizedRisk = storedScore.riskCategory.replace(' Risk', '')
+            
             return {
               ...msme,
               currentScore: storedScore.score,
-              riskBucket: storedScore.riskCategory,
+              riskBucket: normalizedRisk,
               prob_default_90dpd: storedScore.probDefault,
               category_contributions: storedScore.categoryContributions,
               summary: {
                 financialHealthScore: storedScore.score,
-                riskGrade: storedScore.riskCategory,
+                riskGrade: normalizedRisk,
                 maxLoanAmount: calculateMaxLoan(storedScore.score, msme.features.monthly_gtv || 0),
                 probabilityOfDefault: storedScore.probDefault * 100,
                 recommendation: storedScore.recommendation
@@ -69,13 +76,26 @@ export default function MSMEList() {
               scoreResponse: storedScore.scoreResponse
             }
           }
-          return msme
+          // Return business WITHOUT any scores - completely unscored
+          return {
+            ...msme,
+            currentScore: undefined,
+            riskBucket: undefined,
+            prob_default_90dpd: undefined,
+            summary: undefined,
+            category_contributions: undefined,
+            scoreResponse: undefined
+          }
         })
         
-        setMsmes(msmesWithScores)
-      }
+      console.log('[MSMEList] Setting', msmesWithScores.length, 'businesses in state')
+      setMsmes(msmesWithScores)
+      
+      // Store in sessionStorage for persistence
+      sessionStorage.setItem('msme_businesses', JSON.stringify(msmesWithScores))
+      console.log('[MSMEList] ✅ Saved to sessionStorage')
     } catch (error) {
-      console.log("No pre-loaded data, starting with empty list")
+      console.error("[MSMEList] Error generating data:", error)
     } finally {
       setLoading(false)
     }
@@ -148,21 +168,50 @@ export default function MSMEList() {
       // NO score - must generate
     }
 
-    setMsmes(prev => [newMSME, ...prev])
+    setMsmes(prev => {
+      const updated = [newMSME, ...prev]
+      // Save to sessionStorage
+      sessionStorage.setItem('msme_businesses', JSON.stringify(updated))
+      console.log('[MSMEList] ✅ Added manual MSME and saved to sessionStorage:', newMSME.businessName)
+      return updated
+    })
     setShowAddForm(false)
     setFormData(createEmptyMSME())
     setBusinessName("")
     setFormSegment("micro_established")
   }
 
-  // Generate score for MSME
+  // Generate score for MSME - with extraction modal and navigate
   const handleGenerateScore = async (msme: MSMEBusiness) => {
+    // Start extraction animation
+    setExtracting(true)
+    setExtractingMSME(msme)
+    setExtractionProgress(0)
+    setCompletedSources([])
     setScoringId(msme.id)
     setScoringLoading(true)
-    setCurrentBusinessName(msme.businessName)
-    setCurrentScoreResult(null)
-    setShowScoreModal(true)
     
+    // Progress animation (20 seconds total)
+    const progressInterval = setInterval(() => {
+      setExtractionProgress(prev => {
+        if (prev >= 100) {
+          clearInterval(progressInterval)
+          return 100
+        }
+        return prev + (100 / 200) // 20 seconds = 200 intervals of 100ms
+      })
+    }, 100)
+
+    // Mark sources as completed
+    const sourceTimings = [0, 4000, 8000, 12000, 16000]
+    sourceTimings.forEach((delay, index) => {
+      setTimeout(() => {
+        setCompletedSources(prev => [...prev, index])
+      }, delay)
+    })
+
+    // Actually call API in background
+    let scoredMsme: MSMEBusiness | null = null
     try {
       const result = await msmeApi.scoreBusiness({
         features: msme.features,
@@ -173,30 +222,37 @@ export default function MSMEList() {
 
       // Save score to localStorage
       saveScore(msme.id, result, msme.features)
+
+      // Normalize risk category (remove " Risk" suffix from backend)
+      const normalizedRisk = result.risk_category.replace(' Risk', '')
       
-      setCurrentScoreResult(result)
+      // Create the scored MSME object
+      scoredMsme = {
+        ...msme,
+        currentScore: result.score,
+        riskBucket: normalizedRisk,
+        prob_default_90dpd: result.prob_default_90dpd,
+        summary: {
+          financialHealthScore: result.score,
+          riskGrade: normalizedRisk,
+          maxLoanAmount: calculateMaxLoan(result.score, msme.features.monthly_gtv || 0),
+          probabilityOfDefault: result.prob_default_90dpd * 100,
+          recommendation: result.recommended_decision
+        },
+        category_contributions: result.category_contributions,
+        scoreResponse: result
+      }
+      
+      console.log('[MSMEList] Scored MSME details:', {
+        id: scoredMsme.id,
+        score: scoredMsme.currentScore,
+        riskBucket: scoredMsme.riskBucket,
+        originalRiskCategory: result.risk_category,
+        normalizedRisk: normalizedRisk
+      })
 
       // Update the MSME with the score
-      setMsmes(prev => prev.map(m => {
-        if (m.id === msme.id) {
-          return {
-            ...m,
-            currentScore: result.score,
-            riskBucket: result.risk_category,
-            prob_default_90dpd: result.prob_default_90dpd,
-            summary: {
-              financialHealthScore: result.score,
-              riskGrade: result.risk_category,
-              maxLoanAmount: calculateMaxLoan(result.score, msme.features.monthly_gtv || 0),
-              probabilityOfDefault: result.prob_default_90dpd * 100,
-              recommendation: result.recommended_decision
-            },
-            category_contributions: result.category_contributions,
-            scoreResponse: result
-          }
-        }
-        return m
-      }))
+      setMsmes(prev => prev.map(m => m.id === msme.id ? scoredMsme! : m))
 
     } catch (error) {
       console.error("Error generating score:", error)
@@ -226,48 +282,56 @@ export default function MSMEList() {
       // Save local score too
       saveScore(msme.id, localResult, msme.features)
       
-      setCurrentScoreResult(localResult)
+      // Create the scored MSME object with fallback
+      scoredMsme = {
+        ...msme,
+        currentScore: localScore.score,
+        riskBucket: localScore.riskBucket,
+        prob_default_90dpd: localScore.probDefault,
+        summary: {
+          financialHealthScore: localScore.score,
+          riskGrade: localScore.riskGrade,
+          maxLoanAmount: calculateMaxLoan(localScore.score, msme.features.monthly_gtv || 0),
+          probabilityOfDefault: localScore.probDefault * 100,
+          recommendation: localScore.recommendation
+        },
+        category_contributions: localResult.category_contributions,
+        scoreResponse: localResult
+      }
       
-      setMsmes(prev => prev.map(m => {
-        if (m.id === msme.id) {
-          return {
-            ...m,
-            currentScore: localScore.score,
-            riskBucket: localScore.riskBucket,
-            summary: {
-              financialHealthScore: localScore.score,
-              riskGrade: localScore.riskGrade,
-              maxLoanAmount: calculateMaxLoan(localScore.score, msme.features.monthly_gtv || 0),
-              probabilityOfDefault: localScore.probDefault * 100,
-              recommendation: localScore.recommendation
-            },
-            category_contributions: localResult.category_contributions
-          }
-        }
-        return m
-      }))
-    } finally {
+      setMsmes(prev => prev.map(m => m.id === msme.id ? scoredMsme! : m))
+    }
+    
+    // Wait for animation to complete (20 seconds), then navigate
+    setTimeout(() => {
+      clearInterval(progressInterval)
+      setExtracting(false)
+      setExtractingMSME(null)
       setScoringId(null)
       setScoringLoading(false)
-    }
+      
+      // Store the scored MSME in sessionStorage for the detail page
+      if (scoredMsme) {
+        console.log('[MSMEList] ===== Storing Scored MSME =====')
+        console.log('[MSMEList] ID:', scoredMsme.id)
+        console.log('[MSMEList] currentScore:', scoredMsme.currentScore)
+        console.log('[MSMEList] hasScoreResponse:', !!scoredMsme.scoreResponse)
+        console.log('[MSMEList] hasSummary:', !!scoredMsme.summary)
+        console.log('[MSMEList] scoreResponse:', scoredMsme.scoreResponse)
+        console.log('[MSMEList] ==============================')
+        
+        sessionStorage.setItem('current_msme', JSON.stringify(scoredMsme))
+        console.log('[MSMEList] ✅ Stored scored MSME in sessionStorage:', scoredMsme.id)
+      } else {
+        console.error('[MSMEList] ❌ scoredMsme is null!')
+      }
+      
+      // Navigate to detail page
+      console.log('[MSMEList] Navigating to /msmes/' + msme.id)
+      router.push(`/msmes/${msme.id}`)
+    }, 20000)
   }
 
-  // View existing score
-  const handleViewScore = (msme: MSMEBusiness) => {
-    if (msme.scoreResponse) {
-      setCurrentScoreResult(msme.scoreResponse)
-      setCurrentBusinessName(msme.businessName)
-      setShowScoreModal(true)
-    } else {
-      // Try to get from storage
-      const stored = getValidScore(msme.id, msme.features)
-      if (stored) {
-        setCurrentScoreResult(stored.scoreResponse)
-        setCurrentBusinessName(msme.businessName)
-        setShowScoreModal(true)
-      }
-    }
-  }
 
   // Local scoring fallback
   const generateLocalScore = (features: MSMEFeatures) => {
@@ -334,21 +398,35 @@ export default function MSMEList() {
     return "text-red-600"
   }
 
-  // Count only scored MSMEs
-  const scoredCount = msmes.filter(m => m.currentScore !== undefined).length
-  const lowRiskCount = msmes.filter(m => m.riskBucket === 'Low' || m.riskBucket === 'Very Low').length
-  const highRiskCount = msmes.filter(m => m.riskBucket === 'High' || m.riskBucket === 'Very High').length
+  // Count only scored MSMEs (from FILTERED list)
+  const scoredCount = filteredMSMEs.filter(m => m.currentScore !== undefined).length
+  const lowRiskCount = filteredMSMEs.filter(m => m.riskBucket === 'Low' || m.riskBucket === 'Very Low').length
+  const highRiskCount = filteredMSMEs.filter(m => m.riskBucket === 'High' || m.riskBucket === 'Very High').length
+  
+  console.log('[MSMEList] Card Counts:', {
+    total: msmes.length,
+    filtered: filteredMSMEs.length,
+    scored: scoredCount,
+    lowRisk: lowRiskCount,
+    highRisk: highRiskCount,
+    scoredMSMEs: filteredMSMEs.filter(m => m.currentScore !== undefined).map(m => ({
+      id: m.id,
+      name: m.businessName,
+      score: m.currentScore,
+      risk: m.riskBucket
+    }))
+  })
 
   return (
     <div className="space-y-6">
-      {/* Score Result Modal */}
-      <ScoreResultModal
-        isOpen={showScoreModal}
-        onClose={() => setShowScoreModal(false)}
-        result={currentScoreResult}
-        businessName={currentBusinessName}
-        isLoading={scoringLoading}
-      />
+      {/* Extraction Modal - Like Consumer Flow */}
+      {extracting && extractingMSME && (
+        <MSMEExtractionModal
+          businessName={extractingMSME.businessName}
+          progress={extractionProgress}
+          completedSources={completedSources}
+        />
+      )}
 
       <div className="flex items-center justify-between">
         <div>
@@ -433,18 +511,24 @@ export default function MSMEList() {
         <div className="bg-white rounded-xl p-4 border border-gray-200">
           <p className="text-sm text-gray-600">Total MSMEs</p>
           <p className="text-2xl font-bold text-gray-900">{msmes.length}</p>
+          {filteredMSMEs.length < msmes.length && (
+            <p className="text-xs text-gray-400 mt-1">Filtered: {filteredMSMEs.length}</p>
+          )}
         </div>
         <div className="bg-white rounded-xl p-4 border border-gray-200">
           <p className="text-sm text-gray-600">Scored</p>
           <p className="text-2xl font-bold text-blue-600">{scoredCount}</p>
+          <p className="text-xs text-gray-400 mt-1">From filtered</p>
         </div>
         <div className="bg-white rounded-xl p-4 border border-gray-200">
           <p className="text-sm text-gray-600">Low Risk</p>
           <p className="text-2xl font-bold text-green-600">{lowRiskCount}</p>
+          <p className="text-xs text-gray-400 mt-1">From filtered</p>
         </div>
         <div className="bg-white rounded-xl p-4 border border-gray-200">
           <p className="text-sm text-gray-600">High Risk</p>
           <p className="text-2xl font-bold text-red-600">{highRiskCount}</p>
+          <p className="text-xs text-gray-400 mt-1">From filtered</p>
         </div>
       </div>
 
@@ -514,9 +598,12 @@ export default function MSMEList() {
                       </td>
                       <td className="px-6 py-4">
                         {msme.currentScore !== undefined ? (
-                          <span className={`text-lg font-bold ${getScoreColor(msme.currentScore)}`}>
-                            {msme.currentScore}
-                          </span>
+                          <div className="flex items-center gap-2">
+                            <span className={`text-lg font-bold ${get100ScoreColor(convertScoreTo100(msme.currentScore))}`}>
+                              {convertScoreTo100(msme.currentScore)}
+                            </span>
+                            <span className="text-xs text-gray-400">/100</span>
+                          </div>
                         ) : (
                           <span className="text-gray-400 text-sm italic">Not scored</span>
                         )}
@@ -544,15 +631,6 @@ export default function MSMEList() {
                             )}
                             {msme.currentScore !== undefined ? 'Re-Score' : 'Score'}
                           </button>
-                          {msme.currentScore !== undefined && (
-                            <button
-                              onClick={() => handleViewScore(msme)}
-                              className="px-3 py-1.5 bg-purple-600 text-white rounded-lg hover:bg-purple-700 transition text-sm font-medium flex items-center gap-1"
-                            >
-                              <Eye className="w-4 h-4" />
-                              View
-                            </button>
-                          )}
                           <button
                             onClick={() => router.push(`/msmes/${msme.id}`)}
                             className="px-3 py-1.5 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition text-sm font-medium"

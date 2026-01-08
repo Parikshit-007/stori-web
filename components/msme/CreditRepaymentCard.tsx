@@ -81,6 +81,49 @@ export default function CreditRepaymentCard({ msme }: CreditRepaymentCardProps) 
         </div>
       )}
 
+      {/* Payment History - Last 6 Months */}
+      <div className="mb-6">
+        <h4 className="font-semibold text-gray-800 text-sm mb-3 flex items-center gap-2">
+          <Clock className="w-4 h-4 text-gray-500" />
+          Last 6 Months Payment History
+        </h4>
+        <div className="flex items-center gap-2 p-4 bg-gray-50 rounded-lg">
+          {[...Array(6)].map((_, idx) => {
+            // Mock data: alternating good/bad payments based on features
+            const monthDefaults = idx === 2 || idx === 4 ? (previousDefaults > 0 || bouncedChequesCount > idx) : false
+            return (
+              <div key={idx} className="flex-1">
+                <div 
+                  className={`h-12 rounded-lg flex items-center justify-center text-white font-bold text-sm ${
+                    monthDefaults ? 'bg-red-500' : 'bg-green-500'
+                  }`}
+                  title={monthDefaults ? 'Default/Delay' : 'On-Time'}
+                >
+                  {monthDefaults ? (
+                    <XCircle className="w-5 h-5" />
+                  ) : (
+                    <CheckCircle className="w-5 h-5" />
+                  )}
+                </div>
+                <p className="text-center text-xs text-gray-500 mt-1">
+                  {['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun'][idx]}
+                </p>
+              </div>
+            )
+          })}
+        </div>
+        <div className="mt-3 flex items-center gap-4 text-xs">
+          <div className="flex items-center gap-1">
+            <div className="w-3 h-3 rounded bg-green-500"></div>
+            <span className="text-gray-600">On-Time Payment</span>
+          </div>
+          <div className="flex items-center gap-1">
+            <div className="w-3 h-3 rounded bg-red-500"></div>
+            <span className="text-gray-600">Default/Delay</span>
+          </div>
+        </div>
+      </div>
+
       {/* Current Debt Status */}
       <div className="mb-6">
         <h4 className="font-semibold text-gray-800 text-sm mb-3 flex items-center gap-2">

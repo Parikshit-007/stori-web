@@ -1,8 +1,9 @@
 "use client"
 import { useState, useEffect } from "react"
-import { useParams } from "next/navigation"
+import { useParams, useRouter } from "next/navigation"
 import { msmeApi, MSMEBusiness, MSMEScoreResponse } from "@/lib/msmeApi"
 import { getValidScore, saveScore } from "@/lib/scoreStorage"
+import { convertScoreTo100 } from "@/lib/scoreUtils"
 import { ArrowLeft, FileText, Zap, Loader2 } from "lucide-react"
 import Link from "next/link"
 import BusinessIdentityCard from "@/components/msme/BusinessIdentityCard"
@@ -13,53 +14,138 @@ import ComplianceTaxationCard from "@/components/msme/ComplianceTaxationCard"
 import FraudVerificationCard from "@/components/msme/FraudVerificationCard"
 import ExternalSignalsCard from "@/components/msme/ExternalSignalsCard"
 import MSMESummaryCard from "@/components/msme/MSMESummaryCard"
-import ScoreResultModal from "@/components/msme/ScoreResultModal"
+import DirectorDetailsCard from "@/components/msme/DirectorDetailsCard"
+import { downloadMSMEPDF } from "@/components/msme/MSMEPDFReport"
 
 export default function MSMEProfile() {
   const params = useParams<{ id: string }>()
+  const router = useRouter()
   const id = params?.id
   const [msme, setMsme] = useState<MSMEBusiness | null>(null)
   const [loading, setLoading] = useState(true)
   const [scoring, setScoring] = useState(false)
-  const [showScoreModal, setShowScoreModal] = useState(false)
-  const [scoreResult, setScoreResult] = useState<MSMEScoreResponse | null>(null)
+  
+  // Debug: Log when msme changes
+  useEffect(() => {
+    if (msme) {
+      console.log('[MSMEProfile] ===== MSME State Updated =====')
+      console.log('[MSMEProfile] ID:', msme.id)
+      console.log('[MSMEProfile] Name:', msme.businessName)
+      console.log('[MSMEProfile] currentScore:', msme.currentScore)
+      console.log('[MSMEProfile] hasScoreResponse:', !!msme.scoreResponse)
+      console.log('[MSMEProfile] hasSummary:', !!msme.summary)
+      console.log('[MSMEProfile] hasCategoryContributions:', !!msme.category_contributions)
+      console.log('[MSMEProfile] scoreResponse object:', msme.scoreResponse)
+      console.log('[MSMEProfile] ===============================')
+    }
+  }, [msme])
 
   useEffect(() => {
     const fetchMSME = async () => {
       try {
-        // Try to fetch from API data
+        console.log('[MSMEProfile] Loading MSME with ID:', id)
+        
+        // FIRST: Try sessionStorage (fastest, just navigated here)
+        const sessionMSME = sessionStorage.getItem('current_msme')
+        if (sessionMSME) {
+          try {
+            const parsed = JSON.parse(sessionMSME)
+            if (parsed.id === id) {
+              console.log('[MSMEProfile] ✅ Found in sessionStorage:', parsed.businessName)
+              console.log('[MSMEProfile] SessionStorage data - currentScore:', parsed.currentScore)
+              console.log('[MSMEProfile] SessionStorage data - hasScoreResponse:', !!parsed.scoreResponse)
+              console.log('[MSMEProfile] SessionStorage data - hasSummary:', !!parsed.summary)
+              console.log('[MSMEProfile] SessionStorage data - scoreResponse:', parsed.scoreResponse)
+              setMsme(parsed)
+              setLoading(false)
+              return
+            }
+          } catch (e) {
+            console.error('[MSMEProfile] Failed to parse sessionStorage', e)
+          }
+        }
+        
+        // SECOND: Try cached businesses from sessionStorage
+        const cachedBusinesses = sessionStorage.getItem('msme_businesses')
+        if (cachedBusinesses) {
+          try {
+            const allMsmes = JSON.parse(cachedBusinesses)
+            const found = allMsmes.find((m: MSMEBusiness) => m.id === id)
+            if (found) {
+              console.log('[MSMEProfile] ✅ Found in cached businesses:', found.businessName)
+              // Check for stored score
+              const storedScore = getValidScore(found.id, found.features)
+              if (storedScore) {
+                // Normalize risk category (handle old format with " Risk" suffix)
+                const normalizedRisk = storedScore.riskCategory.replace(' Risk', '')
+                
+                found.currentScore = storedScore.score
+                found.riskBucket = normalizedRisk
+                found.prob_default_90dpd = storedScore.probDefault
+                found.category_contributions = storedScore.categoryContributions
+                found.summary = {
+                  financialHealthScore: storedScore.score,
+                  riskGrade: normalizedRisk,
+                  maxLoanAmount: calculateMaxLoan(storedScore.score, found.features.monthly_gtv || 0),
+                  probabilityOfDefault: storedScore.probDefault * 100,
+                  recommendation: storedScore.recommendation
+                }
+                found.scoreResponse = storedScore.scoreResponse
+              }
+              setMsme(found)
+              setLoading(false)
+              return
+            }
+          } catch (e) {
+            console.error('[MSMEProfile] Failed to parse cached businesses', e)
+          }
+        }
+        
+        // THIRD: Try to fetch from API data
+        console.log('[MSMEProfile] Fetching from /api/msme-data...')
         const response = await fetch('/api/msme-data')
         if (response.ok) {
           const allMsmes = await response.json()
-          const found = allMsmes.find((m: MSMEBusiness) => m.id === id)
-          if (found) {
-            // Check for stored score
-            const storedScore = getValidScore(found.id, found.features)
-            if (storedScore) {
-              // Apply stored score
-              found.currentScore = storedScore.score
-              found.riskBucket = storedScore.riskCategory
-              found.prob_default_90dpd = storedScore.probDefault
-              found.category_contributions = storedScore.categoryContributions
-              found.summary = {
-                financialHealthScore: storedScore.score,
-                riskGrade: storedScore.riskCategory,
-                maxLoanAmount: calculateMaxLoan(storedScore.score, found.features.monthly_gtv || 0),
-                probabilityOfDefault: storedScore.probDefault * 100,
-                recommendation: storedScore.recommendation
+          console.log('[MSMEProfile] API returned', Array.isArray(allMsmes) ? allMsmes.length : 'error', 'items')
+          
+          if (Array.isArray(allMsmes)) {
+            const found = allMsmes.find((m: MSMEBusiness) => m.id === id)
+            if (found) {
+              console.log('[MSMEProfile] ✅ Found via API:', found.businessName)
+              // Check for stored score
+              const storedScore = getValidScore(found.id, found.features)
+              if (storedScore) {
+                // Normalize risk category (handle old format with " Risk" suffix)
+                const normalizedRisk = storedScore.riskCategory.replace(' Risk', '')
+                
+                // Apply stored score
+                found.currentScore = storedScore.score
+                found.riskBucket = normalizedRisk
+                found.prob_default_90dpd = storedScore.probDefault
+                found.category_contributions = storedScore.categoryContributions
+                found.summary = {
+                  financialHealthScore: storedScore.score,
+                  riskGrade: normalizedRisk,
+                  maxLoanAmount: calculateMaxLoan(storedScore.score, found.features.monthly_gtv || 0),
+                  probabilityOfDefault: storedScore.probDefault * 100,
+                  recommendation: storedScore.recommendation
+                }
+                found.scoreResponse = storedScore.scoreResponse
               }
-              found.scoreResponse = storedScore.scoreResponse
-              setScoreResult(storedScore.scoreResponse)
+              setMsme(found)
+              setLoading(false)
+              return
             }
-            setMsme(found)
-            setLoading(false)
-            return
+          } else {
+            console.error('[MSMEProfile] API returned error:', allMsmes)
           }
         }
 
-        // Try to get from backend API
+        // FOURTH: Try to get from backend scoring API
+        console.log('[MSMEProfile] Trying backend API...')
         try {
           const featuresData = await msmeApi.getBusinessFeatures(id as string)
+          console.log('[MSMEProfile] ✅ Got from backend API')
           
           const msmeData: MSMEBusiness = {
             id: featuresData.business_id,
@@ -71,10 +157,12 @@ export default function MSMEProfile() {
 
           setMsme(msmeData)
         } catch (apiError) {
-          console.error("API fetch failed:", apiError)
+          console.error("[MSMEProfile] ❌ All fetch methods failed:", apiError)
+          alert('MSME not found. Please return to the list and try again.')
         }
       } catch (error) {
-        console.error("Error fetching MSME:", error)
+        console.error("[MSMEProfile] ❌ Error fetching MSME:", error)
+        alert('Failed to load MSME. Please check console for details.')
       } finally {
         setLoading(false)
       }
@@ -84,10 +172,9 @@ export default function MSMEProfile() {
 
   const handleGenerateScore = async () => {
     if (!msme) return
+    if (scoring) return // Prevent double click
     
     setScoring(true)
-    setShowScoreModal(true)
-    setScoreResult(null)
     
     try {
       // Send ALL features from the MSME data to the backend
@@ -100,18 +187,19 @@ export default function MSMEProfile() {
 
       // Save to localStorage
       saveScore(msme.id, result, msme.features)
-      
-      setScoreResult(result)
+
+      // Normalize risk category (remove " Risk" suffix from backend)
+      const normalizedRisk = result.risk_category.replace(' Risk', '')
 
       // Update MSME state with score results
       setMsme(prev => prev ? {
         ...prev,
         currentScore: result.score,
-        riskBucket: result.risk_category,
+        riskBucket: normalizedRisk,
         prob_default_90dpd: result.prob_default_90dpd,
         summary: {
           financialHealthScore: result.score,
-          riskGrade: result.risk_category,
+          riskGrade: normalizedRisk,
           maxLoanAmount: calculateMaxLoan(result.score, prev.features.monthly_gtv || prev.features.weekly_gtv ? (prev.features.weekly_gtv || 0) * 4 : 0),
           probabilityOfDefault: result.prob_default_90dpd * 100,
           recommendation: result.recommended_decision
@@ -150,21 +238,22 @@ export default function MSMEProfile() {
       // Save local score
       saveScore(msme.id, localResult, msme.features)
       
-      setScoreResult(localResult)
-      
-      setMsme(prev => prev ? {
-        ...prev,
+      const updatedMsme = {
+        ...msme,
         currentScore: localScore.score,
         riskBucket: localScore.riskBucket,
         summary: {
           financialHealthScore: localScore.score,
           riskGrade: localScore.riskGrade,
-          maxLoanAmount: calculateMaxLoan(localScore.score, prev.features.monthly_gtv || 0),
+          maxLoanAmount: calculateMaxLoan(localScore.score, msme.features.monthly_gtv || 0),
           probabilityOfDefault: localScore.probDefault * 100,
           recommendation: localScore.recommendation
         },
         category_contributions: localResult.category_contributions
-      } : null)
+      }
+      
+      setMsme(updatedMsme)
+      sessionStorage.setItem('current_msme', JSON.stringify(updatedMsme))
     } finally {
       setScoring(false)
     }
@@ -230,15 +319,6 @@ export default function MSMEProfile() {
 
   return (
     <div className="space-y-6">
-      {/* Score Result Modal */}
-      <ScoreResultModal
-        isOpen={showScoreModal}
-        onClose={() => setShowScoreModal(false)}
-        result={scoreResult}
-        businessName={msme.businessName}
-        isLoading={scoring}
-      />
-
       {/* Header */}
       <div className="flex items-start justify-between">
         <div>
@@ -264,8 +344,9 @@ export default function MSMEProfile() {
             {msme.currentScore !== undefined ? (
               <>
                 <div className="bg-blue-50 border border-blue-200 px-4 py-2 rounded-lg text-center">
-                  <p className="text-2xl font-bold text-blue-900">{msme.currentScore}</p>
+                  <p className="text-2xl font-bold text-blue-900">{convertScoreTo100(msme.currentScore)}</p>
                   <p className="text-xs font-semibold text-blue-700">Credit Score</p>
+                  <p className="text-xs text-blue-600">Out of 100</p>
                 </div>
                 {msme.riskBucket && (
                   <div className={`px-4 py-2 rounded-lg border text-center ${getRiskColor(msme.riskBucket)}`}>
@@ -310,8 +391,10 @@ export default function MSMEProfile() {
               {scoring ? 'Scoring...' : msme.currentScore !== undefined ? 'Re-Score' : 'Generate Score'}
             </button>
             <button 
-              onClick={() => console.log("Download MSME summary")}
-              className="inline-flex items-center gap-2 px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition font-medium"
+              onClick={() => downloadMSMEPDF(msme)}
+              className="inline-flex items-center gap-2 px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition font-medium disabled:opacity-50 disabled:cursor-not-allowed"
+              disabled={!msme.currentScore && !msme.scoreResponse}
+              title={!msme.currentScore && !msme.scoreResponse ? 'Generate a score first to download summary' : 'Download one-page PDF summary'}
             >
               <FileText className="w-4 h-4" />
               Download Summary
@@ -320,8 +403,21 @@ export default function MSMEProfile() {
         </div>
       </div>
 
-      {/* Summary Card - Full Width (shown when scored) */}
-      {msme.currentScore !== undefined && <MSMESummaryCard msme={msme} />}
+      {/* Summary Card - Full Width (always shown if scored) */}
+      {(() => {
+        const shouldShow = msme.currentScore !== undefined || msme.scoreResponse
+        console.log('[MSMEProfile] ===== Summary Card Check =====')
+        console.log('[MSMEProfile] hasCurrentScore:', msme.currentScore !== undefined)
+        console.log('[MSMEProfile] currentScore value:', msme.currentScore)
+        console.log('[MSMEProfile] hasScoreResponse:', !!msme.scoreResponse)
+        console.log('[MSMEProfile] hasSummary:', !!msme.summary)
+        console.log('[MSMEProfile] SHOULD SHOW SUMMARY CARD:', shouldShow)
+        console.log('[MSMEProfile] ==============================')
+        return shouldShow ? <MSMESummaryCard msme={msme} /> : null
+      })()}
+
+      {/* Director/Promoter Details - Full Width */}
+      <DirectorDetailsCard msme={msme} />
 
       {/* 1. Business Identity (Left) + 2. Revenue Performance (Right) */}
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
@@ -372,35 +468,98 @@ export default function MSMEProfile() {
         </div>
       )}
 
-      {/* Quick Actions */}
-      <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+      {/* SHAP Explanation (shown when scored) */}
+      {msme.scoreResponse?.explanation && (
         <div className="bg-white rounded-2xl shadow-sm border border-gray-200 p-6">
-          <h3 className="text-lg font-semibold text-gray-900 mb-4">Quick Actions</h3>
-          <div className="space-y-3">
-            <button 
-              onClick={handleGenerateScore}
-              disabled={scoring}
-              className="w-full px-4 py-3 bg-green-50 text-green-600 rounded-lg hover:bg-green-100 transition font-medium disabled:opacity-50"
-            >
-              {scoring ? 'Generating Score...' : msme.currentScore !== undefined ? 'Re-Score with Current Model' : 'Generate Score'}
-            </button>
-            {scoreResult && (
-              <button 
-                onClick={() => setShowScoreModal(true)}
-                className="w-full px-4 py-3 bg-blue-50 text-blue-600 rounded-lg hover:bg-blue-100 transition font-medium"
-              >
-                View Score Details
-              </button>
+          <h3 className="text-lg font-semibold text-gray-900 mb-6 flex items-center gap-2">
+            <Zap className="w-5 h-5 text-purple-600" />
+            Score Explanation (SHAP Analysis)
+          </h3>
+          
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+            {/* Top Positive Features */}
+            {msme.scoreResponse.explanation.top_positive_features && msme.scoreResponse.explanation.top_positive_features.length > 0 && (
+              <div className="space-y-3">
+                <h4 className="font-semibold text-green-700 flex items-center gap-2">
+                  <span className="text-2xl">📈</span>
+                  Positive Impact Factors
+                </h4>
+                <div className="space-y-2">
+                  {msme.scoreResponse.explanation.top_positive_features.map((feature, idx) => (
+                    <div key={idx} className="bg-green-50 border border-green-200 rounded-lg p-3">
+                      <div className="flex justify-between items-center mb-1">
+                        <span className="text-sm font-medium text-gray-700">
+                          {feature.feature.replace(/_/g, ' ').replace(/\b\w/g, l => l.toUpperCase())}
+                        </span>
+                        <span className="text-xs font-bold text-green-700">
+                          +{feature.shap_value.toFixed(3)}
+                        </span>
+                      </div>
+                      <div className="flex items-center gap-2">
+                        <div className="flex-1 bg-green-200 rounded-full h-2 overflow-hidden">
+                          <div
+                            className="h-full bg-green-600"
+                            style={{ width: `${Math.min(Math.abs(feature.shap_value) * 100, 100)}%` }}
+                          />
+                        </div>
+                        <span className="text-xs text-gray-600">
+                          Value: {typeof feature.feature_value === 'number' ? feature.feature_value.toFixed(2) : feature.feature_value}
+                        </span>
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              </div>
             )}
-            <button className="w-full px-4 py-3 bg-purple-50 text-purple-600 rounded-lg hover:bg-purple-100 transition font-medium">
-              Generate Full Report
-            </button>
-            <button className="w-full px-4 py-3 bg-gray-50 text-gray-600 rounded-lg hover:bg-gray-100 transition font-medium">
-              Request Manual Review
-            </button>
+
+            {/* Top Negative Features */}
+            {msme.scoreResponse.explanation.top_negative_features && msme.scoreResponse.explanation.top_negative_features.length > 0 && (
+              <div className="space-y-3">
+                <h4 className="font-semibold text-red-700 flex items-center gap-2">
+                  <span className="text-2xl">📉</span>
+                  Negative Impact Factors
+                </h4>
+                <div className="space-y-2">
+                  {msme.scoreResponse.explanation.top_negative_features.map((feature, idx) => (
+                    <div key={idx} className="bg-red-50 border border-red-200 rounded-lg p-3">
+                      <div className="flex justify-between items-center mb-1">
+                        <span className="text-sm font-medium text-gray-700">
+                          {feature.feature.replace(/_/g, ' ').replace(/\b\w/g, l => l.toUpperCase())}
+                        </span>
+                        <span className="text-xs font-bold text-red-700">
+                          {feature.shap_value.toFixed(3)}
+                        </span>
+                      </div>
+                      <div className="flex items-center gap-2">
+                        <div className="flex-1 bg-red-200 rounded-full h-2 overflow-hidden">
+                          <div
+                            className="h-full bg-red-600"
+                            style={{ width: `${Math.min(Math.abs(feature.shap_value) * 100, 100)}%` }}
+                          />
+                        </div>
+                        <span className="text-xs text-gray-600">
+                          Value: {typeof feature.feature_value === 'number' ? feature.feature_value.toFixed(2) : feature.feature_value}
+                        </span>
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            )}
           </div>
+
+          {msme.scoreResponse.explanation.base_value !== undefined && (
+            <div className="mt-6 p-4 bg-gray-50 rounded-lg">
+              <p className="text-sm text-gray-600">
+                <span className="font-semibold">Base Value:</span> {msme.scoreResponse.explanation.base_value.toFixed(2)}
+                <span className="ml-4 text-xs text-gray-500">
+                  (Average prediction across all businesses)
+                </span>
+              </p>
+            </div>
+          )}
         </div>
-      </div>
+      )}
     </div>
   )
 }

@@ -115,19 +115,50 @@ export default function BusinessIdentityCard({ msme }: BusinessIdentityCardProps
         </div>
       </div>
 
-      {/* Additional Metrics */}
-      <div className="grid grid-cols-2 gap-2 text-sm">
-        <div className="bg-gray-50 rounded-lg p-3">
-          <p className="text-gray-500 text-xs">Industry Risk Score</p>
-          <p className="font-bold text-lg">
-            {((features.industry_risk_score || identity.industry_risk_score || 0) * 100).toFixed(0)}%
-          </p>
+      {/* Licenses & Certificates */}
+      <div>
+        <div className="flex items-center justify-between mb-3">
+          <h4 className="font-semibold text-gray-800 text-sm flex items-center gap-2">
+            <Shield className="w-4 h-4 text-gray-500" />
+            Licenses & Certificates
+          </h4>
+          <div className="bg-gradient-to-r from-blue-50 to-indigo-50 px-3 py-1 rounded-full border border-blue-200">
+            <span className="text-xs font-bold text-blue-700">
+              Score: {((features.licenses_certificates_score || identity.licenses_certificates_score || 0.75) * 100).toFixed(0)}%
+            </span>
+          </div>
         </div>
-        <div className="bg-gray-50 rounded-lg p-3">
-          <p className="text-gray-500 text-xs">Licenses Score</p>
-          <p className="font-bold text-lg">
-            {((features.licenses_certificates_score || identity.licenses_certificates_score || 0) * 100).toFixed(0)}%
-          </p>
+        <div className="space-y-2">
+          {(() => {
+            // Mock licenses based on industry and business type
+            const licenses = [
+              { name: 'Trade License', status: 'Active', expiry: '2025-12-31', verified: true },
+              { name: 'GST Registration', status: 'Active', expiry: 'Permanent', verified: features.gstin_verified ?? true },
+              { name: 'Shop & Establishment', status: 'Active', expiry: '2026-06-30', verified: true },
+              { name: 'FSSAI License', status: (features.industry_code || '').includes('food') ? 'Active' : 'N/A', expiry: '2025-09-15', verified: false }
+            ].filter(l => l.status !== 'N/A')
+
+            return licenses.map((license, idx) => (
+              <div key={idx} className="flex items-center justify-between p-3 bg-gray-50 rounded-lg border border-gray-200">
+                <div className="flex items-center gap-3">
+                  {license.verified ? (
+                    <CheckCircle className="w-5 h-5 text-green-600" />
+                  ) : (
+                    <XCircle className="w-5 h-5 text-gray-400" />
+                  )}
+                  <div>
+                    <p className="font-semibold text-gray-900 text-sm">{license.name}</p>
+                    <p className="text-xs text-gray-500">Expires: {license.expiry}</p>
+                  </div>
+                </div>
+                <span className={`text-xs font-semibold px-2 py-1 rounded ${
+                  license.status === 'Active' ? 'bg-green-100 text-green-700' : 'bg-gray-100 text-gray-600'
+                }`}>
+                  {license.status}
+                </span>
+              </div>
+            ))
+          })()}
         </div>
       </div>
     </div>

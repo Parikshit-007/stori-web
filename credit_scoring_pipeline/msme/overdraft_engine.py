@@ -16,7 +16,7 @@ Reference Standards:
 - RBI Guidelines for MSME Lending
 - Basel III Capital Adequacy Norms
 - CGTMSE (Credit Guarantee Trust for MSMEs) Guidelines
-- Industry best practices from leading NBFC/Banks
+- Industry best practices from leading financial institutions
 
 Author: ML Engineering Team
 Version: 1.0.0

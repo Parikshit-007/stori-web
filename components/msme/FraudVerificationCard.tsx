@@ -25,8 +25,6 @@ export default function FraudVerificationCard({ msme }: FraudVerificationCardPro
 
   const kycScore = features.kyc_completion_score || fraud.kyc_completion_score || 0
   const kycAttempts = features.kyc_attempts_count || fraud.kyc_attempts_count || 1
-  const deviceConsistency = features.device_consistency_score || fraud.device_consistency_score || 0
-  const ipStability = features.ip_stability_score || fraud.ip_stability_score || 0
   const panMismatch = features.pan_address_bank_mismatch || fraud.pan_address_bank_mismatch || 0
   const reportingErrorRate = features.reporting_error_rate || fraud.reporting_error_rate || 0
 
@@ -38,19 +36,13 @@ export default function FraudVerificationCard({ msme }: FraudVerificationCardPro
       </div>
 
       {/* Key Metrics */}
-      <div className="grid grid-cols-2 gap-4 mb-6">
-        <div className={`bg-gradient-to-br rounded-xl p-4 ${kycScore >= 0.9 ? 'from-green-50 to-emerald-50' : kycScore >= 0.7 ? 'from-yellow-50 to-amber-50' : 'from-red-50 to-rose-50'}`}>
+      <div className="mb-6">
+        <div className={`bg-gradient-to-br rounded-xl p-4 max-w-xs ${kycScore >= 0.9 ? 'from-green-50 to-emerald-50' : kycScore >= 0.7 ? 'from-yellow-50 to-amber-50' : 'from-red-50 to-rose-50'}`}>
           <p className="text-xs font-semibold uppercase">KYC Completion Score</p>
           <p className={`text-2xl font-bold mt-1 ${kycScore >= 0.9 ? 'text-green-600' : kycScore >= 0.7 ? 'text-yellow-600' : 'text-red-600'}`}>
             {formatPercent(kycScore)}
           </p>
           <p className="text-xs text-gray-600 mt-1">Attempts: {kycAttempts}</p>
-        </div>
-        <div className={`bg-gradient-to-br rounded-xl p-4 ${deviceConsistency >= 0.9 ? 'from-green-50 to-emerald-50' : deviceConsistency >= 0.7 ? 'from-yellow-50 to-amber-50' : 'from-red-50 to-rose-50'}`}>
-          <p className="text-xs font-semibold uppercase">Device Consistency</p>
-          <p className={`text-2xl font-bold mt-1 ${deviceConsistency >= 0.9 ? 'text-green-600' : deviceConsistency >= 0.7 ? 'text-yellow-600' : 'text-red-600'}`}>
-            {formatPercent(deviceConsistency)}
-          </p>
         </div>
       </div>
 
@@ -100,12 +92,72 @@ export default function FraudVerificationCard({ msme }: FraudVerificationCardPro
         </div>
       </div>
 
+      {/* Fraud Detection Checks */}
+      <div className="mb-6">
+        <h4 className="font-semibold text-gray-800 text-sm mb-3 flex items-center gap-2">
+          <AlertTriangle className="w-4 h-4 text-orange-500" />
+          Fraud Detection Checks
+        </h4>
+        <div className="space-y-2 text-sm">
+          <div className="flex items-center justify-between p-3 bg-gray-50 rounded-lg border border-gray-200">
+            <div className="flex items-center gap-2">
+              <span className="text-gray-700 font-medium">Circular Transaction Check</span>
+            </div>
+            <div className="flex items-center gap-2">
+              {(features.circular_transaction_detected ?? fraud.circular_transaction_detected ?? false) ? (
+                <>
+                  <span className="text-red-600 font-semibold text-xs">Detected</span>
+                  <XCircle className="w-5 h-5 text-red-600" />
+                </>
+              ) : (
+                <>
+                  <span className="text-green-600 font-semibold text-xs">Clear</span>
+                  <CheckCircle className="w-5 h-5 text-green-600" />
+                </>
+              )}
+            </div>
+          </div>
+          <div className="flex items-center justify-between p-3 bg-gray-50 rounded-lg border border-gray-200">
+            <div className="flex items-center gap-2">
+              <span className="text-gray-700 font-medium">Bank Statement OCR Check</span>
+            </div>
+            <div className="flex items-center gap-2">
+              {(features.bank_statement_ocr_verified ?? fraud.bank_statement_ocr_verified ?? true) ? (
+                <>
+                  <span className="text-green-600 font-semibold text-xs">Verified</span>
+                  <CheckCircle className="w-5 h-5 text-green-600" />
+                </>
+              ) : (
+                <>
+                  <span className="text-red-600 font-semibold text-xs">Failed</span>
+                  <XCircle className="w-5 h-5 text-red-600" />
+                </>
+              )}
+            </div>
+          </div>
+          <div className="flex items-center justify-between p-3 bg-gray-50 rounded-lg border border-gray-200">
+            <div className="flex items-center gap-2">
+              <span className="text-gray-700 font-medium">Font Variation Check</span>
+            </div>
+            <div className="flex items-center gap-2">
+              {(features.font_variation_detected ?? fraud.font_variation_detected ?? false) ? (
+                <>
+                  <span className="text-red-600 font-semibold text-xs">Anomaly</span>
+                  <XCircle className="w-5 h-5 text-red-600" />
+                </>
+              ) : (
+                <>
+                  <span className="text-green-600 font-semibold text-xs">Normal</span>
+                  <CheckCircle className="w-5 h-5 text-green-600" />
+                </>
+              )}
+            </div>
+          </div>
+        </div>
+      </div>
+
       {/* Additional Scores */}
       <div className="space-y-2 text-sm">
-        <div className="flex items-center justify-between p-2 bg-gray-50 rounded-lg">
-          <span className="text-gray-600">IP Stability Score</span>
-          <span className="font-semibold">{formatPercent(ipStability)}</span>
-        </div>
         <div className="flex items-center justify-between p-2 bg-gray-50 rounded-lg">
           <span className="text-gray-600">Incoming Funds Verified</span>
           <span className="font-semibold">

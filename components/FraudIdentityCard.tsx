@@ -99,12 +99,6 @@ export default function FraudIdentityCard({ consumer }: FraudIdentityCardProps) 
               )
             })}
           </div>
-          <div className="mt-2 pt-2 border-t border-current/20 flex justify-between items-center">
-            <span className="text-xs">Salary-to-UPI Ratio:</span>
-            <span className={`text-xs font-semibold px-2 py-1 rounded ${fraud.statementManipulation?.salaryToUpiRatio === 'Normal' ? 'bg-green-200 text-green-800' : 'bg-amber-200 text-amber-800'}`}>
-              {fraud.statementManipulation?.salaryToUpiRatio || 'Normal'}
-            </span>
-          </div>
         </div>
       </div>
 

@@ -1,7 +1,6 @@
 // MSME API Service - Connects to MSME Credit Scoring Backend
-// In production, use relative path /stori/api, in dev use localhost
-const MSME_API_BASE_URL = process.env.NEXT_PUBLIC_MSME_API_URL || 
-  (typeof window !== 'undefined' ? '/stori/api' : 'http://localhost:8002')
+// Using Nginx proxy at https://mycfo.club/stori/api/
+const MSME_API_BASE_URL = process.env.NEXT_PUBLIC_MSME_API_URL || 'https://mycfo.club/stori/api'
 const MSME_API_TOKEN = process.env.NEXT_PUBLIC_MSME_API_TOKEN || 'msme_prod_token_67890'
 
 // All features from the CSV - must match backend MSMEFeatureInput model

@@ -2,6 +2,7 @@
 
 import { BarChart3, CircleDollarSign, TrendingUp, CheckCircle, XCircle, AlertTriangle, Activity } from "lucide-react"
 import { MSMEBusiness } from "@/lib/msmeApi"
+import { convertScoreTo100, getRiskCategoryFrom100Score, getScoreColor } from "@/lib/scoreUtils"
 
 interface MSMESummaryCardProps {
   msme: MSMEBusiness
@@ -9,7 +10,8 @@ interface MSMESummaryCardProps {
 
 export default function MSMESummaryCard({ msme }: MSMESummaryCardProps) {
   const summary = msme.summary
-  const score = msme.currentScore || summary?.financialHealthScore || 0
+  const score900 = msme.currentScore || summary?.financialHealthScore || 0
+  const score = convertScoreTo100(score900) // Convert to 0-100 scale
   const probDefault = summary?.probabilityOfDefault || (msme.prob_default_90dpd || 0) * 100 || 0
   const maxLoanAmount = summary?.maxLoanAmount || 0
   const riskCategory = msme.riskBucket || summary?.riskGrade || 'Medium'
@@ -17,10 +19,11 @@ export default function MSMESummaryCard({ msme }: MSMESummaryCardProps) {
   const categoryContributions = msme.category_contributions || {}
 
   const getRiskGrade = (score: number) => {
-    if (score >= 750) return { grade: 'A', cibil: '800+', color: 'text-green-600' }
-    if (score >= 650) return { grade: 'B', cibil: '740-800', color: 'text-green-600' }
-    if (score >= 550) return { grade: 'C', cibil: '700-740', color: 'text-yellow-600' }
-    if (score >= 450) return { grade: 'D', cibil: '650-699', color: 'text-orange-600' }
+    // Score is now 0-100
+    if (score >= 85) return { grade: 'A', cibil: '800+', color: 'text-green-600' }
+    if (score >= 70) return { grade: 'B', cibil: '740-800', color: 'text-green-600' }
+    if (score >= 50) return { grade: 'C', cibil: '700-740', color: 'text-yellow-600' }
+    if (score >= 30) return { grade: 'D', cibil: '650-699', color: 'text-orange-600' }
     return { grade: 'E', cibil: '<650', color: 'text-red-600' }
   }
 
@@ -36,11 +39,11 @@ export default function MSMESummaryCard({ msme }: MSMESummaryCardProps) {
   const RecIcon = recStyle.icon
 
   const gradeTable = [
-    { cibil: '800+', score: '750-900', grade: 'A' },
-    { cibil: '740-800', score: '650-749', grade: 'B' },
-    { cibil: '700-740', score: '550-649', grade: 'C' },
-    { cibil: '650-699', score: '450-549', grade: 'D' },
-    { cibil: '<650', score: '300-449', grade: 'E' },
+    { cibil: '800+', score: '85-100', grade: 'A' },
+    { cibil: '740-800', score: '70-84', grade: 'B' },
+    { cibil: '700-740', score: '50-69', grade: 'C' },
+    { cibil: '650-699', score: '30-49', grade: 'D' },
+    { cibil: '<650', score: '0-29', grade: 'E' },
   ]
 
   const categoryLabels: Record<string, string> = {
@@ -75,15 +78,16 @@ export default function MSMESummaryCard({ msme }: MSMESummaryCardProps) {
                 <circle cx="40" cy="40" r="35" stroke="#e5e7eb" strokeWidth="6" fill="none" />
                 <circle
                   cx="40" cy="40" r="35"
-                  stroke={score >= 650 ? '#10b981' : score >= 550 ? '#f59e0b' : '#ef4444'}
+                  stroke={score >= 70 ? '#10b981' : score >= 50 ? '#f59e0b' : '#ef4444'}
                   strokeWidth="6" fill="none"
-                  strokeDasharray={`${((score - 300) / 600) * 220} 220`}
+                  strokeDasharray={`${(score / 100) * 220} 220`}
                   strokeLinecap="round"
                 />
               </svg>
               <span className="absolute text-xl font-bold text-gray-900">{score}</span>
             </div>
             <p className="text-sm font-medium text-gray-600">Credit Score</p>
+            <p className="text-xs text-gray-400 mt-1">Out of 100</p>
           </div>
 
           {/* Risk Grade */}

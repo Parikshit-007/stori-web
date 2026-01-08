@@ -65,49 +65,11 @@ export default function IdentityDemographicsCard({ consumer }: IdentityDemograph
         </div>
       </div>
 
-      {/* Digital Identity Trust Score */}
-      <div className="mb-6">
-        <div className="flex items-center gap-2 mb-3">
-          <Smartphone className="w-4 h-4 text-gray-500" />
-          <h4 className="font-semibold text-gray-800 text-sm">(A) Digital Identity Trust Score</h4>
-          <span className={`ml-auto px-2 py-1 rounded-full text-xs font-bold ${getScoreColor(identity.digitalIdentity?.overallTrustScore || 0)}`}>
-            {identity.digitalIdentity?.overallTrustScore || 0}/100
-          </span>
-        </div>
-        <div className="grid grid-cols-3 gap-2 text-sm mb-2">
-          <div className="bg-gray-50 rounded-lg p-2 text-center">
-            <p className="text-gray-500 text-xs">Device Age</p>
-            <p className="font-semibold">{identity.digitalIdentity?.deviceAge || 0} mo</p>
-          </div>
-          <div className="bg-gray-50 rounded-lg p-2 text-center">
-            <p className="text-gray-500 text-xs">SIM Age</p>
-            <p className="font-semibold">{identity.digitalIdentity?.simAge || 0} mo</p>
-          </div>
-          <div className="bg-gray-50 rounded-lg p-2 text-center">
-            <p className="text-gray-500 text-xs">Email Age</p>
-            <p className="font-semibold">{identity.digitalIdentity?.emailAge || 0} mo</p>
-          </div>
-        </div>
-        <div className="grid grid-cols-2 gap-2 text-sm">
-          <div className="flex justify-between bg-gray-50 rounded-lg p-2">
-            <span className="text-gray-500 text-xs">Platform Consistency</span>
-            <span className="font-semibold text-xs">{identity.digitalIdentity?.platformConsistency || 0}%</span>
-          </div>
-          <div className="flex justify-between bg-gray-50 rounded-lg p-2">
-            <span className="text-gray-500 text-xs">Aadhaar-PAN</span>
-            <span className="font-semibold text-xs">{identity.digitalIdentity?.aadhaarPanMatchStability || 'N/A'}</span>
-          </div>
-        </div>
-        {identity.digitalIdentity?.lowAgeFlag && (
-          <p className="text-xs text-amber-600 mt-1">⚠️ Low age flag detected</p>
-        )}
-      </div>
-
       {/* Life Stability Index */}
       <div className="mb-6">
         <div className="flex items-center gap-2 mb-3">
           <Home className="w-4 h-4 text-gray-500" />
-          <h4 className="font-semibold text-gray-800 text-sm">(B) Life Stability Index</h4>
+          <h4 className="font-semibold text-gray-800 text-sm">(A) Life Stability Index</h4>
           <span className={`ml-auto px-2 py-1 rounded-full text-xs font-bold ${getScoreColor(identity.lifeStability?.overallScore || 0)}`}>
             {identity.lifeStability?.overallScore || 0}/100
           </span>
@@ -154,7 +116,7 @@ export default function IdentityDemographicsCard({ consumer }: IdentityDemograph
       <div>
         <div className="flex items-center gap-2 mb-3">
           <Users className="w-4 h-4 text-gray-500" />
-          <h4 className="font-semibold text-gray-800 text-sm">(C) Social Capital Proxy</h4>
+          <h4 className="font-semibold text-gray-800 text-sm">(B) Social Capital Proxy</h4>
           <span className={`ml-auto px-2 py-1 rounded-full text-xs font-bold ${
             (identity.socialCapital?.level || getSocialCapitalLevel(identity.socialCapital?.overallScore || 0)) === 'High' 
               ? 'bg-green-100 text-green-700' 
