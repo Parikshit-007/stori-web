@@ -652,7 +652,7 @@ export default function MSMEList() {
                             onChange={(e) => handleFormChange(field.key, e.target.value)}
                             className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 text-sm"
                           >
-                            {field.options?.map(opt => (
+                            {(field as any).options?.map((opt: string) => (
                               <option key={opt} value={opt}>{opt.replace(/_/g, ' ').replace(/\b\w/g, l => l.toUpperCase())}</option>
                             ))}
                           </select>
@@ -670,8 +670,8 @@ export default function MSMEList() {
                             type="number"
                             value={((formData as any)[field.key] || 0) * 100}
                             onChange={(e) => handleFormChange(field.key, parseFloat(e.target.value) / 100)}
-                            min={field.min || 0}
-                            max={field.max || 100}
+                            min={(field as any).min || 0}
+                            max={(field as any).max || 100}
                             step="1"
                             className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 text-sm"
                             placeholder="%"
@@ -690,9 +690,9 @@ export default function MSMEList() {
                             type="number"
                             value={(formData as any)[field.key] || ''}
                             onChange={(e) => handleFormChange(field.key, parseFloat(e.target.value) || 0)}
-                            min={field.min}
-                            max={field.max}
-                            step={field.max && field.max <= 5 ? "0.1" : "1"}
+                            min={(field as any).min}
+                            max={(field as any).max}
+                            step={(field as any).max && (field as any).max <= 5 ? "0.1" : "1"}
                             className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 text-sm"
                           />
                         )}
