@@ -12,6 +12,8 @@ export const metadata: Metadata = {
   title: "Stori AI",
   description: "Stori AI Credit Scoring Platform - Advanced Credit Scoring powered by AI",
   metadataBase: new URL('https://mycfo.club/stori'),
+  manifest: '/manifest.json',
+  themeColor: '#667eea',
   icons: {
     icon: [
       { url: "/favicon.svg", type: "image/svg+xml" },
@@ -31,10 +33,6 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" suppressHydrationWarning>
-      <head>
-        <link rel="manifest" href="/stori/manifest.json" />
-        <meta name="theme-color" content="#667eea" />
-      </head>
       <body className={`font-sans antialiased`} suppressHydrationWarning>
         <Layout>{children}</Layout>
         <Analytics />
