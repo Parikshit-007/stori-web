@@ -8,12 +8,12 @@ interface MSMESummaryCardProps {
 }
 
 export default function MSMESummaryCard({ msme }: MSMESummaryCardProps) {
-  const summary = msme.summary || {}
-  const score = msme.currentScore || summary.financialHealthScore || 0
-  const probDefault = summary.probabilityOfDefault || (msme.prob_default_90dpd || 0) * 100 || 0
-  const maxLoanAmount = summary.maxLoanAmount || 0
-  const riskCategory = msme.riskBucket || summary.riskGrade || 'Medium'
-  const recommendation = summary.recommendation || 'Manual Review'
+  const summary = msme.summary
+  const score = msme.currentScore || summary?.financialHealthScore || 0
+  const probDefault = summary?.probabilityOfDefault || (msme.prob_default_90dpd || 0) * 100 || 0
+  const maxLoanAmount = summary?.maxLoanAmount || 0
+  const riskCategory = msme.riskBucket || summary?.riskGrade || 'Medium'
+  const recommendation = summary?.recommendation || 'Manual Review'
   const categoryContributions = msme.category_contributions || {}
 
   const getRiskGrade = (score: number) => {
