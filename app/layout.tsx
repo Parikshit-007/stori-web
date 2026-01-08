@@ -13,20 +13,10 @@ export const metadata: Metadata = {
   description: "Stori AI Credit Scoring Platform",
   icons: {
     icon: [
-      {
-        url: "/icon-light-32x32.png",
-        media: "(prefers-color-scheme: light)",
-      },
-      {
-        url: "/icon-dark-32x32.png",
-        media: "(prefers-color-scheme: dark)",
-      },
-      {
-        url: "/icon.svg",
-        type: "image/svg+xml",
-      },
+      { url: "/favicon.svg", type: "image/svg+xml" },
+      { url: "/favicon.ico" }
     ],
-    apple: "/apple-icon.png",
+    apple: "/favicon.ico",
   },
 }
 

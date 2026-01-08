@@ -89,31 +89,31 @@ export default function MSMEProfile() {
           const allMsmes = await response.json()
           
           if (Array.isArray(allMsmes)) {
-            const found = allMsmes.find((m: MSMEBusiness) => m.id === id)
-            if (found) {
-              // Check for stored score
-              const storedScore = getValidScore(found.id, found.features)
-              if (storedScore) {
+          const found = allMsmes.find((m: MSMEBusiness) => m.id === id)
+          if (found) {
+            // Check for stored score
+            const storedScore = getValidScore(found.id, found.features)
+            if (storedScore) {
                 // Normalize risk category (handle old format with " Risk" suffix)
                 const normalizedRisk = storedScore.riskCategory.replace(' Risk', '')
                 
-                // Apply stored score
-                found.currentScore = storedScore.score
+              // Apply stored score
+              found.currentScore = storedScore.score
                 found.riskBucket = normalizedRisk
-                found.prob_default_90dpd = storedScore.probDefault
-                found.category_contributions = storedScore.categoryContributions
-                found.summary = {
-                  financialHealthScore: storedScore.score,
+              found.prob_default_90dpd = storedScore.probDefault
+              found.category_contributions = storedScore.categoryContributions
+              found.summary = {
+                financialHealthScore: storedScore.score,
                   riskGrade: normalizedRisk,
-                  maxLoanAmount: calculateMaxLoan(storedScore.score, found.features.monthly_gtv || 0),
-                  probabilityOfDefault: storedScore.probDefault * 100,
-                  recommendation: storedScore.recommendation
-                }
-                found.scoreResponse = storedScore.scoreResponse
+                maxLoanAmount: calculateMaxLoan(storedScore.score, found.features.monthly_gtv || 0),
+                probabilityOfDefault: storedScore.probDefault * 100,
+                recommendation: storedScore.recommendation
               }
-              setMsme(found)
-              setLoading(false)
-              return
+              found.scoreResponse = storedScore.scoreResponse
+            }
+            setMsme(found)
+            setLoading(false)
+            return
             }
           } else {
             console.error('[MSMEProfile] API returned error:', allMsmes)
@@ -164,7 +164,7 @@ export default function MSMEProfile() {
 
       // Save to localStorage
       saveScore(msme.id, result, msme.features)
-
+      
       // Normalize risk category (remove " Risk" suffix from backend)
       const normalizedRisk = result.risk_category.replace(' Risk', '')
 
@@ -483,7 +483,7 @@ export default function MSMEProfile() {
 
             {/* Top Negative Features */}
             {msme.scoreResponse.explanation.top_negative_features && msme.scoreResponse.explanation.top_negative_features.length > 0 && (
-              <div className="space-y-3">
+          <div className="space-y-3">
                 <h4 className="font-semibold text-red-700 flex items-center gap-2">
                   <span className="text-2xl">📉</span>
                   Negative Impact Factors
