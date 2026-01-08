@@ -1,0 +1,614 @@
+{
+  "model_version": "1.0.0",
+  "model_name": "gbm_credit_scorer_v1",
+  "target_column": "default_90dpd",
+  "alpha_default": 0.7,
+  
+  "features": {
+    "identity_stability_demographics": {
+      "name_dob_verified": {"type": "binary", "min": 0, "max": 1, "higher_is_better": true},
+      "phone_verified": {"type": "binary", "min": 0, "max": 1, "higher_is_better": true},
+      "phone_age_months": {"type": "numeric", "min": 0, "max": 240, "higher_is_better": true},
+      "email_verified": {"type": "binary", "min": 0, "max": 1, "higher_is_better": true},
+      "email_age_months": {"type": "numeric", "min": 0, "max": 240, "higher_is_better": true},
+      "location_stability_score": {"type": "numeric", "min": 0, "max": 1, "higher_is_better": true},
+      "location_tier": {"type": "categorical", "categories": ["tier1", "tier2", "tier3", "rural"], "higher_is_better": null},
+      "education_level": {"type": "ordinal", "min": 0, "max": 5, "higher_is_better": true, "mapping": {"none": 0, "high_school": 1, "diploma": 2, "bachelors": 3, "masters": 4, "doctorate": 5}},
+      "employment_tenure_months": {"type": "numeric", "min": 0, "max": 480, "higher_is_better": true},
+      "employment_type": {"type": "categorical", "categories": ["unemployed", "self_employed", "contract", "part_time", "full_time", "government"], "higher_is_better": null}
+    },
+    "income_cashflow": {
+      "monthly_income": {"type": "numeric", "min": 0, "max": 5000000, "higher_is_better": true},
+      "income_growth_rate": {"type": "numeric", "min": -0.5, "max": 1.0, "higher_is_better": true},
+      "avg_account_balance": {"type": "numeric", "min": 0, "max": 10000000, "higher_is_better": true},
+      "min_account_balance": {"type": "numeric", "min": 0, "max": 10000000, "higher_is_better": true},
+      "income_stability_score": {"type": "numeric", "min": 0, "max": 1, "higher_is_better": true},
+      "income_variance_coefficient": {"type": "numeric", "min": 0, "max": 2, "higher_is_better": false},
+      "itr_filed": {"type": "binary", "min": 0, "max": 1, "higher_is_better": true},
+      "itr_income_declared": {"type": "numeric", "min": 0, "max": 50000000, "higher_is_better": true},
+      "employability_score": {"type": "numeric", "min": 0, "max": 1, "higher_is_better": true},
+      "ppf_balance": {"type": "numeric", "min": 0, "max": 5000000, "higher_is_better": true},
+      "gov_schemes_enrolled": {"type": "numeric", "min": 0, "max": 10, "higher_is_better": true},
+      "bank_statement_months_available": {"type": "numeric", "min": 0, "max": 36, "higher_is_better": true}
+    },
+    "assets_liabilities": {
+      "current_loan_count": {"type": "numeric", "min": 0, "max": 20, "higher_is_better": false},
+      "current_loan_amount": {"type": "numeric", "min": 0, "max": 50000000, "higher_is_better": false},
+      "credit_card_count": {"type": "numeric", "min": 0, "max": 10, "higher_is_better": null},
+      "credit_card_utilization": {"type": "numeric", "min": 0, "max": 1, "higher_is_better": false},
+      "credit_card_limit": {"type": "numeric", "min": 0, "max": 10000000, "higher_is_better": true},
+      "lic_policy_count": {"type": "numeric", "min": 0, "max": 10, "higher_is_better": true},
+      "lic_premium_annual": {"type": "numeric", "min": 0, "max": 1000000, "higher_is_better": true},
+      "fd_total_amount": {"type": "numeric", "min": 0, "max": 50000000, "higher_is_better": true},
+      "total_assets_value": {"type": "numeric", "min": 0, "max": 100000000, "higher_is_better": true},
+      "insurance_premium_paid_ratio": {"type": "numeric", "min": 0, "max": 1, "higher_is_better": true},
+      "insurance_renewal_ontime_ratio": {"type": "numeric", "min": 0, "max": 1, "higher_is_better": true},
+      "debt_to_income_ratio": {"type": "numeric", "min": 0, "max": 5, "higher_is_better": false}
+    },
+    "spending_behavioral": {
+      "monthly_spending": {"type": "numeric", "min": 0, "max": 5000000, "higher_is_better": null},
+      "spending_to_income_ratio": {"type": "numeric", "min": 0, "max": 2, "higher_is_better": false},
+      "essential_spending_ratio": {"type": "numeric", "min": 0, "max": 1, "higher_is_better": true},
+      "discretionary_spending_ratio": {"type": "numeric", "min": 0, "max": 1, "higher_is_better": false},
+      "purchase_frequency": {"type": "numeric", "min": 0, "max": 500, "higher_is_better": null},
+      "avg_purchase_value": {"type": "numeric", "min": 0, "max": 100000, "higher_is_better": null},
+      "subscription_cancellation_count": {"type": "numeric", "min": 0, "max": 20, "higher_is_better": false},
+      "subscription_downgrade_count": {"type": "numeric", "min": 0, "max": 20, "higher_is_better": false},
+      "impatience_score": {"type": "numeric", "min": 0, "max": 1, "higher_is_better": false},
+      "impulse_buying_score": {"type": "numeric", "min": 0, "max": 1, "higher_is_better": false},
+      "budgeting_score": {"type": "numeric", "min": 0, "max": 1, "higher_is_better": true},
+      "financial_literacy_score": {"type": "numeric", "min": 0, "max": 1, "higher_is_better": true},
+      "recurring_payment_habit_score": {"type": "numeric", "min": 0, "max": 1, "higher_is_better": true},
+      "loan_application_count_6m": {"type": "numeric", "min": 0, "max": 20, "higher_is_better": false},
+      "application_rejection_rate": {"type": "numeric", "min": 0, "max": 1, "higher_is_better": false},
+      "social_media_score": {"type": "numeric", "min": 0, "max": 1, "higher_is_better": true},
+      "email_response_time_score": {"type": "numeric", "min": 0, "max": 1, "higher_is_better": true}
+    },
+    "transactions_repayments": {
+      "upi_transaction_count_monthly": {"type": "numeric", "min": 0, "max": 500, "higher_is_better": null},
+      "upi_transaction_amount_monthly": {"type": "numeric", "min": 0, "max": 5000000, "higher_is_better": null},
+      "p2m_transaction_ratio": {"type": "numeric", "min": 0, "max": 1, "higher_is_better": null},
+      "utility_payment_ontime_ratio": {"type": "numeric", "min": 0, "max": 1, "higher_is_better": true},
+      "rent_payment_ontime_ratio": {"type": "numeric", "min": 0, "max": 1, "higher_is_better": true},
+      "phone_bill_ontime_ratio": {"type": "numeric", "min": 0, "max": 1, "higher_is_better": true},
+      "internet_bill_ontime_ratio": {"type": "numeric", "min": 0, "max": 1, "higher_is_better": true},
+      "repayment_ontime_ratio": {"type": "numeric", "min": 0, "max": 1, "higher_is_better": true},
+      "max_dpd_ever": {"type": "numeric", "min": 0, "max": 180, "higher_is_better": false},
+      "avg_dpd": {"type": "numeric", "min": 0, "max": 90, "higher_is_better": false},
+      "ecommerce_transaction_count": {"type": "numeric", "min": 0, "max": 200, "higher_is_better": null},
+      "ecommerce_return_rate": {"type": "numeric", "min": 0, "max": 1, "higher_is_better": false},
+      "paid_subscription_count": {"type": "numeric", "min": 0, "max": 20, "higher_is_better": true},
+      "sip_active_count": {"type": "numeric", "min": 0, "max": 10, "higher_is_better": true},
+      "sip_monthly_amount": {"type": "numeric", "min": 0, "max": 500000, "higher_is_better": true},
+      "investment_portfolio_value": {"type": "numeric", "min": 0, "max": 50000000, "higher_is_better": true},
+      "savings_rate": {"type": "numeric", "min": 0, "max": 1, "higher_is_better": true}
+    },
+    "fraud_identity": {
+      "face_recognition_match_score": {"type": "numeric", "min": 0, "max": 1, "higher_is_better": true},
+      "name_match_score": {"type": "numeric", "min": 0, "max": 1, "higher_is_better": true},
+      "location_mismatch_flag": {"type": "binary", "min": 0, "max": 1, "higher_is_better": false},
+      "device_anomaly_score": {"type": "numeric", "min": 0, "max": 1, "higher_is_better": false},
+      "fraud_history_flag": {"type": "binary", "min": 0, "max": 1, "higher_is_better": false},
+      "fraud_attempt_count": {"type": "numeric", "min": 0, "max": 10, "higher_is_better": false},
+      "income_source_verified": {"type": "binary", "min": 0, "max": 1, "higher_is_better": true}
+    },
+    "family_network": {
+      "spouse_credit_score": {"type": "numeric", "min": 300, "max": 900, "higher_is_better": true},
+      "spouse_credit_available": {"type": "binary", "min": 0, "max": 1, "higher_is_better": true},
+      "family_credit_score_avg": {"type": "numeric", "min": 300, "max": 900, "higher_is_better": true},
+      "family_credit_available": {"type": "binary", "min": 0, "max": 1, "higher_is_better": true},
+      "family_financial_responsibility_score": {"type": "numeric", "min": 0, "max": 1, "higher_is_better": true},
+      "dependents_count": {"type": "numeric", "min": 0, "max": 10, "higher_is_better": false}
+    }
+  },
+  
+  "category_weights": {
+    "A_identity_stability_demographics": 0.10,
+    "B_income_cashflow": 0.25,
+    "C_assets_liabilities": 0.20,
+    "D_spending_behavioral": 0.25,
+    "E_transactions_repayments": 0.15,
+    "F_fraud_identity": 0.05,
+    "G_family_network": 0.05
+  },
+  
+  "category_feature_mapping": {
+    "A_identity_stability_demographics": {
+      "weight": 0.10,
+      "default_intra_weights": {
+        "name_dob": 0.01,
+        "phone": 0.01,
+        "email": 0.01,
+        "location": 0.02,
+        "education": 0.02,
+        "employment_history": 0.03
+      },
+      "features": ["name_dob_verified", "phone_verified", "phone_age_months", "email_verified", "email_age_months", "location_stability_score", "location_tier", "education_level", "employment_tenure_months", "employment_type"]
+    },
+    "B_income_cashflow": {
+      "weight": 0.25,
+      "default_intra_weights": {
+        "income_proxies": 0.05,
+        "avg_balance": 0.04,
+        "income_stability": 0.04,
+        "itr": 0.05,
+        "employability": 0.03,
+        "ppf_gov_schemes": 0.02
+      },
+      "features": ["monthly_income", "income_growth_rate", "avg_account_balance", "min_account_balance", "income_stability_score", "income_variance_coefficient", "itr_filed", "itr_income_declared", "employability_score", "ppf_balance", "gov_schemes_enrolled", "bank_statement_months_available"]
+    },
+    "C_assets_liabilities": {
+      "weight": 0.20,
+      "default_intra_weights": {
+        "current_loans": 0.05,
+        "credit_card_loan_data": 0.05,
+        "lic_fd": 0.03,
+        "assets": 0.04,
+        "insurance_premium": 0.03
+      },
+      "features": ["current_loan_count", "current_loan_amount", "credit_card_count", "credit_card_utilization", "credit_card_limit", "lic_policy_count", "lic_premium_annual", "fd_total_amount", "total_assets_value", "insurance_premium_paid_ratio", "insurance_renewal_ontime_ratio", "debt_to_income_ratio"]
+    },
+    "D_spending_behavioral": {
+      "weight": 0.25,
+      "default_intra_weights": {
+        "spending_pattern": 0.05,
+        "purchase_behaviour": 0.02,
+        "subscription_cancellations": 0.02,
+        "impatience_credit": 0.03,
+        "budgeting": 0.02,
+        "financial_literacy": 0.02,
+        "recurring_payment_habit": 0.03,
+        "application_patterns": 0.02,
+        "social_media": 0.01,
+        "email_behaviour": 0.02
+      },
+      "features": ["monthly_spending", "spending_to_income_ratio", "essential_spending_ratio", "discretionary_spending_ratio", "purchase_frequency", "avg_purchase_value", "subscription_cancellation_count", "subscription_downgrade_count", "impatience_score", "impulse_buying_score", "budgeting_score", "financial_literacy_score", "recurring_payment_habit_score", "loan_application_count_6m", "application_rejection_rate", "social_media_score", "email_response_time_score"]
+    },
+    "E_transactions_repayments": {
+      "weight": 0.15,
+      "default_intra_weights": {
+        "upi_payment_transactions": 0.03,
+        "utility_payments": 0.03,
+        "repayment_behaviour": 0.03,
+        "ecommerce": 0.02,
+        "paid_subscriptions": 0.02,
+        "sip_investments_savings": 0.02
+      },
+      "features": ["upi_transaction_count_monthly", "upi_transaction_amount_monthly", "p2m_transaction_ratio", "utility_payment_ontime_ratio", "rent_payment_ontime_ratio", "phone_bill_ontime_ratio", "internet_bill_ontime_ratio", "repayment_ontime_ratio", "max_dpd_ever", "avg_dpd", "ecommerce_transaction_count", "ecommerce_return_rate", "paid_subscription_count", "sip_active_count", "sip_monthly_amount", "investment_portfolio_value", "savings_rate"]
+    },
+    "F_fraud_identity": {
+      "weight": 0.05,
+      "default_intra_weights": {
+        "face_name_match": 0.02,
+        "location_device_intelligence": 0.01,
+        "fraud_history": 0.01,
+        "income_source_verification": 0.01
+      },
+      "features": ["face_recognition_match_score", "name_match_score", "location_mismatch_flag", "device_anomaly_score", "fraud_history_flag", "fraud_attempt_count", "income_source_verified"]
+    },
+    "G_family_network": {
+      "weight": 0.05,
+      "default_intra_weights": {
+        "spouse_family_credit": 0.03,
+        "family_responsibility": 0.02
+      },
+      "features": ["spouse_credit_score", "spouse_credit_available", "family_credit_score_avg", "family_credit_available", "family_financial_responsibility_score", "dependents_count"]
+    }
+  },
+  
+  "persona_weights": {
+    "new_to_credit": {
+      "name": "New-to-Credit (NTC)",
+      "description": "Users with limited or no credit history",
+      "A_identity_stability_demographics": {
+        "total_weight": 0.15,
+        "intra_weights": {
+          "name_dob": 0.02,
+          "phone": 0.02,
+          "email": 0.03,
+          "location": 0.03,
+          "education": 0.03,
+          "employment_history": 0.02
+        }
+      },
+      "B_income_cashflow": {
+        "total_weight": 0.35,
+        "intra_weights": {
+          "income_proxies": 0.10,
+          "avg_balance": 0.04,
+          "income_stability": 0.07,
+          "itr": 0.06,
+          "employability": 0.04,
+          "ppf_gov_schemes": 0.04
+        }
+      },
+      "C_assets_liabilities": {
+        "total_weight": 0.05,
+        "intra_weights": {
+          "lic_fd": 0.02,
+          "insurance_premium": 0.01,
+          "assets": 0.02,
+          "current_loans": 0.00,
+          "credit_card_loan_data": 0.00
+        }
+      },
+      "D_spending_behavioral": {
+        "total_weight": 0.30,
+        "intra_weights": {
+          "spending_pattern": 0.10,
+          "subscription_cancellations": 0.03,
+          "application_patterns": 0.04,
+          "impatience_credit": 0.04,
+          "budgeting": 0.02,
+          "financial_literacy": 0.01,
+          "recurring_payment_habit": 0.03,
+          "social_media": 0.02,
+          "email_behaviour": 0.01,
+          "purchase_behaviour": 0.00
+        }
+      },
+      "E_transactions_repayments": {
+        "total_weight": 0.09,
+        "intra_weights": {
+          "upi_payment_transactions": 0.05,
+          "utility_payments": 0.02,
+          "ecommerce": 0.02,
+          "repayment_behaviour": 0.00,
+          "paid_subscriptions": 0.00,
+          "sip_investments_savings": 0.00
+        }
+      },
+      "F_fraud_identity": {
+        "total_weight": 0.04,
+        "intra_weights": {
+          "face_name_match": 0.02,
+          "location_device_intelligence": 0.01,
+          "fraud_history": 0.01,
+          "income_source_verification": 0.00
+        }
+      },
+      "G_family_network": {
+        "total_weight": 0.02,
+        "intra_weights": {
+          "spouse_family_credit": 0.01,
+          "family_responsibility": 0.01
+        }
+      }
+    },
+    "gig_worker": {
+      "name": "Gig Worker / Freelancer",
+      "description": "Users with irregular income patterns from gig/freelance work",
+      "A_identity_stability_demographics": {
+        "total_weight": 0.10,
+        "intra_weights": {
+          "name_dob": 0.01,
+          "phone": 0.02,
+          "email": 0.02,
+          "location": 0.02,
+          "education": 0.01,
+          "employment_history": 0.02
+        }
+      },
+      "B_income_cashflow": {
+        "total_weight": 0.40,
+        "intra_weights": {
+          "income_proxies": 0.12,
+          "avg_balance": 0.10,
+          "income_stability": 0.10,
+          "itr": 0.05,
+          "employability": 0.03,
+          "ppf_gov_schemes": 0.00
+        }
+      },
+      "C_assets_liabilities": {
+        "total_weight": 0.08,
+        "intra_weights": {
+          "current_loans": 0.03,
+          "credit_card_loan_data": 0.03,
+          "insurance_premium": 0.01,
+          "assets": 0.01,
+          "lic_fd": 0.00
+        }
+      },
+      "D_spending_behavioral": {
+        "total_weight": 0.25,
+        "intra_weights": {
+          "spending_pattern": 0.08,
+          "subscription_cancellations": 0.03,
+          "application_patterns": 0.02,
+          "impatience_credit": 0.04,
+          "budgeting": 0.03,
+          "financial_literacy": 0.02,
+          "recurring_payment_habit": 0.03,
+          "social_media": 0.00,
+          "email_behaviour": 0.00,
+          "purchase_behaviour": 0.00
+        }
+      },
+      "E_transactions_repayments": {
+        "total_weight": 0.14,
+        "intra_weights": {
+          "upi_payment_transactions": 0.07,
+          "utility_payments": 0.05,
+          "ecommerce": 0.02,
+          "repayment_behaviour": 0.00,
+          "paid_subscriptions": 0.00,
+          "sip_investments_savings": 0.00
+        }
+      },
+      "F_fraud_identity": {
+        "total_weight": 0.02,
+        "intra_weights": {
+          "face_name_match": 0.01,
+          "location_device_intelligence": 0.01,
+          "fraud_history": 0.00,
+          "income_source_verification": 0.00
+        }
+      },
+      "G_family_network": {
+        "total_weight": 0.01,
+        "intra_weights": {
+          "spouse_family_credit": 0.01,
+          "family_responsibility": 0.00
+        }
+      }
+    },
+    "salaried_professional": {
+      "name": "Salaried Professional",
+      "description": "Users with stable salaried employment",
+      "A_identity_stability_demographics": {
+        "total_weight": 0.10,
+        "intra_weights": {
+          "name_dob": 0.01,
+          "phone": 0.01,
+          "email": 0.02,
+          "location": 0.01,
+          "education": 0.02,
+          "employment_history": 0.03
+        }
+      },
+      "B_income_cashflow": {
+        "total_weight": 0.30,
+        "intra_weights": {
+          "income_proxies": 0.05,
+          "avg_balance": 0.05,
+          "income_stability": 0.10,
+          "itr": 0.06,
+          "employability": 0.03,
+          "ppf_gov_schemes": 0.01
+        }
+      },
+      "C_assets_liabilities": {
+        "total_weight": 0.25,
+        "intra_weights": {
+          "current_loans": 0.10,
+          "credit_card_loan_data": 0.10,
+          "lic_fd": 0.02,
+          "insurance_premium": 0.02,
+          "assets": 0.01
+        }
+      },
+      "D_spending_behavioral": {
+        "total_weight": 0.15,
+        "intra_weights": {
+          "spending_pattern": 0.05,
+          "subscription_cancellations": 0.01,
+          "application_patterns": 0.02,
+          "impatience_credit": 0.02,
+          "budgeting": 0.02,
+          "financial_literacy": 0.02,
+          "recurring_payment_habit": 0.01,
+          "social_media": 0.00,
+          "email_behaviour": 0.00,
+          "purchase_behaviour": 0.00
+        }
+      },
+      "E_transactions_repayments": {
+        "total_weight": 0.15,
+        "intra_weights": {
+          "upi_payment_transactions": 0.03,
+          "utility_payments": 0.04,
+          "repayment_behaviour": 0.06,
+          "ecommerce": 0.01,
+          "sip_investments_savings": 0.01,
+          "paid_subscriptions": 0.00
+        }
+      },
+      "F_fraud_identity": {
+        "total_weight": 0.03,
+        "intra_weights": {
+          "face_name_match": 0.01,
+          "location_device_intelligence": 0.01,
+          "fraud_history": 0.01,
+          "income_source_verification": 0.00
+        }
+      },
+      "G_family_network": {
+        "total_weight": 0.02,
+        "intra_weights": {
+          "spouse_family_credit": 0.02,
+          "family_responsibility": 0.00
+        }
+      }
+    },
+    "credit_experienced": {
+      "name": "Credit-Experienced Borrower",
+      "description": "Users with established credit history and multiple credit products",
+      "A_identity_stability_demographics": {
+        "total_weight": 0.05,
+        "intra_weights": {
+          "name_dob": 0.01,
+          "phone": 0.01,
+          "email": 0.01,
+          "location": 0.01,
+          "education": 0.01,
+          "employment_history": 0.00
+        }
+      },
+      "B_income_cashflow": {
+        "total_weight": 0.20,
+        "intra_weights": {
+          "income_proxies": 0.02,
+          "avg_balance": 0.04,
+          "income_stability": 0.07,
+          "itr": 0.03,
+          "employability": 0.02,
+          "ppf_gov_schemes": 0.02
+        }
+      },
+      "C_assets_liabilities": {
+        "total_weight": 0.40,
+        "intra_weights": {
+          "current_loans": 0.10,
+          "credit_card_loan_data": 0.10,
+          "insurance_premium": 0.06,
+          "assets": 0.08,
+          "lic_fd": 0.06
+        }
+      },
+      "D_spending_behavioral": {
+        "total_weight": 0.10,
+        "intra_weights": {
+          "spending_pattern": 0.03,
+          "application_patterns": 0.02,
+          "impatience_credit": 0.02,
+          "budgeting": 0.01,
+          "financial_literacy": 0.02,
+          "subscription_cancellations": 0.00,
+          "recurring_payment_habit": 0.00,
+          "social_media": 0.00,
+          "email_behaviour": 0.00,
+          "purchase_behaviour": 0.00
+        }
+      },
+      "E_transactions_repayments": {
+        "total_weight": 0.15,
+        "intra_weights": {
+          "upi_payment_transactions": 0.03,
+          "utility_payments": 0.03,
+          "repayment_behaviour": 0.05,
+          "sip_investments_savings": 0.04,
+          "ecommerce": 0.00,
+          "paid_subscriptions": 0.00
+        }
+      },
+      "F_fraud_identity": {
+        "total_weight": 0.05,
+        "intra_weights": {
+          "face_name_match": 0.02,
+          "location_device_intelligence": 0.01,
+          "fraud_history": 0.02,
+          "income_source_verification": 0.00
+        }
+      },
+      "G_family_network": {
+        "total_weight": 0.05,
+        "intra_weights": {
+          "spouse_family_credit": 0.05,
+          "family_responsibility": 0.00
+        }
+      }
+    },
+    "mass_affluent": {
+      "name": "Mass Affluent / High Asset",
+      "description": "High net worth users with significant assets",
+      "A_identity_stability_demographics": {
+        "total_weight": 0.03,
+        "intra_weights": {
+          "name_dob": 0.01,
+          "phone": 0.01,
+          "email": 0.01,
+          "location": 0.00,
+          "education": 0.00,
+          "employment_history": 0.00
+        }
+      },
+      "B_income_cashflow": {
+        "total_weight": 0.20,
+        "intra_weights": {
+          "income_proxies": 0.04,
+          "avg_balance": 0.06,
+          "income_stability": 0.04,
+          "itr": 0.03,
+          "employability": 0.02,
+          "ppf_gov_schemes": 0.01
+        }
+      },
+      "C_assets_liabilities": {
+        "total_weight": 0.45,
+        "intra_weights": {
+          "current_loans": 0.08,
+          "credit_card_loan_data": 0.10,
+          "lic_fd": 0.05,
+          "insurance_premium": 0.05,
+          "assets": 0.17
+        }
+      },
+      "D_spending_behavioral": {
+        "total_weight": 0.07,
+        "intra_weights": {
+          "spending_pattern": 0.03,
+          "purchase_behaviour": 0.01,
+          "subscription_cancellations": 0.01,
+          "budgeting": 0.01,
+          "financial_literacy": 0.01,
+          "application_patterns": 0.00,
+          "impatience_credit": 0.00,
+          "recurring_payment_habit": 0.00,
+          "social_media": 0.00,
+          "email_behaviour": 0.00
+        }
+      },
+      "E_transactions_repayments": {
+        "total_weight": 0.15,
+        "intra_weights": {
+          "upi_payment_transactions": 0.02,
+          "utility_payments": 0.04,
+          "repayment_behaviour": 0.05,
+          "sip_investments_savings": 0.04,
+          "ecommerce": 0.00,
+          "paid_subscriptions": 0.00
+        }
+      },
+      "F_fraud_identity": {
+        "total_weight": 0.05,
+        "intra_weights": {
+          "face_name_match": 0.02,
+          "location_device_intelligence": 0.01,
+          "fraud_history": 0.02,
+          "income_source_verification": 0.00
+        }
+      },
+      "G_family_network": {
+        "total_weight": 0.05,
+        "intra_weights": {
+          "spouse_family_credit": 0.05,
+          "family_responsibility": 0.00
+        }
+      }
+    }
+  },
+  
+  "score_mapping": {
+    "min_score": 300,
+    "max_score": 900,
+    "calibration_method": "isotonic",
+    "risk_buckets": [
+      {"range": [300, 499], "risk_level": "Very High", "expected_default_rate": 0.35},
+      {"range": [500, 599], "risk_level": "High", "expected_default_rate": 0.20},
+      {"range": [600, 699], "risk_level": "Medium", "expected_default_rate": 0.10},
+      {"range": [700, 799], "risk_level": "Low", "expected_default_rate": 0.05},
+      {"range": [800, 900], "risk_level": "Very Low", "expected_default_rate": 0.02}
+    ]
+  },
+  
+  "monitoring": {
+    "psi_threshold": 0.25,
+    "feature_drift_threshold": 0.10,
+    "calibration_check_frequency_days": 7,
+    "retraining_frequency_days": 90,
+    "alert_channels": ["email", "slack"]
+  }
+}
+
+

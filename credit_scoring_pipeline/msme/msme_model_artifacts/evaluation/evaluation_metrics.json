@@ -1,0 +1,40 @@
+{
+  "auc": 0.7251581575601611,
+  "gini": 0.4503163151203222,
+  "ks_statistic": 0.35820964110105236,
+  "brier_score": 0.07944958610530788,
+  "precision_at_k": {
+    "precision@5%": 0.2631578947368421,
+    "precision@10%": 0.2222222222222222,
+    "precision@20%": 0.20261437908496732,
+    "precision@30%": 0.17647058823529413
+  },
+  "risk_buckets": {
+    "300-449": {
+      "count": 119,
+      "pct": 7.777777777777778,
+      "default_rate": 25.210084033613445,
+      "expected_defaults": 30
+    },
+    "450-549": {
+      "count": 426,
+      "pct": 27.84313725490196,
+      "default_rate": 15.258215962441316,
+      "expected_defaults": 65
+    },
+    "550-649": {
+      "count": 421,
+      "pct": 27.516339869281047,
+      "default_rate": 7.363420427553444,
+      "expected_defaults": 31
+    },
+    "750-900": {
+      "count": 564,
+      "pct": 36.86274509803922,
+      "default_rate": 2.6595744680851063,
+      "expected_defaults": 15
+    }
+  },
+  "test_samples": 1530,
+  "test_default_rate": 0.09215686274509804
+}

@@ -1,0 +1,107 @@
+{
+  "model_version": "20260105_134606",
+  "n_samples": 10200,
+  "train_samples": 7140,
+  "val_samples": 1530,
+  "test_samples": 1530,
+  "n_features": 92,
+  "hyperparams": {
+    "objective": "binary",
+    "metric": [
+      "auc",
+      "binary_logloss"
+    ],
+    "boosting_type": "gbdt",
+    "num_leaves": 101,
+    "max_depth": 9,
+    "learning_rate": 0.014072546903294418,
+    "feature_fraction": 0.6917269846580398,
+    "bagging_fraction": 0.9753004668478616,
+    "bagging_freq": 8,
+    "min_child_samples": 100,
+    "min_data_in_leaf": 50,
+    "reg_alpha": 0.393993964201015,
+    "reg_lambda": 0.0030158011601738063,
+    "n_estimators": 2000,
+    "early_stopping_rounds": 200,
+    "verbose": -1,
+    "random_state": 42,
+    "n_jobs": -1,
+    "is_unbalance": false,
+    "scale_pos_weight": 1.0
+  },
+  "training_metrics": {
+    "tuning": {
+      "best_params": {
+        "num_leaves": 101,
+        "max_depth": 9,
+        "learning_rate": 0.014072546903294418,
+        "feature_fraction": 0.6917269846580398,
+        "bagging_fraction": 0.9753004668478616,
+        "bagging_freq": 8,
+        "min_child_samples": 100,
+        "reg_alpha": 0.393993964201015,
+        "reg_lambda": 0.0030158011601738063
+      },
+      "best_auc": 0.800396754636234,
+      "n_trials": 30
+    },
+    "train": {
+      "auc": 0.9389782298826732,
+      "gini": 0.8779564597653464,
+      "brier_score": 0.0640952374508354
+    },
+    "validation": {
+      "auc": 0.802157631954351,
+      "gini": 0.6043152639087019,
+      "ks_statistic": 0.4868491440798859,
+      "ks_threshold": 0.06451612903225806,
+      "brier_score": 0.06893829936991758,
+      "precision@5%": 0.3157894736842105,
+      "precision@10%": 0.27450980392156865,
+      "precision@20%": 0.23529411764705882,
+      "precision@30%": 0.19607843137254902
+    }
+  },
+  "evaluation_results": {
+    "auc": 0.7251581575601611,
+    "gini": 0.4503163151203222,
+    "ks_statistic": 0.35820964110105236,
+    "brier_score": 0.07944958610530788,
+    "precision_at_k": {
+      "precision@5%": 0.2631578947368421,
+      "precision@10%": 0.2222222222222222,
+      "precision@20%": 0.20261437908496732,
+      "precision@30%": 0.17647058823529413
+    },
+    "risk_buckets": {
+      "300-449": {
+        "count": 119,
+        "pct": 7.777777777777778,
+        "default_rate": 25.210084033613445,
+        "expected_defaults": 30
+      },
+      "450-549": {
+        "count": 426,
+        "pct": 27.84313725490196,
+        "default_rate": 15.258215962441316,
+        "expected_defaults": 65
+      },
+      "550-649": {
+        "count": 421,
+        "pct": 27.516339869281047,
+        "default_rate": 7.363420427553444,
+        "expected_defaults": 31
+      },
+      "750-900": {
+        "count": 564,
+        "pct": 36.86274509803922,
+        "default_rate": 2.6595744680851063,
+        "expected_defaults": 15
+      }
+    },
+    "test_samples": 1530,
+    "test_default_rate": 0.09215686274509804
+  },
+  "training_timestamp": "2026-01-05T13:48:31.601815"
+}

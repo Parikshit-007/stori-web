@@ -3,12 +3,13 @@
 import { useState } from "react"
 import Link from "next/link"
 import { usePathname } from "next/navigation"
-import { Users, Menu, X } from "lucide-react"
+import { Users, Menu, X, Building2 } from "lucide-react"
 // import { Zap, TrendingUp, Brain, Settings, Home } from "lucide-react"
 
 const menuItems = [
   // { id: "dashboard", label: "Dashboard", path: "/", icon: Home },
   { id: "consumers", label: "Consumers", path: "/consumers", icon: Users },
+  { id: "msmes", label: "MSMEs", path: "/msmes", icon: Building2 },
   // { id: "score-builder", label: "Score Builder", path: "/score-builder", icon: Zap },
   // { id: "risk", label: "Risk Analysis", path: "/risk-analysis", icon: TrendingUp },
   // { id: "explainability", label: "Explainability", path: "/explainability", icon: Brain },
@@ -52,7 +53,9 @@ export default function Sidebar() {
         <nav className="flex-1 px-4 py-6 space-y-2 overflow-y-auto">
           {menuItems.map((item) => {
             const Icon = item.icon
-            const isActive = pathname === item.path || (item.path === "/consumers" && pathname === "/")
+            const isActive = pathname === item.path || 
+              (item.path === "/consumers" && pathname === "/") ||
+              (item.path === "/msmes" && pathname?.startsWith("/msmes"))
             return (
               <Link
                 key={item.id}

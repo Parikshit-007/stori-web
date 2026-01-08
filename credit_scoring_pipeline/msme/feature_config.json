@@ -1,0 +1,907 @@
+{
+  "model_version": "2.0.0",
+  "model_name": "msme_gbm_credit_scorer_v2",
+  "target_column": "default_90dpd",
+  "alpha_default": 0.7,
+  "score_range": {"min": 300, "max": 900},
+  "last_updated": "2024-12-14",
+  
+  "_documentation": {
+    "description": "MSME Credit Scoring Feature Configuration with Industry-Standard Weights",
+    "total_parameters": 65,
+    "total_weightage": 100,
+    "reference_standards": [
+      "RBI Guidelines for MSME Lending",
+      "Basel III Capital Adequacy Norms",
+      "CGTMSE Guidelines",
+      "Tandon Committee Recommendations"
+    ]
+  },
+  
+  "features": {
+    "A_business_identity_registration": {
+      "_category_info": {
+        "weight_pct": 10,
+        "description": "Business Identity, Stability & Registration"
+      },
+      
+      "legal_entity_type": {
+        "type": "categorical",
+        "weight": 0.5,
+        "why_it_matters": "Is the business registered or not registered. Helps in fraud detection.",
+        "categories": ["proprietorship", "partnership", "llp", "private_limited", "public_limited", "trust", "society"],
+        "category_scores": {
+          "public_limited": 1.0,
+          "private_limited": 0.9,
+          "llp": 0.8,
+          "partnership": 0.6,
+          "proprietorship": 0.4,
+          "trust": 0.5,
+          "society": 0.5
+        }
+      },
+      
+      "business_formation_date": {
+        "type": "numeric",
+        "weight": 2.0,
+        "min": 0,
+        "max": 50,
+        "unit": "years",
+        "higher_is_better": true,
+        "why_it_matters": "Older businesses have lower default risk and more stable cashflows.",
+        "scoring_breakpoints": [
+          {"range": [0, 1], "score_range": [0.0, 0.3]},
+          {"range": [1, 2], "score_range": [0.3, 0.5]},
+          {"range": [2, 3], "score_range": [0.5, 0.65]},
+          {"range": [3, 5], "score_range": [0.65, 0.8]},
+          {"range": [5, 10], "score_range": [0.8, 0.95]},
+          {"range": [10, 50], "score_range": [0.95, 1.0]}
+        ]
+      },
+      
+      "business_address_geolocation": {
+        "type": "composite",
+        "weight": 1.0,
+        "why_it_matters": "Links business to local economic conditions and verifies authenticity.",
+        "components": ["address_verified", "geolocation_match"],
+        "scoring_logic": {
+          "both_verified_match": 1.0,
+          "verified_minor_mismatch": 0.7,
+          "partially_verified": 0.4,
+          "not_verified": 0.0
+        }
+      },
+      
+      "industry": {
+        "type": "categorical",
+        "weight": 2.0,
+        "why_it_matters": "Some industries have inherently higher volatility and risk.",
+        "categories": ["manufacturing", "trading", "services", "agriculture", "construction", "retail", "hospitality", "logistics", "technology", "healthcare"],
+        "industry_risk_scores": {
+          "healthcare": 0.90,
+          "technology": 0.85,
+          "essential_retail": 0.80,
+          "manufacturing": 0.75,
+          "services": 0.70,
+          "trading": 0.65,
+          "logistics": 0.60,
+          "retail": 0.55,
+          "hospitality": 0.40,
+          "construction": 0.35,
+          "agriculture": 0.30
+        }
+      },
+      
+      "num_business_locations": {
+        "type": "numeric",
+        "weight": 0.5,
+        "min": 1,
+        "max": 100,
+        "higher_is_better": true,
+        "why_it_matters": "Signals scale, diversification, and stability.",
+        "formula": "score = min(1.0, (num_locations - 1) / 9)"
+      },
+      
+      "employees_count": {
+        "type": "numeric",
+        "weight": 0.5,
+        "min": 0,
+        "max": 500,
+        "higher_is_better": true,
+        "why_it_matters": "Indicates operational size and payroll obligations.",
+        "formula": "score = min(1.0, employees / 100)"
+      },
+      
+      "gstin_pan_verification": {
+        "type": "binary_composite",
+        "weight": 1.0,
+        "why_it_matters": "Detects identity mismatches and potential fraud.",
+        "components": ["gstin_verified", "pan_verified", "name_match"],
+        "scoring_logic": {
+          "both_verified_match": 1.0,
+          "both_verified_mismatch": 0.5,
+          "one_verified": 0.4,
+          "neither_verified": 0.0
+        }
+      },
+      
+      "msme_registration": {
+        "type": "categorical",
+        "weight": 0.5,
+        "why_it_matters": "Indicates structured operations and compliance. Determines type of MSME.",
+        "categories": ["micro", "small", "medium", "not_registered"],
+        "category_scores": {
+          "medium": 1.0,
+          "small": 0.9,
+          "micro": 0.7,
+          "not_registered": 0.2
+        }
+      },
+      
+      "business_structure": {
+        "type": "categorical",
+        "weight": 0.5,
+        "why_it_matters": "Physical presence reduces fraud and improves stability.",
+        "categories": ["home_based", "shop", "warehouse", "office", "factory", "multiple"],
+        "category_scores": {
+          "factory": 1.0,
+          "multiple": 0.95,
+          "warehouse": 0.85,
+          "office": 0.80,
+          "shop": 0.65,
+          "home_based": 0.40
+        }
+      },
+      
+      "licenses_certificates": {
+        "type": "numeric",
+        "weight": 1.0,
+        "min": 0,
+        "max": 1,
+        "higher_is_better": true,
+        "why_it_matters": "Information on property ownership, professional licenses for carrying out business lowers fraud risk.",
+        "formula": "score = valid_licenses / max_expected_licenses"
+      }
+    },
+    
+    "B_revenue_business_performance": {
+      "_category_info": {
+        "weight_pct": 20,
+        "description": "Revenue & Business Performance"
+      },
+      
+      "weekly_gtv": {
+        "type": "numeric",
+        "weight": 7.0,
+        "min": 0,
+        "max": 100000000,
+        "higher_is_better": true,
+        "why_it_matters": "Direct measure of revenue capacity and ability to repay.",
+        "msme_category_bounds": {
+          "micro": {"max": 2500000},
+          "small": {"max": 10000000},
+          "medium": {"max": 50000000}
+        },
+        "percentile_scoring": {
+          "p90": 1.0, "p75": 0.85, "p50": 0.65, "p25": 0.40, "p10": 0.20
+        }
+      },
+      
+      "transaction_count_value_per_day": {
+        "type": "composite",
+        "weight": 3.0,
+        "why_it_matters": "Higher frequency indicates healthier cashflow.",
+        "components": ["transaction_count_daily", "avg_transaction_value"],
+        "formula": "score = 0.6 * min(1, count/100) + 0.4 * value_score"
+      },
+      
+      "revenue_concentration_peak_day": {
+        "type": "numeric",
+        "weight": 1.0,
+        "min": 0,
+        "max": 1,
+        "higher_is_better": false,
+        "why_it_matters": "High dependence on few days increases cashflow risk.",
+        "formula": "HHI method: score = 1 - min(1, (hhi - 0.14) / 0.86)"
+      },
+      
+      "refund_chargeback_rate": {
+        "type": "numeric",
+        "weight": 2.0,
+        "min": 0,
+        "max": 1,
+        "higher_is_better": false,
+        "why_it_matters": "Strong predictor of fraud and business instability.",
+        "critical_thresholds": {
+          "acceptable": 0.01,
+          "warning": 0.02,
+          "critical": 0.05
+        }
+      },
+      
+      "revenue_growth_rate_mom_qoq": {
+        "type": "composite",
+        "weight": 2.0,
+        "why_it_matters": "Positive, consistent growth indicates strong repayment ability.",
+        "components": ["revenue_growth_mom", "revenue_growth_qoq"],
+        "formula": "score = 0.6 * sigmoid(mom, 0.05, 0.10) + 0.4 * sigmoid(qoq, 0.15, 0.20)"
+      },
+      
+      "bank_average_balance_and_trend": {
+        "type": "composite",
+        "weight": 4.0,
+        "why_it_matters": "Shows liquidity cushion. Combined: avg balance (3) + trend (1)",
+        "components": ["avg_bank_balance", "balance_trend"],
+        "formula": "score = 0.75 * balance_score + 0.25 * trend_score"
+      },
+      
+      "profit_margin_trends": {
+        "type": "composite",
+        "weight": 1.0,
+        "why_it_matters": "Low or falling margins increase default risk.",
+        "components": ["profit_margin", "profit_margin_trend"],
+        "bounds": {"min": -0.5, "max": 0.8}
+      },
+      
+      "inventory_turnover_ratio": {
+        "type": "numeric",
+        "weight": 1.0,
+        "min": 0,
+        "max": 50,
+        "higher_is_better": true,
+        "why_it_matters": "Low turnover means cash stuck in inventory.",
+        "industry_optimal": {
+          "retail": 12, "trading": 12, "manufacturing": 6, "services": 8
+        }
+      },
+      
+      "value_of_assets": {
+        "type": "numeric",
+        "weight": 3.0,
+        "min": 0,
+        "max": 500000000,
+        "higher_is_better": true,
+        "why_it_matters": "Determines the safety net of the business and the business value.",
+        "formula": "score = min(1, asset_to_debt_ratio / 3)"
+      },
+      
+      "operational_leverage_ratio": {
+        "type": "numeric",
+        "weight": 2.0,
+        "min": 0,
+        "max": 5,
+        "higher_is_better": false,
+        "why_it_matters": "Determines business dependency on fixed costs, the more the fixed costs the more risky the business is.",
+        "scoring_breakpoints": [
+          {"value": 1.0, "score": 1.0},
+          {"value": 1.5, "score": 0.8},
+          {"value": 2.0, "score": 0.6},
+          {"value": 3.0, "score": 0.4},
+          {"value": 5.0, "score": 0.2}
+        ]
+      }
+    },
+    
+    "C_cashflow_banking": {
+      "_category_info": {
+        "weight_pct": 25,
+        "description": "Cash Flow & Banking"
+      },
+      
+      "weekly_inflow_outflow_ratio": {
+        "type": "numeric",
+        "weight": 4.0,
+        "min": 0,
+        "max": 5,
+        "higher_is_better": true,
+        "why_it_matters": "Helps understand working capital health.",
+        "optimal_range": [1.05, 1.30],
+        "scoring_breakpoints": [
+          {"range": [0, 0.8], "score": 0.0},
+          {"range": [0.8, 0.95], "score": 0.3},
+          {"range": [0.95, 1.05], "score": 0.6},
+          {"range": [1.05, 1.2], "score": 0.85},
+          {"range": [1.2, 5.0], "score": 1.0}
+        ]
+      },
+      
+      "overdraft_days_and_amount": {
+        "type": "composite",
+        "weight": 3.0,
+        "why_it_matters": "Indicates working capital stress and risk.",
+        "components": ["overdraft_days_count", "overdraft_amount_avg"],
+        "higher_is_better": false,
+        "formula": "score = 0.5 * (1 - days/30) + 0.5 * (1 - amount_ratio*5)"
+      },
+      
+      "cash_buffer_days": {
+        "type": "numeric",
+        "weight": 3.0,
+        "min": 0,
+        "max": 180,
+        "higher_is_better": true,
+        "why_it_matters": "Critical for determining repayment capability.",
+        "scoring_breakpoints": [
+          {"days": 7, "score": 0.2},
+          {"days": 15, "score": 0.4},
+          {"days": 30, "score": 0.6},
+          {"days": 60, "score": 0.8},
+          {"days": 90, "score": 1.0}
+        ]
+      },
+      
+      "avg_daily_closing_balance": {
+        "type": "numeric",
+        "weight": 2.0,
+        "min": 0,
+        "max": 50000000,
+        "higher_is_better": true,
+        "why_it_matters": "The more the balance is, risk becomes low.",
+        "formula": "score = min(1, avg_balance / (monthly_gtv * 0.3))"
+      },
+      
+      "cash_balance_std_dev": {
+        "type": "numeric",
+        "weight": 1.0,
+        "min": 0,
+        "max": 10000000,
+        "higher_is_better": false,
+        "why_it_matters": "More volatility in cash flows indicate more risk.",
+        "formula": "CV = std_dev / avg_balance; score based on CV"
+      },
+      
+      "negative_balance_days": {
+        "type": "numeric",
+        "weight": 2.0,
+        "min": 0,
+        "max": 90,
+        "higher_is_better": false,
+        "why_it_matters": "The more number of days, higher is the liquidity risk.",
+        "max_acceptable": 15,
+        "scoring_breakpoints": [
+          {"days": 0, "score": 1.0},
+          {"days": 3, "score": 0.8},
+          {"days": 7, "score": 0.5},
+          {"days": 15, "score": 0.2},
+          {"days": 30, "score": 0.0}
+        ]
+      },
+      
+      "daily_min_balance_pattern": {
+        "type": "numeric",
+        "weight": 2.0,
+        "min": 0,
+        "max": 10000000,
+        "higher_is_better": true,
+        "why_it_matters": "Low balance indicates cash flow risk.",
+        "formula": "score = min(1, (daily_min / avg_daily_balance) * 2)"
+      },
+      
+      "itr_filing_data": {
+        "type": "binary",
+        "weight": 2.0,
+        "why_it_matters": "Determines Income of the business.",
+        "scoring_logic": {
+          "filed_accurate": 1.0,
+          "filed_inaccurate": 0.6,
+          "not_filed": 0.2
+        }
+      },
+      
+      "gst_r1_vs_itr_mismatch": {
+        "type": "numeric",
+        "weight": 1.0,
+        "min": 0,
+        "max": 1,
+        "higher_is_better": false,
+        "why_it_matters": "Low reporting indicates fraud risk."
+      },
+      
+      "consistent_deposits": {
+        "type": "numeric",
+        "weight": 1.0,
+        "min": 0,
+        "max": 1,
+        "higher_is_better": true,
+        "why_it_matters": "Determines Cash revenues and their trend."
+      },
+      
+      "cashflow_regularity_trend": {
+        "type": "composite",
+        "weight": 2.0,
+        "why_it_matters": "Determines daily cash flow volatility.",
+        "components": ["regularity_score", "trend_score"],
+        "formula": "score = 0.7 * regularity + 0.3 * trend"
+      },
+      
+      "receivables_aging": {
+        "type": "numeric",
+        "weight": 0.5,
+        "min": 0,
+        "max": 180,
+        "unit": "days",
+        "higher_is_better": false,
+        "why_it_matters": "Old receivables indicate cashflow problems."
+      },
+      
+      "payables_aging": {
+        "type": "numeric",
+        "weight": 0.5,
+        "min": 0,
+        "max": 180,
+        "unit": "days",
+        "higher_is_better": false,
+        "why_it_matters": "Overdue payables indicate liquidity crunch."
+      }
+    },
+    
+    "D_credit_repayment": {
+      "_category_info": {
+        "weight_pct": 22,
+        "description": "Credit & Repayment Behavior"
+      },
+      
+      "bounced_cheques": {
+        "type": "numeric",
+        "weight": 3.0,
+        "min": 0,
+        "max": 50,
+        "higher_is_better": false,
+        "why_it_matters": "Direct predictor of default behaviour.",
+        "critical_threshold": 3,
+        "scoring_breakpoints": [
+          {"count": 0, "score": 1.0},
+          {"count": 1, "score": 0.7},
+          {"count": 2, "score": 0.4},
+          {"count": 5, "score": 0.1},
+          {"count": 10, "score": 0.0}
+        ]
+      },
+      
+      "on_time_repayment_ratio_overdrafts": {
+        "type": "numeric",
+        "weight": 4.0,
+        "min": 0,
+        "max": 1,
+        "higher_is_better": true,
+        "why_it_matters": "Strongest indicator of repayment culture.",
+        "scoring_breakpoints": [
+          {"ratio": 0.95, "score": 1.0},
+          {"ratio": 0.90, "score": 0.85},
+          {"ratio": 0.80, "score": 0.65},
+          {"ratio": 0.70, "score": 0.40},
+          {"ratio": 0.50, "score": 0.15},
+          {"ratio": 0.0, "score": 0.0}
+        ]
+      },
+      
+      "previous_defaults_writeoffs": {
+        "type": "composite",
+        "weight": 2.0,
+        "higher_is_better": false,
+        "why_it_matters": "Direct predictor of future defaults.",
+        "components": ["defaults_count", "writeoffs_count"],
+        "critical_note": "Any writeoff is considered critical (score = 0)"
+      },
+      
+      "num_loans_outstanding": {
+        "type": "numeric",
+        "weight": 2.0,
+        "min": 0,
+        "max": 20,
+        "higher_is_better": false,
+        "why_it_matters": "Higher credit burden reduces repayment capacity.",
+        "scoring_breakpoints": [
+          {"loans": 1, "score": 1.0},
+          {"loans": 2, "score": 0.85},
+          {"loans": 3, "score": 0.65},
+          {"loans": 5, "score": 0.40},
+          {"loans": 10, "score": 0.15}
+        ]
+      },
+      
+      "historical_loan_utilization": {
+        "type": "numeric",
+        "weight": 1.5,
+        "min": 0,
+        "max": 1,
+        "why_it_matters": "High utilisation indicates need for capital but also higher risk.",
+        "optimal_range": [0.30, 0.60],
+        "scoring_logic": "Moderate utilization is optimal"
+      },
+      
+      "utility_payments_behaviour": {
+        "type": "composite",
+        "weight": 3.0,
+        "why_it_matters": "Determines repayment behaviour (Television, Electricity, water, gas). Paid on how many days before due date.",
+        "components": ["on_time_ratio", "days_before_due"],
+        "formula": "score = ratio^2 * timing_adjustment"
+      },
+      
+      "mobile_recharge_behaviour": {
+        "type": "composite",
+        "weight": 2.0,
+        "why_it_matters": "Determines repayment behaviour (Regularity and Date paid).",
+        "components": ["regularity", "timeliness"],
+        "formula": "score = 0.6 * regularity + 0.4 * timeliness"
+      },
+      
+      "rent_payment_behaviour": {
+        "type": "composite",
+        "weight": 2.0,
+        "why_it_matters": "Timely rent payments determine repayment probabilities (Regularity and date paid).",
+        "components": ["regularity", "on_time_ratio"]
+      },
+      
+      "supplier_vendor_payments": {
+        "type": "composite",
+        "weight": 3.0,
+        "why_it_matters": "Timely payments to suppliers and vendors can indicate responsible financial behavior and a reliable business operation (regularity and time).",
+        "components": ["payment_regularity", "on_time_ratio"],
+        "formula": "score = 0.4 * regularity + 0.6 * timeliness"
+      }
+    },
+    
+    "E_compliance_taxation": {
+      "_category_info": {
+        "weight_pct": 12,
+        "description": "Compliance & Taxation"
+      },
+      
+      "gst_filing_regularity": {
+        "type": "numeric",
+        "weight": 1.5,
+        "min": 0,
+        "max": 1,
+        "higher_is_better": true,
+        "why_it_matters": "Discipline and compliance correlate with repayment behaviour."
+      },
+      
+      "gst_vs_platform_sales_mismatch": {
+        "type": "numeric",
+        "weight": 1.5,
+        "min": 0,
+        "max": 1,
+        "higher_is_better": false,
+        "why_it_matters": "High mismatch indicates concealment or revenue manipulation.",
+        "fraud_threshold": 0.30
+      },
+      
+      "outstanding_taxes_dues": {
+        "type": "numeric",
+        "weight": 2.0,
+        "min": 0,
+        "max": 10000000,
+        "higher_is_better": false,
+        "why_it_matters": "Indicates financial stress or non-compliance."
+      },
+      
+      "tax_payments": {
+        "type": "composite",
+        "weight": 2.0,
+        "why_it_matters": "Unpaid tax liens can be reported in public records and included on credit reports. Tax liens indicate that a government agency has a claim against an individual's property due to unpaid taxes.",
+        "components": ["tax_regularity", "tax_on_time_ratio", "has_tax_lien"]
+      }
+    },
+    
+    "F_fraud_verification": {
+      "_category_info": {
+        "weight_pct": 7,
+        "description": "Fraud & Verification"
+      },
+      
+      "kyc_completion_behaviour": {
+        "type": "composite",
+        "weight": 0.5,
+        "why_it_matters": "Multiple attempts or delays indicate risk.",
+        "components": ["attempts_count", "days_to_complete"]
+      },
+      
+      "device_consistency": {
+        "type": "numeric",
+        "weight": 0.5,
+        "min": 0,
+        "max": 1,
+        "higher_is_better": true,
+        "why_it_matters": "Frequent device changes increase fraud risk."
+      },
+      
+      "ip_stability": {
+        "type": "numeric",
+        "weight": 0.5,
+        "min": 0,
+        "max": 1,
+        "higher_is_better": true,
+        "why_it_matters": "Changing locations indicates identity issues."
+      },
+      
+      "kyc_mismatch_pan_address_bank": {
+        "type": "binary",
+        "weight": 1.0,
+        "higher_is_better": false,
+        "why_it_matters": "Strong fraud signal."
+      },
+      
+      "image_ocr_checks": {
+        "type": "binary",
+        "weight": 1.0,
+        "why_it_matters": "Confirms physical existence of business (shop pictures)."
+      },
+      
+      "error_rate_reporting_revenue": {
+        "type": "numeric",
+        "weight": 0.5,
+        "min": 0,
+        "max": 1,
+        "higher_is_better": false,
+        "why_it_matters": "Can Indicate fraud risk."
+      },
+      
+      "incoming_funds_verification": {
+        "type": "numeric",
+        "weight": 2.0,
+        "min": 0,
+        "max": 1,
+        "higher_is_better": true,
+        "why_it_matters": "Indicates fraud risk."
+      },
+      
+      "insurance_data": {
+        "type": "composite",
+        "weight": 2.0,
+        "why_it_matters": "A history of maintaining consistent insurance coverage may indicate financial responsibility and risk management skills. Timely payment of insurance premiums would be considered a positive credit behavior.",
+        "components": ["has_insurance", "premium_paid_ratio", "renewal_on_time"]
+      }
+    },
+    
+    "G_external_signals": {
+      "_category_info": {
+        "weight_pct": 4,
+        "description": "External Signals"
+      },
+      
+      "local_economic_health_score": {
+        "type": "numeric",
+        "weight": 1.0,
+        "min": 0,
+        "max": 1,
+        "higher_is_better": true,
+        "why_it_matters": "Businesses in booming areas perform better."
+      },
+      
+      "customer_concentration": {
+        "type": "numeric",
+        "weight": 1.0,
+        "min": 0,
+        "max": 1,
+        "higher_is_better": false,
+        "why_it_matters": "Reliance on few customers increases risk."
+      },
+      
+      "public_records_legal_proceedings": {
+        "type": "composite",
+        "weight": 1.0,
+        "why_it_matters": "Foreclosure proceedings, Legal disputes. Determine the type of dispute and data available if any.",
+        "components": ["legal_proceedings_flag", "disputes_count", "foreclosure_flag"]
+      },
+      
+      "social_media_data": {
+        "type": "composite",
+        "weight": 1.5,
+        "why_it_matters": "Analysis of social media activity or online presence can provide supplementary information on lifestyle and financial habits.",
+        "components": ["presence_score", "sentiment_score", "reviews_score"]
+      }
+    }
+  },
+  
+  "category_weights": {
+    "A_business_identity_registration": 0.10,
+    "B_revenue_business_performance": 0.20,
+    "C_cashflow_banking": 0.25,
+    "D_credit_repayment": 0.22,
+    "E_compliance_taxation": 0.12,
+    "F_fraud_verification": 0.07,
+    "G_external_signals": 0.04
+  },
+  
+  "business_segment_weights": {
+    "micro_new": {
+      "name": "Micro Enterprise - New (<2 years)",
+      "description": "Newly established micro enterprises with limited history",
+      "category_weights": {
+        "A_business_identity_registration": 0.15,
+        "B_revenue_business_performance": 0.25,
+        "C_cashflow_banking": 0.30,
+        "D_credit_repayment": 0.15,
+        "E_compliance_taxation": 0.08,
+        "F_fraud_verification": 0.05,
+        "G_external_signals": 0.02
+      },
+      "overdraft_multiplier": 0.50,
+      "min_vintage_months": 6
+    },
+    "micro_established": {
+      "name": "Micro Enterprise - Established (2+ years)",
+      "description": "Established micro enterprises with transaction history",
+      "category_weights": {
+        "A_business_identity_registration": 0.08,
+        "B_revenue_business_performance": 0.22,
+        "C_cashflow_banking": 0.28,
+        "D_credit_repayment": 0.22,
+        "E_compliance_taxation": 0.10,
+        "F_fraud_verification": 0.06,
+        "G_external_signals": 0.04
+      },
+      "overdraft_multiplier": 0.70,
+      "min_vintage_months": 24
+    },
+    "small_trading": {
+      "name": "Small Enterprise - Trading",
+      "description": "Small trading businesses with inventory",
+      "category_weights": {
+        "A_business_identity_registration": 0.08,
+        "B_revenue_business_performance": 0.25,
+        "C_cashflow_banking": 0.25,
+        "D_credit_repayment": 0.20,
+        "E_compliance_taxation": 0.12,
+        "F_fraud_verification": 0.06,
+        "G_external_signals": 0.04
+      },
+      "overdraft_multiplier": 0.85,
+      "min_vintage_months": 24
+    },
+    "small_manufacturing": {
+      "name": "Small Enterprise - Manufacturing",
+      "description": "Small manufacturing businesses",
+      "category_weights": {
+        "A_business_identity_registration": 0.10,
+        "B_revenue_business_performance": 0.20,
+        "C_cashflow_banking": 0.22,
+        "D_credit_repayment": 0.22,
+        "E_compliance_taxation": 0.14,
+        "F_fraud_verification": 0.07,
+        "G_external_signals": 0.05
+      },
+      "overdraft_multiplier": 1.00,
+      "min_vintage_months": 24
+    },
+    "small_services": {
+      "name": "Small Enterprise - Services",
+      "description": "Small service-based businesses",
+      "category_weights": {
+        "A_business_identity_registration": 0.10,
+        "B_revenue_business_performance": 0.18,
+        "C_cashflow_banking": 0.28,
+        "D_credit_repayment": 0.22,
+        "E_compliance_taxation": 0.12,
+        "F_fraud_verification": 0.06,
+        "G_external_signals": 0.04
+      },
+      "overdraft_multiplier": 0.85,
+      "min_vintage_months": 18
+    },
+    "medium_enterprise": {
+      "name": "Medium Enterprise",
+      "description": "Medium-sized enterprises with formal structures",
+      "category_weights": {
+        "A_business_identity_registration": 0.08,
+        "B_revenue_business_performance": 0.18,
+        "C_cashflow_banking": 0.22,
+        "D_credit_repayment": 0.25,
+        "E_compliance_taxation": 0.15,
+        "F_fraud_verification": 0.07,
+        "G_external_signals": 0.05
+      },
+      "overdraft_multiplier": 1.20,
+      "min_vintage_months": 36
+    }
+  },
+  
+  "overdraft_configuration": {
+    "score_tiers": {
+      "prime": {
+        "score_range": [750, 900],
+        "max_turnover_multiplier": 0.40,
+        "interest_rate_base": 10.5,
+        "processing_fee_pct": 0.50,
+        "collateral_required": false,
+        "personal_guarantee": false,
+        "max_tenure_months": 36,
+        "dscr_min": 1.10
+      },
+      "near_prime": {
+        "score_range": [650, 749],
+        "max_turnover_multiplier": 0.30,
+        "interest_rate_base": 13.0,
+        "processing_fee_pct": 0.75,
+        "collateral_required": false,
+        "personal_guarantee": true,
+        "max_tenure_months": 24,
+        "dscr_min": 1.20
+      },
+      "standard": {
+        "score_range": [550, 649],
+        "max_turnover_multiplier": 0.25,
+        "interest_rate_base": 16.0,
+        "processing_fee_pct": 1.00,
+        "collateral_required": true,
+        "personal_guarantee": true,
+        "max_tenure_months": 18,
+        "dscr_min": 1.30
+      },
+      "subprime": {
+        "score_range": [450, 549],
+        "max_turnover_multiplier": 0.15,
+        "interest_rate_base": 20.0,
+        "processing_fee_pct": 1.50,
+        "collateral_required": true,
+        "personal_guarantee": true,
+        "max_tenure_months": 12,
+        "dscr_min": 1.50
+      },
+      "high_risk": {
+        "score_range": [300, 449],
+        "max_turnover_multiplier": 0.0,
+        "interest_rate_base": 24.0,
+        "processing_fee_pct": 2.00,
+        "collateral_required": true,
+        "personal_guarantee": true,
+        "max_tenure_months": 0,
+        "dscr_min": 2.00
+      }
+    },
+    "msme_limits_rbi": {
+      "micro": {"min": 50000, "max": 2500000},
+      "small": {"min": 100000, "max": 10000000},
+      "medium": {"min": 500000, "max": 50000000},
+      "not_registered": {"min": 25000, "max": 1000000}
+    },
+    "calculation_methods": [
+      "turnover_method",
+      "mpbf_tandon_method",
+      "cash_flow_coverage_method"
+    ],
+    "debt_constraints": {
+      "max_debt_to_turnover_ratio": 0.50,
+      "max_emi_to_surplus_ratio": 0.40,
+      "max_total_exposure_ratio": 0.60
+    }
+  },
+  
+  "risk_buckets": [
+    {"range": [300, 449], "risk_level": "Very High Risk", "expected_default_rate": 0.40, "decision": "Decline"},
+    {"range": [450, 549], "risk_level": "High Risk", "expected_default_rate": 0.25, "decision": "Manual Review"},
+    {"range": [550, 649], "risk_level": "Medium Risk", "expected_default_rate": 0.12, "decision": "Conditional Approval"},
+    {"range": [650, 749], "risk_level": "Low Risk", "expected_default_rate": 0.05, "decision": "Approve"},
+    {"range": [750, 900], "risk_level": "Very Low Risk", "expected_default_rate": 0.02, "decision": "Fast Track Approval"}
+  ],
+  
+  "monitoring": {
+    "psi_threshold": 0.20,
+    "feature_drift_threshold": 0.10,
+    "calibration_check_frequency_days": 7,
+    "retraining_frequency_days": 60,
+    "default_observation_window_days": 90
+  },
+  
+  "formulas": {
+    "probability_to_score": {
+      "description": "Maps default probability to credit score (300-900)",
+      "breakpoints": [
+        {"prob": 0.00, "score": 900},
+        {"prob": 0.02, "score": 750},
+        {"prob": 0.05, "score": 650},
+        {"prob": 0.12, "score": 550},
+        {"prob": 0.25, "score": 450},
+        {"prob": 0.40, "score": 400},
+        {"prob": 0.60, "score": 350},
+        {"prob": 1.00, "score": 300}
+      ]
+    },
+    "blend_formula": "final_prob = alpha * gbm_prob + (1-alpha) * (1 - segment_subscore)",
+    "turnover_method": "limit = annual_turnover * risk_tier_multiplier",
+    "mpbf_method": "limit = 0.75 * (current_assets - current_liabilities) - existing_debt",
+    "dscr": "dscr = net_operating_income / total_debt_service",
+    "emi": "emi = P * r * (1+r)^n / ((1+r)^n - 1)"
+  }
+}

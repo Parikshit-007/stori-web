@@ -1,9 +1,10 @@
 interface SHAPWaterfallProps {
   data: Array<{ feature: string; value: number; impact: "positive" | "negative" }>
+  baseScore?: number
+  finalScore?: number
 }
 
-export default function SHAPWaterfall({ data }: SHAPWaterfallProps) {
-  const baseScore = 700
+export default function SHAPWaterfall({ data, baseScore = 700, finalScore }: SHAPWaterfallProps) {
   let cumulativeValue = 0
 
   return (
@@ -42,7 +43,9 @@ export default function SHAPWaterfall({ data }: SHAPWaterfallProps) {
       })}
 
       <div className="bg-blue-50 p-4 rounded-lg border border-blue-200 mt-4">
-        <p className="text-sm font-semibold text-blue-900">Final Score: {baseScore + cumulativeValue}</p>
+        <p className="text-sm font-semibold text-blue-900">
+          Final Score: {finalScore !== undefined ? finalScore : baseScore + cumulativeValue}
+        </p>
       </div>
     </div>
   )
