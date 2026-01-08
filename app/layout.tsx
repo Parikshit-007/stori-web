@@ -10,19 +10,14 @@ const _geistMono = Geist_Mono({ subsets: ["latin"] })
 
 export const metadata: Metadata = {
   title: "Stori AI",
-  description: "Stori AI Credit Scoring Platform - Advanced Credit Scoring powered by AI",
+  description: "Stori AI Credit Scoring Platform",
   metadataBase: new URL('https://mycfo.club/stori'),
-  manifest: '/manifest.json',
-  themeColor: '#667eea',
   icons: {
     icon: [
       { url: "/favicon.svg", type: "image/svg+xml" },
-      { url: "/favicon-32x32.svg", sizes: "32x32", type: "image/svg+xml" },
-      { url: "/favicon.ico", sizes: "any" }
+      { url: "/favicon.ico" }
     ],
-    apple: [
-      { url: "/apple-touch-icon.svg", sizes: "180x180", type: "image/svg+xml" }
-    ],
+    apple: "/favicon.ico",
   },
 }
 

@@ -78,12 +78,12 @@ export default function TransactionsUtilityCard({ consumer }: TransactionsUtilit
             {transactions.incomeAuthenticity?.status || 'N/A'}
           </span>
         </div>
-        <div className="bg-gray-50 rounded-lg p-3">
-          <p className="text-xs text-gray-500">Inflow Time Consistency</p>
-          <p className={`text-xl font-bold ${(transactions.incomeAuthenticity?.inflowTimeConsistency || 0) >= 90 ? 'text-green-600' : (transactions.incomeAuthenticity?.inflowTimeConsistency || 0) >= 75 ? 'text-amber-600' : 'text-red-600'}`}>
-            {transactions.incomeAuthenticity?.inflowTimeConsistency || 0}%
-          </p>
-          <p className="text-xs text-gray-400">Salary on same date</p>
+          <div className="bg-gray-50 rounded-lg p-3">
+            <p className="text-xs text-gray-500">Inflow Time Consistency</p>
+            <p className={`text-xl font-bold ${(transactions.incomeAuthenticity?.inflowTimeConsistency || 0) >= 90 ? 'text-green-600' : (transactions.incomeAuthenticity?.inflowTimeConsistency || 0) >= 75 ? 'text-amber-600' : 'text-red-600'}`}>
+              {transactions.incomeAuthenticity?.inflowTimeConsistency || 0}%
+            </p>
+            <p className="text-xs text-gray-400">Salary on same date</p>
         </div>
       </div>
 
