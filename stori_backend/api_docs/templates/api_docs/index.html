@@ -59,7 +59,19 @@
                 </li>
                 <li>
                     <div class="api-link" style="background-color: #e8f4f8; border-left-color: #3498db;">
-                        <strong>5. Basic Eligibility Check</strong>
+                        <strong>5. SMS-Based Transaction Analysis</strong>
+                        <span>From SMS permissions, calculate all debit/credit messages from banks. Show total debits and credits in different months. Calculate expected average balance maintained (weekly/monthly) of past 12 months</span>
+                    </div>
+                </li>
+                <li>
+                    <div class="api-link" style="background-color: #e8f4f8; border-left-color: #3498db;">
+                        <strong>6. App Usage Check</strong>
+                        <span>Check the different types of apps installed and flag the presence of any betting or risky apps</span>
+                    </div>
+                </li>
+                <li>
+                    <div class="api-link" style="background-color: #e8f4f8; border-left-color: #3498db;">
+                        <strong>7. Basic Eligibility Check</strong>
                         <span>Age verification (DOB from Aadhaar), Location check, Pincode validation</span>
                     </div>
                 </li>
@@ -71,6 +83,8 @@
                     <li>Valid Aadhaar and PAN documents verified</li>
                     <li>Name matches across all documents</li>
                     <li>Face verification successful</li>
+                    <li>SMS transaction analysis shows healthy banking behavior</li>
+                    <li>No betting or risky apps detected on device</li>
                     <li>Age between 21-65 years</li>
                     <li>Location/Pincode serviceable</li>
                 </ul>
@@ -148,9 +162,69 @@
                     </div>
                 </li>
                 <li>
+                    <div class="api-link" style="background-color: #fff3cd; border-left-color: #ffc107;">
+                        <strong>5. UPI Based Account Validation (External API)</strong>
+                        <span>Take VPA from MNV Account validation through Penny drop. Show the output as verified/unverified</span>
+                    </div>
+                </li>
+                <li>
                     <div class="api-link" style="background-color: #e8f4f8; border-left-color: #3498db;">
-                        <strong>5. Basic Business Eligibility</strong>
-                        <span>Business age check (minimum 1 year), Turnover threshold, Business location serviceable</span>
+                        <strong>6. Business Age Verification</strong>
+                        <span>Get Udyam number from business PAN. Calculate business age from incorporation date. Show output as business age</span>
+                    </div>
+                </li>
+                <li>
+                    <div class="api-link" style="background-color: #e8f4f8; border-left-color: #3498db;">
+                        <strong>7. Legal Entity Verification</strong>
+                        <span>Get Udyam number from business PAN. Calculate business age from incorporation date. Show output as legal entity type</span>
+                    </div>
+                </li>
+                <li>
+                    <div class="api-link" style="background-color: #e8f4f8; border-left-color: #3498db;">
+                        <strong>8. Industry Classification</strong>
+                        <span>Get Udyam number from business PAN. Enhanced validation to show the legal industry category as output</span>
+                    </div>
+                </li>
+                <li>
+                    <div class="api-link" style="background-color: #e8f4f8; border-left-color: #3498db;">
+                        <strong>9. Business Address Verification</strong>
+                        <span>Get Udyam number from business PAN. Enhanced validation to show the registered address as output</span>
+                    </div>
+                </li>
+                <li>
+                    <div class="api-link" style="background-color: #e8f4f8; border-left-color: #3498db;">
+                        <strong>10. Employee Count Verification</strong>
+                        <span>Get Udyam number from business PAN. Enhanced validation to show the number of employees as output</span>
+                    </div>
+                </li>
+                <li>
+                    <div class="api-link" style="background-color: #e8f4f8; border-left-color: #3498db;">
+                        <strong>11. Business Locations Verification</strong>
+                        <span>Get Udyam number from business PAN. Enhanced validation to show all business locations as output</span>
+                    </div>
+                </li>
+                <li>
+                    <div class="api-link" style="background-color: #e8f4f8; border-left-color: #3498db;">
+                        <strong>12. Proximity to Main Market/Highway</strong>
+                        <span>Convert address from Udyam advanced validation. Calculate proximity to main highway. Show proximity as output</span>
+                    </div>
+                </li>
+                <li>
+                    <div class="api-link" style="background-color: #fff3cd; border-left-color: #ffc107;">
+                        <strong>13. Udyam Advanced/CIN Validation (External API)</strong>
+                        <span>Enhanced validation from Udyam portal. If Udyam not available, validate via CIN (Company Identification Number)</span>
+                    </div>
+                </li>
+                <li>
+                    <div class="api-link" style="background-color: #e8f4f8; border-left-color: #3498db;">
+                        <strong>14. Pin-code Risk Assessment</strong>
+                        <span>Extract pincode from business address. Assess risk level based on location. Flag high-risk areas</span>
+                    </div>
+                </li>
+                <li>
+                    <div class="api-link" style="background-color: #e8f4f8; border-left-color: #3498db;">
+                        <strong>15. 3 Years Turnover Verification</strong>
+                        <span>Extract turnover data from Udyam/GST. Show 3-year turnover trend and growth pattern</span>
                     </div>
                 </li>
             </ul>
@@ -160,10 +234,17 @@
                 <ul style="margin: 10px 0 0 20px; color: #155724;">
                     <li>Valid GSTIN verified from government database</li>
                     <li>Director's KYC documents validated (Aadhaar + PAN)</li>
+                    <li>UPI account verified through Penny drop</li>
                     <li>Business operational for minimum 1 year</li>
-                    <li>Business name matches across documents</li>
-                    <li>Business location serviceable</li>
-                    <li>Minimum annual turnover met (as per policy)</li>
+                    <li>Legal entity type verified (Pvt Ltd, LLP, Partnership, Proprietorship)</li>
+                    <li>Industry classification verified and eligible</li>
+                    <li>Business address verified from Udyam/CIN</li>
+                    <li>Employee count meets minimum threshold</li>
+                    <li>Business locations identified and serviceable</li>
+                    <li>Proximity to main market/highway assessed</li>
+                    <li>Udyam/CIN validation successful</li>
+                    <li>Pin-code risk assessment acceptable</li>
+                    <li>3-year turnover trend shows growth</li>
                 </ul>
                 <p style="margin: 10px 0 0 0; font-weight: 600; color: #155724;">Only proceed to Post-Qualification if ALL criteria are met</p>
             </div>
