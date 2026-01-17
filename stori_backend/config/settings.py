@@ -13,8 +13,21 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = config('SECRET_KEY', default='django-insecure-change-this-in-production-2026')
 # Shared API Secret Key for Consumer + MSME APIs (same key for both)
 SHARED_API_SECRET_KEY = config('SHARED_API_SECRET_KEY', default=SECRET_KEY)
-DEBUG = config('DEBUG', default=True, cast=bool)
-ALLOWED_HOSTS = config('ALLOWED_HOSTS', default='localhost,127.0.0.1', cast=lambda v: [s.strip() for s in v.split(',')])
+DEBUG = config('DEBUG', default=False, cast=bool)  # Production: False by default
+ALLOWED_HOSTS = config('ALLOWED_HOSTS', default='localhost,127.0.0.1,mycfo.club', cast=lambda v: [s.strip() for s in v.split(',')])
+
+# Production Security Settings
+if not DEBUG:
+    # Security middleware settings
+    SECURE_SSL_REDIRECT = config('SECURE_SSL_REDIRECT', default=True, cast=bool)
+    SESSION_COOKIE_SECURE = True
+    CSRF_COOKIE_SECURE = True
+    SECURE_BROWSER_XSS_FILTER = True
+    SECURE_CONTENT_TYPE_NOSNIFF = True
+    X_FRAME_OPTIONS = 'DENY'
+    SECURE_HSTS_SECONDS = 31536000  # 1 year
+    SECURE_HSTS_INCLUDE_SUBDOMAINS = True
+    SECURE_HSTS_PRELOAD = True
 
 # Application definition
 INSTALLED_APPS = [
@@ -139,8 +152,7 @@ REST_FRAMEWORK = {
     'PAGE_SIZE': 50,
     'DEFAULT_RENDERER_CLASSES': [
         'rest_framework.renderers.JSONRenderer',
-        'rest_framework.renderers.BrowsableAPIRenderer',
-    ],
+    ] + (['rest_framework.renderers.BrowsableAPIRenderer'] if DEBUG else []),  # Browsable API only in DEBUG mode
     'DEFAULT_PARSER_CLASSES': [
         'rest_framework.parsers.JSONParser',
         'rest_framework.parsers.MultiPartParser',
@@ -220,7 +232,7 @@ LOGGING = {
             'formatter': 'verbose',
         },
         'console': {
-            'level': 'DEBUG',
+            'level': 'DEBUG' if DEBUG else 'INFO',  # DEBUG level only in development
             'class': 'logging.StreamHandler',
             'formatter': 'verbose',
         },
@@ -237,7 +249,7 @@ LOGGING = {
         },
         'apps': {
             'handlers': ['console', 'file'],
-            'level': 'DEBUG',
+            'level': 'DEBUG' if DEBUG else 'INFO',  # DEBUG level only in development
             'propagate': False,
         },
     },

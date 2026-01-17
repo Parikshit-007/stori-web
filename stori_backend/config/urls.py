@@ -8,8 +8,8 @@ from django.conf.urls.static import static
 from rest_framework import permissions
 
 urlpatterns = [
-    # Admin
-    path('admin/', admin.site.urls),
+    # Admin - Production URL: /api/admin/
+    path('api/admin/', admin.site.urls),
     
     # Authentication
     path('api/auth/', include('knox.urls')),
