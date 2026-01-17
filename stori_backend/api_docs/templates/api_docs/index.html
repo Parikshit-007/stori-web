@@ -29,41 +29,86 @@
             <h2>Consumer Credit Scoring APIs</h2>
             <p>APIs for personal loan, credit card, and consumer credit assessment</p>
             
+            <h3 style="color: #27ae60; margin-top: 30px;">📋 Pre-Qualification Stage</h3>
+            <p style="margin-bottom: 20px;">Initial validation and eligibility checks. Complete these before proceeding to full credit assessment.</p>
+            
+            <ul class="api-list">
+                <li>
+                    <a href="{% url 'api_docs:consumer_kyc_ocr' %}" class="api-link">
+                        <strong>1. KYC Document OCR</strong>
+                        <span>Extract and validate data from Aadhaar and PAN cards (Name, DOB, Address, PAN Number)</span>
+                    </a>
+                </li>
+                <li>
+                    <div class="api-link" style="background-color: #fff3cd; border-left-color: #ffc107;">
+                        <strong>2. Aadhaar Validation (External API)</strong>
+                        <span>Validate Aadhaar with government repository - Use external API integration for real-time verification</span>
+                    </div>
+                </li>
+                <li>
+                    <div class="api-link" style="background-color: #fff3cd; border-left-color: #ffc107;">
+                        <strong>3. Name Match Validation</strong>
+                        <span>Cross-verify name across Aadhaar, PAN, and bank account - Ensure consistency</span>
+                    </div>
+                </li>
+                <li>
+                    <div class="api-link" style="background-color: #fff3cd; border-left-color: #ffc107;">
+                        <strong>4. Face Match (Selfie vs Document)</strong>
+                        <span>Capture live selfie and match with Aadhaar photo - Prevent identity fraud</span>
+                    </div>
+                </li>
+                <li>
+                    <div class="api-link" style="background-color: #e8f4f8; border-left-color: #3498db;">
+                        <strong>5. Basic Eligibility Check</strong>
+                        <span>Age verification (DOB from Aadhaar), Location check, Pincode validation</span>
+                    </div>
+                </li>
+            </ul>
+
+            <div style="background-color: #d4edda; border-left: 4px solid #28a745; padding: 15px; margin: 20px 0; border-radius: 5px;">
+                <p style="margin: 0; font-weight: 600; color: #155724;">✅ Pre-Qualification Criteria:</p>
+                <ul style="margin: 10px 0 0 20px; color: #155724;">
+                    <li>Valid Aadhaar and PAN documents verified</li>
+                    <li>Name matches across all documents</li>
+                    <li>Face verification successful</li>
+                    <li>Age between 21-65 years</li>
+                    <li>Location/Pincode serviceable</li>
+                </ul>
+                <p style="margin: 10px 0 0 0; font-weight: 600; color: #155724;">→ Only proceed to Post-Qualification if ALL criteria are met</p>
+            </div>
+
+            <h3 style="color: #e74c3c; margin-top: 40px;">🎯 Post-Qualification Stage</h3>
+            <p style="margin-bottom: 20px;">Detailed financial analysis and credit scoring. Proceed only after Pre-Qualification is complete.</p>
+            
             <ul class="api-list">
                 <li>
                     <a href="{% url 'api_docs:consumer_bank_statement' %}" class="api-link">
-                        <strong>Bank Statement Analysis</strong>
+                        <strong>1. Bank Statement Analysis</strong>
                         <span>Analyze bank transactions to extract 38+ financial features</span>
                     </a>
                 </li>
                 <li>
                     <a href="{% url 'api_docs:consumer_itr' %}" class="api-link">
-                        <strong>ITR Analysis</strong>
+                        <strong>2. ITR Analysis</strong>
                         <span>Validate income from Income Tax Returns</span>
                     </a>
                 </li>
                 <li>
                     <a href="{% url 'api_docs:consumer_credit_report' %}" class="api-link">
-                        <strong>Credit Report Analysis</strong>
+                        <strong>3. Credit Report Analysis</strong>
                         <span>Analyze credit bureau reports (CIBIL/Experian)</span>
                     </a>
                 </li>
                 <li>
                     <a href="{% url 'api_docs:consumer_asset' %}" class="api-link">
-                        <strong>Asset Analysis</strong>
+                        <strong>4. Asset Analysis (Optional)</strong>
                         <span>Analyze customer assets and investments</span>
                     </a>
                 </li>
                 <li>
                     <a href="{% url 'api_docs:consumer_credit_score' %}" class="api-link">
-                        <strong>Final Credit Score</strong>
-                        <span>Combine all analyses to generate final credit score</span>
-                    </a>
-                </li>
-                <li>
-                    <a href="{% url 'api_docs:consumer_kyc_ocr' %}" class="api-link">
-                        <strong>KYC Document OCR</strong>
-                        <span>Extract data from PAN and Aadhaar documents</span>
+                        <strong>5. Final Credit Score</strong>
+                        <span>Combine all analyses to generate final credit score and loan decision</span>
                     </a>
                 </li>
             </ul>
@@ -74,29 +119,81 @@
             <h2>MSME Credit Scoring APIs</h2>
             <p>APIs for business loans, working capital, and MSME credit assessment</p>
             
+            <h3 style="color: #27ae60; margin-top: 30px;">📋 Pre-Qualification Stage</h3>
+            <p style="margin-bottom: 20px;">Initial business validation and director KYC. Complete these before proceeding to full business credit assessment.</p>
+            
+            <ul class="api-list">
+                <li>
+                    <a href="{% url 'api_docs:consumer_kyc_ocr' %}" class="api-link">
+                        <strong>1. Director KYC - Document OCR</strong>
+                        <span>Extract and validate director's Aadhaar and PAN card details</span>
+                    </a>
+                </li>
+                <li>
+                    <div class="api-link" style="background-color: #fff3cd; border-left-color: #ffc107;">
+                        <strong>2. Director Aadhaar Validation (External API)</strong>
+                        <span>Validate director's Aadhaar with government repository</span>
+                    </div>
+                </li>
+                <li>
+                    <div class="api-link" style="background-color: #fff3cd; border-left-color: #ffc107;">
+                        <strong>3. GSTIN Verification (External API)</strong>
+                        <span>Verify GSTIN is valid and active via government GST portal API</span>
+                    </div>
+                </li>
+                <li>
+                    <div class="api-link" style="background-color: #fff3cd; border-left-color: #ffc107;">
+                        <strong>4. Business Name & Address Match</strong>
+                        <span>Cross-verify business name and address across GST registration and documents</span>
+                    </div>
+                </li>
+                <li>
+                    <div class="api-link" style="background-color: #e8f4f8; border-left-color: #3498db;">
+                        <strong>5. Basic Business Eligibility</strong>
+                        <span>Business age check (minimum 1 year), Turnover threshold, Business location serviceable</span>
+                    </div>
+                </li>
+            </ul>
+
+            <div style="background-color: #d4edda; border-left: 4px solid #28a745; padding: 15px; margin: 20px 0; border-radius: 5px;">
+                <p style="margin: 0; font-weight: 600; color: #155724;">✅ Pre-Qualification Criteria for MSME:</p>
+                <ul style="margin: 10px 0 0 20px; color: #155724;">
+                    <li>Valid GSTIN verified from government database</li>
+                    <li>Director's KYC documents validated (Aadhaar + PAN)</li>
+                    <li>Business operational for minimum 1 year</li>
+                    <li>Business name matches across documents</li>
+                    <li>Business location serviceable</li>
+                    <li>Minimum annual turnover met (as per policy)</li>
+                </ul>
+                <p style="margin: 10px 0 0 0; font-weight: 600; color: #155724;">→ Only proceed to Post-Qualification if ALL criteria are met</p>
+            </div>
+
+            <h3 style="color: #e74c3c; margin-top: 40px;">🎯 Post-Qualification Stage</h3>
+            <p style="margin-bottom: 20px;">Detailed business financial analysis and credit scoring. Proceed only after Pre-Qualification is complete.</p>
+            
             <ul class="api-list">
                 <li>
                     <a href="{% url 'api_docs:msme_gst' %}" class="api-link">
-                        <strong>GST Analysis</strong>
-                        <span>Analyze GST returns for revenue and compliance assessment</span>
+                        <strong>1. GST Returns Analysis</strong>
+                        <span>Analyze GST returns for revenue, compliance, and vendor relationships</span>
                     </a>
                 </li>
                 <li>
                     <a href="{% url 'api_docs:msme_director_banking' %}" class="api-link">
-                        <strong>Director Personal Banking</strong>
-                        <span>Analyze director's personal bank statements</span>
+                        <strong>2. Director Personal Banking</strong>
+                        <span>Analyze director's personal bank statements (38 features)</span>
                     </a>
                 </li>
                 <li>
                     <a href="{% url 'api_docs:msme_business_banking' %}" class="api-link">
-                        <strong>Business Banking</strong>
-                        <span>Analyze business current account for cash flow</span>
+                        <strong>3. Business Banking Analysis</strong>
+                        <span>Analyze business current account for cash flow health</span>
                     </a>
                 </li>
                 <li>
                     <a href="{% url 'api_docs:msme_credit_score' %}" class="api-link">
-                        <strong>Final MSME Credit Score</strong>
-                        <span>Combine all analyses for business credit score with DSCR</span>
+                        <strong>4. Final MSME Credit Score</strong>
+                        <span>Combine all analyses for business credit score with DSCR calculation</span>
                     </a>
                 </li>
             </ul>
