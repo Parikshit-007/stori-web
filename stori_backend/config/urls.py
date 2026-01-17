@@ -13,6 +13,7 @@ urlpatterns = [
     
     # Authentication
     path('api/auth/', include('knox.urls')),
+    path('accounts/', include('allauth.urls')),
     
     # Customer Analysis APIs
     path('api/customer/itr/', include('apps.customer.itr_analysis.urls')),

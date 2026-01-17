@@ -16,6 +16,13 @@ SHARED_API_SECRET_KEY = config('SHARED_API_SECRET_KEY', default=SECRET_KEY)
 DEBUG = config('DEBUG', default=False, cast=bool)  # Production: False by default
 ALLOWED_HOSTS = config('ALLOWED_HOSTS', default='localhost,127.0.0.1,mycfo.club', cast=lambda v: [s.strip() for s in v.split(',')])
 
+# Django Allauth settings
+SITE_ID = 1
+ACCOUNT_EMAIL_REQUIRED = True
+ACCOUNT_USERNAME_REQUIRED = False
+ACCOUNT_AUTHENTICATION_METHOD = 'email'
+ACCOUNT_EMAIL_VERIFICATION = 'optional'
+
 # Production Security Settings
 if not DEBUG:
     # Security middleware settings
@@ -42,6 +49,12 @@ INSTALLED_APPS = [
     'rest_framework',
     'knox',
     'corsheaders',
+
+    # Django Allauth (for social authentication)
+    'django.contrib.sites',
+    'allauth',
+    'allauth.account',
+    'allauth.socialaccount',
     
     # Authentication
     'apps.authentication',
