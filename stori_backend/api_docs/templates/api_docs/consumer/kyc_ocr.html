@@ -1,0 +1,454 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>KYC Document OCR API - Stori</title>
+    <link rel="stylesheet" href="{% static 'api_docs/style.css' %}">
+</head>
+<body>
+    <header>
+        <h1>KYC Document OCR API</h1>
+        <p>Consumer Credit Scoring</p>
+    </header>
+
+    <div class="container">
+        <a href="{% url 'api_docs:index' %}" class="back-link">← Back to Documentation</a>
+
+        <div class="section">
+            <h2>Overview</h2>
+            <p>Extracts structured data from KYC documents (PAN Card, Aadhaar Front, Aadhaar Back) using OCR technology. Automatically reads and extracts key fields like name, DOB, PAN number, Aadhaar number, address, etc.</p>
+
+            <h3>Endpoint</h3>
+            <div class="endpoint">
+                <span class="method">POST</span>
+                <code>https://mycfo.club/stori/api/customer/ocr/document-ocr/</code>
+            </div>
+
+            <h3>Authentication</h3>
+            <div class="code-block">
+<pre>X-API-Key: your_api_key_here
+Content-Type: multipart/form-data</pre>
+            </div>
+
+            <div class="info-box">
+                <h4>📝 Note:</h4>
+                <p>This is a <strong>multipart/form-data</strong> request (file upload), not JSON. The image file should be sent as form data.</p>
+            </div>
+        </div>
+
+        <div class="section">
+            <h2>Request Format</h2>
+            <h3>Form Data Parameters</h3>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Field</th>
+                        <th>Type</th>
+                        <th>Required</th>
+                        <th>Description</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>document_type</td>
+                        <td>string</td>
+                        <td>Yes</td>
+                        <td>Type of document: PAN, AADHAAR_FRONT, AADHAAR_BACK, OTHER</td>
+                    </tr>
+                    <tr>
+                        <td>document_image</td>
+                        <td>file</td>
+                        <td>Yes</td>
+                        <td>Image file (.jpg, .jpeg, .png)</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <h3>Document Types</h3>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Type</th>
+                        <th>Description</th>
+                        <th>Extracted Fields</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>PAN</td>
+                        <td>PAN Card</td>
+                        <td>pan_number, name, father_name, dob</td>
+                    </tr>
+                    <tr>
+                        <td>AADHAAR_FRONT</td>
+                        <td>Aadhaar Card Front</td>
+                        <td>aadhaar_number, name, dob/yob, gender</td>
+                    </tr>
+                    <tr>
+                        <td>AADHAAR_BACK</td>
+                        <td>Aadhaar Card Back</td>
+                        <td>address</td>
+                    </tr>
+                    <tr>
+                        <td>OTHER</td>
+                        <td>Any document</td>
+                        <td>raw_text, lines</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <h3>Sample cURL Request</h3>
+            <div class="code-block">
+<pre>curl -X POST "https://mycfo.club/stori/api/customer/ocr/document-ocr/" \
+  -H "X-API-Key: YOUR_API_KEY" \
+  -F "document_type=PAN" \
+  -F "document_image=@/path/to/pan_card.jpg"</pre>
+            </div>
+
+            <h3>Sample Python Request</h3>
+            <div class="code-block">
+<pre>import requests
+
+url = "https://mycfo.club/stori/api/customer/ocr/document-ocr/"
+headers = {
+    "X-API-Key": "YOUR_API_KEY"
+}
+
+# For PAN Card
+files = {
+    "document_image": open("pan_card.jpg", "rb")
+}
+data = {
+    "document_type": "PAN"
+}
+
+response = requests.post(url, headers=headers, files=files, data=data)
+print(response.json())</pre>
+            </div>
+
+            <h3>Sample JavaScript Request</h3>
+            <div class="code-block">
+<pre>const formData = new FormData();
+formData.append('document_type', 'PAN');
+formData.append('document_image', fileInput.files[0]);
+
+fetch('https://mycfo.club/stori/api/customer/ocr/document-ocr/', {
+  method: 'POST',
+  headers: {
+    'X-API-Key': 'YOUR_API_KEY'
+  },
+  body: formData
+})
+.then(response => response.json())
+.then(data => console.log(data));</pre>
+            </div>
+        </div>
+
+        <div class="section">
+            <h2>Response Examples</h2>
+            
+            <h3>PAN Card Response</h3>
+            <div class="code-block">
+<pre>{
+  "success": true,
+  "message": "Document processed successfully",
+  "data": {
+    "pan_number": "ABCDE1234F",
+    "name": "Rahul Sharma",
+    "father_name": "Suresh Kumar Sharma",
+    "dob": "15/01/1990"
+  },
+  "metadata": {
+    "document_type": "PAN",
+    "ocr_text_length": 247,
+    "processed_at": "2026-01-17T10:30:00Z"
+  }
+}</pre>
+            </div>
+
+            <h3>Aadhaar Front Response</h3>
+            <div class="code-block">
+<pre>{
+  "success": true,
+  "message": "Document processed successfully",
+  "data": {
+    "aadhaar_number": "1234 5678 9012",
+    "name": "Priya Patel",
+    "dob": "20/03/1985",
+    "gender": "FEMALE"
+  },
+  "metadata": {
+    "document_type": "AADHAAR_FRONT",
+    "ocr_text_length": 189,
+    "processed_at": "2026-01-17T10:35:00Z"
+  }
+}</pre>
+            </div>
+
+            <h3>Aadhaar Back Response</h3>
+            <div class="code-block">
+<pre>{
+  "success": true,
+  "message": "Document processed successfully",
+  "data": {
+    "address": "Flat 301, Building A\nGreen Valley Society\nAndheri West\nMumbai - 400053\nMaharashtra"
+  },
+  "metadata": {
+    "document_type": "AADHAAR_BACK",
+    "ocr_text_length": 312,
+    "processed_at": "2026-01-17T10:40:00Z"
+  }
+}</pre>
+            </div>
+
+            <h3>Field Descriptions</h3>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Field</th>
+                        <th>Description</th>
+                        <th>Format</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>pan_number</td>
+                        <td>10-character PAN card number</td>
+                        <td>ABCDE1234F</td>
+                    </tr>
+                    <tr>
+                        <td>aadhaar_number</td>
+                        <td>12-digit Aadhaar number</td>
+                        <td>1234 5678 9012</td>
+                    </tr>
+                    <tr>
+                        <td>name</td>
+                        <td>Cardholder's full name</td>
+                        <td>Text</td>
+                    </tr>
+                    <tr>
+                        <td>father_name</td>
+                        <td>Father's name (PAN only)</td>
+                        <td>Text</td>
+                    </tr>
+                    <tr>
+                        <td>dob</td>
+                        <td>Date of birth</td>
+                        <td>DD/MM/YYYY</td>
+                    </tr>
+                    <tr>
+                        <td>yob</td>
+                        <td>Year of birth (Aadhaar if full DOB not available)</td>
+                        <td>YYYY</td>
+                    </tr>
+                    <tr>
+                        <td>gender</td>
+                        <td>Gender (Aadhaar only)</td>
+                        <td>MALE, FEMALE, OTHER</td>
+                    </tr>
+                    <tr>
+                        <td>address</td>
+                        <td>Full address (Aadhaar back)</td>
+                        <td>Multi-line text</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <div class="section">
+            <h2>Debug Mode</h2>
+            <p>To see the raw OCR text extracted from the document, add <code>?debug=true</code> to the URL:</p>
+            <div class="code-block">
+<pre>https://mycfo.club/stori/api/customer/ocr/document-ocr/?debug=true</pre>
+            </div>
+
+            <h3>Debug Response Example</h3>
+            <div class="code-block">
+<pre>{
+  "success": true,
+  "data": { ... },
+  "debug": {
+    "raw_ocr_text": "INCOME TAX DEPARTMENT\nGOVERNMENT OF INDIA\n...",
+    "ocr_lines": [
+      "INCOME TAX DEPARTMENT",
+      "GOVERNMENT OF INDIA",
+      ...
+    ]
+  }
+}</pre>
+            </div>
+        </div>
+
+        <div class="section">
+            <h2>Error Responses</h2>
+            <div class="code-block">
+<pre>{
+  "success": false,
+  "message": "Invalid document_type. Must be one of: PAN, AADHAAR_FRONT, AADHAAR_BACK, OTHER"
+}</pre>
+            </div>
+
+            <div class="code-block">
+<pre>{
+  "success": false,
+  "message": "document_image file is required"
+}</pre>
+            </div>
+
+            <div class="code-block">
+<pre>{
+  "success": false,
+  "message": "Invalid file type. Allowed: .jpg, .jpeg, .png"
+}</pre>
+            </div>
+
+            <div class="code-block">
+<pre>{
+  "success": false,
+  "message": "No text detected in image. Please ensure the document is clear and readable."
+}</pre>
+            </div>
+
+            <h3>Common Error Codes</h3>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Status</th>
+                        <th>Error</th>
+                        <th>Solution</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>400</td>
+                        <td>Invalid document_type</td>
+                        <td>Use: PAN, AADHAAR_FRONT, AADHAAR_BACK, or OTHER</td>
+                    </tr>
+                    <tr>
+                        <td>400</td>
+                        <td>document_image required</td>
+                        <td>Include image file in request</td>
+                    </tr>
+                    <tr>
+                        <td>400</td>
+                        <td>Invalid file type</td>
+                        <td>Use .jpg, .jpeg, or .png format</td>
+                    </tr>
+                    <tr>
+                        <td>400</td>
+                        <td>No text detected</td>
+                        <td>Ensure image is clear and readable</td>
+                    </tr>
+                    <tr>
+                        <td>401</td>
+                        <td>Unauthorized</td>
+                        <td>Check your API key</td>
+                    </tr>
+                    <tr>
+                        <td>500</td>
+                        <td>Processing failed</td>
+                        <td>Contact support with error details</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <div class="section">
+            <h2>Usage Notes</h2>
+            <ul>
+                <li><strong>Image Quality:</strong> Use clear, high-resolution images for best results</li>
+                <li><strong>File Size:</strong> Keep images under 5MB for optimal processing</li>
+                <li><strong>Orientation:</strong> Ensure document is properly oriented (not rotated)</li>
+                <li><strong>Lighting:</strong> Good lighting improves OCR accuracy</li>
+                <li><strong>PAN Card:</strong> Extracts PAN number, name, father's name, and DOB</li>
+                <li><strong>Aadhaar Front:</strong> Extracts Aadhaar number, name, DOB/YOB, and gender</li>
+                <li><strong>Aadhaar Back:</strong> Extracts complete address</li>
+                <li><strong>Field Validation:</strong> Some fields may be null if not clearly visible</li>
+                <li><strong>Debug Mode:</strong> Use debug=true parameter to see raw OCR output</li>
+                <li><strong>Rate Limits:</strong> Standard rate limits apply (check authentication guide)</li>
+            </ul>
+        </div>
+
+        <div class="section">
+            <h2>Best Practices</h2>
+            <ul>
+                <li>✅ Capture documents in good lighting conditions</li>
+                <li>✅ Ensure text is clearly visible and not blurred</li>
+                <li>✅ Crop image to show only the document</li>
+                <li>✅ Use original document images (not photocopies)</li>
+                <li>✅ Validate extracted data before using</li>
+                <li>✅ Handle null values in extracted fields</li>
+                <li>✅ Store extracted data securely</li>
+                <li>❌ Don't use low-resolution images</li>
+                <li>❌ Don't upload heavily edited or filtered images</li>
+                <li>❌ Don't rely solely on OCR for critical verification</li>
+            </ul>
+        </div>
+
+        <div class="section">
+            <h2>Integration Example</h2>
+            <h3>Complete Python Workflow</h3>
+            <div class="code-block">
+<pre>import requests
+
+API_KEY = "your_api_key_here"
+BASE_URL = "https://mycfo.club/stori/api"
+
+# 1. Extract PAN Card details
+def extract_pan(image_path):
+    url = f"{BASE_URL}/customer/ocr/document-ocr/"
+    headers = {"X-API-Key": API_KEY}
+    
+    with open(image_path, 'rb') as f:
+        files = {'document_image': f}
+        data = {'document_type': 'PAN'}
+        response = requests.post(url, headers=headers, files=files, data=data)
+    
+    return response.json()
+
+# 2. Extract Aadhaar Front
+def extract_aadhaar_front(image_path):
+    url = f"{BASE_URL}/customer/ocr/document-ocr/"
+    headers = {"X-API-Key": API_KEY}
+    
+    with open(image_path, 'rb') as f:
+        files = {'document_image': f}
+        data = {'document_type': 'AADHAAR_FRONT'}
+        response = requests.post(url, headers=headers, files=files, data=data)
+    
+    return response.json()
+
+# 3. Extract Aadhaar Back (Address)
+def extract_aadhaar_back(image_path):
+    url = f"{BASE_URL}/customer/ocr/document-ocr/"
+    headers = {"X-API-Key": API_KEY}
+    
+    with open(image_path, 'rb') as f:
+        files = {'document_image': f}
+        data = {'document_type': 'AADHAAR_BACK'}
+        response = requests.post(url, headers=headers, files=files, data=data)
+    
+    return response.json()
+
+# Usage
+pan_data = extract_pan('customer_pan.jpg')
+if pan_data['success']:
+    print(f"PAN: {pan_data['data']['pan_number']}")
+    print(f"Name: {pan_data['data']['name']}")
+
+aadhaar_data = extract_aadhaar_front('customer_aadhaar_front.jpg')
+if aadhaar_data['success']:
+    print(f"Aadhaar: {aadhaar_data['data']['aadhaar_number']}")
+    print(f"Name: {aadhaar_data['data']['name']}")
+
+address_data = extract_aadhaar_back('customer_aadhaar_back.jpg')
+if address_data['success']:
+    print(f"Address: {address_data['data']['address']}")</pre>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
+

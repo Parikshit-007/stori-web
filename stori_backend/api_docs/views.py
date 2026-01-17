@@ -29,6 +29,10 @@ def consumer_credit_score(request):
     """Consumer Final Credit Score API documentation"""
     return render(request, 'api_docs/consumer/credit_score.html')
 
+def consumer_kyc_ocr(request):
+    """Consumer KYC OCR API documentation"""
+    return render(request, 'api_docs/consumer/kyc_ocr.html')
+
 # MSME APIs
 def msme_gst(request):
     """MSME GST Analysis API documentation"""

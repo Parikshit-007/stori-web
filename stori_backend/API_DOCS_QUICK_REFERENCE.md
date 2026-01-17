@@ -58,6 +58,14 @@ Endpoint: POST /api/customer/credit-scoring/score/
 Output:   Credit score (300-900) + recommendation
 ```
 
+### 6. KYC Document OCR
+```
+URL:      /api/documentation/consumer/kyc-ocr/
+Endpoint: POST /api/customer/ocr/document-ocr/
+Output:   Extracted PAN/Aadhaar data (name, DOB, address, etc.)
+Type:     Multipart/form-data (file upload)
+```
+
 ---
 
 ## 🏢 MSME APIs

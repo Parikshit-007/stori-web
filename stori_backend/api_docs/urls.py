@@ -14,6 +14,7 @@ urlpatterns = [
     path('consumer/credit-report/', views.consumer_credit_report, name='consumer_credit_report'),
     path('consumer/asset/', views.consumer_asset, name='consumer_asset'),
     path('consumer/credit-score/', views.consumer_credit_score, name='consumer_credit_score'),
+    path('consumer/kyc-ocr/', views.consumer_kyc_ocr, name='consumer_kyc_ocr'),
     
     # MSME APIs
     path('msme/gst/', views.msme_gst, name='msme_gst'),

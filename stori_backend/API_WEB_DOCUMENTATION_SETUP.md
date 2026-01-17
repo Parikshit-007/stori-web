@@ -35,6 +35,7 @@ http://localhost:8000/api/documentation/
 3. **Credit Report Analysis** - CIBIL/Experian analysis
 4. **Asset Analysis** - Asset and investment assessment
 5. **Final Credit Score** - Combined credit scoring
+6. **KYC Document OCR** - PAN and Aadhaar data extraction
 
 ### ✅ MSME API Pages (4 Pages)
 1. **GST Analysis** - GST return compliance and revenue analysis
@@ -74,6 +75,7 @@ http://localhost:8000/api/documentation/
 /api/documentation/consumer/credit-report/       → Credit Report API
 /api/documentation/consumer/asset/               → Asset API
 /api/documentation/consumer/credit-score/        → Final Score API
+/api/documentation/consumer/kyc-ocr/             → KYC OCR API
 ```
 
 ### MSME APIs
@@ -120,12 +122,13 @@ stori_backend/
 │   └── templates/api_docs/
 │       ├── index.html                     ← Main page
 │       ├── authentication.html            ← Auth guide
-│       ├── consumer/                      ← Consumer API pages
+│       ├── consumer/                      ← Consumer API pages (6 pages)
 │       │   ├── bank_statement.html
 │       │   ├── itr.html
-│       │   ├── credit_report.html
+│       │   ├── credit-report.html
 │       │   ├── asset.html
-│       │   └── credit_score.html
+│       │   ├── credit_score.html
+│       │   └── kyc_ocr.html
 │       └── msme/                          ← MSME API pages
 │           ├── gst.html
 │           ├── director_banking.html
@@ -337,10 +340,11 @@ https://mycfo.club/stori/api/documentation/
 ## Summary
 
 ✅ **Complete documentation interface created**  
-✅ **10 API pages** (5 Consumer + 5 MSME including auth)  
+✅ **11 API pages** (6 Consumer + 4 MSME + 1 Auth)  
 ✅ **Simple, clean design**  
 ✅ **All sample JSONs included**  
 ✅ **Production URL: /api/documentation/**  
+✅ **KYC OCR with image upload support**  
 ✅ **Ready to deploy**  
 
 ---
