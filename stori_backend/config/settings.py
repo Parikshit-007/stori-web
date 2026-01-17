@@ -67,6 +67,9 @@ INSTALLED_APPS = [
     'apps.customer.credit_scoring',
     'apps.customer.asset_analysis',
     
+    # API Documentation
+    'api_docs',
+    
     # MSME analysis app
     'apps.msme',
 ]

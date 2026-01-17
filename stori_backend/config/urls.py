@@ -30,6 +30,9 @@ urlpatterns = [
     
     # MSME Credit Scoring API
     path('api/msme/', include('apps.msme.urls')),
+    
+    # API Documentation
+    path('api/documentation/', include('api_docs.urls')),
 ]
 
 # Serve media files in development

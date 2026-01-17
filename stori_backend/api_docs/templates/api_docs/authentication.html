@@ -1,0 +1,83 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Authentication - Stori API</title>
+    <link rel="stylesheet" href="{% static 'api_docs/style.css' %}">
+</head>
+<body>
+    <header>
+        <h1>Authentication</h1>
+        <p>How to authenticate your API requests</p>
+    </header>
+
+    <div class="container">
+        <a href="{% url 'api_docs:index' %}" class="back-link">← Back to Documentation</a>
+
+        <div class="section">
+            <h2>API Key Authentication</h2>
+            <p>All API requests must include an API Key in the request header for authentication.</p>
+
+            <h3>Request Headers</h3>
+            <p>Include the following headers in every API request:</p>
+            
+            <div class="code-block">
+<pre>X-API-Key: your_api_key_here
+Content-Type: application/json</pre>
+            </div>
+
+            <h3>Example Request</h3>
+            <div class="code-block">
+<pre>curl -X POST "https://mycfo.club/stori/api/customer/bank-statement/analyze-json/" \
+  -H "X-API-Key: stori_abc123def456ghi789" \
+  -H "Content-Type: application/json" \
+  -d '{
+    "customer_name": "John Doe",
+    "customer_pan": "ABCDE1234F",
+    "bank_statement_data": {...}
+  }'</pre>
+            </div>
+
+            <div class="auth-section">
+                <h4>🔑 Getting Your API Key</h4>
+                <p>Contact your system administrator or request API credentials through your organization's onboarding process.</p>
+            </div>
+
+            <h3>Security Best Practices</h3>
+            <ul>
+                <li>Store API key in environment variables</li>
+                <li>Never commit API key to version control</li>
+                <li>Use separate keys for development and production</li>
+                <li>Never expose API key in client-side JavaScript</li>
+                <li>Rotate API keys periodically</li>
+            </ul>
+
+            <h3>Authentication Errors</h3>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Status Code</th>
+                        <th>Error</th>
+                        <th>Description</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>401</td>
+                        <td>Unauthorized</td>
+                        <td>API key is missing or invalid</td>
+                    </tr>
+                    <tr>
+                        <td>403</td>
+                        <td>Forbidden</td>
+                        <td>API key doesn't have permission for this resource</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</body>
+</html>
+

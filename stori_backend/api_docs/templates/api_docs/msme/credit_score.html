@@ -1,0 +1,266 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MSME Final Credit Score API - Stori</title>
+    <link rel="stylesheet" href="{% static 'api_docs/style.css' %}">
+</head>
+<body>
+    <header>
+        <h1>MSME Final Credit Score API</h1>
+        <p>MSME Credit Scoring</p>
+    </header>
+
+    <div class="container">
+        <a href="{% url 'api_docs:index' %}" class="back-link">← Back to Documentation</a>
+
+        <div class="section">
+            <h2>Overview</h2>
+            <p>Combines all MSME analyses (GST + Director Banking + Business Banking) to generate final credit score with DSCR (Debt Service Coverage Ratio) and loan recommendation.</p>
+
+            <h3>Endpoint</h3>
+            <div class="endpoint">
+                <span class="method">POST</span>
+                <code>https://mycfo.club/stori/api/msme/applications/quick_score/</code>
+            </div>
+
+            <h3>Authentication</h3>
+            <div class="code-block">
+<pre>X-API-Key: your_api_key_here
+Content-Type: application/json</pre>
+            </div>
+        </div>
+
+        <div class="section">
+            <h2>Request Body</h2>
+            <p><strong>Important:</strong> This API requires the data returned from previous MSME analysis APIs.</p>
+            
+            <h3>Sample Input JSON</h3>
+            <div class="code-block">
+<pre>{
+  "company_name": "ABC Traders Pvt Ltd",
+  "gstin": "29ABCDE1234F1Z5",
+  "loan_amount": 2000000,
+  "loan_tenure_months": 36,
+  "interest_rate": 12.5,
+  
+  "gst_data": {
+    "compliance_score": 88,
+    "risk_level": "low",
+    "avg_monthly_revenue": 8000000,
+    "mom_revenue_growth": 4.35,
+    "gst_filing_regularity": 87.5,
+    "vendor_verification_rate": 93.3
+  },
+  
+  "director_data": {
+    "overall_score": 82,
+    "risk_category": "low",
+    "monthly_income": 180000,
+    "income_stability": 0.88,
+    "estimated_emi": 35000
+  },
+  
+  "bank_data": {
+    "cashflow_health_score": 85,
+    "business_risk_category": "low",
+    "monthly_inflow": 3200000,
+    "monthly_outflow": 2850000,
+    "inflow_outflow_ratio": 1.12,
+    "average_bank_balance": 780000
+  }
+}</pre>
+            </div>
+
+            <h3>Request Parameters</h3>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Field</th>
+                        <th>Type</th>
+                        <th>Required</th>
+                        <th>Description</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>company_name</td>
+                        <td>string</td>
+                        <td>Yes</td>
+                        <td>Registered company name</td>
+                    </tr>
+                    <tr>
+                        <td>gstin</td>
+                        <td>string</td>
+                        <td>Yes</td>
+                        <td>Business GSTIN</td>
+                    </tr>
+                    <tr>
+                        <td>loan_amount</td>
+                        <td>number</td>
+                        <td>Yes</td>
+                        <td>Requested loan amount</td>
+                    </tr>
+                    <tr>
+                        <td>loan_tenure_months</td>
+                        <td>number</td>
+                        <td>Yes</td>
+                        <td>Loan tenure in months</td>
+                    </tr>
+                    <tr>
+                        <td>gst_data</td>
+                        <td>object</td>
+                        <td>Yes</td>
+                        <td>Data from GST Analysis API</td>
+                    </tr>
+                    <tr>
+                        <td>director_data</td>
+                        <td>object</td>
+                        <td>Yes</td>
+                        <td>Data from Director Banking API</td>
+                    </tr>
+                    <tr>
+                        <td>bank_data</td>
+                        <td>object</td>
+                        <td>Yes</td>
+                        <td>Data from Business Banking API</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <div class="section">
+            <h2>Response</h2>
+            <h3>Sample Output JSON</h3>
+            <div class="code-block">
+<pre>{
+  "success": true,
+  "data": {
+    "final_credit_score": 735,
+    "risk_tier": "near_prime",
+    "approval_recommendation": "approve_with_conditions",
+    
+    "loan_details": {
+      "requested_amount": 2000000,
+      "approved_amount": 1800000,
+      "recommended_interest_rate": 12.5,
+      "monthly_emi": 59850,
+      "tenure_months": 36
+    },
+    
+    "dscr_analysis": {
+      "annual_net_income": 4200000,
+      "total_annual_obligations": 934200,
+      "dscr": 4.5,
+      "dscr_status": "excellent",
+      "interpretation": "Strong ability to service debt"
+    },
+    
+    "business_health": {
+      "revenue_stability": "good",
+      "cash_flow_adequacy": "strong",
+      "compliance_status": "excellent",
+      "director_strength": "high"
+    },
+    
+    "positive_factors": [
+      "Strong cash flow (inflow/outflow ratio: 1.12)",
+      "High GST compliance (88)",
+      "Director financially stable",
+      "Excellent DSCR (4.5)",
+      "Consistent revenue growth"
+    ],
+    
+    "risk_factors": [
+      "Minor late GST filings (12.5%)"
+    ],
+    
+    "conditions": [
+      "Personal guarantee from director",
+      "Quarterly financial review",
+      "Maintain minimum DSCR of 1.25"
+    ],
+    
+    "recommendations": [
+      "Approve loan with conditions",
+      "Monitor GST filing regularity",
+      "Review after 12 months for limit enhancement"
+    ]
+  }
+}</pre>
+            </div>
+
+            <h3>Response Fields</h3>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Field</th>
+                        <th>Description</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>final_credit_score</td>
+                        <td>Business credit score (300-900). Higher is better</td>
+                    </tr>
+                    <tr>
+                        <td>risk_tier</td>
+                        <td>prime, near_prime, standard, or subprime</td>
+                    </tr>
+                    <tr>
+                        <td>approval_recommendation</td>
+                        <td>approve, approve_with_conditions, reject, or review</td>
+                    </tr>
+                    <tr>
+                        <td>dscr</td>
+                        <td>Debt Service Coverage Ratio. Should be > 1.25 for safe lending</td>
+                    </tr>
+                    <tr>
+                        <td>dscr_status</td>
+                        <td>excellent (>2.0), good (1.5-2.0), acceptable (1.25-1.5), risky (<1.25)</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <h3>Understanding DSCR</h3>
+            <div class="info-box">
+                <h4>What is DSCR?</h4>
+                <p>Debt Service Coverage Ratio (DSCR) measures a business's ability to service its debt obligations.</p>
+                <p><strong>Formula:</strong> DSCR = Annual Net Income / Total Annual Debt Obligations</p>
+                <p><strong>Interpretation:</strong></p>
+                <ul>
+                    <li>DSCR > 2.0: Excellent - Business generates twice the income needed for debt</li>
+                    <li>DSCR 1.5-2.0: Good - Healthy cushion for debt servicing</li>
+                    <li>DSCR 1.25-1.5: Acceptable - Adequate but monitor closely</li>
+                    <li>DSCR < 1.25: Risky - Insufficient income to cover debt</li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="section">
+            <h2>Integration Flow</h2>
+            <ol>
+                <li><strong>Step 1:</strong> Call GST Analysis API → Get gst_data</li>
+                <li><strong>Step 2:</strong> Call Director Banking API → Get director_data</li>
+                <li><strong>Step 3:</strong> Call Business Banking API → Get bank_data</li>
+                <li><strong>Step 4:</strong> Call MSME Final Score API with all data → Get final decision with DSCR</li>
+            </ol>
+        </div>
+
+        <div class="section">
+            <h2>Usage Notes</h2>
+            <ul>
+                <li>All three data sources (GST + Director + Business) are required</li>
+                <li>DSCR is the most important metric for MSME lending</li>
+                <li>DSCR below 1.25 indicates high risk - loan should be rejected or reduced</li>
+                <li>Strong GST compliance indicates business discipline</li>
+                <li>Director's financial stability acts as safety net</li>
+                <li>Positive cash flow is mandatory for approval</li>
+            </ul>
+        </div>
+    </div>
+</body>
+</html>
+

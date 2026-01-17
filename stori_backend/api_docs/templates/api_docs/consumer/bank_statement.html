@@ -1,0 +1,324 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bank Statement Analysis API - Stori</title>
+    <link rel="stylesheet" href="{% static 'api_docs/style.css' %}">
+</head>
+<body>
+    <header>
+        <h1>Bank Statement Analysis API</h1>
+        <p>Consumer Credit Scoring</p>
+    </header>
+
+    <div class="container">
+        <a href="{% url 'api_docs:index' %}" class="back-link">← Back to Documentation</a>
+
+        <div class="section">
+            <h2>Overview</h2>
+            <p>Analyzes bank transactions to extract 38+ financial features including income stability, spending patterns, EMI obligations, and risk indicators.</p>
+
+            <h3>Endpoint</h3>
+            <div class="endpoint">
+                <span class="method">POST</span>
+                <code>https://mycfo.club/stori/api/customer/bank-statement/analyze-json/</code>
+            </div>
+
+            <h3>Authentication</h3>
+            <p>Requires API Key in header. <a href="{% url 'api_docs:authentication' %}">See Authentication Guide</a></p>
+            <div class="code-block">
+<pre>X-API-Key: your_api_key_here
+Content-Type: application/json</pre>
+            </div>
+        </div>
+
+        <div class="section">
+            <h2>Request Body</h2>
+            <h3>Sample Input JSON</h3>
+            <div class="code-block">
+<pre>{
+  "customer_name": "Rahul Sharma",
+  "customer_pan": "ABCDE1234F",
+  "bank_name": "HDFC Bank",
+  "account_type": "savings",
+  "bank_statement_data": {
+    "account_number": "XXXX1234",
+    "statement_period": {
+      "from": "2025-01-01",
+      "to": "2025-12-31"
+    },
+    "transactions": [
+      {
+        "date": "2025-01-15",
+        "description": "Salary Credit",
+        "amount": 120000,
+        "type": "credit",
+        "balance": 150000
+      },
+      {
+        "date": "2025-01-16",
+        "description": "Rent Payment",
+        "amount": 18000,
+        "type": "debit",
+        "balance": 132000
+      },
+      {
+        "date": "2025-01-20",
+        "description": "EMI HDFC",
+        "amount": 22000,
+        "type": "debit",
+        "balance": 110000
+      },
+      {
+        "date": "2025-02-15",
+        "description": "Salary Credit",
+        "amount": 120000,
+        "type": "credit",
+        "balance": 208000
+      }
+    ]
+  }
+}</pre>
+            </div>
+
+            <h3>Request Parameters</h3>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Field</th>
+                        <th>Type</th>
+                        <th>Required</th>
+                        <th>Description</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>customer_name</td>
+                        <td>string</td>
+                        <td>Yes</td>
+                        <td>Full name of the customer</td>
+                    </tr>
+                    <tr>
+                        <td>customer_pan</td>
+                        <td>string</td>
+                        <td>Yes</td>
+                        <td>PAN card number (10 characters)</td>
+                    </tr>
+                    <tr>
+                        <td>bank_name</td>
+                        <td>string</td>
+                        <td>No</td>
+                        <td>Name of the bank</td>
+                    </tr>
+                    <tr>
+                        <td>account_type</td>
+                        <td>string</td>
+                        <td>No</td>
+                        <td>savings or current</td>
+                    </tr>
+                    <tr>
+                        <td>bank_statement_data</td>
+                        <td>object</td>
+                        <td>Yes</td>
+                        <td>Bank statement transactions data</td>
+                    </tr>
+                    <tr>
+                        <td>transactions</td>
+                        <td>array</td>
+                        <td>Yes</td>
+                        <td>Array of transaction objects (minimum 6 months data recommended)</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <h3>Transaction Object Structure</h3>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Field</th>
+                        <th>Type</th>
+                        <th>Required</th>
+                        <th>Description</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>date</td>
+                        <td>string</td>
+                        <td>Yes</td>
+                        <td>Transaction date (YYYY-MM-DD)</td>
+                    </tr>
+                    <tr>
+                        <td>description</td>
+                        <td>string</td>
+                        <td>Yes</td>
+                        <td>Transaction description</td>
+                    </tr>
+                    <tr>
+                        <td>amount</td>
+                        <td>number</td>
+                        <td>Yes</td>
+                        <td>Transaction amount</td>
+                    </tr>
+                    <tr>
+                        <td>type</td>
+                        <td>string</td>
+                        <td>Yes</td>
+                        <td>"credit" or "debit"</td>
+                    </tr>
+                    <tr>
+                        <td>balance</td>
+                        <td>number</td>
+                        <td>Yes</td>
+                        <td>Account balance after transaction</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <div class="section">
+            <h2>Response</h2>
+            <h3>Sample Output JSON</h3>
+            <div class="code-block">
+<pre>{
+  "success": true,
+  "message": "Bank statement analyzed successfully",
+  "data": {
+    "features": {
+      "monthly_income": 120000,
+      "monthly_expense": 65000,
+      "income_stability": 0.92,
+      "avg_balance": 110000,
+      "min_balance": 85000,
+      "max_balance": 208000,
+      "estimated_emi": 22000,
+      "bounce_rate": 0,
+      "salary_count": 12,
+      "credit_sum": 1440000,
+      "debit_sum": 780000,
+      "spending_ratio": 0.54,
+      "avg_monthly_credits": 120000,
+      "avg_monthly_debits": 65000,
+      "balance_volatility": 0.15,
+      "manipulation_score": 0.05
+    },
+    "analysis_summary": {
+      "total_credits": 1440000,
+      "total_debits": 780000,
+      "net_cashflow": 660000,
+      "transaction_count": 156,
+      "analysis_period_months": 12
+    }
+  },
+  "metadata": {
+    "timestamp": "2026-01-17T10:30:00Z",
+    "request_id": "req_abc123"
+  }
+}</pre>
+            </div>
+
+            <h3>Key Features Extracted (38 Features)</h3>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Feature</th>
+                        <th>Description</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>monthly_income</td>
+                        <td>Average monthly income from salary/regular credits</td>
+                    </tr>
+                    <tr>
+                        <td>monthly_expense</td>
+                        <td>Average monthly expenses</td>
+                    </tr>
+                    <tr>
+                        <td>income_stability</td>
+                        <td>Consistency of income (0-1 scale, higher is better)</td>
+                    </tr>
+                    <tr>
+                        <td>avg_balance</td>
+                        <td>Average account balance</td>
+                    </tr>
+                    <tr>
+                        <td>estimated_emi</td>
+                        <td>Estimated EMI obligations from transactions</td>
+                    </tr>
+                    <tr>
+                        <td>bounce_rate</td>
+                        <td>Percentage of bounced transactions/payments</td>
+                    </tr>
+                    <tr>
+                        <td>spending_ratio</td>
+                        <td>Expenses as percentage of income</td>
+                    </tr>
+                    <tr>
+                        <td>manipulation_score</td>
+                        <td>Risk score for potential statement manipulation (0-1)</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <div class="section">
+            <h2>Error Responses</h2>
+            <div class="code-block">
+<pre>{
+  "success": false,
+  "message": "Validation error",
+  "error": {
+    "code": "VALIDATION_ERROR",
+    "details": {
+      "bank_statement_data": ["This field is required"]
+    }
+  }
+}</pre>
+            </div>
+
+            <h3>Common Error Codes</h3>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Code</th>
+                        <th>Description</th>
+                        <th>Solution</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>INVALID_API_KEY</td>
+                        <td>API key is invalid</td>
+                        <td>Check your API key</td>
+                    </tr>
+                    <tr>
+                        <td>VALIDATION_ERROR</td>
+                        <td>Input validation failed</td>
+                        <td>Check request format</td>
+                    </tr>
+                    <tr>
+                        <td>INSUFFICIENT_DATA</td>
+                        <td>Not enough transactions</td>
+                        <td>Provide at least 3 months of data</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <div class="section">
+            <h2>Usage Notes</h2>
+            <ul>
+                <li>Minimum 3 months of bank statement data recommended for accurate analysis</li>
+                <li>More transactions provide better accuracy (6-12 months ideal)</li>
+                <li>All amounts should be in INR</li>
+                <li>Date format: YYYY-MM-DD</li>
+                <li>Store the returned features JSON for final credit scoring</li>
+            </ul>
+        </div>
+    </div>
+</body>
+</html>
+

@@ -1,0 +1,200 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Director Personal Banking API - Stori</title>
+    <link rel="stylesheet" href="{% static 'api_docs/style.css' %}">
+</head>
+<body>
+    <header>
+        <h1>Director Personal Banking API</h1>
+        <p>MSME Credit Scoring</p>
+    </header>
+
+    <div class="container">
+        <a href="{% url 'api_docs:index' %}" class="back-link">← Back to Documentation</a>
+
+        <div class="section">
+            <h2>Overview</h2>
+            <p>Analyzes director's personal bank statement using the same 38 features as consumer banking analysis. Strong director finances indicate lower business loan risk.</p>
+
+            <h3>Endpoint</h3>
+            <div class="endpoint">
+                <span class="method">POST</span>
+                <code>https://mycfo.club/stori/api/msme/director-banking/analyze-json/</code>
+            </div>
+
+            <h3>Authentication</h3>
+            <div class="code-block">
+<pre>X-API-Key: your_api_key_here
+Content-Type: application/json</pre>
+            </div>
+        </div>
+
+        <div class="section">
+            <h2>Request Body</h2>
+            <h3>Sample Input JSON</h3>
+            <div class="code-block">
+<pre>{
+  "director_name": "Rajesh Kumar",
+  "director_pan": "ABCDE1234F",
+  "bank_name": "HDFC Bank",
+  "account_type": "savings",
+  "bank_statement_data": {
+    "account_number": "XXXX5678",
+    "statement_period": {
+      "from": "2025-01-01",
+      "to": "2025-12-31"
+    },
+    "transactions": [
+      {
+        "date": "2025-01-15",
+        "description": "Salary/Director Remuneration",
+        "amount": 180000,
+        "type": "credit",
+        "balance": 250000
+      },
+      {
+        "date": "2025-01-18",
+        "description": "Personal EMI",
+        "amount": 35000,
+        "type": "debit",
+        "balance": 215000
+      },
+      {
+        "date": "2025-02-15",
+        "description": "Salary Credit",
+        "amount": 180000,
+        "type": "credit",
+        "balance": 360000
+      }
+    ]
+  }
+}</pre>
+            </div>
+
+            <h3>Request Parameters</h3>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Field</th>
+                        <th>Type</th>
+                        <th>Required</th>
+                        <th>Description</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>director_name</td>
+                        <td>string</td>
+                        <td>Yes</td>
+                        <td>Full name of the director</td>
+                    </tr>
+                    <tr>
+                        <td>director_pan</td>
+                        <td>string</td>
+                        <td>Yes</td>
+                        <td>Director's PAN card number</td>
+                    </tr>
+                    <tr>
+                        <td>bank_statement_data</td>
+                        <td>object</td>
+                        <td>Yes</td>
+                        <td>Director's personal bank statement data</td>
+                    </tr>
+                    <tr>
+                        <td>transactions</td>
+                        <td>array</td>
+                        <td>Yes</td>
+                        <td>Array of transactions (6-12 months recommended)</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <div class="section">
+            <h2>Response</h2>
+            <h3>Sample Output JSON</h3>
+            <div class="code-block">
+<pre>{
+  "success": true,
+  "data": {
+    "overall_score": 82,
+    "risk_category": "low",
+    
+    "summary": {
+      "monthly_income": 180000,
+      "monthly_expense": 95000,
+      "income_stability": 0.88,
+      "avg_balance": 220000,
+      "estimated_emi": 35000,
+      "is_stable": true
+    },
+    
+    "features": {
+      "monthly_income": 180000,
+      "monthly_expense": 95000,
+      "income_stability": 0.88,
+      "avg_balance": 220000,
+      "min_balance": 180000,
+      "max_balance": 360000,
+      "estimated_emi": 35000,
+      "bounce_rate": 0,
+      "salary_count": 12,
+      "spending_ratio": 0.53,
+      "balance_volatility": 0.18,
+      "manipulation_score": 0.03
+    }
+  }
+}</pre>
+            </div>
+
+            <h3>Key Metrics</h3>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Feature</th>
+                        <th>Description</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>overall_score</td>
+                        <td>Director's personal financial health score (0-100)</td>
+                    </tr>
+                    <tr>
+                        <td>monthly_income</td>
+                        <td>Director's personal monthly income</td>
+                    </tr>
+                    <tr>
+                        <td>income_stability</td>
+                        <td>Consistency of director's income (0-1)</td>
+                    </tr>
+                    <tr>
+                        <td>estimated_emi</td>
+                        <td>Director's personal loan obligations</td>
+                    </tr>
+                    <tr>
+                        <td>is_stable</td>
+                        <td>Whether director has stable finances</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <div class="section">
+            <h2>Usage Notes</h2>
+            <ul>
+                <li>This API uses the same 38-feature analysis as consumer bank statement</li>
+                <li>Strong director finances = can support business in difficult times</li>
+                <li>Store the returned data JSON for MSME final credit scoring</li>
+                <li>High income stability indicates reliable leadership</li>
+                <li>Low bounce rate shows financial discipline</li>
+            </ul>
+        </div>
+    </div>
+</body>
+</html>
+

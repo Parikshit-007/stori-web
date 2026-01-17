@@ -1,0 +1,110 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Stori API Documentation</title>
+    <link rel="stylesheet" href="{% static 'api_docs/style.css' %}">
+</head>
+<body>
+    <header>
+        <h1>Stori Credit Scoring API Documentation</h1>
+        <p>Complete API reference for Consumer and MSME credit scoring</p>
+    </header>
+
+    <div class="container">
+        <!-- Authentication Section -->
+        <div class="section">
+            <h2>Getting Started</h2>
+            <p>Welcome to Stori API documentation. All API requests require authentication using an API Key.</p>
+            <a href="{% url 'api_docs:authentication' %}" class="api-link" style="margin-top: 15px;">
+                <strong>🔐 Authentication Guide</strong>
+                <span>Learn how to authenticate your API requests</span>
+            </a>
+        </div>
+
+        <!-- Consumer APIs -->
+        <div class="section">
+            <h2>Consumer Credit Scoring APIs</h2>
+            <p>APIs for personal loan, credit card, and consumer credit assessment</p>
+            
+            <ul class="api-list">
+                <li>
+                    <a href="{% url 'api_docs:consumer_bank_statement' %}" class="api-link">
+                        <strong>Bank Statement Analysis</strong>
+                        <span>Analyze bank transactions to extract 38+ financial features</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="{% url 'api_docs:consumer_itr' %}" class="api-link">
+                        <strong>ITR Analysis</strong>
+                        <span>Validate income from Income Tax Returns</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="{% url 'api_docs:consumer_credit_report' %}" class="api-link">
+                        <strong>Credit Report Analysis</strong>
+                        <span>Analyze credit bureau reports (CIBIL/Experian)</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="{% url 'api_docs:consumer_asset' %}" class="api-link">
+                        <strong>Asset Analysis</strong>
+                        <span>Analyze customer assets and investments</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="{% url 'api_docs:consumer_credit_score' %}" class="api-link">
+                        <strong>Final Credit Score</strong>
+                        <span>Combine all analyses to generate final credit score</span>
+                    </a>
+                </li>
+            </ul>
+        </div>
+
+        <!-- MSME APIs -->
+        <div class="section">
+            <h2>MSME Credit Scoring APIs</h2>
+            <p>APIs for business loans, working capital, and MSME credit assessment</p>
+            
+            <ul class="api-list">
+                <li>
+                    <a href="{% url 'api_docs:msme_gst' %}" class="api-link">
+                        <strong>GST Analysis</strong>
+                        <span>Analyze GST returns for revenue and compliance assessment</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="{% url 'api_docs:msme_director_banking' %}" class="api-link">
+                        <strong>Director Personal Banking</strong>
+                        <span>Analyze director's personal bank statements</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="{% url 'api_docs:msme_business_banking' %}" class="api-link">
+                        <strong>Business Banking</strong>
+                        <span>Analyze business current account for cash flow</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="{% url 'api_docs:msme_credit_score' %}" class="api-link">
+                        <strong>Final MSME Credit Score</strong>
+                        <span>Combine all analyses for business credit score with DSCR</span>
+                    </a>
+                </li>
+            </ul>
+        </div>
+
+        <!-- Base URL -->
+        <div class="section">
+            <h2>Base URL</h2>
+            <div class="endpoint">
+                <code>https://mycfo.club/stori/api</code>
+            </div>
+            <p>All endpoints are relative to this base URL.</p>
+        </div>
+    </div>
+</body>
+</html>
+

@@ -1,0 +1,190 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Credit Report Analysis API - Stori</title>
+    <link rel="stylesheet" href="{% static 'api_docs/style.css' %}">
+</head>
+<body>
+    <header>
+        <h1>Credit Report Analysis API</h1>
+        <p>Consumer Credit Scoring</p>
+    </header>
+
+    <div class="container">
+        <a href="{% url 'api_docs:index' %}" class="back-link">← Back to Documentation</a>
+
+        <div class="section">
+            <h2>Overview</h2>
+            <p>Analyzes credit bureau report (CIBIL/Experian) for credit history and existing loan obligations.</p>
+
+            <h3>Endpoint</h3>
+            <div class="endpoint">
+                <span class="method">POST</span>
+                <code>https://mycfo.club/stori/api/customer/credit-report/analyze-json/</code>
+            </div>
+
+            <h3>Authentication</h3>
+            <div class="code-block">
+<pre>X-API-Key: your_api_key_here
+Content-Type: application/json</pre>
+            </div>
+        </div>
+
+        <div class="section">
+            <h2>Request Body</h2>
+            <h3>Sample Input JSON</h3>
+            <div class="code-block">
+<pre>{
+  "customer_name": "Rahul Sharma",
+  "customer_pan": "ABCDE1234F",
+  "bureau": "CIBIL",
+  "credit_report_data": {
+    "credit_score": 760,
+    "report_date": "2026-01-15",
+    "accounts": [
+      {
+        "account_type": "home_loan",
+        "current_balance": 3800000,
+        "sanctioned_amount": 4500000,
+        "emi_amount": 22000,
+        "account_status": "active",
+        "dpd_history": [0, 0, 0, 0, 0, 0],
+        "opened_date": "2020-01-15"
+      },
+      {
+        "account_type": "credit_card",
+        "current_balance": 45000,
+        "credit_limit": 200000,
+        "account_status": "active",
+        "dpd_history": [0, 0, 0, 15, 0, 0]
+      }
+    ],
+    "enquiries": 2,
+    "enquiry_dates": ["2025-12-01", "2025-11-15"]
+  }
+}</pre>
+            </div>
+
+            <h3>Request Parameters</h3>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Field</th>
+                        <th>Type</th>
+                        <th>Required</th>
+                        <th>Description</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>customer_name</td>
+                        <td>string</td>
+                        <td>Yes</td>
+                        <td>Full name of the customer</td>
+                    </tr>
+                    <tr>
+                        <td>customer_pan</td>
+                        <td>string</td>
+                        <td>Yes</td>
+                        <td>PAN card number</td>
+                    </tr>
+                    <tr>
+                        <td>bureau</td>
+                        <td>string</td>
+                        <td>Yes</td>
+                        <td>CIBIL or Experian</td>
+                    </tr>
+                    <tr>
+                        <td>credit_report_data</td>
+                        <td>object</td>
+                        <td>Yes</td>
+                        <td>Credit bureau report data</td>
+                    </tr>
+                    <tr>
+                        <td>accounts</td>
+                        <td>array</td>
+                        <td>Yes</td>
+                        <td>Array of all credit accounts</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <div class="section">
+            <h2>Response</h2>
+            <h3>Sample Output JSON</h3>
+            <div class="code-block">
+<pre>{
+  "success": true,
+  "message": "Credit report analyzed successfully",
+  "data": {
+    "features": {
+      "credit_score": 760,
+      "total_debt": 3845000,
+      "current_emi": 22000,
+      "credit_utilization": 22.5,
+      "dpd_last_6_months": 15,
+      "total_accounts": 2,
+      "active_accounts": 2,
+      "recent_enquiries": 2,
+      "account_age_months": 72,
+      "payment_history_score": 0.92
+    },
+    "analysis_summary": {
+      "risk_category": "low",
+      "credit_health": "good",
+      "repayment_track_record": "excellent"
+    }
+  }
+}</pre>
+            </div>
+
+            <h3>Key Features</h3>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Feature</th>
+                        <th>Description</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>credit_score</td>
+                        <td>Bureau credit score (300-900)</td>
+                    </tr>
+                    <tr>
+                        <td>total_debt</td>
+                        <td>Total outstanding debt across all accounts</td>
+                    </tr>
+                    <tr>
+                        <td>current_emi</td>
+                        <td>Total monthly EMI obligations</td>
+                    </tr>
+                    <tr>
+                        <td>credit_utilization</td>
+                        <td>Credit card utilization percentage</td>
+                    </tr>
+                    <tr>
+                        <td>dpd_last_6_months</td>
+                        <td>Days past due in last 6 months</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <div class="section">
+            <h2>Usage Notes</h2>
+            <ul>
+                <li>DPD (Days Past Due) of 0 indicates good payment history</li>
+                <li>Credit utilization above 30% is considered risky</li>
+                <li>Store the returned features JSON for final credit scoring</li>
+                <li>Compare current_emi with estimated_emi from bank statement</li>
+            </ul>
+        </div>
+    </div>
+</body>
+</html>
+
