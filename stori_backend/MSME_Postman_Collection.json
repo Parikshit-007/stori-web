@@ -1,0 +1,602 @@
+{
+	"info": {
+		"_postman_id": "msme-api-collection-2026",
+		"name": "MSME NBFC API Collection",
+		"description": "Complete API collection for MSME credit scoring and analysis\n\n## Features:\n- GST Analysis (Revenue, Compliance, Vendor)\n- Director Personal Banking (38 features from consumer flow)\n- Business Banking (Cash flow, Business health)\n- Complete MSME Application Analysis\n\n## Authentication:\nAll requests require `X-API-Key` header",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "1. MSME Application",
+			"item": [
+				{
+					"name": "Create MSME Application",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "X-API-Key",
+								"value": "{{api_key}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"company_name\": \"ABC Traders Pvt Ltd\",\n  \"msme_category\": \"small\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}/api/msme/applications/",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"msme",
+								"applications",
+								""
+							]
+						},
+						"description": "Create a new MSME application"
+					},
+					"response": []
+				},
+				{
+					"name": "Get All Applications",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "X-API-Key",
+								"value": "{{api_key}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{base_url}}/api/msme/applications/",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"msme",
+								"applications",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Application Details",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "X-API-Key",
+								"value": "{{api_key}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{base_url}}/api/msme/applications/{{application_id}}/",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"msme",
+								"applications",
+								"{{application_id}}",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Complete MSME Analysis",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "X-API-Key",
+								"value": "{{api_key}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"director_data\": {\n    \"name\": \"Rajesh Kumar\",\n    \"age\": 45,\n    \"pan\": \"ABCDE1234F\",\n    \"phone\": \"9876543210\",\n    \"address\": \"123 Main St, Mumbai\",\n    \"personal_bank_data\": {\n      \"transactions\": []\n    }\n  },\n  \"business_data\": {\n    \"industry\": \"Retail\",\n    \"legal_entity_type\": \"proprietorship\",\n    \"business_vintage_years\": 5\n  },\n  \"bank_data\": {\n    \"transactions\": []\n  },\n  \"gst_data\": {\n    \"gstin\": \"29ABCDE1234F1Z5\",\n    \"total_revenue\": 5000000\n  },\n  \"verification_data\": {\n    \"gstin\": \"29ABCDE1234F1Z5\",\n    \"pan\": \"ABCDE1234F\",\n    \"gstin_valid\": true\n  }\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}/api/msme/applications/{{application_id}}/analyze/",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"msme",
+								"applications",
+								"{{application_id}}",
+								"analyze",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Analysis Result",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "X-API-Key",
+								"value": "{{api_key}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{base_url}}/api/msme/applications/{{application_id}}/analysis_result/",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"msme",
+								"applications",
+								"{{application_id}}",
+								"analysis_result",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Quick Score (No Save)",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "X-API-Key",
+								"value": "{{api_key}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"director_data\": {...},\n  \"business_data\": {...},\n  \"bank_data\": {...},\n  \"gst_data\": {...}\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}/api/msme/applications/quick_score/",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"msme",
+								"applications",
+								"quick_score",
+								""
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "2. GST Analysis",
+			"item": [
+				{
+					"name": "Upload GST Return (JSON)",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "X-API-Key",
+								"value": "{{api_key}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"gstin\": \"29ABCDE1234F1Z5\",\n  \"return_type\": \"gstr3b\",\n  \"return_period\": \"12-2025\",\n  \"financial_year\": \"2025-26\",\n  \"file_type\": \"json\",\n  \"gst_data\": {\n    \"taxable_turnover\": 5000000,\n    \"total_tax_liability\": 900000,\n    \"total_tax_paid\": 900000,\n    \"itc_claimed\": 150000,\n    \"itc_utilized\": 140000,\n    \"total_revenue\": 5000000,\n    \"vendors\": [\n      {\n        \"gstin\": \"27XXXXX1234X1Z5\",\n        \"name\": \"Supplier A\",\n        \"total_amount\": 100000,\n        \"verified\": true,\n        \"months_active\": 12\n      },\n      {\n        \"gstin\": \"19YYYYY5678Y2Z6\",\n        \"name\": \"Supplier B\",\n        \"total_amount\": 50000,\n        \"verified\": true,\n        \"months_active\": 8\n      }\n    ],\n    \"hsn_codes\": [\"84\", \"85\", \"87\"],\n    \"sac_codes\": [],\n    \"locations\": [\n      {\n        \"state\": \"Karnataka\",\n        \"gstin\": \"29ABCDE1234F1Z5\"\n      }\n    ],\n    \"payment_history\": [\n      {\n        \"month\": \"12-2025\",\n        \"on_time\": true\n      },\n      {\n        \"month\": \"11-2025\",\n        \"on_time\": true\n      }\n    ]\n  }\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}/api/msme/gst/uploads/",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"msme",
+								"gst",
+								"uploads",
+								""
+							]
+						},
+						"description": "Upload GST return data in JSON format"
+					},
+					"response": []
+				},
+				{
+					"name": "Analyze GST Return",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "X-API-Key",
+								"value": "{{api_key}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"itr_data\": {\n    \"total_revenue\": 6000000,\n    \"net_profit\": 500000,\n    \"total_expenses\": 5500000\n  },\n  \"platform_sales_data\": {\n    \"total_sales\": 4800000,\n    \"platform\": \"Shopify\",\n    \"currency\": \"INR\"\n  },\n  \"filing_history\": [\n    {\n      \"return_period\": \"11-2025\",\n      \"status\": \"filed_on_time\",\n      \"days_delay\": 0,\n      \"revenue_declared\": 450000\n    },\n    {\n      \"return_period\": \"10-2025\",\n      \"status\": \"filed_late\",\n      \"days_delay\": 5,\n      \"revenue_declared\": 420000\n    },\n    {\n      \"return_period\": \"09-2025\",\n      \"status\": \"filed_on_time\",\n      \"days_delay\": 0,\n      \"revenue_declared\": 480000\n    }\n  ]\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}/api/msme/gst/uploads/{{gst_upload_id}}/analyze/",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"msme",
+								"gst",
+								"uploads",
+								"{{gst_upload_id}}",
+								"analyze",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get GST Analysis Result",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "X-API-Key",
+								"value": "{{api_key}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{base_url}}/api/msme/gst/uploads/{{gst_upload_id}}/result/",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"msme",
+								"gst",
+								"uploads",
+								"{{gst_upload_id}}",
+								"result",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get All GST Results",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "X-API-Key",
+								"value": "{{api_key}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{base_url}}/api/msme/gst/results/",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"msme",
+								"gst",
+								"results",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get GST Summary by GSTIN",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "X-API-Key",
+								"value": "{{api_key}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{base_url}}/api/msme/gst/results/summary/?gstin=29ABCDE1234F1Z5",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"msme",
+								"gst",
+								"results",
+								"summary",
+								""
+							],
+							"query": [
+								{
+									"key": "gstin",
+									"value": "29ABCDE1234F1Z5"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Filing Regularity",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "X-API-Key",
+								"value": "{{api_key}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{base_url}}/api/msme/gst/filing-history/regularity/?gstin=29ABCDE1234F1Z5",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"msme",
+								"gst",
+								"filing-history",
+								"regularity",
+								""
+							],
+							"query": [
+								{
+									"key": "gstin",
+									"value": "29ABCDE1234F1Z5"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "3. Director Personal Banking",
+			"item": [
+				{
+					"name": "Analyze Director Banking (JSON)",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "X-API-Key",
+								"value": "{{api_key}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"director_name\": \"Rajesh Kumar\",\n  \"director_pan\": \"ABCDE1234F\",\n  \"bank_name\": \"HDFC Bank\",\n  \"account_type\": \"savings\",\n  \"bank_statement_data\": {\n    \"account_number\": \"XXXX1234\",\n    \"statement_period\": {\n      \"from\": \"2025-01-01\",\n      \"to\": \"2025-12-31\"\n    },\n    \"transactions\": [\n      {\n        \"date\": \"2025-01-15\",\n        \"description\": \"Salary Credit - Company ABC\",\n        \"amount\": 150000,\n        \"type\": \"credit\",\n        \"balance\": 200000,\n        \"category\": \"salary\"\n      },\n      {\n        \"date\": \"2025-01-16\",\n        \"description\": \"Rent Payment\",\n        \"amount\": 20000,\n        \"type\": \"debit\",\n        \"balance\": 180000,\n        \"category\": \"rent\"\n      },\n      {\n        \"date\": \"2025-01-18\",\n        \"description\": \"UPI Transfer to Friend\",\n        \"amount\": 5000,\n        \"type\": \"debit\",\n        \"balance\": 175000,\n        \"category\": \"p2p\"\n      },\n      {\n        \"date\": \"2025-01-20\",\n        \"description\": \"EMI - Home Loan\",\n        \"amount\": 25000,\n        \"type\": \"debit\",\n        \"balance\": 150000,\n        \"category\": \"emi\"\n      },\n      {\n        \"date\": \"2025-01-22\",\n        \"description\": \"Electricity Bill\",\n        \"amount\": 2000,\n        \"type\": \"debit\",\n        \"balance\": 148000,\n        \"category\": \"utility\"\n      },\n      {\n        \"date\": \"2025-01-25\",\n        \"description\": \"Insurance Premium\",\n        \"amount\": 5000,\n        \"type\": \"debit\",\n        \"balance\": 143000,\n        \"category\": \"insurance\"\n      },\n      {\n        \"date\": \"2025-02-15\",\n        \"description\": \"Salary Credit\",\n        \"amount\": 150000,\n        \"type\": \"credit\",\n        \"balance\": 293000,\n        \"category\": \"salary\"\n      }\n    ]\n  }\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}/api/msme/director-banking/analyze-json/",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"msme",
+								"director-banking",
+								"analyze-json",
+								""
+							]
+						},
+						"description": "Analyze director's personal bank statement - Returns all 38 features"
+					},
+					"response": []
+				},
+				{
+					"name": "Get Director Banking Summary",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "X-API-Key",
+								"value": "{{api_key}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{base_url}}/api/msme/director-banking/summary/?pan=ABCDE1234F",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"msme",
+								"director-banking",
+								"summary",
+								""
+							],
+							"query": [
+								{
+									"key": "pan",
+									"value": "ABCDE1234F"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get All Director Results",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "X-API-Key",
+								"value": "{{api_key}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{base_url}}/api/msme/director-banking/results/",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"msme",
+								"director-banking",
+								"results",
+								""
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "4. Business Banking",
+			"item": [
+				{
+					"name": "Analyze Business Banking (JSON)",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "X-API-Key",
+								"value": "{{api_key}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"business_name\": \"ABC Traders Pvt Ltd\",\n  \"gstin\": \"29ABCDE1234F1Z5\",\n  \"bank_name\": \"ICICI Bank\",\n  \"account_type\": \"current\",\n  \"bank_statement_data\": {\n    \"account_number\": \"XXXX5678\",\n    \"statement_period\": {\n      \"from\": \"2025-01-01\",\n      \"to\": \"2025-12-31\"\n    },\n    \"transactions\": [\n      {\n        \"date\": \"2025-01-05\",\n        \"description\": \"Customer Payment - INV001\",\n        \"amount\": 50000,\n        \"type\": \"credit\",\n        \"balance\": 500000,\n        \"category\": \"revenue\"\n      },\n      {\n        \"date\": \"2025-01-08\",\n        \"description\": \"Customer Payment - INV002\",\n        \"amount\": 75000,\n        \"type\": \"credit\",\n        \"balance\": 575000,\n        \"category\": \"revenue\"\n      },\n      {\n        \"date\": \"2025-01-10\",\n        \"description\": \"Vendor Payment - Supplier A\",\n        \"amount\": 30000,\n        \"type\": \"debit\",\n        \"balance\": 545000,\n        \"category\": \"vendor\"\n      },\n      {\n        \"date\": \"2025-01-15\",\n        \"description\": \"Salary Payment - Staff\",\n        \"amount\": 100000,\n        \"type\": \"debit\",\n        \"balance\": 445000,\n        \"category\": \"salary\"\n      },\n      {\n        \"date\": \"2025-01-18\",\n        \"description\": \"Rent Payment\",\n        \"amount\": 25000,\n        \"type\": \"debit\",\n        \"balance\": 420000,\n        \"category\": \"rent\"\n      },\n      {\n        \"date\": \"2025-01-20\",\n        \"description\": \"UPI - Payment Gateway Collection\",\n        \"amount\": 80000,\n        \"type\": \"credit\",\n        \"balance\": 500000,\n        \"category\": \"revenue\"\n      },\n      {\n        \"date\": \"2025-01-22\",\n        \"description\": \"Electricity Bill\",\n        \"amount\": 8000,\n        \"type\": \"debit\",\n        \"balance\": 492000,\n        \"category\": \"utility\"\n      },\n      {\n        \"date\": \"2025-01-25\",\n        \"description\": \"Vendor Payment - Supplier B\",\n        \"amount\": 45000,\n        \"type\": \"debit\",\n        \"balance\": 447000,\n        \"category\": \"vendor\"\n      },\n      {\n        \"date\": \"2025-01-28\",\n        \"description\": \"Customer Payment - INV003\",\n        \"amount\": 60000,\n        \"type\": \"credit\",\n        \"balance\": 507000,\n        \"category\": \"revenue\"\n      }\n    ]\n  }\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{base_url}}/api/msme/business-banking/analyze-json/",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"msme",
+								"business-banking",
+								"analyze-json",
+								""
+							]
+						},
+						"description": "Analyze business current account - Cash flow & business health"
+					},
+					"response": []
+				},
+				{
+					"name": "Get All Business Banking Results",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "X-API-Key",
+								"value": "{{api_key}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "{{base_url}}/api/msme/business-banking/results/",
+							"host": [
+								"{{base_url}}"
+							],
+							"path": [
+								"api",
+								"msme",
+								"business-banking",
+								"results",
+								""
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	],
+	"variable": [
+		{
+			"key": "base_url",
+			"value": "http://localhost:8000",
+			"type": "string"
+		},
+		{
+			"key": "api_key",
+			"value": "stori_your_api_key_here",
+			"type": "string"
+		},
+		{
+			"key": "application_id",
+			"value": "1",
+			"type": "string"
+		},
+		{
+			"key": "gst_upload_id",
+			"value": "1",
+			"type": "string"
+		}
+	]
+}
