@@ -1,0 +1,43 @@
+{
+    "name_dob_verified": 1,
+    "pan_verified": 1,
+    "aadhaar_verified": 1,
+    "phone_verified": 1,
+    "phone_age_months": 36,
+    "email_verified": 1,
+    "email_age_months": 48,
+    "age": 32,
+    "education_level": 4,
+    "dependents_count": 2,
+    
+    "employment_type": 3,
+    "employment_tenure_months": 48,
+    "job_changes_3y": 1,
+    "monthly_income": 75000,
+    "monthly_income_stability": 0.9,
+    "income_cv": 0.15,
+    "income_source_verification": 1,
+    "employment_history_score": 85,
+    
+    "total_financial_assets": 500000,
+    "liquid_assets": 150000,
+    "property_owned": 0,
+    "vehicle_owned": 1,
+    
+    "credit_score": 720,
+    "credit_accounts_total": 5,
+    "credit_accounts_active": 4,
+    "credit_utilization_ratio": 0.35,
+    "dpd_30_count": 0,
+    "dpd_60_count": 0,
+    "dpd_90_count": 0,
+    "credit_enquiries_3m": 1,
+    "credit_enquiries_6m": 2,
+    
+    "avg_monthly_credits": 80000,
+    "avg_monthly_debits": 55000,
+    "avg_balance": 125000,
+    "min_balance": 15000,
+    "balance_volatility": 0.2,
+    "negative_balance_days_ratio": 0
+}

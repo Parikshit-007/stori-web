@@ -1,0 +1,518 @@
+{
+	"info": {
+		"_postman_id": "msme-credit-scoring-api",
+		"name": "MSME Credit Scoring API",
+		"description": "Complete API collection for MSME credit scoring and analysis.\n\n**Base URL:** `http://localhost:8000/api/msme/`\n\n**Authentication:** Knox Token (Add to Authorization header)\n\n**Sections Covered:**\n- MSME Applications (CRUD + Analysis)\n- Document Management\n- Section-Specific Analysis\n\n**Created:** 2026-01-15",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Authentication",
+			"item": [
+				{
+					"name": "Login (Get Token)",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"username\": \"admin\",\n    \"password\": \"admin123\"\n}"
+						},
+						"url": {
+							"raw": "{{base_url}}/auth/login/",
+							"host": ["{{base_url}}"],
+							"path": ["auth", "login", ""]
+						},
+						"description": "Login to get Knox authentication token.\n\nResponse includes token that should be used in Authorization header for all subsequent requests."
+					},
+					"response": []
+				},
+				{
+					"name": "Logout",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Token {{auth_token}}"
+							}
+						],
+						"url": {
+							"raw": "{{base_url}}/auth/logout/",
+							"host": ["{{base_url}}"],
+							"path": ["auth", "logout", ""]
+						},
+						"description": "Logout and invalidate current token"
+					},
+					"response": []
+				}
+			],
+			"description": "Authentication endpoints using Knox"
+		},
+		{
+			"name": "MSME Applications",
+			"item": [
+				{
+					"name": "List All Applications",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Token {{auth_token}}"
+							}
+						],
+						"url": {
+							"raw": "{{base_url}}/msme/applications/",
+							"host": ["{{base_url}}"],
+							"path": ["msme", "applications", ""]
+						},
+						"description": "Get list of all MSME applications for authenticated user"
+					},
+					"response": []
+				},
+				{
+					"name": "Create Application",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Token {{auth_token}}"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"company_name\": \"ABC Traders Pvt Ltd\",\n    \"msme_category\": \"small\"\n}"
+						},
+						"url": {
+							"raw": "{{base_url}}/msme/applications/",
+							"host": ["{{base_url}}"],
+							"path": ["msme", "applications", ""]
+						},
+						"description": "Create new MSME application.\n\n**MSME Categories:**\n- micro\n- small\n- medium\n\nApplication number is auto-generated."
+					},
+					"response": []
+				},
+				{
+					"name": "Get Application Details",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Token {{auth_token}}"
+							}
+						],
+						"url": {
+							"raw": "{{base_url}}/msme/applications/{{application_id}}/",
+							"host": ["{{base_url}}"],
+							"path": ["msme", "applications", "{{application_id}}", ""]
+						},
+						"description": "Get detailed information about specific application including all related sections"
+					},
+					"response": []
+				},
+				{
+					"name": "Update Application",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Token {{auth_token}}"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"company_name\": \"ABC Traders Pvt Ltd (Updated)\",\n    \"msme_category\": \"medium\",\n    \"status\": \"in_review\"\n}"
+						},
+						"url": {
+							"raw": "{{base_url}}/msme/applications/{{application_id}}/",
+							"host": ["{{base_url}}"],
+							"path": ["msme", "applications", "{{application_id}}", ""]
+						},
+						"description": "Update application details"
+					},
+					"response": []
+				},
+				{
+					"name": "Delete Application",
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Token {{auth_token}}"
+							}
+						],
+						"url": {
+							"raw": "{{base_url}}/msme/applications/{{application_id}}/",
+							"host": ["{{base_url}}"],
+							"path": ["msme", "applications", "{{application_id}}", ""]
+						},
+						"description": "Delete application and all related data"
+					},
+					"response": []
+				}
+			],
+			"description": "CRUD operations for MSME applications"
+		},
+		{
+			"name": "Analysis",
+			"item": [
+				{
+					"name": "Complete MSME Analysis",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Token {{auth_token}}"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"company_name\": \"ABC Traders Pvt Ltd\",\n    \"msme_category\": \"small\",\n    \"director_data\": {\n        \"name\": \"John Doe\",\n        \"age\": 45,\n        \"address\": \"123 Business Street, Mumbai\",\n        \"pan\": \"ABCDE1234F\",\n        \"phone\": \"+91-9876543210\"\n    },\n    \"personal_bank_data\": {\n        \"account_balances\": [150000, 175000, 160000, 180000],\n        \"transactions\": [\n            {\n                \"date\": \"2025-12-01\",\n                \"type\": \"credit\",\n                \"amount\": 50000,\n                \"balance\": 150000,\n                \"narration\": \"Salary Credit\"\n            },\n            {\n                \"date\": \"2025-12-05\",\n                \"type\": \"debit\",\n                \"amount\": 15000,\n                \"balance\": 135000,\n                \"narration\": \"EMI Payment\"\n            },\n            {\n                \"date\": \"2025-12-10\",\n                \"type\": \"credit\",\n                \"amount\": 25000,\n                \"balance\": 160000,\n                \"narration\": \"Dividend\"\n            }\n        ]\n    },\n    \"business_data\": {\n        \"company_name\": \"ABC Traders Pvt Ltd\",\n        \"industry\": \"trading\",\n        \"legal_entity_type\": \"private_limited\",\n        \"formation_date\": \"2015-06-15\",\n        \"investment\": 5000000,\n        \"annual_turnover\": 50000000,\n        \"locations\": [\n            {\n                \"address\": \"Mumbai Office\",\n                \"type\": \"head_office\"\n            }\n        ]\n    },\n    \"verification_data\": {\n        \"gstin\": \"27ABCDE1234F1Z5\",\n        \"pan\": \"ABCDE1234F\",\n        \"licenses\": [\n            {\n                \"type\": \"Trade License\",\n                \"number\": \"TL-123456\",\n                \"verified\": true\n            }\n        ]\n    },\n    \"revenue_data\": {\n        \"transactions\": [\n            {\n                \"date\": \"2025-12-01\",\n                \"amount\": 125000,\n                \"type\": \"credit\"\n            },\n            {\n                \"date\": \"2025-12-02\",\n                \"amount\": 85000,\n                \"type\": \"credit\"\n            },\n            {\n                \"date\": \"2025-12-03\",\n                \"amount\": 95000,\n                \"type\": \"credit\"\n            }\n        ]\n    },\n    \"financial_data\": {\n        \"total_revenue\": 50000000,\n        \"cost_of_goods_sold\": 35000000,\n        \"operating_expenses\": 8000000,\n        \"net_income\": 7000000,\n        \"fixed_costs\": 3000000,\n        \"variable_costs\": 32000000\n    },\n    \"bank_data\": {\n        \"transactions\": [\n            {\n                \"date\": \"2025-12-01\",\n                \"type\": \"credit\",\n                \"amount\": 250000,\n                \"balance\": 450000,\n                \"narration\": \"Customer Payment\"\n            },\n            {\n                \"date\": \"2025-12-02\",\n                \"type\": \"debit\",\n                \"amount\": 100000,\n                \"balance\": 350000,\n                \"narration\": \"Supplier Payment\"\n            },\n            {\n                \"date\": \"2025-12-03\",\n                \"type\": \"credit\",\n                \"amount\": 180000,\n                \"balance\": 530000,\n                \"narration\": \"Invoice Payment\"\n            }\n        ]\n    },\n    \"gst_data\": {\n        \"total_sales\": 50000000,\n        \"filings\": [\n            {\n                \"period\": \"2025-11\",\n                \"filed_on_time\": true,\n                \"amount\": 900000\n            },\n            {\n                \"period\": \"2025-10\",\n                \"filed_on_time\": true,\n                \"amount\": 850000\n            }\n        ],\n        \"expected_periods\": 12\n    },\n    \"itr_data\": {\n        \"filed\": true,\n        \"gross_receipts\": 48000000,\n        \"net_profit\": 6800000\n    },\n    \"credit_report\": {\n        \"total_outstanding\": 5000000,\n        \"total_limit\": 10000000,\n        \"payment_history\": [\n            {\n                \"month\": \"2025-11\",\n                \"status\": \"on_time\",\n                \"amount\": 150000\n            },\n            {\n                \"month\": \"2025-10\",\n                \"status\": \"on_time\",\n                \"amount\": 150000\n            }\n        ],\n        \"historical_utilization\": 0.55\n    },\n    \"kyc_data\": {\n        \"submitted_documents\": [\"pan\", \"aadhaar\", \"business_proof\", \"address_proof\"],\n        \"verified_documents\": [\"pan\", \"aadhaar\", \"business_proof\"]\n    },\n    \"shop_data\": {\n        \"shop_image_url\": \"https://example.com/shop.jpg\",\n        \"geolocation\": {\n            \"latitude\": 19.0760,\n            \"longitude\": 72.8777\n        },\n        \"declared_address\": {\n            \"latitude\": 19.0760,\n            \"longitude\": 72.8777\n        }\n    },\n    \"reviews_data\": {\n        \"reviews\": [\n            {\n                \"rating\": 4.5,\n                \"text\": \"Great service, professional team\"\n            },\n            {\n                \"rating\": 4.0,\n                \"text\": \"Good quality products\"\n            },\n            {\n                \"rating\": 5.0,\n                \"text\": \"Excellent experience, highly recommend\"\n            }\n        ]\n    },\n    \"gst2b_data\": {\n        \"vendors\": [\n            {\n                \"name\": \"Supplier A\",\n                \"gstin\": \"27XYZAB5678C1Z9\",\n                \"relationship_months\": 24,\n                \"transaction_count\": 48,\n                \"total_amount\": 12000000\n            },\n            {\n                \"name\": \"Supplier B\",\n                \"gstin\": \"27PQRST9012D1Z3\",\n                \"relationship_months\": 15,\n                \"transaction_count\": 30,\n                \"total_amount\": 8000000\n            }\n        ]\n    },\n    \"platform_data\": {\n        \"total_sales\": 49500000,\n        \"transactions\": [\n            {\n                \"date\": \"2025-12-01\",\n                \"amount\": 150000,\n                \"type\": \"credit\"\n            }\n        ]\n    }\n}"
+						},
+						"url": {
+							"raw": "{{base_url}}/msme/applications/{{application_id}}/analyze/",
+							"host": ["{{base_url}}"],
+							"path": ["msme", "applications", "{{application_id}}", "analyze", ""]
+						},
+						"description": "Perform comprehensive MSME credit analysis.\n\n**Analyzes All Sections:**\n- A) Director/Promoter Profile (10%)\n- B) Business Identity (10%)\n- C) Revenue & Performance (20%)\n- D) Cash Flow & Banking (25%)\n- E) Credit & Repayment (22%)\n- F) Compliance & Taxation (7%)\n- G) Fraud & Verification (4%)\n- H) External Signals (2%)\n- I) Vendor Payments (Info)\n\n**Returns:**\n- Credit Score (300-900)\n- Risk Tier (Prime/Near Prime/Standard/Subprime/High Risk)\n- Default Probability\n- Section-wise scores\n- Detailed analysis results"
+					},
+					"response": []
+				},
+				{
+					"name": "Quick Score (No Save)",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Token {{auth_token}}"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"company_name\": \"Quick Test Company\",\n    \"msme_category\": \"micro\",\n    \"bank_data\": {\n        \"transactions\": [\n            {\n                \"date\": \"2025-12-01\",\n                \"type\": \"credit\",\n                \"amount\": 50000,\n                \"balance\": 100000,\n                \"narration\": \"Sales\"\n            },\n            {\n                \"date\": \"2025-12-02\",\n                \"type\": \"debit\",\n                \"amount\": 20000,\n                \"balance\": 80000,\n                \"narration\": \"Expenses\"\n            }\n        ]\n    },\n    \"revenue_data\": {\n        \"transactions\": [\n            {\n                \"date\": \"2025-12-01\",\n                \"amount\": 50000,\n                \"type\": \"credit\"\n            }\n        ]\n    }\n}"
+						},
+						"url": {
+							"raw": "{{base_url}}/msme/applications/quick_score/",
+							"host": ["{{base_url}}"],
+							"path": ["msme", "applications", "quick_score", ""]
+						},
+						"description": "Get quick credit score without creating/saving application.\n\nUseful for:\n- Quick estimations\n- Testing analysis\n- Pre-qualification checks"
+					},
+					"response": []
+				},
+				{
+					"name": "Get Analysis Result",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Token {{auth_token}}"
+							}
+						],
+						"url": {
+							"raw": "{{base_url}}/msme/applications/{{application_id}}/analysis_result/",
+							"host": ["{{base_url}}"],
+							"path": ["msme", "applications", "{{application_id}}", "analysis_result", ""]
+						},
+						"description": "Get detailed analysis result for an application.\n\nIncludes:\n- All section scores\n- Complete feature set\n- SHAP values (if available)\n- Credit score & risk tier\n- Default probability"
+					},
+					"response": []
+				}
+			],
+			"description": "Complete and section-specific analysis endpoints"
+		},
+		{
+			"name": "Section Analysis",
+			"item": [
+				{
+					"name": "Analyze Director Section",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Token {{auth_token}}"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"director_data\": {\n        \"name\": \"John Doe\",\n        \"age\": 45,\n        \"pan\": \"ABCDE1234F\"\n    },\n    \"personal_bank_data\": {\n        \"account_balances\": [150000, 175000, 160000],\n        \"transactions\": [\n            {\n                \"date\": \"2025-12-01\",\n                \"type\": \"credit\",\n                \"amount\": 50000,\n                \"narration\": \"Salary Credit\"\n            },\n            {\n                \"date\": \"2025-12-05\",\n                \"type\": \"debit\",\n                \"amount\": 15000,\n                \"narration\": \"EMI Payment\"\n            }\n        ]\n    }\n}"
+						},
+						"url": {
+							"raw": "{{base_url}}/msme/section-analysis/director/",
+							"host": ["{{base_url}}"],
+							"path": ["msme", "section-analysis", "director", ""]
+						},
+						"description": "Analyze only Director/Promoter section.\n\nReturns:\n- Personal banking summary\n- Behavioral signals\n- Financial stability score"
+					},
+					"response": []
+				},
+				{
+					"name": "Analyze Revenue Section",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Token {{auth_token}}"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"revenue_data\": {\n        \"transactions\": [\n            {\n                \"date\": \"2025-12-01\",\n                \"amount\": 125000,\n                \"type\": \"credit\"\n            },\n            {\n                \"date\": \"2025-12-02\",\n                \"amount\": 85000,\n                \"type\": \"credit\"\n            },\n            {\n                \"date\": \"2025-12-03\",\n                \"amount\": 95000,\n                \"type\": \"credit\"\n            }\n        ]\n    },\n    \"financial_data\": {\n        \"total_revenue\": 50000000,\n        \"cost_of_goods_sold\": 35000000,\n        \"operating_expenses\": 8000000,\n        \"net_income\": 7000000\n    },\n    \"msme_category\": \"small\"\n}"
+						},
+						"url": {
+							"raw": "{{base_url}}/msme/section-analysis/revenue/",
+							"host": ["{{base_url}}"],
+							"path": ["msme", "section-analysis", "revenue", ""]
+						},
+						"description": "Analyze only Revenue & Performance section.\n\nReturns:\n- GTV metrics\n- Growth rates\n- Profitability analysis"
+					},
+					"response": []
+				},
+				{
+					"name": "Analyze Cash Flow Section",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Token {{auth_token}}"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"bank_data\": {\n        \"transactions\": [\n            {\n                \"date\": \"2025-12-01\",\n                \"type\": \"credit\",\n                \"amount\": 250000,\n                \"balance\": 450000,\n                \"narration\": \"Customer Payment\"\n            },\n            {\n                \"date\": \"2025-12-02\",\n                \"type\": \"debit\",\n                \"amount\": 100000,\n                \"balance\": 350000,\n                \"narration\": \"Supplier Payment\"\n            },\n            {\n                \"date\": \"2025-12-03\",\n                \"type\": \"credit\",\n                \"amount\": 180000,\n                \"balance\": 530000,\n                \"narration\": \"Invoice Payment\"\n            }\n        ]\n    }\n}"
+						},
+						"url": {
+							"raw": "{{base_url}}/msme/section-analysis/cashflow/",
+							"host": ["{{base_url}}"],
+							"path": ["msme", "section-analysis", "cashflow", ""]
+						},
+						"description": "Analyze only Cash Flow & Banking section.\n\nReturns:\n- Balance metrics\n- Inflow/Outflow analysis (excludes P2P)\n- Deposit consistency"
+					},
+					"response": []
+				},
+				{
+					"name": "Analyze Compliance Section",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Token {{auth_token}}"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"gst_data\": {\n        \"total_sales\": 50000000,\n        \"filings\": [\n            {\n                \"period\": \"2025-11\",\n                \"filed_on_time\": true,\n                \"amount\": 900000\n            },\n            {\n                \"period\": \"2025-10\",\n                \"filed_on_time\": true,\n                \"amount\": 850000\n            },\n            {\n                \"period\": \"2025-09\",\n                \"filed_on_time\": false,\n                \"amount\": 880000\n            }\n        ],\n        \"expected_periods\": 12\n    },\n    \"itr_data\": {\n        \"filed\": true,\n        \"gross_receipts\": 48000000\n    }\n}"
+						},
+						"url": {
+							"raw": "{{base_url}}/msme/section-analysis/compliance/",
+							"host": ["{{base_url}}"],
+							"path": ["msme", "section-analysis", "compliance", ""]
+						},
+						"description": "Analyze only Compliance & Taxation section.\n\nReturns:\n- GST/ITR filing discipline\n- Mismatch analysis\n- Tax payment regularity"
+					},
+					"response": []
+				}
+			],
+			"description": "Endpoints for analyzing individual sections independently"
+		},
+		{
+			"name": "Document Management",
+			"item": [
+				{
+					"name": "List Documents",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Token {{auth_token}}"
+							}
+						],
+						"url": {
+							"raw": "{{base_url}}/msme/documents/",
+							"host": ["{{base_url}}"],
+							"path": ["msme", "documents", ""]
+						},
+						"description": "Get list of all uploaded documents for user's applications"
+					},
+					"response": []
+				},
+				{
+					"name": "Upload Document",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Token {{auth_token}}"
+							}
+						],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "application",
+									"value": "{{application_id}}",
+									"type": "text"
+								},
+								{
+									"key": "document_type",
+									"value": "bank_statement",
+									"type": "text",
+									"description": "Options: bank_statement, gst_return, itr, shop_image, license, other"
+								},
+								{
+									"key": "file",
+									"type": "file",
+									"src": "/path/to/file.pdf"
+								},
+								{
+									"key": "file_name",
+									"value": "bank_statement_dec_2025.pdf",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{base_url}}/msme/documents/",
+							"host": ["{{base_url}}"],
+							"path": ["msme", "documents", ""]
+						},
+						"description": "Upload document for MSME application.\n\n**Document Types:**\n- bank_statement\n- gst_return\n- itr\n- shop_image\n- license\n- other\n\n**Max Size:** 50MB"
+					},
+					"response": []
+				},
+				{
+					"name": "Get Document Details",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Token {{auth_token}}"
+							}
+						],
+						"url": {
+							"raw": "{{base_url}}/msme/documents/{{document_id}}/",
+							"host": ["{{base_url}}"],
+							"path": ["msme", "documents", "{{document_id}}", ""]
+						},
+						"description": "Get details of specific document"
+					},
+					"response": []
+				},
+				{
+					"name": "Process Document",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Token {{auth_token}}"
+							}
+						],
+						"url": {
+							"raw": "{{base_url}}/msme/documents/{{document_id}}/process/",
+							"host": ["{{base_url}}"],
+							"path": ["msme", "documents", "{{document_id}}", "process", ""]
+						},
+						"description": "Process uploaded document (OCR, parsing, extraction)"
+					},
+					"response": []
+				},
+				{
+					"name": "Delete Document",
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "Token {{auth_token}}"
+							}
+						],
+						"url": {
+							"raw": "{{base_url}}/msme/documents/{{document_id}}/",
+							"host": ["{{base_url}}"],
+							"path": ["msme", "documents", "{{document_id}}", ""]
+						},
+						"description": "Delete uploaded document"
+					},
+					"response": []
+				}
+			],
+			"description": "Document upload and management endpoints"
+		}
+	],
+	"variable": [
+		{
+			"key": "base_url",
+			"value": "http://localhost:8000/api",
+			"type": "default"
+		},
+		{
+			"key": "auth_token",
+			"value": "",
+			"type": "default"
+		},
+		{
+			"key": "application_id",
+			"value": "1",
+			"type": "default"
+		},
+		{
+			"key": "document_id",
+			"value": "1",
+			"type": "default"
+		}
+	]
+}
+

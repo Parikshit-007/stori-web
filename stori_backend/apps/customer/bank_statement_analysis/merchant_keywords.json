@@ -1,0 +1,265 @@
+{
+  "_instructions": "Add new merchant keywords below. Keep formatting consistent. Case-insensitive matching.",
+  
+  "EXCLUDE_FROM_INCOME": {
+    "description": "Transactions to EXCLUDE from income calculation - trading, dividends, refunds",
+    "keywords": [
+      "CLEARING CORPORATION", "CLEARING CORP", "NSE CLEARING", "BSE CLEARING",
+      "INDIAN CLEARING", "HDFC CLEARING", "ICICI CLEARING",
+      "ZERODHA", "UPSTOX", "ANGEL BROKING", "GROWW", "PAYTM MONEY",
+      "5PAISA", "IIFL SECURITIES", "SHAREKHAN", "MOTILAL OSWAL",
+      "TRADING", "SETTLEMENT", "MFSS SETTLEMEN", "STOCK BROKER",
+      "DIVIDEND", "DIVIDENT", "DSCNB", "REFUND", "TAX REFUND", "ITDTAX",
+      "GST REFUND", "TDS REFUND", "INCOME TAX REFUND",
+      "IRFC LTD", "IRCON", "RAILTEL", "PSU DIVIDEND",
+      "MUTUAL FUND", "SIP REDEMPTION", "REDEMPTION", "MF REDEMPTION"
+    ]
+  },
+
+  "SALARY_INCOME": {
+    "description": "Company salary transfers - checked AFTER exclusions",
+    "keywords": [
+      "SALARY", "PAYROLL", "WAGES", "COMPENSATION", "REMUNERATION",
+      "STIPEND", "CONSULTING FEES", "PROFESSIONAL FEES",
+      "NEFT.*(?:PRIVATE LIMITED|PVT LTD|TECHNOLOGIES|TECH|SOLUTIONS|SERVICES|CONSULTING|INDUSTRIES|EXPORTS|IMPORTS)",
+      "IMPS.*(?:PRIVATE LIMITED|PVT LTD|TECHNOLOGIES|TECH|SOLUTIONS|SERVICES|CONSULTING|INDUSTRIES|EXPORTS|IMPORTS)",
+      "RTGS.*(?:PRIVATE LIMITED|PVT LTD|TECHNOLOGIES|TECH|SOLUTIONS|SERVICES|CONSULTING|INDUSTRIES|EXPORTS|IMPORTS)",
+      "EDUCATION.*(?:PRIVATE|LIMITED)", "SCHOOL.*(?:PRIVATE|LIMITED)", "COLLEGE.*(?:PRIVATE|LIMITED)",
+      "SOFTWARE.*(?:PRIVATE|LIMITED)", "SYSTEMS.*(?:PRIVATE|LIMITED)"
+    ]
+  },
+  
+  "ELECTRICITY": {
+    "description": "Electricity bill providers",
+    "keywords": [
+      "TATA POWER", "ADANI ELECTRICITY", "ADANI POWER", "BEST UNDERTAKING",
+      "BSES RAJDHANI", "BSES YAMUNA", "CESC", "TORRENT POWER",
+      "MSEB", "MSEDCL", "MAHARASHTRA STATE ELECTRICITY",
+      "DELHI VIDYUT", "NDPL", "TPDDL", "BYPL",
+      "BESCOM", "BANGALORE ELECTRICITY", "GESCOM", "HESCOM", "MESCOM",
+      "TANGEDCO", "TNEB", "TAMIL NADU ELECTRICITY",
+      "DISCOM", "ELECTRICITY BOARD", "POWER DISTRIBUTION",
+      "WBSEDCL", "WEST BENGAL ELECTRICITY",
+      "PSPCL", "PUNJAB STATE POWER",
+      "UHBVN", "DHBVN", "HARYANA ELECTRICITY",
+      "JVVNL", "RAJASTHAN ELECTRICITY",
+      "KESCO", "CSPDCL", "JSEB"
+    ]
+  },
+  
+  "WATER": {
+    "description": "Water supply and municipal corporations",
+    "keywords": [
+      "MUNICIPAL CORPORATION", "MUNICIPAL WATER", "WATER SUPPLY",
+      "MCGM", "BMC WATER", "BANGALORE WATER SUPPLY",
+      "DELHI JAL BOARD", "DJB", "BWSSB",
+      "PUNE MUNICIPAL", "PMC WATER"
+    ]
+  },
+  
+  "GAS": {
+    "description": "Piped gas and LPG providers",
+    "keywords": [
+      "INDRAPRASTHA GAS", "IGL", "MAHANAGAR GAS", "MGL",
+      "GUJARAT GAS", "ADANI GAS", "BHARAT GAS",
+      "HP GAS", "INDIAN OIL GAS", "PIPED GAS"
+    ]
+  },
+  
+  "TELECOM": {
+    "description": "Mobile, DTH, Broadband, Recharges",
+    "keywords": [
+      "AIRTEL", "JIO", "RELIANCE JIO", "VODAFONE", "VI", "IDEA",
+      "BSNL", "MTNL", "TATA SKY", "DISH TV", "D2H", "SUN DIRECT",
+      "ACT FIBERNET", "HATHWAY", "TIKONA", "SPECTRA", "YOU BROADBAND",
+      "EXCITEL", "NEXTRA", "ALLIANCE BROADBAND",
+      "GOOGLE INDIA SERVICE.*GPAYRECHARGE", "GPAYRECHARGE",
+      "PHONEPE.*RECHARGE", "PAYTM.*RECHARGE", "MOBIKWIK.*RECHARGE",
+      "FREECHARGE", "AIRTEL PAYMENTS.*RECHARGE"
+    ]
+  },
+  
+  "FOOD_DELIVERY": {
+    "description": "Online food delivery platforms",
+    "keywords": [
+      "ZOMATO", "SWIGGY", "DUNZO", "UBER EATS", "FOODPANDA",
+      "FRESHMENU", "FAASOS", "BEHROUZ", "OVEN STORY"
+    ]
+  },
+  
+  "RESTAURANTS_QSR": {
+    "description": "Restaurants and Quick Service Restaurants",
+    "keywords": [
+      "MCDONALD", "KFC", "DOMINO", "PIZZA HUT", "BURGER KING",
+      "SUBWAY", "STARBUCKS", "COSTA COFFEE", "CAFE COFFEE DAY", "CCD",
+      "DUNKIN", "BASKIN ROBBINS", "HARDCASTLE", "DEVYANI",
+      "HALDIRAM", "BIKANERVALA", "NIRULA", "WOW MOMO", "JUMBOKING",
+      "GOLI VADA PAV", "KATHI JUNCTION"
+    ]
+  },
+  
+  "GROCERIES": {
+    "description": "Supermarkets and online grocery",
+    "keywords": [
+      "DMART", "RELIANCE FRESH", "RELIANCE SMART", "RELIANCE RETAIL",
+      "BIG BAZAAR", "EASY DAY", "MORE SUPERMARKET", "SPENCER",
+      "HYPERCITY", "STAR BAZAAR", "NILGIRIS",
+      "BIG BASKET", "BIGBASKET", "GROFERS", "BLINKIT", "JIOMART",
+      "AMAZON FRESH", "FLIPKART SUPERMART", "NATURE BASKET",
+      "METRO CASH", "WALMART BEST PRICE"
+    ]
+  },
+  
+  "TRANSPORT_PUBLIC": {
+    "description": "Metro, Railways, Buses",
+    "keywords": [
+      "DELHI METRO", "DMRC", "MUMBAI METRO", "MUMBAI METROPOLITAN",
+      "BANGALORE METRO", "BMRCL", "CHENNAI METRO", "CMRL",
+      "KOCHI METRO", "JAIPUR METRO", "LUCKNOW METRO",
+      "SBIP.*MOPAD", "METRO STATION",
+      "IRCTC", "INDIAN RAILWAY", "RAILWAY TICKET",
+      "BEST BUS", "DTC", "BMTC", "MTC"
+    ]
+  },
+  
+  "TRANSPORT_CAB": {
+    "description": "Cab aggregators",
+    "keywords": [
+      "UBER", "OLA", "RAPIDO", "MERU", "MEGA CABS",
+      "BLU SMART", "JUGNOO", "QUICKRIDE"
+    ]
+  },
+  
+  "FUEL": {
+    "description": "Petrol pumps and fuel stations",
+    "keywords": [
+      "INDIAN OIL", "IOCL", "BHARAT PETROLEUM", "BPCL",
+      "HINDUSTAN PETROLEUM", "HPCL", "RELIANCE PETROL", "SHELL",
+      "ESSAR", "NAYARA", "PETROL PUMP", "PETROLEUM"
+    ]
+  },
+  
+  "ECOMMERCE": {
+    "description": "Online shopping platforms",
+    "keywords": [
+      "AMAZON", "FLIPKART", "MYNTRA", "AJIO", "MEESHO",
+      "SNAPDEAL", "SHOPCLUES", "PAYTM MALL", "TATA CLIQ",
+      "NYKAA", "PURPLLE", "LIMEROAD", "JABONG"
+    ]
+  },
+  
+  "FASHION_RETAIL": {
+    "description": "Fashion and apparel stores",
+    "keywords": [
+      "WESTSIDE", "PANTALOONS", "LIFESTYLE", "SHOPPER STOP",
+      "CENTRAL", "MAX FASHION", "BIBA", "FABINDIA",
+      "ZARA", "H&M", "UNIQLO", "MARKS SPENCER",
+      "LEVI", "PETER ENGLAND", "ALLEN SOLLY", "VAN HEUSEN"
+    ]
+  },
+  
+  "ELECTRONICS": {
+    "description": "Electronics and appliances",
+    "keywords": [
+      "CROMA", "RELIANCE DIGITAL", "VIJAY SALES", "POORVIKA",
+      "VIVEKS", "ELECTRONIC CITY", "CHROMA", "EZONE"
+    ]
+  },
+  
+  "PHARMACY": {
+    "description": "Medical stores and online pharmacy",
+    "keywords": [
+      "APOLLO PHARMACY", "MEDPLUS", "WELLNESS FOREVER", "NETMEDS",
+      "1MG", "PHARMEASY", "CHEMIST", "PHARMACY", "MEDICAL",
+      "MEDICO", "MEDICINES"
+    ]
+  },
+  
+  "HOSPITAL": {
+    "description": "Hospitals and diagnostic centers",
+    "keywords": [
+      "APOLLO HOSPITAL", "FORTIS", "MAX HOSPITAL", "MANIPAL HOSPITAL",
+      "NARAYANA HEALTH", "CARE HOSPITAL", "CLOUDNINE", "MEDANTA",
+      "TATA MEMORIAL", "LILAVATI", "KOKILABEN",
+      "THYROCARE", "METROPOLIS", "DR LAL PATH", "SRL DIAGNOSTICS"
+    ]
+  },
+  
+  "OTT_STREAMING": {
+    "description": "Video streaming platforms",
+    "keywords": [
+      "NETFLIX", "AMAZON PRIME", "PRIME VIDEO", "HOTSTAR", "DISNEY",
+      "SONY LIV", "ZEE5", "VOOT", "ALT BALAJI", "MX PLAYER",
+      "JIOCINEMA", "EROS NOW", "HOICHOI", "SUN NXT"
+    ]
+  },
+  
+  "MUSIC_STREAMING": {
+    "description": "Music streaming services",
+    "keywords": [
+      "SPOTIFY", "GAANA", "WYNK", "JIO SAAVN", "APPLE MUSIC",
+      "YOUTUBE PREMIUM", "AMAZON MUSIC"
+    ]
+  },
+  
+  "CINEMA": {
+    "description": "Movie tickets and cinema chains",
+    "keywords": [
+      "BOOKMYSHOW", "PAYTM MOVIES", "INOX", "PVR", "CINEPOLIS",
+      "CARNIVAL", "MIRAJ", "MOVIEMAX"
+    ]
+  },
+  
+  "GAMING": {
+    "description": "Gaming platforms and fantasy sports",
+    "keywords": [
+      "STEAM", "PLAYSTATION", "XBOX", "EPIC GAMES", "RIOT GAMES",
+      "DREAM11", "MPL", "MOBILE PREMIER LEAGUE", "WINZO"
+    ]
+  },
+  
+  "EDUCATION": {
+    "description": "EdTech and online courses",
+    "keywords": [
+      "BYJU", "UNACADEMY", "UPGRAD", "COURSERA", "UDEMY",
+      "VEDANTU", "TOPPR", "MERITNATION", "EXTRAMARKS",
+      "GREAT LEARNING", "SIMPLILEARN", "NPTEL"
+    ]
+  },
+  
+  "INSURANCE": {
+    "description": "Insurance premium payments",
+    "keywords": [
+      "LIC", "HDFC LIFE", "ICICI PRUDENTIAL", "SBI LIFE",
+      "MAX LIFE", "TATA AIA", "BAJAJ ALLIANZ", "RELIGARE",
+      "STAR HEALTH", "CARE HEALTH", "NIVA BUPA",
+      "ACKO", "DIGIT INSURANCE"
+    ]
+  },
+  
+  "INVESTMENT": {
+    "description": "Investment and trading platforms",
+    "keywords": [
+      "ZERODHA", "GROWW", "UPSTOX", "ANGEL ONE", "ANGEL BROKING",
+      "ICICI DIRECT", "HDFC SECURITIES", "SHAREKHAN", "KOTAK SECURITIES",
+      "PAYTM MONEY", "PHONEPE WEALTH"
+    ]
+  },
+  
+  "CREDIT_CARD_LOAN": {
+    "description": "Credit card and loan payments",
+    "keywords": [
+      "CRED", "CREDIT CARD BILL", "LOAN EMI", "BAJAJ FINSERV",
+      "TATA CAPITAL", "FULLERTON", "MUTHOOT FINANCE"
+    ]
+  },
+  
+  "REFUND": {
+    "description": "Refunds and reversals (exclude from analysis)",
+    "keywords": [
+      "^REV-", "^REVERSAL", "REFUND", "UPIRET", "RETURN",
+      "CHARGEBACK", "CANCELLED"
+    ]
+  }
+}
+

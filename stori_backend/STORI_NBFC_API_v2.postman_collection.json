@@ -1,0 +1,727 @@
+{
+	"info": {
+		"_postman_id": "stori-nbfc-api-v2-2026",
+		"name": "STORI NBFC - Complete API v2 (JSON + Credit Scoring)",
+		"description": "Complete API collection with:\n- JSON-based analysis (Account Aggregator)\n- Asset Analysis (Stocks, MF, FD, Gold, Real Estate, Insurance, PF, etc.)\n- Credit Scoring (GBM Model)\n- KYC Document OCR (PAN/Aadhaar)\n- File upload (Optional)\n\nAPI Key: stori_6CFocXsPyo4tJDxq8MkVE6Iy-aii0_7eN59VJvUlfmU",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "1. Credit Scoring (GBM Model)",
+			"item": [
+				{
+					"name": "Calculate Credit Score",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "X-API-Key",
+								"value": "stori_6CFocXsPyo4tJDxq8MkVE6Iy-aii0_7eN59VJvUlfmU",
+								"type": "text"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"age\": 32,\n    \"monthly_income\": 75000,\n    \"employment_tenure_months\": 48,\n    \"credit_score\": 720,\n    \"credit_accounts_active\": 4,\n    \"credit_utilization_ratio\": 0.35,\n    \"dpd_30_count\": 0,\n    \"dpd_60_count\": 0,\n    \"dpd_90_count\": 0,\n    \"avg_monthly_credits\": 80000,\n    \"avg_monthly_debits\": 55000,\n    \"avg_balance\": 125000,\n    \"pan_verified\": 1,\n    \"aadhaar_verified\": 1,\n    \"phone_verified\": 1,\n    \"education_level\": 4,\n    \"employment_type\": 3\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8000/api/customer/credit-scoring/score/",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8000",
+							"path": [
+								"api",
+								"customer",
+								"credit-scoring",
+								"score",
+								""
+							]
+						},
+						"description": "Calculate credit score (0-100) and default probability using GBM model"
+					},
+					"response": []
+				},
+				{
+					"name": "Get Credit Score History",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "X-API-Key",
+								"value": "stori_6CFocXsPyo4tJDxq8MkVE6Iy-aii0_7eN59VJvUlfmU",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "http://localhost:8000/api/customer/credit-scoring/history/",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8000",
+							"path": [
+								"api",
+								"customer",
+								"credit-scoring",
+								"history",
+								""
+							]
+						},
+						"description": "Get all past credit scores for the user"
+					},
+					"response": []
+				},
+				{
+					"name": "Model Health Check",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "X-API-Key",
+								"value": "stori_6CFocXsPyo4tJDxq8MkVE6Iy-aii0_7eN59VJvUlfmU",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "http://localhost:8000/api/customer/credit-scoring/health/",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8000",
+							"path": [
+								"api",
+								"customer",
+								"credit-scoring",
+								"health",
+								""
+							]
+						},
+						"description": "Check if GBM model is loaded and ready"
+					},
+					"response": []
+				}
+			],
+			"description": "Credit Scoring with GBM Model - Get credit score (0-100) and default probability"
+		},
+		{
+			"name": "2. Bank Statement (JSON - Account Aggregator)",
+			"item": [
+				{
+					"name": "Analyze Bank Statement (JSON)",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "X-API-Key",
+								"value": "stori_6CFocXsPyo4tJDxq8MkVE6Iy-aii0_7eN59VJvUlfmU",
+								"type": "text"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"transactions\": [\n        {\n            \"date\": \"2024-01-15\",\n            \"description\": \"SALARY CREDIT\",\n            \"debit\": 0,\n            \"credit\": 75000,\n            \"balance\": 80000\n        },\n        {\n            \"date\": \"2024-01-16\",\n            \"description\": \"UPI-SWIGGY\",\n            \"debit\": 500,\n            \"credit\": 0,\n            \"balance\": 79500\n        },\n        {\n            \"date\": \"2024-01-17\",\n            \"description\": \"ATM WITHDRAWAL\",\n            \"debit\": 5000,\n            \"credit\": 0,\n            \"balance\": 74500\n        },\n        {\n            \"date\": \"2024-02-15\",\n            \"description\": \"SALARY CREDIT\",\n            \"debit\": 0,\n            \"credit\": 75000,\n            \"balance\": 149500\n        }\n    ],\n    \"account_info\": {\n        \"account_number\": \"1234567890\",\n        \"bank_name\": \"HDFC Bank\",\n        \"ifsc\": \"HDFC0001234\",\n        \"holder_name\": \"John Doe\"\n    }\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8000/api/customer/bank-statement/analyze-json/",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8000",
+							"path": [
+								"api",
+								"customer",
+								"bank-statement",
+								"analyze-json",
+								""
+							]
+						},
+						"description": "Direct JSON analysis - No file upload! For Account Aggregator integration"
+					},
+					"response": []
+				}
+			],
+			"description": "Bank Statement Analysis - JSON based (Account Aggregator)"
+		},
+		{
+			"name": "3. ITR Analysis (JSON - Account Aggregator)",
+			"item": [
+				{
+					"name": "Analyze ITR (JSON)",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "X-API-Key",
+								"value": "stori_6CFocXsPyo4tJDxq8MkVE6Iy-aii0_7eN59VJvUlfmU",
+								"type": "text"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"ITR\": {\n        \"ITR1\": {\n            \"Form_ITR1\": {\n                \"AssessmentYear\": \"2024-25\"\n            },\n            \"ITR1_IncomeDeductions\": {\n                \"GrossSalary\": 1200000,\n                \"NetSalary\": 1000000,\n                \"DeductionUS80C\": 150000\n            },\n            \"ITR1_TaxComputation\": {\n                \"TotalTaxPayable\": 150000\n            }\n        }\n    }\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8000/api/customer/itr/analyze-json/",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8000",
+							"path": [
+								"api",
+								"customer",
+								"itr",
+								"analyze-json",
+								""
+							]
+						},
+						"description": "Direct ITR JSON analysis - Standard Income Tax Portal format"
+					},
+					"response": []
+				}
+			],
+			"description": "ITR Analysis - JSON based (Account Aggregator)"
+		},
+		{
+			"name": "4. Credit Report (JSON - Account Aggregator)",
+			"item": [
+				{
+					"name": "Analyze Credit Report (JSON)",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "X-API-Key",
+								"value": "stori_6CFocXsPyo4tJDxq8MkVE6Iy-aii0_7eN59VJvUlfmU",
+								"type": "text"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"score\": 750,\n    \"bureau\": \"CIBIL\",\n    \"report_date\": \"2024-01-15\",\n    \"accounts\": [\n        {\n            \"account_type\": \"credit_card\",\n            \"bank\": \"HDFC Bank\",\n            \"status\": \"active\",\n            \"outstanding\": 25000,\n            \"credit_limit\": 100000,\n            \"dpd\": 0\n        },\n        {\n            \"account_type\": \"loan\",\n            \"bank\": \"ICICI Bank\",\n            \"status\": \"active\",\n            \"outstanding\": 150000,\n            \"credit_limit\": 200000,\n            \"dpd\": 0\n        }\n    ],\n    \"enquiries\": [\n        {\n            \"bank\": \"Axis Bank\",\n            \"date\": \"2024-01-10\",\n            \"type\": \"credit_card\",\n            \"months_ago\": 0\n        }\n    ]\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8000/api/customer/credit-report/analyze-json/",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8000",
+							"path": [
+								"api",
+								"customer",
+								"credit-report",
+								"analyze-json",
+								""
+							]
+						},
+						"description": "Direct credit report JSON analysis"
+					},
+					"response": []
+				}
+			],
+			"description": "Credit Report Analysis - JSON based (Account Aggregator)"
+		},
+		{
+			"name": "5. Asset Analysis (JSON - Account Aggregator)",
+			"item": [
+				{
+					"name": "Analyze Assets (JSON)",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "X-API-Key",
+								"value": "stori_6CFocXsPyo4tJDxq8MkVE6Iy-aii0_7eN59VJvUlfmU",
+								"type": "text"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"demat\": {\n        \"holdings\": [\n            {\n                \"companyName\": \"Reliance Industries\",\n                \"symbol\": \"RELIANCE\",\n                \"quantity\": 100,\n                \"currentValue\": 250000.0,\n                \"investedValue\": 200000.0,\n                \"ltp\": 2500.0,\n                \"exchange\": \"NSE\"\n            }\n        ]\n    },\n    \"mutual_funds\": {\n        \"folios\": [\n            {\n                \"amc\": \"HDFC\",\n                \"schemes\": [\n                    {\n                        \"schemeName\": \"HDFC Equity Fund\",\n                        \"units\": 1000.0,\n                        \"currentValue\": 50000.0,\n                        \"investedValue\": 45000.0\n                    }\n                ]\n            }\n        ]\n    },\n    \"fixed_deposits\": {\n        \"fixed_deposits\": [\n            {\n                \"bank\": \"HDFC Bank\",\n                \"type\": \"BANK_FD\",\n                \"principal\": 100000.0,\n                \"maturityAmount\": 110000.0,\n                \"interestRate\": 7.5,\n                \"maturityDate\": \"2025-12-31\"\n            }\n        ]\n    },\n    \"gold\": {\n        \"holdings\": [\n            {\n                \"type\": \"DIGITAL\",\n                \"name\": \"Digital Gold\",\n                \"units\": 10.0,\n                \"currentValue\": 60000.0,\n                \"investedValue\": 55000.0\n            },\n            {\n                \"type\": \"ETF\",\n                \"name\": \"Gold ETF\",\n                \"units\": 50.0,\n                \"currentValue\": 30000.0,\n                \"investedValue\": 28000.0\n            }\n        ]\n    },\n    \"real_estate\": {\n        \"properties\": [\n            {\n                \"type\": \"RESIDENTIAL\",\n                \"location\": \"Mumbai\",\n                \"currentValue\": 5000000.0,\n                \"purchasePrice\": 4000000.0,\n                \"outstandingLoan\": 2000000.0\n            }\n        ]\n    },\n    \"insurance\": {\n        \"policies\": [\n            {\n                \"type\": \"LIC\",\n                \"policyName\": \"LIC Endowment Plan\",\n                \"hasInvestmentValue\": true,\n                \"surrenderValue\": 200000.0,\n                \"totalPremiumPaid\": 150000.0,\n                \"maturityValue\": 300000.0,\n                \"maturityDate\": \"2030-12-31\"\n            }\n        ]\n    },\n    \"provident_fund\": {\n        \"pf_accounts\": [\n            {\n                \"type\": \"EPF\",\n                \"accountNumber\": \"EPF123456\",\n                \"currentBalance\": 500000.0,\n                \"totalContribution\": 400000.0,\n                \"employeeContribution\": 200000.0,\n                \"employerContribution\": 200000.0\n            }\n        ]\n    },\n    \"other_investments\": {\n        \"investments\": [\n            {\n                \"type\": \"BONDS\",\n                \"name\": \"Government Bonds\",\n                \"currentValue\": 100000.0,\n                \"investedValue\": 95000.0\n            },\n            {\n                \"type\": \"CRYPTO\",\n                \"name\": \"Bitcoin\",\n                \"currentValue\": 50000.0,\n                \"investedValue\": 30000.0\n            }\n        ]\n    }\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8000/api/customer/asset-analysis/analyze-json/",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8000",
+							"path": [
+								"api",
+								"customer",
+								"asset-analysis",
+								"analyze-json",
+								""
+							]
+						},
+						"description": "Analyze all consumer assets from Account Aggregator JSON.\n\n**Supported Asset Types:**\n1. Stocks & Equity (Demat) - through AA\n2. Mutual Funds (CAMS) - through AA\n3. Fixed Deposits (Bank FDs, Corporate FDs) - through AA\n4. Gold (Digital, ETF, SGB only) - through AA\n5. Real Estate (Property ownership) - input field\n6. Insurance (LIC, ULIPs with maturity value) - through AA\n7. Provident Fund (EPF, PPF, VPF) - through AA (excluded from survivability)\n8. Other Investments (Bonds, NPS, Crypto) - through AA (NPS & Bonds excluded from survivability)\n\n**Key Features:**\n- Highest quantified amount (highest value asset)\n- Survivability asset value (excludes PF, NPS, Bonds)\n- Liquidity analysis (liquid/semi-liquid/illiquid)\n- Portfolio returns calculation\n- Asset type breakdown\n\n**Response includes:**\n- Total asset value\n- Highest quantified amount (value, type, name)\n- Survivability value\n- Liquidity breakdown\n- Detailed asset list with returns"
+					},
+					"response": []
+				}
+			],
+			"description": "Asset Analysis - JSON based (Account Aggregator). Analyzes all consumer assets to calculate highest quantified amount and survivability."
+		},
+		{
+			"name": "6. Unified Credit Scoring (All Analyses + Score)",
+			"item": [
+				{
+					"name": "Unified Score (All Data Sources)",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "X-API-Key",
+								"value": "stori_6CFocXsPyo4tJDxq8MkVE6Iy-aii0_7eN59VJvUlfmU",
+								"type": "text"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"bank_statement\": {\n        \"transactions\": [\n            {\n                \"date\": \"2024-01-15\",\n                \"description\": \"SALARY CREDIT\",\n                \"debit\": 0,\n                \"credit\": 75000,\n                \"balance\": 80000\n            },\n            {\n                \"date\": \"2024-01-16\",\n                \"description\": \"UPI-SWIGGY\",\n                \"debit\": 500,\n                \"credit\": 0,\n                \"balance\": 79500\n            }\n        ],\n        \"account_info\": {\n            \"account_number\": \"1234567890\",\n            \"bank_name\": \"HDFC Bank\",\n            \"ifsc\": \"HDFC0001234\",\n            \"holder_name\": \"John Doe\"\n        }\n    },\n    \"itr\": {\n        \"ITR\": {\n            \"ITR1\": {\n                \"Form_ITR1\": {\n                    \"AssessmentYear\": \"2024-25\"\n                },\n                \"ITR1_IncomeDeductions\": {\n                    \"GrossSalary\": 1200000,\n                    \"NetSalary\": 1000000,\n                    \"DeductionUS80C\": 150000\n                },\n                \"ITR1_TaxComputation\": {\n                    \"TotalTaxPayable\": 150000\n                }\n            }\n        }\n    },\n    \"credit_report\": {\n        \"score\": 750,\n        \"bureau\": \"CIBIL\",\n        \"accounts\": [\n            {\n                \"account_type\": \"credit_card\",\n                \"bank\": \"HDFC Bank\",\n                \"status\": \"active\",\n                \"outstanding\": 25000,\n                \"credit_limit\": 100000,\n                \"dpd\": 0\n            }\n        ],\n        \"enquiries\": []\n    },\n    \"assets\": {\n        \"FIPS\": [\n            {\n                \"source_of_fip\": \"CAMSRTAFIP\",\n                \"accounts\": [\n                    {\n                        \"investment_details\": {\n                            \"mutualfunds\": {\n                                \"holdings\": [\n                                    {\n                                        \"isin_id\": \"INF179K01UT0\",\n                                        \"qty\": 4.927,\n                                        \"current_value\": 11131.428217,\n                                        \"total invested\": 10801.0\n                                    }\n                                ]\n                            }\n                        }\n                    }\n                ]\n            }\n        ]\n    },\n    \"demographics\": {\n        \"age\": 32,\n        \"education_level\": 3,\n        \"employment_type\": 3,\n        \"employment_tenure_months\": 24,\n        \"pan_verified\": 1,\n        \"aadhaar_verified\": 1,\n        \"phone_verified\": 1,\n        \"phone_age_months\": 36\n    }\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8000/api/customer/credit-scoring/unified-score/",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8000",
+							"path": [
+								"api",
+								"customer",
+								"credit-scoring",
+								"unified-score",
+								""
+							]
+						},
+						"description": "**UNIFIED ENDPOINT - All Analyses + Credit Score**\n\nCalls ALL analysis APIs in parallel:\n1. Bank Statement Analysis\n2. ITR Analysis\n3. Credit Report Analysis\n4. Asset Analysis\n\nThen combines all features and calculates credit score.\n\n**Returns:**\n- Complete bank statement analysis results\n- Complete ITR analysis results\n- Complete credit report analysis results\n- Complete asset analysis results\n- Credit score (0-100)\n- Default probability\n- Risk tier & recommendation\n- Combined features used for scoring\n- Feature importance\n\n**Single API call for complete credit assessment!**"
+					},
+					"response": []
+				}
+			],
+			"description": "Unified endpoint that calls all analysis APIs in parallel and returns credit score with all analysis data"
+		},
+		{
+			"name": "7. Complete Workflow Example",
+			"item": [
+				{
+					"name": "Step 1: Analyze Bank Statement",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "X-API-Key",
+								"value": "stori_6CFocXsPyo4tJDxq8MkVE6Iy-aii0_7eN59VJvUlfmU",
+								"type": "text"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"transactions\": [\n        {\n            \"date\": \"2024-01-15\",\n            \"description\": \"SALARY\",\n            \"debit\": 0,\n            \"credit\": 75000,\n            \"balance\": 80000\n        }\n    ],\n    \"account_info\": {\n        \"account_number\": \"1234567890\",\n        \"bank_name\": \"HDFC\"\n    }\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8000/api/customer/bank-statement/analyze-json/",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8000",
+							"path": [
+								"api",
+								"customer",
+								"bank-statement",
+								"analyze-json",
+								""
+							]
+						},
+						"description": "Get banking features from Account Aggregator data"
+					},
+					"response": []
+				},
+				{
+					"name": "Step 2: Analyze Credit Report",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "X-API-Key",
+								"value": "stori_6CFocXsPyo4tJDxq8MkVE6Iy-aii0_7eN59VJvUlfmU",
+								"type": "text"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"score\": 720,\n    \"bureau\": \"CIBIL\",\n    \"accounts\": [\n        {\n            \"account_type\": \"credit_card\",\n            \"outstanding\": 25000,\n            \"credit_limit\": 100000,\n            \"status\": \"active\",\n            \"dpd\": 0\n        }\n    ],\n    \"enquiries\": []\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8000/api/customer/credit-report/analyze-json/",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8000",
+							"path": [
+								"api",
+								"customer",
+								"credit-report",
+								"analyze-json",
+								""
+							]
+						},
+						"description": "Get credit features from bureau data"
+					},
+					"response": []
+				},
+				{
+					"name": "Step 3: Calculate Credit Score",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "X-API-Key",
+								"value": "stori_6CFocXsPyo4tJDxq8MkVE6Iy-aii0_7eN59VJvUlfmU",
+								"type": "text"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"age\": 32,\n    \"monthly_income\": 75000,\n    \"credit_score\": 720,\n    \"avg_monthly_credits\": 80000,\n    \"avg_balance\": 125000,\n    \"credit_utilization_ratio\": 0.25,\n    \"dpd_30_count\": 0\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8000/api/customer/credit-scoring/score/",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8000",
+							"path": [
+								"api",
+								"customer",
+								"credit-scoring",
+								"score",
+								""
+							]
+						},
+						"description": "Combine all features and get final credit score"
+					},
+					"response": []
+				}
+			],
+			"description": "Complete workflow: Account Aggregator → Analysis → Credit Score"
+		},
+		{
+			"name": "8. OCR & Face Matching",
+			"item": [
+				{
+					"name": "KYC Document OCR (PAN/Aadhaar)",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "X-API-Key",
+								"value": "stori_6CFocXsPyo4tJDxq8MkVE6Iy-aii0_7eN59VJvUlfmU",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "document_type",
+									"value": "PAN",
+									"type": "text",
+									"description": "One of: PAN, AADHAAR_FRONT, AADHAAR_BACK, OTHER"
+								},
+								{
+									"key": "document_image",
+									"type": "file",
+									"src": [],
+									"description": "Image file (jpg/png/jpeg)"
+								}
+							]
+						},
+						"url": {
+							"raw": "http://localhost:8000/api/kyc/document-ocr/",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8000",
+							"path": [
+								"api",
+								"kyc",
+								"document-ocr",
+								""
+							]
+						},
+						"description": "Extract structured data from KYC documents (PAN/Aadhaar) using PaddleOCR.\n\n**Document Types:**\n- PAN: Extracts pan_number, dob, name\n- AADHAAR_FRONT: Extracts aadhaar_number, gender, dob/yob, name\n- AADHAAR_BACK: Extracts address (multiline)\n- OTHER: Returns raw OCR text\n\n**Response:**\n```json\n{\n    \"success\": true,\n    \"data\": {\n        \"pan_number\": \"ABCDE1234F\",\n        \"dob\": \"01/01/1990\",\n        \"name\": \"JOHN DOE\"\n    }\n}\n```"
+					},
+					"response": []
+				},
+				{
+					"name": "Quick Face Verification",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "X-API-Key",
+								"value": "stori_6CFocXsPyo4tJDxq8MkVE6Iy-aii0_7eN59VJvUlfmU",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "user_photo",
+									"type": "file",
+									"src": []
+								},
+								{
+									"key": "aadhaar_photo",
+									"type": "file",
+									"src": []
+								},
+								{
+									"key": "pan_photo",
+									"type": "file",
+									"src": []
+								}
+							]
+						},
+						"url": {
+							"raw": "http://localhost:8000/api/customer/ocr/face-match/quick_verify/",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8000",
+							"path": [
+								"api",
+								"customer",
+								"ocr",
+								"face-match",
+								"quick_verify",
+								""
+							]
+						},
+						"description": "Quick face verification - upload and verify in one step"
+					},
+					"response": []
+				}
+			],
+			"description": "OCR and Face Matching APIs"
+		},
+		{
+			"name": "9. File Upload APIs (Optional - Legacy)",
+			"item": [
+				{
+					"name": "Upload ITR File",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "X-API-Key",
+								"value": "stori_6CFocXsPyo4tJDxq8MkVE6Iy-aii0_7eN59VJvUlfmU",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "file",
+									"type": "file",
+									"src": []
+								},
+								{
+									"key": "file_type",
+									"value": "json",
+									"type": "text"
+								},
+								{
+									"key": "assessment_year",
+									"value": "2024-25",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "http://localhost:8000/api/customer/itr/",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8000",
+							"path": [
+								"api",
+								"customer",
+								"itr",
+								""
+							]
+						},
+						"description": "Old method - File upload (use JSON endpoints instead)"
+					},
+					"response": []
+				},
+				{
+					"name": "Upload Bank Statement File",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "X-API-Key",
+								"value": "stori_6CFocXsPyo4tJDxq8MkVE6Iy-aii0_7eN59VJvUlfmU",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "file",
+									"type": "file",
+									"src": []
+								},
+								{
+									"key": "file_type",
+									"value": "xlsx",
+									"type": "text"
+								},
+								{
+									"key": "bank_name",
+									"value": "HDFC Bank",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "http://localhost:8000/api/customer/bank-statement/",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8000",
+							"path": [
+								"api",
+								"customer",
+								"bank-statement",
+								""
+							]
+						},
+						"description": "Old method - File upload (use JSON endpoints instead)"
+					},
+					"response": []
+				}
+			],
+			"description": "Legacy file upload endpoints - Use JSON endpoints for Account Aggregator"
+		}
+	],
+	"variable": [
+		{
+			"key": "baseUrl",
+			"value": "http://localhost:8000/api",
+			"type": "string"
+		},
+		{
+			"key": "apiKey",
+			"value": "stori_6CFocXsPyo4tJDxq8MkVE6Iy-aii0_7eN59VJvUlfmU",
+			"type": "string"
+		}
+	]
+}

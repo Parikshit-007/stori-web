@@ -44,7 +44,7 @@ export default function TransactionsUtilityCard({ consumer }: TransactionsUtilit
               {(transactions.spikeDetector?.upiVolumeChange || 0) > 0 ? '+' : ''}{transactions.spikeDetector?.upiVolumeChange || 0}%
             </p>
           </div>
-          <div className="bg-gray-50 rounded-lg p-3">
+          {/* <div className="bg-gray-50 rounded-lg p-3">
             <p className="text-xs text-gray-500">Balance Drop Alert</p>
             <p className={`text-xl font-bold flex items-center gap-1 ${transactions.spikeDetector?.balanceDropAlert ? 'text-red-600' : 'text-green-600'}`}>
               {transactions.spikeDetector?.balanceDropAlert ? (
@@ -53,13 +53,13 @@ export default function TransactionsUtilityCard({ consumer }: TransactionsUtilit
                 <><CheckCircle className="w-5 h-5" /> No</>
               )}
             </p>
-          </div>
-          <div className="bg-gray-50 rounded-lg p-3">
+          </div> */}
+          {/* <div className="bg-gray-50 rounded-lg p-3">
             <p className="text-xs text-gray-500">New Merchants Added</p>
             <p className={`text-xl font-bold ${(transactions.spikeDetector?.newMerchantsAdded || 0) <= 5 ? 'text-green-600' : 'text-amber-600'}`}>
               {transactions.spikeDetector?.newMerchantsAdded || 0}
             </p>
-          </div>
+          </div> */}
           <div className="bg-gray-50 rounded-lg p-3">
             <p className="text-xs text-gray-500">EMI Failures</p>
             <p className={`text-xl font-bold ${(transactions.spikeDetector?.emiFailures || 0) === 0 ? 'text-green-600' : 'text-red-600'}`}>

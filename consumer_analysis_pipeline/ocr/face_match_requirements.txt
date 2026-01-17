@@ -1,0 +1,25 @@
+# Face Matching Dependencies
+# Install with: pip install -r face_match_requirements.txt
+
+# Core face recognition library (includes multiple models)
+deepface>=0.0.79
+
+# Deep learning framework (TensorFlow)
+tensorflow>=2.13.0
+
+# Computer vision
+opencv-python>=4.8.0
+opencv-contrib-python>=4.8.0
+
+# Image processing
+Pillow>=10.0.0
+numpy>=1.24.0
+
+# Optional but recommended for better performance
+mtcnn>=0.1.1
+retina-face>=0.0.13
+
+# For API integration (if needed)
+requests>=2.31.0
+
+

@@ -156,6 +156,22 @@ export default function FraudVerificationCard({ msme }: FraudVerificationCardPro
         </div>
       </div>
 
+      {/* Fraud Transaction Signals */}
+      <div className="mb-6">
+        <div className="bg-gradient-to-br from-red-50 to-orange-50 rounded-xl p-4 border border-red-200">
+          <div className="flex items-center justify-between">
+            <div>
+              <p className="text-xs font-semibold uppercase text-gray-700">Fraud Transaction Signals</p>
+              <p className="text-3xl font-bold text-red-600 mt-2">
+                {features.fraud_transaction_signals || fraud.fraud_transaction_signals || 0}
+              </p>
+            </div>
+            <AlertTriangle className="w-8 h-8 text-red-500" />
+          </div>
+          <p className="text-xs text-gray-600 mt-2">Suspicious transaction indicators detected</p>
+        </div>
+      </div>
+
       {/* Additional Scores */}
       <div className="space-y-2 text-sm">
         <div className="flex items-center justify-between p-2 bg-gray-50 rounded-lg">

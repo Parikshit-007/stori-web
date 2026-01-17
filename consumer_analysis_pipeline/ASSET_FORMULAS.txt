@@ -1,0 +1,695 @@
+================================================================================
+ASSET ANALYSIS - FEATURE EXTRACTION GUIDE
+================================================================================
+Production-Grade Asset Analysis for Credit Underwriting
+Date: 13-Jan-2026
+Version: 1.0
+================================================================================
+
+PURPOSE:
+--------
+Analyze all consumer assets to determine:
+1. Total wealth/net worth
+2. Liquidity capacity (emergency fund availability)
+3. Collateral strength (for secured loans)
+4. Financial discipline (investment behavior)
+5. Risk tolerance (portfolio composition)
+
+
+SUPPORTED ASSET TYPES:
+----------------------
+1. Stocks & Equity (Demat holdings)
+2. Mutual Funds (CAMS statements)
+3. Fixed Deposits (Bank FDs, Corporate FDs)
+4. Gold (Physical, Digital, ETF, SGB)
+5. Real Estate (Property ownership)
+6. Insurance (LIC, ULIPs with maturity value)
+7. Provident Fund (EPF, PPF, VPF)
+8. Bonds, NPS, Crypto (Other investments)
+
+
+================================================================================
+SECTION 1: TOTAL ASSET FEATURES (4 features)
+================================================================================
+
+1. total_asset_value
+   ------------------
+   Definition: Total current market value of all assets
+   
+   Formula:
+   --------
+   total_asset_value = SUM(current_value for all assets)
+   
+   Example:
+   - Stocks: ₹2,50,000
+   - Mutual Funds: ₹1,80,000
+   - FD: ₹5,00,000
+   - Gold: ₹1,20,000
+   - Real Estate: ₹50,00,000
+   total_asset_value = 2.5L + 1.8L + 5L + 1.2L + 50L = ₹60,50,000
+   
+   Interpretation:
+   - < ₹5L = Low asset base
+   - ₹5L - ₹25L = Moderate wealth
+   - ₹25L - ₹1Cr = Good asset base
+   - > ₹1Cr = High net worth
+   
+   Credit Impact:
+   - Higher assets → Better collateral capacity
+   - Can approve higher loan amounts
+
+2. total_invested_value
+   ---------------------
+   Definition: Total amount originally invested (cost basis)
+   
+   Formula:
+   --------
+   total_invested_value = SUM(invested_value for all assets)
+   
+   Example:
+   Stocks bought at ₹2,00,000 (now worth ₹2,50,000)
+   MF invested ₹1,50,000 (now worth ₹1,80,000)
+   total_invested_value = 2L + 1.5L = ₹3,50,000
+   
+   Interpretation:
+   - Measures actual capital deployed
+   - Used to calculate returns
+
+3. num_asset_types
+   ----------------
+   Definition: How many different asset classes does consumer hold?
+   
+   Formula:
+   --------
+   num_asset_types = COUNT(DISTINCT asset_type)
+   
+   Example:
+   Holdings: Stocks, MF, FD, Gold
+   num_asset_types = 4
+   
+   Interpretation:
+   - 1-2 types = Low diversification (risky)
+   - 3-5 types = Good diversification
+   - 6+ types = Well diversified portfolio
+   
+   Credit Impact:
+   - Higher diversification → Lower risk
+   - Shows financial sophistication
+
+4. num_assets
+   ----------
+   Definition: Total number of individual assets
+   
+   Formula:
+   --------
+   num_assets = COUNT(all assets)
+   
+   Example:
+   5 stocks + 3 MFs + 2 FDs + 1 property = 11 assets
+   
+   Interpretation:
+   - More assets = More investment activity
+   - Shows savings behavior
+
+
+================================================================================
+SECTION 2: LIQUIDITY FEATURES (5 features) - CRITICAL FOR UNDERWRITING
+================================================================================
+
+Liquidity = How fast can asset be converted to cash?
+
+5. liquid_assets
+   --------------
+   Definition: Assets that can be converted to cash within 7 days
+   
+   Formula:
+   --------
+   Liquidity Classification:
+   - T+2 (2 days): Stocks, Liquid MF, Digital Gold, Crypto
+   - 3-7 days: Debt MF, Bank FD (with penalty)
+   
+   liquid_assets = SUM(value WHERE liquidity_days <= 7)
+   
+   Example:
+   - Stocks: ₹2,50,000 (T+2) ✓
+   - Liquid MF: ₹50,000 (T+1) ✓
+   - Bank FD: ₹5,00,000 (immediate with penalty) ✓
+   - Real Estate: ₹50,00,000 (6 months) ✗
+   liquid_assets = 2.5L + 0.5L + 5L = ₹8,00,000
+   
+   Interpretation:
+   - Emergency fund capacity
+   - Can cover unexpected expenses/EMI defaults
+   
+   Credit Impact:
+   - HIGH liquid assets = Lower default risk
+   - Can liquidate if income stops
+
+6. semi_liquid_assets
+   -------------------
+   Definition: Assets convertible in 8-90 days
+   
+   Formula:
+   --------
+   - 14 days: Corporate FD
+   - 60 days: EPF withdrawal
+   - 90 days: Insurance surrender
+   
+   semi_liquid_assets = SUM(value WHERE 8 <= liquidity_days <= 90)
+   
+   Example:
+   Corporate FD: ₹2,00,000 (14 days)
+   Insurance (surrender): ₹1,50,000 (90 days)
+   semi_liquid_assets = ₹3,50,000
+
+7. illiquid_assets
+   ----------------
+   Definition: Assets taking >90 days to liquidate
+   
+   Formula:
+   --------
+   - 180 days: Real Estate
+   - 365 days: PPF (lock-in)
+   - 1825 days: NPS (retirement lock-in)
+   
+   illiquid_assets = SUM(value WHERE liquidity_days > 90)
+   
+   Example:
+   Real Estate: ₹50,00,000
+   PPF: ₹8,00,000
+   illiquid_assets = ₹58,00,000
+   
+   Interpretation:
+   - Long-term wealth
+   - Not useful for short-term emergencies
+
+8. liquidity_ratio
+   ----------------
+   Definition: **KEY METRIC** - What % of assets are liquid?
+   
+   Formula:
+   --------
+   liquidity_ratio = liquid_assets / total_asset_value
+   
+   Example:
+   Liquid assets: ₹8,00,000
+   Total assets: ₹60,50,000
+   liquidity_ratio = 8L / 60.5L = 0.132 (13.2%)
+   
+   Interpretation:
+   - < 10% = Poor liquidity (risky)
+   - 10-20% = Adequate liquidity
+   - 20-40% = Good liquidity buffer
+   - > 40% = Excellent emergency fund
+   
+   Credit Impact:
+   - High liquidity → Can handle income shocks
+   - Low liquidity + high illiquid assets = Risk
+     (e.g., property worth ₹1Cr but only ₹50K liquid)
+
+
+================================================================================
+SECTION 3: RETURNS & PERFORMANCE (1 feature)
+================================================================================
+
+9. portfolio_returns_pct
+   ----------------------
+   Definition: Overall return on investment portfolio
+   
+   Formula:
+   --------
+   portfolio_returns_pct = ((total_asset_value - total_invested_value) 
+                             / total_invested_value) * 100
+   
+   Example:
+   Total current value: ₹10,50,000
+   Total invested: ₹8,00,000
+   portfolio_returns_pct = ((10.5L - 8L) / 8L) * 100 = 31.25%
+   
+   Interpretation:
+   - Negative = Loss (poor investment decisions)
+   - 0-8% = Below inflation (FD-like returns)
+   - 8-15% = Good returns (beating inflation)
+   - 15-25% = Excellent returns
+   - > 25% = Either very good investor OR high risk taking
+   
+   Credit Impact:
+   - Positive returns = Good financial management
+   - Consistent losses = Poor decision making
+
+
+================================================================================
+SECTION 4: ASSET BREAKDOWN (7 features)
+================================================================================
+
+10. stocks_value
+    ------------
+    Total value of equity holdings in Demat account
+    
+    Example: ₹2,50,000 in Reliance, TCS, HDFC Bank
+
+11. mf_value
+    --------
+    Total value of mutual fund investments
+    
+    Example: ₹1,80,000 across 3 funds
+
+12. fd_value
+    --------
+    Total value of Fixed Deposits
+    
+    Example: ₹5,00,000 in bank FDs
+
+13. gold_value
+    ----------
+    Total gold holdings (physical + digital + ETF + SGB)
+    
+    Example: 50 grams physical (₹3.2L) + Digital gold (₹50K) = ₹3.7L
+
+14. real_estate_value
+    ------------------
+    Total property value (residential + commercial + land)
+    
+    Example: 1 flat worth ₹45L + 1 plot ₹12L = ₹57L
+
+15. pf_value
+    --------
+    Provident Fund balance (EPF + PPF + VPF)
+    
+    Example: EPF ₹6.5L + PPF ₹2.8L = ₹9.3L
+
+16. insurance_value
+    ----------------
+    Surrender value of insurance policies (LIC, ULIPs)
+    Note: Only policies with investment component
+    
+    Example: 2 LIC policies with surrender value ₹2.5L
+
+
+================================================================================
+SECTION 5: PORTFOLIO COMPOSITION (5 features)
+================================================================================
+
+17. portfolio_risk_score
+    --------------------
+    Definition: Weighted average risk of entire portfolio (0-1 scale)
+    
+    Formula:
+    --------
+    Risk weights:
+    - Bank FD/PPF/EPF: 0.1 (very safe)
+    - Corporate FD/Bonds: 0.3 (low risk)
+    - Gold/Real Estate: 0.4-0.5 (moderate risk)
+    - Debt MF: 0.3
+    - Hybrid MF: 0.5
+    - Equity MF: 0.7
+    - Stocks: 0.8 (high risk)
+    - Crypto: 0.95 (very high risk)
+    
+    portfolio_risk_score = SUM(asset_value * risk_weight) / total_assets
+    
+    Example:
+    - FD ₹5L * 0.1 = 50,000
+    - Stocks ₹2.5L * 0.8 = 2,00,000
+    - Gold ₹1.2L * 0.4 = 48,000
+    Total weighted = 2,98,000
+    Total assets = 8.7L
+    portfolio_risk_score = 2,98,000 / 8,70,000 = 0.343
+    
+    Interpretation:
+    - 0.0 - 0.3 = Conservative (mostly FD/PPF)
+    - 0.3 - 0.5 = Balanced (mixed portfolio)
+    - 0.5 - 0.7 = Aggressive (mostly equity/stocks)
+    - > 0.7 = Very aggressive (high risk)
+    
+    Credit Impact:
+    - Conservative → Stable but lower returns
+    - Balanced → Ideal for most borrowers
+    - Aggressive → Higher default risk if market crashes
+
+18. gold_to_assets_pct
+    -------------------
+    Definition: Gold as % of total assets (India-specific metric)
+    
+    Formula:
+    --------
+    gold_to_assets_pct = (gold_value / total_asset_value) * 100
+    
+    Example:
+    Gold: ₹3,70,000
+    Total: ₹60,50,000
+    gold_to_assets_pct = (3.7L / 60.5L) * 100 = 6.1%
+    
+    Interpretation:
+    - 5-15% = Healthy gold allocation (Indian norm)
+    - < 5% = Low gold exposure
+    - > 25% = Over-allocation to gold
+    
+    Cultural Context:
+    - Indians culturally hold gold (jewelry, bars, coins)
+    - Gold is liquid collateral for gold loans
+    - Shows traditional savings behavior
+
+19. real_estate_to_assets_pct
+    --------------------------
+    Definition: Property as % of total assets
+    
+    Formula:
+    --------
+    real_estate_to_assets_pct = (real_estate_value / total_asset_value) * 100
+    
+    Example:
+    Property: ₹57,00,000
+    Total: ₹60,50,000
+    real_estate_to_assets_pct = (57L / 60.5L) * 100 = 94.2%
+    
+    Interpretation:
+    - > 80% = Over-concentrated in property (illiquid!)
+    - 50-80% = High property allocation
+    - 20-50% = Balanced
+    - < 20% = Low property exposure
+    
+    Credit Impact:
+    - Too high (>80%) = Liquidity risk
+      Customer might default if can't liquidate property fast
+    - Moderate (30-60%) = Good collateral + some liquidity
+
+20. safe_assets_pct
+    ----------------
+    Definition: Conservative assets as % of portfolio
+    
+    Formula:
+    --------
+    safe_assets = fd_value + pf_value + insurance_value
+    safe_assets_pct = (safe_assets / total_asset_value) * 100
+    
+    Example:
+    FD: ₹5L + PF: ₹9.3L + Insurance: ₹2.5L = ₹16.8L
+    Total: ₹60.5L
+    safe_assets_pct = (16.8L / 60.5L) * 100 = 27.8%
+    
+    Interpretation:
+    - > 60% = Very conservative (retired/near retirement)
+    - 30-60% = Balanced approach
+    - 10-30% = Moderate risk taker
+    - < 10% = Aggressive investor
+    
+    Age-based guidance:
+    - 20-30 years: 10-30% acceptable
+    - 30-45 years: 30-50% ideal
+    - 45+ years: 50%+ recommended
+
+21. market_linked_pct
+    ------------------
+    Definition: Equity exposure (stocks + equity MFs) as % of assets
+    
+    Formula:
+    --------
+    market_assets = stocks_value + mf_value
+    market_linked_pct = (market_assets / total_asset_value) * 100
+    
+    Example:
+    Stocks: ₹2.5L + MF: ₹1.8L = ₹4.3L
+    Total: ₹60.5L
+    market_linked_pct = (4.3L / 60.5L) * 100 = 7.1%
+    
+    Interpretation:
+    - > 70% = Very high market risk
+    - 40-70% = High equity exposure
+    - 20-40% = Moderate exposure
+    - < 20% = Conservative
+    
+    Credit Impact:
+    - High exposure during bull market = Great!
+    - High exposure during bear market = Risky!
+    - Need to check market conditions at time of loan
+
+
+================================================================================
+QUICK REFERENCE: ASSET FEATURES IMPORTANCE
+================================================================================
+
+**TIER 1: CRITICAL FOR UNDERWRITING**
+1. total_asset_value          ⭐⭐⭐⭐⭐ (Net worth indicator)
+2. liquidity_ratio            ⭐⭐⭐⭐⭐ (Emergency fund capacity)
+3. liquid_assets              ⭐⭐⭐⭐⭐ (Can cover defaults?)
+4. real_estate_to_assets_pct  ⭐⭐⭐⭐ (Illiquidity risk)
+
+**TIER 2: IMPORTANT**
+5. portfolio_risk_score       ⭐⭐⭐⭐ (Risk tolerance)
+6. portfolio_returns_pct      ⭐⭐⭐⭐ (Investment skill)
+7. num_asset_types           ⭐⭐⭐ (Diversification)
+8. gold_value                ⭐⭐⭐ (Gold loan collateral)
+
+**TIER 3: SUPPORTING**
+9-21. Other breakdowns       ⭐⭐
+
+
+================================================================================
+ASSET-BASED LOAN PRODUCTS
+================================================================================
+
+1. GOLD LOAN:
+   - LTV: 75% of gold value
+   - Requires: gold_value > 0
+   - Processing: Same day
+   - Example: Gold worth ₹3.7L → Loan ₹2.78L
+
+2. SECURITIES/SHARES LOAN:
+   - LTV: 50-60% of stock value
+   - Requires: stocks_value > 0
+   - Collateral: Demat holdings
+   - Example: Stocks worth ₹2.5L → Loan ₹1.25L-1.5L
+
+3. PROPERTY LOAN:
+   - LTV: 70-80% of property value
+   - Requires: real_estate_value > 0
+   - Processing: 2-4 weeks (property verification)
+   - Example: Property ₹57L → Loan ₹40L-45L
+
+4. PORTFOLIO LOAN:
+   - LTV: 40-50% of MF/FD portfolio
+   - Requires: mf_value + fd_value > ₹5L
+   - Collateral: Pledge of MF units/FD
+   - Example: MF+FD ₹6.8L → Loan ₹2.7L-3.4L
+
+
+================================================================================
+CREDIT DECISION FRAMEWORK USING ASSETS
+================================================================================
+
+SCENARIO 1: High Assets, Low Liquidity
+--------------------------------------
+Profile:
+- Total assets: ₹1Cr (Excellent!)
+- Liquid assets: ₹2L (Only 2%)
+- Real estate: ₹95L (95%)
+
+Decision:
+- ⚠️ RISK: Cannot handle income shock
+- Recommendation: 
+  * Secured loan only (mortgage against property)
+  * Lower unsecured loan limit
+  * Require liquid fund creation
+
+SCENARIO 2: Moderate Assets, High Liquidity
+-------------------------------------------
+Profile:
+- Total assets: ₹15L
+- Liquid assets: ₹8L (53%)
+- Mix: Stocks, MF, FD
+
+Decision:
+- ✓ APPROVE: Good liquidity buffer
+- Can handle 3-6 month income disruption
+- Recommendation:
+  * Higher unsecured loan limit
+  * Better interest rate
+  * Longer tenure option
+
+SCENARIO 3: Low Assets, But Growing
+-----------------------------------
+Profile:
+- Total assets: ₹3L
+- Portfolio returns: +28% (good growth)
+- Regular SIP investments visible
+
+Decision:
+- ✓ MODERATE APPROVAL
+- Shows financial discipline
+- Growing wealth base
+- Recommendation:
+  * Start with small loan
+  * Monitor asset growth
+  * Upgrade limits over time
+
+SCENARIO 4: Zero Assets
+-----------------------
+Profile:
+- No investments
+- No FD
+- No PF contribution
+
+Decision:
+- ⚠️ HIGH RISK
+- No safety net
+- Recommendation:
+  * Very small loan only
+  * Short tenure (3-6 months)
+  * Higher interest rate
+  * Require guarantor
+
+
+================================================================================
+INTEGRATION WITH OTHER MODULES
+================================================================================
+
+COMBINED UNDERWRITING SCORE:
+-----------------------------
+
+Total Credit Score = f(Bank Score, ITR Score, Asset Score, Bureau Score)
+
+Where:
+- Bank Score (40%): Income, expense, survivability
+- Asset Score (30%): Total assets, liquidity ratio
+- ITR Score (20%): Income verification, tax compliance
+- Bureau Score (10%): CIBIL/credit history
+
+Example Calculation:
+-------------------
+Applicant: Nishil
+
+1. Bank Analysis:
+   - Monthly income: ₹24,750
+   - Expense: ₹20,000
+   - Survivability: 0.75 months
+   - Score: 65/100 (moderate)
+
+2. Asset Analysis:
+   - Total assets: ₹12L
+   - Liquid assets: ₹6L (50%)
+   - Portfolio returns: +18%
+   - Score: 80/100 (good)
+
+3. ITR Analysis:
+   - Annual income: ₹3L
+   - Returns filed: Yes
+   - Growth: +12%
+   - Score: 75/100 (good)
+
+4. Bureau:
+   - CIBIL: 750
+   - Score: 85/100 (excellent)
+
+Final Score:
+= (65 * 0.4) + (80 * 0.3) + (75 * 0.2) + (85 * 0.1)
+= 26 + 24 + 15 + 8.5
+= 73.5/100
+
+Decision: APPROVE with conditions
+Loan Amount: ₹2L (8x monthly income)
+Tenure: 12 months
+Interest: 14% (moderate risk pricing)
+
+
+================================================================================
+DATA SOURCES & FORMATS
+================================================================================
+
+1. ACCOUNT AGGREGATOR (AA):
+   - CAMS for Mutual Funds
+   - CDSL/NSDL for Demat holdings
+   - Bank statements for FDs
+   - Format: JSON (standardized)
+
+2. PDF PARSING:
+   - Demat holding statements
+   - FD certificates
+   - Property documents (registry)
+
+3. MANUAL INPUT:
+   - Physical gold (self-declared)
+   - Real estate valuation
+   - Insurance policies
+
+4. THIRD-PARTY APIs:
+   - Karvy/CAMS for MF data
+   - CDSL API for holdings
+   - Property valuation APIs
+
+
+================================================================================
+SAMPLE CALCULATIONS
+================================================================================
+
+CONSUMER: Nishil Parekh (Age: 28)
+----------------------------------
+
+Assets Held:
+1. Stocks (Demat):
+   - Reliance: 10 shares @ ₹2,800 = ₹28,000
+   - TCS: 5 shares @ ₹3,600 = ₹18,000
+   - HDFC Bank: 15 shares @ ₹1,650 = ₹24,750
+   Total stocks_value = ₹70,750
+
+2. Mutual Funds:
+   - Axis Bluechip: ₹45,000 (invested ₹38,000)
+   - HDFC Balanced: ₹32,000 (invested ₹30,000)
+   Total mf_value = ₹77,000
+
+3. Fixed Deposits:
+   - HDFC Bank FD: ₹2,50,000 @ 7% (3 years)
+   - SBI FD: ₹1,50,000 @ 7.5% (5 years)
+   Total fd_value = ₹4,00,000
+
+4. Gold:
+   - 25 grams physical gold @ ₹6,400/gm = ₹1,60,000
+   Total gold_value = ₹1,60,000
+
+5. EPF:
+   - Employee PF balance: ₹1,85,000
+   Total pf_value = ₹1,85,000
+
+Total Assets = ₹8,92,750
+
+FEATURE CALCULATIONS:
+---------------------
+
+1. total_asset_value = ₹8,92,750
+
+2. liquid_assets:
+   - Stocks: ₹70,750 (T+2) ✓
+   - Debt MF: ₹32,000 (3 days) ✓
+   - Bank FDs: ₹4,00,000 (with penalty) ✓
+   = ₹5,02,750
+
+3. liquidity_ratio = 5,02,750 / 8,92,750 = 0.563 (56.3%) ✓ Excellent!
+
+4. portfolio_returns_pct:
+   Total invested = ₹70,750 + ₹68,000 + ₹4,00,000 + ₹1,40,000 + ₹1,60,000
+                  = ₹8,38,750
+   Returns = (8,92,750 - 8,38,750) / 8,38,750 * 100 = 6.44%
+
+5. gold_to_assets_pct = (1,60,000 / 8,92,750) * 100 = 17.9%
+
+6. market_linked_pct = (70,750 + 77,000) / 8,92,750 * 100 = 16.6%
+
+ASSESSMENT:
+-----------
+✓ Good asset base for age 28 (₹8.9L)
+✓ Excellent liquidity (56%)
+✓ Diversified portfolio (5 asset types)
+✓ Healthy gold allocation (18%)
+✓ Conservative investor profile (45% in FD)
+
+Recommendation:
+- Personal Loan: Up to ₹3L approved
+- Interest Rate: 12% (low risk)
+- Can offer gold loan: ₹1.2L against gold
+- Can offer securities loan: ₹35K against stocks
+
+
+================================================================================
+END OF GUIDE
+================================================================================
+

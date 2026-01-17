@@ -1,0 +1,42 @@
+{
+  "folios": [
+    {
+      "folioNumber": "12345678",
+      "amc": "HDFC Asset Management Company",
+      "schemes": [
+        {
+          "schemeName": "HDFC Equity Fund - Growth",
+          "units": 125.456,
+          "currentValue": 45000.00,
+          "investedValue": 38000.00,
+          "purchaseDate": "2022-06-15",
+          "nav": 358.50
+        },
+        {
+          "schemeName": "HDFC Balanced Advantage Fund - Direct Growth",
+          "units": 85.234,
+          "currentValue": 32000.00,
+          "investedValue": 30000.00,
+          "purchaseDate": "2023-01-10",
+          "nav": 375.45
+        }
+      ]
+    },
+    {
+      "folioNumber": "87654321",
+      "amc": "Axis Asset Management Company",
+      "schemes": [
+        {
+          "schemeName": "Axis Bluechip Fund - Regular Growth",
+          "units": 95.678,
+          "currentValue": 52000.00,
+          "investedValue": 45000.00,
+          "purchaseDate": "2021-09-20",
+          "nav": 543.56
+        }
+      ]
+    }
+  ]
+}
+
+

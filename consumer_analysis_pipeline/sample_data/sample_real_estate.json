@@ -1,0 +1,57 @@
+{
+  "properties": [
+    {
+      "type": "RESIDENTIAL",
+      "propertyType": "Apartment",
+      "location": "Andheri West, Mumbai",
+      "address": "502, Emerald Heights, JP Road",
+      "city": "Mumbai",
+      "state": "Maharashtra",
+      "pincode": "400053",
+      "sizeSqft": 850.0,
+      "purchasePrice": 4500000.00,
+      "purchaseDate": "2018-03-15",
+      "currentValue": 7200000.00,
+      "registryValue": 4500000.00,
+      "hasLoan": true,
+      "outstandingLoan": 1800000.00,
+      "bank": "HDFC Bank",
+      "emi": 28500.00
+    },
+    {
+      "type": "LAND",
+      "propertyType": "Agricultural Land",
+      "location": "Karjat, Raigad",
+      "address": "Survey No. 45/2, Village Khopoli",
+      "city": "Karjat",
+      "state": "Maharashtra",
+      "pincode": "410201",
+      "sizeSqft": 21780.0,
+      "purchasePrice": 800000.00,
+      "purchaseDate": "2021-06-20",
+      "currentValue": 1200000.00,
+      "registryValue": 800000.00,
+      "hasLoan": false,
+      "outstandingLoan": 0.00
+    },
+    {
+      "type": "COMMERCIAL",
+      "propertyType": "Shop",
+      "location": "Thane West",
+      "address": "Shop No. 12, Hiranandani Estate",
+      "city": "Thane",
+      "state": "Maharashtra",
+      "pincode": "400607",
+      "sizeSqft": 350.0,
+      "purchasePrice": 2500000.00,
+      "purchaseDate": "2019-11-10",
+      "currentValue": 3500000.00,
+      "registryValue": 2500000.00,
+      "hasLoan": false,
+      "outstandingLoan": 0.00,
+      "monthlyRent": 35000.00
+    }
+  ]
+}
+
+

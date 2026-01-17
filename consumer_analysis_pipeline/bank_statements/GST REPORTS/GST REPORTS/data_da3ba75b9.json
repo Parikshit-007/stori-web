@@ -1,0 +1,18 @@
+{
+    "client_ref_num": "20251124090019d1RAJKMS8BP",
+    "request_id": 65064743,
+    "txn_id": "da3ba75b9",
+    "start_date": "2024-10-01",
+    "end_date": "2025-10-31",
+    "duration_in_month": 13,
+    "dg_report_version": "2.0",
+    "report_num": 1,
+    "report_fetch_time": "2025-11-24 09:05:11.401721",
+    "report_fetch_type": "ONETIME",
+    "source_of_data": "accountaggregator",
+    "statement_start_date": "",
+    "statement_end_date": "",
+    "multiple_accounts_found": "no",
+    "source_report": "https://dg-bank-data-prod.s3.amazonaws.com/da3ba75b9/aa/1_fip_processed_da3ba75b9.json?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=ASIA2GKW2SD6XN4DAFHT%2F20251124%2Fap-south-1%2Fs3%2Faws4_request&X-Amz-Date=20251124T090510Z&X-Amz-Expires=43200&X-Amz-SignedHeaders=host&X-Amz-Security-Token=IQoJb3JpZ2luX2VjEIn%2F%2F%2F%2F%2F%2F%2F%2F%2F%2FwEaCmFwLXNvdXRoLTEiRjBEAiA6p4DILQuVA3VtQZ3tH%2BaqZgCKlPsWar8QRbg29sG5qgIgEavbx8eKbt0m6M8osgQoZ28xjahD5DiRRidiuiFiqkUq9wIIUhADGgw3MDA3OTg2MzYyODUiDBJnmdLvYB47yqJs2SrUAgbdDlrsqfdTyh1CYH5Y%2FiUmFuspARRqh1wdOFe%2Fb9xQTDlifY0byvxd%2BKn1024ySayIVEKFiNhlV8mZ38e86chMLTNysMVCXQ4YXoclOwRfGgfB%2B0Fq02UNIN9GWPHEAxndB7KbktLYkLP%2BftCWuiKT8EIUjxsLzfv5eF%2FUQIzd5S8jPHBYDDO%2BAbC3poLfasOLVODHm%2FIYznkgPjIyp4fNPqFvU2nTXCoaSzgBeaF9CrXfkzNDA7EHsebiqZ58mN1b4DImd%2FHUB1wr%2FAUXSabl%2BpLt%2BK510FPfPsvVDxdozF5L838bCxZtWnRQQwFtX%2Fef2ge6JZA139FpsPIK5cT8a1cxVLGJN1Y14gRNj2zcOc0fu9m7zDKsvK1dBPguKI5YoX8B%2ByifQTy1WxqH8%2Fl1dabx0SKuuIlLtlUhrMvlKNxBDvkrv5kbWx5VksrsKr9Ynb4wwLWQyQY6nwFjcOrGR0HZC0lSxaOyCdLIkX%2FG50rXmtt6yh9Vg4CBwNRkn0Osga6xIYHpWNNfgmnl33Q7%2BFp0qMDSdVcfN0s%2F1KgVczfDHPreu053hcxiaikWZZiYn4hTT0pGeDG4qd0FD4YkDN97DdCIxeh%2BV1HvcO67bChROscl%2Fwj2BfnBOBsX%2FCgZTpIlZb%2FB7Rpjg2QRRtFPo0H5OrVqUWlzEHI%3D&X-Amz-Signature=33c11905dc8d08a0fd47a10ad074b66bee0999698b4c1ae594a71571b207f5f6",
+    "banks": []
+}

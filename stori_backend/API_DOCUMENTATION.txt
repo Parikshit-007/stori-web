@@ -1,0 +1,356 @@
+STORI NBFC - API Documentation
+================================
+
+BASE URL: http://localhost:8000/api
+
+AUTHENTICATION
+==============
+All endpoints require Knox Token authentication (except login)
+Add header: Authorization: Token <your-token>
+
+Authentication Endpoints:
+-------------------------
+POST /api/auth/login/
+    Body: {"username": "...", "password": "..."}
+    Response: {"token": "...", "user": {...}}
+
+POST /api/auth/logout/
+    Headers: Authorization: Token <token>
+    Response: {"success": true}
+
+POST /api/auth/logoutall/
+    Headers: Authorization: Token <token>
+    Response: {"success": true}
+
+
+ITR ANALYSIS API
+================
+
+1. Upload ITR Document
+POST /api/customer/itr/
+    Headers: 
+        Authorization: Token <token>
+        Content-Type: multipart/form-data
+    Body (form-data):
+        file: <file>
+        file_type: "json" or "pdf"
+        assessment_year: "2024-25"
+    Response: {
+        "id": 1,
+        "file": "...",
+        "file_type": "json",
+        "assessment_year": "2024-25",
+        "processed": false
+    }
+
+2. Analyze ITR
+POST /api/customer/itr/{id}/analyze/
+    Headers: Authorization: Token <token>
+    Response: {
+        "success": true,
+        "message": "ITR analyzed successfully",
+        "data": {
+            "features": {...},
+            "summary": {...}
+        }
+    }
+
+3. Get Analysis Result
+GET /api/customer/itr/{id}/result/
+    Headers: Authorization: Token <token>
+    Response: {
+        "success": true,
+        "data": {
+            "features": {...},
+            "summary": {...}
+        }
+    }
+
+4. Get All Results
+GET /api/customer/itr/all_results/
+    Headers: Authorization: Token <token>
+    Response: {
+        "success": true,
+        "count": 5,
+        "data": [...]
+    }
+
+
+BANK STATEMENT ANALYSIS API
+============================
+
+1. Upload Bank Statement
+POST /api/customer/bank-statement/
+    Headers: 
+        Authorization: Token <token>
+        Content-Type: multipart/form-data
+    Body (form-data):
+        file: <file>
+        file_type: "pdf", "xlsx", "xls", or "csv"
+        bank_name: "HDFC"
+        account_number: "..."
+        statement_period: "Jan 2024 - Dec 2024"
+    Response: {
+        "id": 1,
+        "file": "...",
+        "bank_name": "HDFC",
+        "processed": false
+    }
+
+2. Analyze Bank Statement
+POST /api/customer/bank-statement/{id}/analyze/
+    Headers: Authorization: Token <token>
+    Response: {
+        "success": true,
+        "message": "Bank statement analyzed successfully",
+        "data": {
+            "features": {...},
+            "summary": {...},
+            "transactions": [...]
+        }
+    }
+
+3. Get Analysis Result
+GET /api/customer/bank-statement/{id}/result/
+    Headers: Authorization: Token <token>
+    Response: {
+        "success": true,
+        "data": {...}
+    }
+
+4. Get All Results
+GET /api/customer/bank-statement/all_results/
+    Headers: Authorization: Token <token>
+    Response: {
+        "success": true,
+        "count": 3,
+        "data": [...]
+    }
+
+
+CREDIT REPORT ANALYSIS API
+===========================
+
+1. Upload Credit Report
+POST /api/customer/credit-report/
+    Headers: 
+        Authorization: Token <token>
+        Content-Type: multipart/form-data
+    Body (form-data):
+        file: <file>
+        file_type: "pdf" or "json"
+        bureau_name: "cibil", "experian", "equifax", or "crif"
+        report_date: "2024-01-15"
+    Response: {
+        "id": 1,
+        "file": "...",
+        "bureau_name": "cibil",
+        "processed": false
+    }
+
+2. Analyze Credit Report
+POST /api/customer/credit-report/{id}/analyze/
+    Headers: Authorization: Token <token>
+    Response: {
+        "success": true,
+        "message": "Credit report analyzed successfully",
+        "data": {
+            "features": {...},
+            "summary": {...},
+            "accounts": [...],
+            "enquiries": [...]
+        }
+    }
+
+3. Get Analysis Result
+GET /api/customer/credit-report/{id}/result/
+    Headers: Authorization: Token <token>
+    Response: {
+        "success": true,
+        "data": {...}
+    }
+
+4. Get All Results
+GET /api/customer/credit-report/all_results/
+    Headers: Authorization: Token <token>
+    Response: {
+        "success": true,
+        "count": 2,
+        "data": [...]
+    }
+
+
+OCR & FACE MATCHING API
+========================
+
+1. Upload Document
+POST /api/customer/ocr/documents/
+    Headers: 
+        Authorization: Token <token>
+        Content-Type: multipart/form-data
+    Body (form-data):
+        file: <image_file>
+        document_type: "aadhaar", "pan", "voter_id", "user_photo", etc.
+    Response: {
+        "id": 1,
+        "file": "...",
+        "document_type": "aadhaar",
+        "processed": false
+    }
+
+2. Create Face Match Request
+POST /api/customer/ocr/face-match/
+    Headers: 
+        Authorization: Token <token>
+        Content-Type: application/json
+    Body:
+        {
+            "user_photo": 1,
+            "aadhaar_photo": 2,
+            "pan_photo": 3,
+            "voter_id_photo": 4
+        }
+    Response: {
+        "id": 1,
+        "user_photo": 1,
+        "aadhaar_photo": 2,
+        "processed": false
+    }
+
+3. Verify Faces
+POST /api/customer/ocr/face-match/{id}/verify/
+    Headers: Authorization: Token <token>
+    Response: {
+        "success": true,
+        "message": "Face verification completed successfully",
+        "data": {
+            "overall_verdict": "VERIFIED",
+            "verdict_description": "All documents match successfully",
+            "results": {
+                "individual_results": {
+                    "Aadhaar": {
+                        "is_match": true,
+                        "confidence": 92.5,
+                        "match_strength": "Strong Match"
+                    },
+                    "PAN": {...},
+                    "Voter_ID": {...}
+                }
+            }
+        }
+    }
+
+4. Get Face Match Result
+GET /api/customer/ocr/face-match/{id}/result/
+    Headers: Authorization: Token <token>
+    Response: {
+        "success": true,
+        "data": {...}
+    }
+
+5. Quick Face Verification (All-in-One)
+POST /api/customer/ocr/face-match/quick_verify/
+    Headers: 
+        Authorization: Token <token>
+        Content-Type: multipart/form-data
+    Body (form-data):
+        user_photo: <image_file>
+        aadhaar_photo: <image_file> (optional)
+        pan_photo: <image_file> (optional)
+        voter_id_photo: <image_file> (optional)
+    Response: {
+        "success": true,
+        "message": "Face verification completed successfully",
+        "data": {...}
+    }
+
+
+ERROR RESPONSES
+===============
+All endpoints return consistent error format:
+{
+    "success": false,
+    "error": {
+        "message": "Error description",
+        "details": {...}
+    }
+}
+
+Common HTTP Status Codes:
+- 200: Success
+- 201: Created
+- 400: Bad Request
+- 401: Unauthorized
+- 403: Forbidden
+- 404: Not Found
+- 500: Internal Server Error
+
+
+USAGE EXAMPLES
+==============
+
+Python Example:
+---------------
+import requests
+
+# Login
+response = requests.post(
+    'http://localhost:8000/api/auth/login/',
+    json={'username': 'user', 'password': 'pass'}
+)
+token = response.json()['token']
+
+# Upload and analyze ITR
+headers = {'Authorization': f'Token {token}'}
+files = {'file': open('itr.json', 'rb')}
+data = {'file_type': 'json', 'assessment_year': '2024-25'}
+
+upload = requests.post(
+    'http://localhost:8000/api/customer/itr/',
+    headers=headers,
+    files=files,
+    data=data
+)
+itr_id = upload.json()['id']
+
+# Analyze
+analyze = requests.post(
+    f'http://localhost:8000/api/customer/itr/{itr_id}/analyze/',
+    headers=headers
+)
+result = analyze.json()
+
+JavaScript Example:
+-------------------
+// Login
+const loginResponse = await fetch('http://localhost:8000/api/auth/login/', {
+    method: 'POST',
+    headers: {'Content-Type': 'application/json'},
+    body: JSON.stringify({username: 'user', password: 'pass'})
+});
+const {token} = await loginResponse.json();
+
+// Upload ITR
+const formData = new FormData();
+formData.append('file', itrFile);
+formData.append('file_type', 'json');
+formData.append('assessment_year', '2024-25');
+
+const uploadResponse = await fetch('http://localhost:8000/api/customer/itr/', {
+    method: 'POST',
+    headers: {'Authorization': `Token ${token}`},
+    body: formData
+});
+const {id} = await uploadResponse.json();
+
+// Analyze
+const analyzeResponse = await fetch(
+    `http://localhost:8000/api/customer/itr/${id}/analyze/`,
+    {
+        method: 'POST',
+        headers: {'Authorization': `Token ${token}`}
+    }
+);
+const result = await analyzeResponse.json();
+
+

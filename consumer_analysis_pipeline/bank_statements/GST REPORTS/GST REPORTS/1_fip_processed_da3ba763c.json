@@ -1,0 +1,2201 @@
+{
+    "GSTN-FIP": [
+        {
+            "masked_account": "10XXXXXXXXXX1Z8",
+            "link_ref_num": "LRN1014331125001939",
+            "decrypted_data": {
+                "Account": {
+                    "xmlns": "http://api.rebit.org.in/FISchema/gstr1_3b",
+                    "xmlns:vc": "http://www.w3.org/2007/XMLSchema-versioning",
+                    "xmlns:xsi": "http://www.w3.org/2001/XMLSchema-instance",
+                    "xsi:schemaLocation": "http://api.rebit.org.in/FISchema/gstr1_3b../FISchema/gstr1_3b.xsd",
+                    "maskedGstinNumber": "10XXXXXXXXXX1Z8",
+                    "version": "1.1.0",
+                    "linkedAccRef": "LRN1014331125001939",
+                    "type": "gstr1_3b",
+                    "Profile": {
+                        "BusinessDetails": {
+                            "lgnm": "manoj kumar prasad",
+                            "apprvdt": "2022-05-24",
+                            "iscmp": "No",
+                            "dty": "NT",
+                            "sts": "A",
+                            "trdnm": "SANDHYA ENTERPRISES",
+                            "CategoryList": {
+                                "cat": "NA"
+                            }
+                        },
+                        "PlaceofBusiness": {
+                            "Address": {
+                                "bno": "GAnesh sthan manjha",
+                                "bnm": "C/o. SANDHYA  DEVi  Gosai manjha",
+                                "st": "GANESH sthan manjha",
+                                "loc": "Hathua",
+                                "stcd": "10",
+                                "dst": "BRGOP",
+                                "pncd": "841436",
+                                "NatureOfBusinessList": {
+                                    "ntr": [
+                                        "WORKS_CONTRACT",
+                                        "OFFICE_OR_SALE_OFFICE"
+                                    ]
+                                }
+                            }
+                        }
+                    },
+                    "Transactions": {
+                        "strdt": "2024-10-01",
+                        "endt": "2025-10-31",
+                        "Gstr1Details": {
+                            "gstr1": [
+                                {
+                                    "ret_prd": "102024",
+                                    "dof": "13-Nov-2024",
+                                    "status": "FIL",
+                                    "filingFrequency": "MONTHLY",
+                                    "b2b_dtls": null
+                                },
+                                {
+                                    "ret_prd": "112024",
+                                    "dof": "16-Dec-2024",
+                                    "status": "FIL",
+                                    "filingFrequency": "MONTHLY",
+                                    "b2b_dtls": null
+                                },
+                                {
+                                    "ret_prd": "122024",
+                                    "dof": "11-Jan-2025",
+                                    "status": "FIL",
+                                    "filingFrequency": "MONTHLY",
+                                    "b2b_dtls": null
+                                },
+                                {
+                                    "ret_prd": "012025",
+                                    "dof": "08-Feb-2025",
+                                    "status": "FIL",
+                                    "filingFrequency": "MONTHLY",
+                                    "b2b_dtls": null
+                                },
+                                {
+                                    "ret_prd": "022025",
+                                    "dof": "08-Mar-2025",
+                                    "status": "FIL",
+                                    "filingFrequency": "MONTHLY",
+                                    "b2b_dtls": null
+                                },
+                                {
+                                    "ret_prd": "032025",
+                                    "dof": "09-Apr-2025",
+                                    "status": "FIL",
+                                    "filingFrequency": "MONTHLY",
+                                    "b2b_dtls": null
+                                },
+                                {
+                                    "ret_prd": "042025",
+                                    "dof": "16-May-2025",
+                                    "status": "FIL",
+                                    "filingFrequency": "MONTHLY",
+                                    "b2b_dtls": null
+                                },
+                                {
+                                    "ret_prd": "052025",
+                                    "dof": "10-Jun-2025",
+                                    "status": "FIL",
+                                    "filingFrequency": "MONTHLY",
+                                    "b2b_dtls": null
+                                },
+                                {
+                                    "ret_prd": "062025",
+                                    "dof": "10-Jul-2025",
+                                    "status": "FIL",
+                                    "filingFrequency": "MONTHLY",
+                                    "b2b_dtls": null
+                                },
+                                {
+                                    "ret_prd": "072025",
+                                    "dof": "09-Aug-2025",
+                                    "status": "FIL",
+                                    "filingFrequency": "MONTHLY",
+                                    "b2b_dtls": null
+                                },
+                                {
+                                    "ret_prd": "082025",
+                                    "dof": "11-Sep-2025",
+                                    "status": "FIL",
+                                    "filingFrequency": "MONTHLY",
+                                    "b2b_dtls": null
+                                },
+                                {
+                                    "ret_prd": "092025",
+                                    "dof": "22-Nov-2025",
+                                    "status": "FIL",
+                                    "filingFrequency": "MONTHLY",
+                                    "b2b_dtls": null
+                                },
+                                {
+                                    "ret_prd": "102025",
+                                    "dof": "22-Nov-2025",
+                                    "status": "FIL",
+                                    "filingFrequency": "MONTHLY",
+                                    "b2b_dtls": null
+                                }
+                            ]
+                        },
+                        "Gstr3bDetails": {
+                            "gstr3b": [
+                                {
+                                    "ret_prd": "102024",
+                                    "dof": "19-Nov-2024",
+                                    "status": "FIL",
+                                    "filingFrequency": "MONTHLY",
+                                    "sup_details": {
+                                        "osup_det": {
+                                            "txval": "0.0",
+                                            "iamt": "0.0",
+                                            "camt": "0.0",
+                                            "samt": "0.0",
+                                            "csamt": "0.0"
+                                        },
+                                        "osup_zero": {
+                                            "txval": "0.0",
+                                            "iamt": "0.0",
+                                            "csamt": "0.0"
+                                        },
+                                        "osup_nil_exmp": {
+                                            "txval": "0.0"
+                                        },
+                                        "isup_rev": {
+                                            "txval": "0.0",
+                                            "iamt": "0.0",
+                                            "camt": "0.0",
+                                            "samt": "0.0",
+                                            "csamt": "0.0"
+                                        },
+                                        "osup_nongst": {
+                                            "txval": "0.0"
+                                        }
+                                    },
+                                    "sup_inter": {
+                                        "unreg_details_list": null,
+                                        "comp_details_list": null,
+                                        "uin_details_list": null
+                                    },
+                                    "eco_dtls": {
+                                        "eco_sup": {
+                                            "txval": "0.0",
+                                            "iamt": "0.0",
+                                            "camt": "0.0",
+                                            "samt": "0.0",
+                                            "csamt": "0.0"
+                                        },
+                                        "eco_reg_sup": {
+                                            "txval": "0.0"
+                                        }
+                                    },
+                                    "itc_elg": {
+                                        "itc_avl_list": null,
+                                        "itc_rev_list": null,
+                                        "itc_net": {
+                                            "iamt": "0.0",
+                                            "camt": "0.0",
+                                            "samt": "0.0",
+                                            "csamt": "0.0"
+                                        },
+                                        "itc_inelg_list": null
+                                    },
+                                    "inward_sup": {
+                                        "isup_details_list": null
+                                    },
+                                    "intr_ltfee": {
+                                        "intr_details": {
+                                            "iamt": "0.0",
+                                            "camt": "0.0",
+                                            "samt": "0.0",
+                                            "csamt": "0.0"
+                                        },
+                                        "ltfee_details": {
+                                            "camt": "0.0",
+                                            "samt": "0.0"
+                                        }
+                                    },
+                                    "tx_pmt": {
+                                        "tx_py_list": {
+                                            "tx_py": [
+                                                {
+                                                    "trans_desc": "Other than Reverse Charge",
+                                                    "sgst": {
+                                                        "tx": "0.0",
+                                                        "intr": "0.0",
+                                                        "fee": "0.0"
+                                                    },
+                                                    "igst": {
+                                                        "tx": "0.0",
+                                                        "intr": "0.0"
+                                                    },
+                                                    "cgst": {
+                                                        "tx": "0.0",
+                                                        "intr": "0.0",
+                                                        "fee": "0.0"
+                                                    },
+                                                    "cess": {
+                                                        "tx": "0.0",
+                                                        "intr": "0.0"
+                                                    }
+                                                },
+                                                {
+                                                    "trans_desc": "Reverse charge and supplies made u/s 9(5)",
+                                                    "sgst": {
+                                                        "tx": "0.0",
+                                                        "intr": "0.0",
+                                                        "fee": "0.0"
+                                                    },
+                                                    "igst": {
+                                                        "tx": "0.0",
+                                                        "intr": "0.0"
+                                                    },
+                                                    "cgst": {
+                                                        "tx": "0.0",
+                                                        "intr": "0.0",
+                                                        "fee": "0.0"
+                                                    },
+                                                    "cess": {
+                                                        "tx": "0.0",
+                                                        "intr": "0.0"
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    },
+                                    "pdcash_dtls": {
+                                        "pdcash_list": null,
+                                        "pditc": {
+                                            "i_pdi": "0.0",
+                                            "i_pdc": "0.0",
+                                            "i_pds": "0.0",
+                                            "c_pdi": "0.0",
+                                            "c_pdc": "0.0",
+                                            "s_pdi": "0.0",
+                                            "s_pds": "0.0",
+                                            "cs_pdcs": "0.0",
+                                            "trans_desc": "0"
+                                        }
+                                    }
+                                },
+                                {
+                                    "ret_prd": "112024",
+                                    "dof": "16-Dec-2024",
+                                    "status": "FIL",
+                                    "filingFrequency": "MONTHLY",
+                                    "sup_details": {
+                                        "osup_det": {
+                                            "txval": "0.0",
+                                            "iamt": "0.0",
+                                            "camt": "0.0",
+                                            "samt": "0.0",
+                                            "csamt": "0.0"
+                                        },
+                                        "osup_zero": {
+                                            "txval": "0.0",
+                                            "iamt": "0.0",
+                                            "csamt": "0.0"
+                                        },
+                                        "osup_nil_exmp": {
+                                            "txval": "0.0"
+                                        },
+                                        "isup_rev": {
+                                            "txval": "0.0",
+                                            "iamt": "0.0",
+                                            "camt": "0.0",
+                                            "samt": "0.0",
+                                            "csamt": "0.0"
+                                        },
+                                        "osup_nongst": {
+                                            "txval": "0.0"
+                                        }
+                                    },
+                                    "sup_inter": {
+                                        "unreg_details_list": null,
+                                        "comp_details_list": null,
+                                        "uin_details_list": null
+                                    },
+                                    "eco_dtls": {
+                                        "eco_sup": {
+                                            "txval": "0.0",
+                                            "iamt": "0.0",
+                                            "camt": "0.0",
+                                            "samt": "0.0",
+                                            "csamt": "0.0"
+                                        },
+                                        "eco_reg_sup": {
+                                            "txval": "0.0"
+                                        }
+                                    },
+                                    "itc_elg": {
+                                        "itc_avl_list": null,
+                                        "itc_rev_list": null,
+                                        "itc_net": {
+                                            "iamt": "0.0",
+                                            "camt": "0.0",
+                                            "samt": "0.0",
+                                            "csamt": "0.0"
+                                        },
+                                        "itc_inelg_list": null
+                                    },
+                                    "inward_sup": {
+                                        "isup_details_list": null
+                                    },
+                                    "intr_ltfee": {
+                                        "intr_details": {
+                                            "iamt": "0.0",
+                                            "camt": "0.0",
+                                            "samt": "0.0",
+                                            "csamt": "0.0"
+                                        },
+                                        "ltfee_details": {
+                                            "camt": "0.0",
+                                            "samt": "0.0"
+                                        }
+                                    },
+                                    "tx_pmt": {
+                                        "tx_py_list": {
+                                            "tx_py": [
+                                                {
+                                                    "trans_desc": "Other than Reverse Charge",
+                                                    "sgst": {
+                                                        "tx": "0.0",
+                                                        "intr": "0.0",
+                                                        "fee": "0.0"
+                                                    },
+                                                    "igst": {
+                                                        "tx": "0.0",
+                                                        "intr": "0.0"
+                                                    },
+                                                    "cgst": {
+                                                        "tx": "0.0",
+                                                        "intr": "0.0",
+                                                        "fee": "0.0"
+                                                    },
+                                                    "cess": {
+                                                        "tx": "0.0",
+                                                        "intr": "0.0"
+                                                    }
+                                                },
+                                                {
+                                                    "trans_desc": "Reverse charge and supplies made u/s 9(5)",
+                                                    "sgst": {
+                                                        "tx": "0.0",
+                                                        "intr": "0.0",
+                                                        "fee": "0.0"
+                                                    },
+                                                    "igst": {
+                                                        "tx": "0.0",
+                                                        "intr": "0.0"
+                                                    },
+                                                    "cgst": {
+                                                        "tx": "0.0",
+                                                        "intr": "0.0",
+                                                        "fee": "0.0"
+                                                    },
+                                                    "cess": {
+                                                        "tx": "0.0",
+                                                        "intr": "0.0"
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    },
+                                    "pdcash_dtls": {
+                                        "pdcash_list": null,
+                                        "pditc": {
+                                            "i_pdi": "0.0",
+                                            "i_pdc": "0.0",
+                                            "i_pds": "0.0",
+                                            "c_pdi": "0.0",
+                                            "c_pdc": "0.0",
+                                            "s_pdi": "0.0",
+                                            "s_pds": "0.0",
+                                            "cs_pdcs": "0.0",
+                                            "trans_desc": "0"
+                                        }
+                                    }
+                                },
+                                {
+                                    "ret_prd": "122024",
+                                    "dof": "20-Jan-2025",
+                                    "status": "FIL",
+                                    "filingFrequency": "MONTHLY",
+                                    "sup_details": {
+                                        "osup_det": {
+                                            "txval": "0.0",
+                                            "iamt": "0.0",
+                                            "camt": "0.0",
+                                            "samt": "0.0",
+                                            "csamt": "0.0"
+                                        },
+                                        "osup_zero": {
+                                            "txval": "0.0",
+                                            "iamt": "0.0",
+                                            "csamt": "0.0"
+                                        },
+                                        "osup_nil_exmp": {
+                                            "txval": "0.0"
+                                        },
+                                        "isup_rev": {
+                                            "txval": "0.0",
+                                            "iamt": "0.0",
+                                            "camt": "0.0",
+                                            "samt": "0.0",
+                                            "csamt": "0.0"
+                                        },
+                                        "osup_nongst": {
+                                            "txval": "0.0"
+                                        }
+                                    },
+                                    "sup_inter": {
+                                        "unreg_details_list": {
+                                            "unreg_details": {
+                                                "pos": "22",
+                                                "txval": "0.0",
+                                                "iamt": "0.0"
+                                            }
+                                        },
+                                        "comp_details_list": null,
+                                        "uin_details_list": null
+                                    },
+                                    "eco_dtls": {
+                                        "eco_sup": {
+                                            "txval": "0.0",
+                                            "iamt": "0.0",
+                                            "camt": "0.0",
+                                            "samt": "0.0",
+                                            "csamt": "0.0"
+                                        },
+                                        "eco_reg_sup": {
+                                            "txval": "0.0"
+                                        }
+                                    },
+                                    "itc_elg": {
+                                        "itc_avl_list": null,
+                                        "itc_rev_list": null,
+                                        "itc_net": {
+                                            "iamt": "0.0",
+                                            "camt": "0.0",
+                                            "samt": "0.0",
+                                            "csamt": "0.0"
+                                        },
+                                        "itc_inelg_list": null
+                                    },
+                                    "inward_sup": {
+                                        "isup_details_list": null
+                                    },
+                                    "intr_ltfee": {
+                                        "intr_details": {
+                                            "iamt": "0.0",
+                                            "camt": "0.0",
+                                            "samt": "0.0",
+                                            "csamt": "0.0"
+                                        },
+                                        "ltfee_details": {
+                                            "camt": "0.0",
+                                            "samt": "0.0"
+                                        }
+                                    },
+                                    "tx_pmt": {
+                                        "tx_py_list": {
+                                            "tx_py": [
+                                                {
+                                                    "trans_desc": "Other than Reverse Charge",
+                                                    "sgst": {
+                                                        "tx": "0.0",
+                                                        "intr": "0.0",
+                                                        "fee": "0.0"
+                                                    },
+                                                    "igst": {
+                                                        "tx": "0.0",
+                                                        "intr": "0.0"
+                                                    },
+                                                    "cgst": {
+                                                        "tx": "0.0",
+                                                        "intr": "0.0",
+                                                        "fee": "0.0"
+                                                    },
+                                                    "cess": {
+                                                        "tx": "0.0",
+                                                        "intr": "0.0"
+                                                    }
+                                                },
+                                                {
+                                                    "trans_desc": "Reverse charge and supplies made u/s 9(5)",
+                                                    "sgst": {
+                                                        "tx": "0.0",
+                                                        "intr": "0.0",
+                                                        "fee": "0.0"
+                                                    },
+                                                    "igst": {
+                                                        "tx": "0.0",
+                                                        "intr": "0.0"
+                                                    },
+                                                    "cgst": {
+                                                        "tx": "0.0",
+                                                        "intr": "0.0",
+                                                        "fee": "0.0"
+                                                    },
+                                                    "cess": {
+                                                        "tx": "0.0",
+                                                        "intr": "0.0"
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    },
+                                    "pdcash_dtls": {
+                                        "pdcash_list": null,
+                                        "pditc": {
+                                            "i_pdi": "0.0",
+                                            "i_pdc": "0.0",
+                                            "i_pds": "0.0",
+                                            "c_pdi": "0.0",
+                                            "c_pdc": "0.0",
+                                            "s_pdi": "0.0",
+                                            "s_pds": "0.0",
+                                            "cs_pdcs": "0.0",
+                                            "trans_desc": "0"
+                                        }
+                                    }
+                                },
+                                {
+                                    "ret_prd": "012025",
+                                    "dof": "08-Mar-2025",
+                                    "status": "FIL",
+                                    "filingFrequency": "MONTHLY",
+                                    "sup_details": {
+                                        "osup_det": {
+                                            "txval": "0.0",
+                                            "iamt": "0.0",
+                                            "camt": "0.0",
+                                            "samt": "0.0",
+                                            "csamt": "0.0"
+                                        },
+                                        "osup_zero": {
+                                            "txval": "0.0",
+                                            "iamt": "0.0",
+                                            "csamt": "0.0"
+                                        },
+                                        "osup_nil_exmp": {
+                                            "txval": "0.0"
+                                        },
+                                        "isup_rev": {
+                                            "txval": "0.0",
+                                            "iamt": "0.0",
+                                            "camt": "0.0",
+                                            "samt": "0.0",
+                                            "csamt": "0.0"
+                                        },
+                                        "osup_nongst": {
+                                            "txval": "0.0"
+                                        }
+                                    },
+                                    "sup_inter": {
+                                        "unreg_details_list": null,
+                                        "comp_details_list": null,
+                                        "uin_details_list": null
+                                    },
+                                    "eco_dtls": {
+                                        "eco_sup": {
+                                            "txval": "0.0",
+                                            "iamt": "0.0",
+                                            "camt": "0.0",
+                                            "samt": "0.0",
+                                            "csamt": "0.0"
+                                        },
+                                        "eco_reg_sup": {
+                                            "txval": "0.0"
+                                        }
+                                    },
+                                    "itc_elg": {
+                                        "itc_avl_list": null,
+                                        "itc_rev_list": null,
+                                        "itc_net": {
+                                            "iamt": "0.0",
+                                            "camt": "0.0",
+                                            "samt": "0.0",
+                                            "csamt": "0.0"
+                                        },
+                                        "itc_inelg_list": null
+                                    },
+                                    "inward_sup": {
+                                        "isup_details_list": null
+                                    },
+                                    "intr_ltfee": {
+                                        "intr_details": {
+                                            "iamt": "0.0",
+                                            "camt": "0.0",
+                                            "samt": "0.0",
+                                            "csamt": "0.0"
+                                        },
+                                        "ltfee_details": {
+                                            "camt": "0.0",
+                                            "samt": "0.0"
+                                        }
+                                    },
+                                    "tx_pmt": {
+                                        "tx_py_list": {
+                                            "tx_py": [
+                                                {
+                                                    "trans_desc": "Other than Reverse Charge",
+                                                    "sgst": {
+                                                        "tx": "0.0",
+                                                        "intr": "0.0",
+                                                        "fee": "0.0"
+                                                    },
+                                                    "igst": {
+                                                        "tx": "0.0",
+                                                        "intr": "0.0"
+                                                    },
+                                                    "cgst": {
+                                                        "tx": "0.0",
+                                                        "intr": "0.0",
+                                                        "fee": "0.0"
+                                                    },
+                                                    "cess": {
+                                                        "tx": "0.0",
+                                                        "intr": "0.0"
+                                                    }
+                                                },
+                                                {
+                                                    "trans_desc": "Reverse charge and supplies made u/s 9(5)",
+                                                    "sgst": {
+                                                        "tx": "0.0",
+                                                        "intr": "0.0",
+                                                        "fee": "0.0"
+                                                    },
+                                                    "igst": {
+                                                        "tx": "0.0",
+                                                        "intr": "0.0"
+                                                    },
+                                                    "cgst": {
+                                                        "tx": "0.0",
+                                                        "intr": "0.0",
+                                                        "fee": "0.0"
+                                                    },
+                                                    "cess": {
+                                                        "tx": "0.0",
+                                                        "intr": "0.0"
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    },
+                                    "pdcash_dtls": {
+                                        "pdcash_list": null,
+                                        "pditc": {
+                                            "i_pdi": "0.0",
+                                            "i_pdc": "0.0",
+                                            "i_pds": "0.0",
+                                            "c_pdi": "0.0",
+                                            "c_pdc": "0.0",
+                                            "s_pdi": "0.0",
+                                            "s_pds": "0.0",
+                                            "cs_pdcs": "0.0",
+                                            "trans_desc": "0"
+                                        }
+                                    }
+                                },
+                                {
+                                    "ret_prd": "022025",
+                                    "dof": "18-Mar-2025",
+                                    "status": "FIL",
+                                    "filingFrequency": "MONTHLY",
+                                    "sup_details": {
+                                        "osup_det": {
+                                            "txval": "0.0",
+                                            "iamt": "0.0",
+                                            "camt": "0.0",
+                                            "samt": "0.0",
+                                            "csamt": "0.0"
+                                        },
+                                        "osup_zero": {
+                                            "txval": "0.0",
+                                            "iamt": "0.0",
+                                            "csamt": "0.0"
+                                        },
+                                        "osup_nil_exmp": {
+                                            "txval": "0.0"
+                                        },
+                                        "isup_rev": {
+                                            "txval": "0.0",
+                                            "iamt": "0.0",
+                                            "camt": "0.0",
+                                            "samt": "0.0",
+                                            "csamt": "0.0"
+                                        },
+                                        "osup_nongst": {
+                                            "txval": "0.0"
+                                        }
+                                    },
+                                    "sup_inter": {
+                                        "unreg_details_list": {
+                                            "unreg_details": {
+                                                "pos": "22",
+                                                "txval": "0.0",
+                                                "iamt": "0.0"
+                                            }
+                                        },
+                                        "comp_details_list": null,
+                                        "uin_details_list": null
+                                    },
+                                    "eco_dtls": {
+                                        "eco_sup": {
+                                            "txval": "0.0",
+                                            "iamt": "0.0",
+                                            "camt": "0.0",
+                                            "samt": "0.0",
+                                            "csamt": "0.0"
+                                        },
+                                        "eco_reg_sup": {
+                                            "txval": "0.0"
+                                        }
+                                    },
+                                    "itc_elg": {
+                                        "itc_avl_list": null,
+                                        "itc_rev_list": null,
+                                        "itc_net": {
+                                            "iamt": "0.0",
+                                            "camt": "0.0",
+                                            "samt": "0.0",
+                                            "csamt": "0.0"
+                                        },
+                                        "itc_inelg_list": null
+                                    },
+                                    "inward_sup": {
+                                        "isup_details_list": null
+                                    },
+                                    "intr_ltfee": {
+                                        "intr_details": {
+                                            "iamt": "0.0",
+                                            "camt": "0.0",
+                                            "samt": "0.0",
+                                            "csamt": "0.0"
+                                        },
+                                        "ltfee_details": {
+                                            "camt": "160.0",
+                                            "samt": "160.0"
+                                        }
+                                    },
+                                    "tx_pmt": {
+                                        "tx_py_list": {
+                                            "tx_py": [
+                                                {
+                                                    "trans_desc": "Other than Reverse Charge",
+                                                    "sgst": {
+                                                        "tx": "0.0",
+                                                        "intr": "0.0",
+                                                        "fee": "0.0"
+                                                    },
+                                                    "igst": {
+                                                        "tx": "0.0",
+                                                        "intr": "0.0"
+                                                    },
+                                                    "cgst": {
+                                                        "tx": "0.0",
+                                                        "intr": "0.0",
+                                                        "fee": "0.0"
+                                                    },
+                                                    "cess": {
+                                                        "tx": "0.0",
+                                                        "intr": "0.0"
+                                                    }
+                                                },
+                                                {
+                                                    "trans_desc": "Reverse charge and supplies made u/s 9(5)",
+                                                    "sgst": {
+                                                        "tx": "0.0",
+                                                        "intr": "0.0",
+                                                        "fee": "0.0"
+                                                    },
+                                                    "igst": {
+                                                        "tx": "0.0",
+                                                        "intr": "0.0"
+                                                    },
+                                                    "cgst": {
+                                                        "tx": "0.0",
+                                                        "intr": "0.0",
+                                                        "fee": "0.0"
+                                                    },
+                                                    "cess": {
+                                                        "tx": "0.0",
+                                                        "intr": "0.0"
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    },
+                                    "pdcash_dtls": {
+                                        "pdcash_list": {
+                                            "pdcash": {
+                                                "ipd": "0.0",
+                                                "cpd": "0.0",
+                                                "spd": "0.0",
+                                                "cspd": "0.0",
+                                                "i_intrpd": "0.0",
+                                                "c_intrpd": "0.0",
+                                                "s_intrpd": "0.0",
+                                                "cs_intrpd": "0.0",
+                                                "c_lfeepd": "160.0",
+                                                "s_lfeepd": "160.0"
+                                            }
+                                        },
+                                        "pditc": {
+                                            "i_pdi": "0.0",
+                                            "i_pdc": "0.0",
+                                            "i_pds": "0.0",
+                                            "c_pdi": "0.0",
+                                            "c_pdc": "0.0",
+                                            "s_pdi": "0.0",
+                                            "s_pds": "0.0",
+                                            "cs_pdcs": "0.0",
+                                            "trans_desc": "0"
+                                        }
+                                    }
+                                },
+                                {
+                                    "ret_prd": "032025",
+                                    "dof": "17-Apr-2025",
+                                    "status": "FIL",
+                                    "filingFrequency": "MONTHLY",
+                                    "sup_details": {
+                                        "osup_det": {
+                                            "txval": "0.0",
+                                            "iamt": "0.0",
+                                            "camt": "0.0",
+                                            "samt": "0.0",
+                                            "csamt": "0.0"
+                                        },
+                                        "osup_zero": {
+                                            "txval": "0.0",
+                                            "iamt": "0.0",
+                                            "csamt": "0.0"
+                                        },
+                                        "osup_nil_exmp": {
+                                            "txval": "0.0"
+                                        },
+                                        "isup_rev": {
+                                            "txval": "0.0",
+                                            "iamt": "0.0",
+                                            "camt": "0.0",
+                                            "samt": "0.0",
+                                            "csamt": "0.0"
+                                        },
+                                        "osup_nongst": {
+                                            "txval": "0.0"
+                                        }
+                                    },
+                                    "sup_inter": {
+                                        "unreg_details_list": null,
+                                        "comp_details_list": null,
+                                        "uin_details_list": null
+                                    },
+                                    "eco_dtls": {
+                                        "eco_sup": {
+                                            "txval": "0.0",
+                                            "iamt": "0.0",
+                                            "camt": "0.0",
+                                            "samt": "0.0",
+                                            "csamt": "0.0"
+                                        },
+                                        "eco_reg_sup": {
+                                            "txval": "0.0"
+                                        }
+                                    },
+                                    "itc_elg": {
+                                        "itc_avl_list": {
+                                            "itc_avl": [
+                                                {
+                                                    "iamt": "0.0",
+                                                    "camt": "0.0",
+                                                    "samt": "0.0",
+                                                    "csamt": "0.0",
+                                                    "type": "IMPG"
+                                                },
+                                                {
+                                                    "iamt": "0.0",
+                                                    "camt": "0.0",
+                                                    "samt": "0.0",
+                                                    "csamt": "0.0",
+                                                    "type": "ISRC"
+                                                },
+                                                {
+                                                    "iamt": "1471.69",
+                                                    "camt": "0.0",
+                                                    "samt": "0.0",
+                                                    "csamt": "0.0",
+                                                    "type": "OTH"
+                                                },
+                                                {
+                                                    "iamt": "0.0",
+                                                    "camt": "0.0",
+                                                    "samt": "0.0",
+                                                    "csamt": "0.0",
+                                                    "type": "ISD"
+                                                },
+                                                {
+                                                    "iamt": "0.0",
+                                                    "camt": "0.0",
+                                                    "samt": "0.0",
+                                                    "csamt": "0.0",
+                                                    "type": "IMPS"
+                                                }
+                                            ]
+                                        },
+                                        "itc_rev_list": {
+                                            "itc_rev": [
+                                                {
+                                                    "iamt": "0.0",
+                                                    "camt": "0.0",
+                                                    "samt": "0.0",
+                                                    "csamt": "0.0",
+                                                    "type": "RUL"
+                                                },
+                                                {
+                                                    "iamt": "0.0",
+                                                    "camt": "0.0",
+                                                    "samt": "0.0",
+                                                    "csamt": "0.0",
+                                                    "type": "OTH"
+                                                }
+                                            ]
+                                        },
+                                        "itc_net": {
+                                            "iamt": "1471.69",
+                                            "camt": "0.0",
+                                            "samt": "0.0",
+                                            "csamt": "0.0"
+                                        },
+                                        "itc_inelg_list": {
+                                            "itc_inelg": [
+                                                {
+                                                    "iamt": "0.0",
+                                                    "camt": "0.0",
+                                                    "samt": "0.0",
+                                                    "csamt": "0.0",
+                                                    "type": "RUL"
+                                                },
+                                                {
+                                                    "iamt": "0.0",
+                                                    "camt": "0.0",
+                                                    "samt": "0.0",
+                                                    "csamt": "0.0",
+                                                    "type": "OTH"
+                                                }
+                                            ]
+                                        }
+                                    },
+                                    "inward_sup": {
+                                        "isup_details_list": null
+                                    },
+                                    "intr_ltfee": {
+                                        "intr_details": {
+                                            "iamt": "0.0",
+                                            "camt": "0.0",
+                                            "samt": "0.0",
+                                            "csamt": "0.0"
+                                        },
+                                        "ltfee_details": {
+                                            "camt": "0.0",
+                                            "samt": "0.0"
+                                        }
+                                    },
+                                    "tx_pmt": {
+                                        "tx_py_list": {
+                                            "tx_py": [
+                                                {
+                                                    "trans_desc": "Other than Reverse Charge",
+                                                    "sgst": {
+                                                        "tx": "0.0",
+                                                        "intr": "0.0",
+                                                        "fee": "0.0"
+                                                    },
+                                                    "igst": {
+                                                        "tx": "0.0",
+                                                        "intr": "0.0"
+                                                    },
+                                                    "cgst": {
+                                                        "tx": "0.0",
+                                                        "intr": "0.0",
+                                                        "fee": "0.0"
+                                                    },
+                                                    "cess": {
+                                                        "tx": "0.0",
+                                                        "intr": "0.0"
+                                                    }
+                                                },
+                                                {
+                                                    "trans_desc": "Reverse charge and supplies made u/s 9(5)",
+                                                    "sgst": {
+                                                        "tx": "0.0",
+                                                        "intr": "0.0",
+                                                        "fee": "0.0"
+                                                    },
+                                                    "igst": {
+                                                        "tx": "0.0",
+                                                        "intr": "0.0"
+                                                    },
+                                                    "cgst": {
+                                                        "tx": "0.0",
+                                                        "intr": "0.0",
+                                                        "fee": "0.0"
+                                                    },
+                                                    "cess": {
+                                                        "tx": "0.0",
+                                                        "intr": "0.0"
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    },
+                                    "pdcash_dtls": {
+                                        "pdcash_list": null,
+                                        "pditc": {
+                                            "i_pdi": "0.0",
+                                            "i_pdc": "0.0",
+                                            "i_pds": "0.0",
+                                            "c_pdi": "0.0",
+                                            "c_pdc": "0.0",
+                                            "s_pdi": "0.0",
+                                            "s_pds": "0.0",
+                                            "cs_pdcs": "0.0",
+                                            "trans_desc": "0"
+                                        }
+                                    }
+                                },
+                                {
+                                    "ret_prd": "042025",
+                                    "dof": "16-May-2025",
+                                    "status": "FIL",
+                                    "filingFrequency": "MONTHLY",
+                                    "sup_details": {
+                                        "osup_det": {
+                                            "txval": "0.0",
+                                            "iamt": "0.0",
+                                            "camt": "0.0",
+                                            "samt": "0.0",
+                                            "csamt": "0.0"
+                                        },
+                                        "osup_zero": {
+                                            "txval": "0.0",
+                                            "iamt": "0.0",
+                                            "csamt": "0.0"
+                                        },
+                                        "osup_nil_exmp": {
+                                            "txval": "0.0"
+                                        },
+                                        "isup_rev": {
+                                            "txval": "0.0",
+                                            "iamt": "0.0",
+                                            "camt": "0.0",
+                                            "samt": "0.0",
+                                            "csamt": "0.0"
+                                        },
+                                        "osup_nongst": {
+                                            "txval": "0.0"
+                                        }
+                                    },
+                                    "sup_inter": {
+                                        "unreg_details_list": null,
+                                        "comp_details_list": null,
+                                        "uin_details_list": null
+                                    },
+                                    "eco_dtls": {
+                                        "eco_sup": {
+                                            "txval": "0.0",
+                                            "iamt": "0.0",
+                                            "camt": "0.0",
+                                            "samt": "0.0",
+                                            "csamt": "0.0"
+                                        },
+                                        "eco_reg_sup": {
+                                            "txval": "0.0"
+                                        }
+                                    },
+                                    "itc_elg": {
+                                        "itc_avl_list": null,
+                                        "itc_rev_list": null,
+                                        "itc_net": {
+                                            "iamt": "0.0",
+                                            "camt": "0.0",
+                                            "samt": "0.0",
+                                            "csamt": "0.0"
+                                        },
+                                        "itc_inelg_list": null
+                                    },
+                                    "inward_sup": {
+                                        "isup_details_list": null
+                                    },
+                                    "intr_ltfee": {
+                                        "intr_details": {
+                                            "iamt": "0.0",
+                                            "camt": "0.0",
+                                            "samt": "0.0",
+                                            "csamt": "0.0"
+                                        },
+                                        "ltfee_details": {
+                                            "camt": "0.0",
+                                            "samt": "0.0"
+                                        }
+                                    },
+                                    "tx_pmt": {
+                                        "tx_py_list": {
+                                            "tx_py": [
+                                                {
+                                                    "trans_desc": "Other than Reverse Charge",
+                                                    "sgst": {
+                                                        "tx": "0.0",
+                                                        "intr": "0.0",
+                                                        "fee": "0.0"
+                                                    },
+                                                    "igst": {
+                                                        "tx": "0.0",
+                                                        "intr": "0.0"
+                                                    },
+                                                    "cgst": {
+                                                        "tx": "0.0",
+                                                        "intr": "0.0",
+                                                        "fee": "0.0"
+                                                    },
+                                                    "cess": {
+                                                        "tx": "0.0",
+                                                        "intr": "0.0"
+                                                    }
+                                                },
+                                                {
+                                                    "trans_desc": "Reverse charge and supplies made u/s 9(5)",
+                                                    "sgst": {
+                                                        "tx": "0.0",
+                                                        "intr": "0.0",
+                                                        "fee": "0.0"
+                                                    },
+                                                    "igst": {
+                                                        "tx": "0.0",
+                                                        "intr": "0.0"
+                                                    },
+                                                    "cgst": {
+                                                        "tx": "0.0",
+                                                        "intr": "0.0",
+                                                        "fee": "0.0"
+                                                    },
+                                                    "cess": {
+                                                        "tx": "0.0",
+                                                        "intr": "0.0"
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    },
+                                    "pdcash_dtls": {
+                                        "pdcash_list": null,
+                                        "pditc": {
+                                            "i_pdi": "0.0",
+                                            "i_pdc": "0.0",
+                                            "i_pds": "0.0",
+                                            "c_pdi": "0.0",
+                                            "c_pdc": "0.0",
+                                            "s_pdi": "0.0",
+                                            "s_pds": "0.0",
+                                            "cs_pdcs": "0.0",
+                                            "trans_desc": "0"
+                                        }
+                                    }
+                                },
+                                {
+                                    "ret_prd": "052025",
+                                    "dof": "19-Jun-2025",
+                                    "status": "FIL",
+                                    "filingFrequency": "MONTHLY",
+                                    "sup_details": {
+                                        "osup_det": {
+                                            "txval": "0.0",
+                                            "iamt": "0.0",
+                                            "camt": "0.0",
+                                            "samt": "0.0",
+                                            "csamt": "0.0"
+                                        },
+                                        "osup_zero": {
+                                            "txval": "0.0",
+                                            "iamt": "0.0",
+                                            "csamt": "0.0"
+                                        },
+                                        "osup_nil_exmp": {
+                                            "txval": "0.0"
+                                        },
+                                        "isup_rev": {
+                                            "txval": "0.0",
+                                            "iamt": "0.0",
+                                            "camt": "0.0",
+                                            "samt": "0.0",
+                                            "csamt": "0.0"
+                                        },
+                                        "osup_nongst": {
+                                            "txval": "0.0"
+                                        }
+                                    },
+                                    "sup_inter": {
+                                        "unreg_details_list": null,
+                                        "comp_details_list": null,
+                                        "uin_details_list": null
+                                    },
+                                    "eco_dtls": {
+                                        "eco_sup": {
+                                            "txval": "0.0",
+                                            "iamt": "0.0",
+                                            "camt": "0.0",
+                                            "samt": "0.0",
+                                            "csamt": "0.0"
+                                        },
+                                        "eco_reg_sup": {
+                                            "txval": "0.0"
+                                        }
+                                    },
+                                    "itc_elg": {
+                                        "itc_avl_list": {
+                                            "itc_avl": [
+                                                {
+                                                    "iamt": "0.0",
+                                                    "camt": "0.0",
+                                                    "samt": "0.0",
+                                                    "csamt": "0.0",
+                                                    "type": "IMPG"
+                                                },
+                                                {
+                                                    "iamt": "0.0",
+                                                    "camt": "0.0",
+                                                    "samt": "0.0",
+                                                    "csamt": "0.0",
+                                                    "type": "ISRC"
+                                                },
+                                                {
+                                                    "iamt": "332.0",
+                                                    "camt": "0.0",
+                                                    "samt": "0.0",
+                                                    "csamt": "0.0",
+                                                    "type": "OTH"
+                                                },
+                                                {
+                                                    "iamt": "0.0",
+                                                    "camt": "0.0",
+                                                    "samt": "0.0",
+                                                    "csamt": "0.0",
+                                                    "type": "ISD"
+                                                },
+                                                {
+                                                    "iamt": "0.0",
+                                                    "camt": "0.0",
+                                                    "samt": "0.0",
+                                                    "csamt": "0.0",
+                                                    "type": "IMPS"
+                                                }
+                                            ]
+                                        },
+                                        "itc_rev_list": {
+                                            "itc_rev": [
+                                                {
+                                                    "iamt": "0.0",
+                                                    "camt": "0.0",
+                                                    "samt": "0.0",
+                                                    "csamt": "0.0",
+                                                    "type": "RUL"
+                                                },
+                                                {
+                                                    "iamt": "0.0",
+                                                    "camt": "0.0",
+                                                    "samt": "0.0",
+                                                    "csamt": "0.0",
+                                                    "type": "OTH"
+                                                }
+                                            ]
+                                        },
+                                        "itc_net": {
+                                            "iamt": "332.0",
+                                            "camt": "0.0",
+                                            "samt": "0.0",
+                                            "csamt": "0.0"
+                                        },
+                                        "itc_inelg_list": {
+                                            "itc_inelg": [
+                                                {
+                                                    "iamt": "0.0",
+                                                    "camt": "0.0",
+                                                    "samt": "0.0",
+                                                    "csamt": "0.0",
+                                                    "type": "RUL"
+                                                },
+                                                {
+                                                    "iamt": "0.0",
+                                                    "camt": "0.0",
+                                                    "samt": "0.0",
+                                                    "csamt": "0.0",
+                                                    "type": "OTH"
+                                                }
+                                            ]
+                                        }
+                                    },
+                                    "inward_sup": {
+                                        "isup_details_list": null
+                                    },
+                                    "intr_ltfee": {
+                                        "intr_details": {
+                                            "iamt": "0.0",
+                                            "camt": "0.0",
+                                            "samt": "0.0",
+                                            "csamt": "0.0"
+                                        },
+                                        "ltfee_details": {
+                                            "camt": "0.0",
+                                            "samt": "0.0"
+                                        }
+                                    },
+                                    "tx_pmt": {
+                                        "tx_py_list": {
+                                            "tx_py": [
+                                                {
+                                                    "trans_desc": "Other than Reverse Charge",
+                                                    "sgst": {
+                                                        "tx": "0.0",
+                                                        "intr": "0.0",
+                                                        "fee": "0.0"
+                                                    },
+                                                    "igst": {
+                                                        "tx": "0.0",
+                                                        "intr": "0.0"
+                                                    },
+                                                    "cgst": {
+                                                        "tx": "0.0",
+                                                        "intr": "0.0",
+                                                        "fee": "0.0"
+                                                    },
+                                                    "cess": {
+                                                        "tx": "0.0",
+                                                        "intr": "0.0"
+                                                    }
+                                                },
+                                                {
+                                                    "trans_desc": "Reverse charge and supplies made u/s 9(5)",
+                                                    "sgst": {
+                                                        "tx": "0.0",
+                                                        "intr": "0.0",
+                                                        "fee": "0.0"
+                                                    },
+                                                    "igst": {
+                                                        "tx": "0.0",
+                                                        "intr": "0.0"
+                                                    },
+                                                    "cgst": {
+                                                        "tx": "0.0",
+                                                        "intr": "0.0",
+                                                        "fee": "0.0"
+                                                    },
+                                                    "cess": {
+                                                        "tx": "0.0",
+                                                        "intr": "0.0"
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    },
+                                    "pdcash_dtls": {
+                                        "pdcash_list": null,
+                                        "pditc": {
+                                            "i_pdi": "0.0",
+                                            "i_pdc": "0.0",
+                                            "i_pds": "0.0",
+                                            "c_pdi": "0.0",
+                                            "c_pdc": "0.0",
+                                            "s_pdi": "0.0",
+                                            "s_pds": "0.0",
+                                            "cs_pdcs": "0.0",
+                                            "trans_desc": "0"
+                                        }
+                                    }
+                                },
+                                {
+                                    "ret_prd": "062025",
+                                    "dof": "17-Jul-2025",
+                                    "status": "FIL",
+                                    "filingFrequency": "MONTHLY",
+                                    "sup_details": {
+                                        "osup_det": {
+                                            "txval": "0.0",
+                                            "iamt": "0.0",
+                                            "camt": "0.0",
+                                            "samt": "0.0",
+                                            "csamt": "0.0"
+                                        },
+                                        "osup_zero": {
+                                            "txval": "0.0",
+                                            "iamt": "0.0",
+                                            "csamt": "0.0"
+                                        },
+                                        "osup_nil_exmp": {
+                                            "txval": "0.0"
+                                        },
+                                        "isup_rev": {
+                                            "txval": "0.0",
+                                            "iamt": "0.0",
+                                            "camt": "0.0",
+                                            "samt": "0.0",
+                                            "csamt": "0.0"
+                                        },
+                                        "osup_nongst": {
+                                            "txval": "0.0"
+                                        }
+                                    },
+                                    "sup_inter": {
+                                        "unreg_details_list": null,
+                                        "comp_details_list": null,
+                                        "uin_details_list": null
+                                    },
+                                    "eco_dtls": {
+                                        "eco_sup": {
+                                            "txval": "0.0",
+                                            "iamt": "0.0",
+                                            "camt": "0.0",
+                                            "samt": "0.0",
+                                            "csamt": "0.0"
+                                        },
+                                        "eco_reg_sup": {
+                                            "txval": "0.0"
+                                        }
+                                    },
+                                    "itc_elg": {
+                                        "itc_avl_list": {
+                                            "itc_avl": [
+                                                {
+                                                    "iamt": "0.0",
+                                                    "camt": "0.0",
+                                                    "samt": "0.0",
+                                                    "csamt": "0.0",
+                                                    "type": "IMPG"
+                                                },
+                                                {
+                                                    "iamt": "0.0",
+                                                    "camt": "0.0",
+                                                    "samt": "0.0",
+                                                    "csamt": "0.0",
+                                                    "type": "ISRC"
+                                                },
+                                                {
+                                                    "iamt": "111.36",
+                                                    "camt": "0.0",
+                                                    "samt": "0.0",
+                                                    "csamt": "0.0",
+                                                    "type": "OTH"
+                                                },
+                                                {
+                                                    "iamt": "0.0",
+                                                    "camt": "0.0",
+                                                    "samt": "0.0",
+                                                    "csamt": "0.0",
+                                                    "type": "ISD"
+                                                },
+                                                {
+                                                    "iamt": "0.0",
+                                                    "camt": "0.0",
+                                                    "samt": "0.0",
+                                                    "csamt": "0.0",
+                                                    "type": "IMPS"
+                                                }
+                                            ]
+                                        },
+                                        "itc_rev_list": {
+                                            "itc_rev": [
+                                                {
+                                                    "iamt": "0.0",
+                                                    "camt": "0.0",
+                                                    "samt": "0.0",
+                                                    "csamt": "0.0",
+                                                    "type": "RUL"
+                                                },
+                                                {
+                                                    "iamt": "0.0",
+                                                    "camt": "0.0",
+                                                    "samt": "0.0",
+                                                    "csamt": "0.0",
+                                                    "type": "OTH"
+                                                }
+                                            ]
+                                        },
+                                        "itc_net": {
+                                            "iamt": "111.36",
+                                            "camt": "0.0",
+                                            "samt": "0.0",
+                                            "csamt": "0.0"
+                                        },
+                                        "itc_inelg_list": {
+                                            "itc_inelg": [
+                                                {
+                                                    "iamt": "0.0",
+                                                    "camt": "0.0",
+                                                    "samt": "0.0",
+                                                    "csamt": "0.0",
+                                                    "type": "RUL"
+                                                },
+                                                {
+                                                    "iamt": "0.0",
+                                                    "camt": "0.0",
+                                                    "samt": "0.0",
+                                                    "csamt": "0.0",
+                                                    "type": "OTH"
+                                                }
+                                            ]
+                                        }
+                                    },
+                                    "inward_sup": {
+                                        "isup_details_list": null
+                                    },
+                                    "intr_ltfee": {
+                                        "intr_details": {
+                                            "iamt": "0.0",
+                                            "camt": "0.0",
+                                            "samt": "0.0",
+                                            "csamt": "0.0"
+                                        },
+                                        "ltfee_details": {
+                                            "camt": "0.0",
+                                            "samt": "0.0"
+                                        }
+                                    },
+                                    "tx_pmt": {
+                                        "tx_py_list": {
+                                            "tx_py": [
+                                                {
+                                                    "trans_desc": "Other than Reverse Charge",
+                                                    "sgst": {
+                                                        "tx": "0.0",
+                                                        "intr": "0.0",
+                                                        "fee": "0.0"
+                                                    },
+                                                    "igst": {
+                                                        "tx": "0.0",
+                                                        "intr": "0.0"
+                                                    },
+                                                    "cgst": {
+                                                        "tx": "0.0",
+                                                        "intr": "0.0",
+                                                        "fee": "0.0"
+                                                    },
+                                                    "cess": {
+                                                        "tx": "0.0",
+                                                        "intr": "0.0"
+                                                    }
+                                                },
+                                                {
+                                                    "trans_desc": "Reverse charge and supplies made u/s 9(5)",
+                                                    "sgst": {
+                                                        "tx": "0.0",
+                                                        "intr": "0.0",
+                                                        "fee": "0.0"
+                                                    },
+                                                    "igst": {
+                                                        "tx": "0.0",
+                                                        "intr": "0.0"
+                                                    },
+                                                    "cgst": {
+                                                        "tx": "0.0",
+                                                        "intr": "0.0",
+                                                        "fee": "0.0"
+                                                    },
+                                                    "cess": {
+                                                        "tx": "0.0",
+                                                        "intr": "0.0"
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    },
+                                    "pdcash_dtls": {
+                                        "pdcash_list": null,
+                                        "pditc": {
+                                            "i_pdi": "0.0",
+                                            "i_pdc": "0.0",
+                                            "i_pds": "0.0",
+                                            "c_pdi": "0.0",
+                                            "c_pdc": "0.0",
+                                            "s_pdi": "0.0",
+                                            "s_pds": "0.0",
+                                            "cs_pdcs": "0.0",
+                                            "trans_desc": "0"
+                                        }
+                                    }
+                                },
+                                {
+                                    "ret_prd": "072025",
+                                    "dof": "18-Aug-2025",
+                                    "status": "FIL",
+                                    "filingFrequency": "MONTHLY",
+                                    "sup_details": {
+                                        "osup_det": {
+                                            "txval": "0.0",
+                                            "iamt": "0.0",
+                                            "camt": "0.0",
+                                            "samt": "0.0",
+                                            "csamt": "0.0"
+                                        },
+                                        "osup_zero": {
+                                            "txval": "0.0",
+                                            "iamt": "0.0",
+                                            "csamt": "0.0"
+                                        },
+                                        "osup_nil_exmp": {
+                                            "txval": "0.0"
+                                        },
+                                        "isup_rev": {
+                                            "txval": "0.0",
+                                            "iamt": "0.0",
+                                            "camt": "0.0",
+                                            "samt": "0.0",
+                                            "csamt": "0.0"
+                                        },
+                                        "osup_nongst": {
+                                            "txval": "0.0"
+                                        }
+                                    },
+                                    "sup_inter": {
+                                        "unreg_details_list": null,
+                                        "comp_details_list": null,
+                                        "uin_details_list": null
+                                    },
+                                    "eco_dtls": {
+                                        "eco_sup": {
+                                            "txval": "0.0",
+                                            "iamt": "0.0",
+                                            "camt": "0.0",
+                                            "samt": "0.0",
+                                            "csamt": "0.0"
+                                        },
+                                        "eco_reg_sup": {
+                                            "txval": "0.0"
+                                        }
+                                    },
+                                    "itc_elg": {
+                                        "itc_avl_list": null,
+                                        "itc_rev_list": null,
+                                        "itc_net": {
+                                            "iamt": "0.0",
+                                            "camt": "0.0",
+                                            "samt": "0.0",
+                                            "csamt": "0.0"
+                                        },
+                                        "itc_inelg_list": null
+                                    },
+                                    "inward_sup": {
+                                        "isup_details_list": null
+                                    },
+                                    "intr_ltfee": {
+                                        "intr_details": {
+                                            "iamt": "0.0",
+                                            "camt": "0.0",
+                                            "samt": "0.0",
+                                            "csamt": "0.0"
+                                        },
+                                        "ltfee_details": {
+                                            "camt": "0.0",
+                                            "samt": "0.0"
+                                        }
+                                    },
+                                    "tx_pmt": {
+                                        "tx_py_list": {
+                                            "tx_py": [
+                                                {
+                                                    "trans_desc": "Other than Reverse Charge",
+                                                    "sgst": {
+                                                        "tx": "0.0",
+                                                        "intr": "0.0",
+                                                        "fee": "0.0"
+                                                    },
+                                                    "igst": {
+                                                        "tx": "0.0",
+                                                        "intr": "0.0"
+                                                    },
+                                                    "cgst": {
+                                                        "tx": "0.0",
+                                                        "intr": "0.0",
+                                                        "fee": "0.0"
+                                                    },
+                                                    "cess": {
+                                                        "tx": "0.0",
+                                                        "intr": "0.0"
+                                                    }
+                                                },
+                                                {
+                                                    "trans_desc": "Reverse charge and supplies made u/s 9(5)",
+                                                    "sgst": {
+                                                        "tx": "0.0",
+                                                        "intr": "0.0",
+                                                        "fee": "0.0"
+                                                    },
+                                                    "igst": {
+                                                        "tx": "0.0",
+                                                        "intr": "0.0"
+                                                    },
+                                                    "cgst": {
+                                                        "tx": "0.0",
+                                                        "intr": "0.0",
+                                                        "fee": "0.0"
+                                                    },
+                                                    "cess": {
+                                                        "tx": "0.0",
+                                                        "intr": "0.0"
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    },
+                                    "pdcash_dtls": {
+                                        "pdcash_list": null,
+                                        "pditc": {
+                                            "i_pdi": "0.0",
+                                            "i_pdc": "0.0",
+                                            "i_pds": "0.0",
+                                            "c_pdi": "0.0",
+                                            "c_pdc": "0.0",
+                                            "s_pdi": "0.0",
+                                            "s_pds": "0.0",
+                                            "cs_pdcs": "0.0",
+                                            "trans_desc": "0"
+                                        }
+                                    }
+                                },
+                                {
+                                    "ret_prd": "082025",
+                                    "dof": "19-Sep-2025",
+                                    "status": "FIL",
+                                    "filingFrequency": "MONTHLY",
+                                    "sup_details": {
+                                        "osup_det": {
+                                            "txval": "0.0",
+                                            "iamt": "0.0",
+                                            "camt": "0.0",
+                                            "samt": "0.0",
+                                            "csamt": "0.0"
+                                        },
+                                        "osup_zero": {
+                                            "txval": "0.0",
+                                            "iamt": "0.0",
+                                            "csamt": "0.0"
+                                        },
+                                        "osup_nil_exmp": {
+                                            "txval": "0.0"
+                                        },
+                                        "isup_rev": {
+                                            "txval": "0.0",
+                                            "iamt": "0.0",
+                                            "camt": "0.0",
+                                            "samt": "0.0",
+                                            "csamt": "0.0"
+                                        },
+                                        "osup_nongst": {
+                                            "txval": "0.0"
+                                        }
+                                    },
+                                    "sup_inter": {
+                                        "unreg_details_list": null,
+                                        "comp_details_list": null,
+                                        "uin_details_list": null
+                                    },
+                                    "eco_dtls": {
+                                        "eco_sup": {
+                                            "txval": "0.0",
+                                            "iamt": "0.0",
+                                            "camt": "0.0",
+                                            "samt": "0.0",
+                                            "csamt": "0.0"
+                                        },
+                                        "eco_reg_sup": {
+                                            "txval": "0.0"
+                                        }
+                                    },
+                                    "itc_elg": {
+                                        "itc_avl_list": null,
+                                        "itc_rev_list": null,
+                                        "itc_net": {
+                                            "iamt": "0.0",
+                                            "camt": "0.0",
+                                            "samt": "0.0",
+                                            "csamt": "0.0"
+                                        },
+                                        "itc_inelg_list": null
+                                    },
+                                    "inward_sup": {
+                                        "isup_details_list": null
+                                    },
+                                    "intr_ltfee": {
+                                        "intr_details": {
+                                            "iamt": "0.0",
+                                            "camt": "0.0",
+                                            "samt": "0.0",
+                                            "csamt": "0.0"
+                                        },
+                                        "ltfee_details": {
+                                            "camt": "0.0",
+                                            "samt": "0.0"
+                                        }
+                                    },
+                                    "tx_pmt": {
+                                        "tx_py_list": {
+                                            "tx_py": [
+                                                {
+                                                    "trans_desc": "Other than Reverse Charge",
+                                                    "sgst": {
+                                                        "tx": "0.0",
+                                                        "intr": "0.0",
+                                                        "fee": "0.0"
+                                                    },
+                                                    "igst": {
+                                                        "tx": "0.0",
+                                                        "intr": "0.0"
+                                                    },
+                                                    "cgst": {
+                                                        "tx": "0.0",
+                                                        "intr": "0.0",
+                                                        "fee": "0.0"
+                                                    },
+                                                    "cess": {
+                                                        "tx": "0.0",
+                                                        "intr": "0.0"
+                                                    }
+                                                },
+                                                {
+                                                    "trans_desc": "Reverse charge and supplies made u/s 9(5)",
+                                                    "sgst": {
+                                                        "tx": "0.0",
+                                                        "intr": "0.0",
+                                                        "fee": "0.0"
+                                                    },
+                                                    "igst": {
+                                                        "tx": "0.0",
+                                                        "intr": "0.0"
+                                                    },
+                                                    "cgst": {
+                                                        "tx": "0.0",
+                                                        "intr": "0.0",
+                                                        "fee": "0.0"
+                                                    },
+                                                    "cess": {
+                                                        "tx": "0.0",
+                                                        "intr": "0.0"
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    },
+                                    "pdcash_dtls": {
+                                        "pdcash_list": null,
+                                        "pditc": {
+                                            "i_pdi": "0.0",
+                                            "i_pdc": "0.0",
+                                            "i_pds": "0.0",
+                                            "c_pdi": "0.0",
+                                            "c_pdc": "0.0",
+                                            "s_pdi": "0.0",
+                                            "s_pds": "0.0",
+                                            "cs_pdcs": "0.0",
+                                            "trans_desc": "0"
+                                        }
+                                    }
+                                },
+                                {
+                                    "ret_prd": "092025",
+                                    "dof": "22-Nov-2025",
+                                    "status": "FIL",
+                                    "filingFrequency": "MONTHLY",
+                                    "sup_details": {
+                                        "osup_det": {
+                                            "txval": "0.0",
+                                            "iamt": "0.0",
+                                            "camt": "0.0",
+                                            "samt": "0.0",
+                                            "csamt": "0.0"
+                                        },
+                                        "osup_zero": {
+                                            "txval": "0.0",
+                                            "iamt": "0.0",
+                                            "csamt": "0.0"
+                                        },
+                                        "osup_nil_exmp": {
+                                            "txval": "0.0"
+                                        },
+                                        "isup_rev": {
+                                            "txval": "0.0",
+                                            "iamt": "0.0",
+                                            "camt": "0.0",
+                                            "samt": "0.0",
+                                            "csamt": "0.0"
+                                        },
+                                        "osup_nongst": {
+                                            "txval": "0.0"
+                                        }
+                                    },
+                                    "sup_inter": {
+                                        "unreg_details_list": null,
+                                        "comp_details_list": null,
+                                        "uin_details_list": null
+                                    },
+                                    "eco_dtls": {
+                                        "eco_sup": {
+                                            "txval": "0.0",
+                                            "iamt": "0.0",
+                                            "camt": "0.0",
+                                            "samt": "0.0",
+                                            "csamt": "0.0"
+                                        },
+                                        "eco_reg_sup": {
+                                            "txval": "0.0"
+                                        }
+                                    },
+                                    "itc_elg": {
+                                        "itc_avl_list": null,
+                                        "itc_rev_list": null,
+                                        "itc_net": {
+                                            "iamt": "0.0",
+                                            "camt": "0.0",
+                                            "samt": "0.0",
+                                            "csamt": "0.0"
+                                        },
+                                        "itc_inelg_list": null
+                                    },
+                                    "inward_sup": {
+                                        "isup_details_list": null
+                                    },
+                                    "intr_ltfee": {
+                                        "intr_details": {
+                                            "iamt": "0.0",
+                                            "camt": "0.0",
+                                            "samt": "0.0",
+                                            "csamt": "0.0"
+                                        },
+                                        "ltfee_details": {
+                                            "camt": "0.0",
+                                            "samt": "0.0"
+                                        }
+                                    },
+                                    "tx_pmt": {
+                                        "tx_py_list": {
+                                            "tx_py": [
+                                                {
+                                                    "trans_desc": "Other than Reverse Charge",
+                                                    "sgst": {
+                                                        "tx": "0.0",
+                                                        "intr": "0.0",
+                                                        "fee": "0.0"
+                                                    },
+                                                    "igst": {
+                                                        "tx": "0.0",
+                                                        "intr": "0.0"
+                                                    },
+                                                    "cgst": {
+                                                        "tx": "0.0",
+                                                        "intr": "0.0",
+                                                        "fee": "0.0"
+                                                    },
+                                                    "cess": {
+                                                        "tx": "0.0",
+                                                        "intr": "0.0"
+                                                    }
+                                                },
+                                                {
+                                                    "trans_desc": "Reverse charge and supplies made u/s 9(5)",
+                                                    "sgst": {
+                                                        "tx": "0.0",
+                                                        "intr": "0.0",
+                                                        "fee": "0.0"
+                                                    },
+                                                    "igst": {
+                                                        "tx": "0.0",
+                                                        "intr": "0.0"
+                                                    },
+                                                    "cgst": {
+                                                        "tx": "0.0",
+                                                        "intr": "0.0",
+                                                        "fee": "0.0"
+                                                    },
+                                                    "cess": {
+                                                        "tx": "0.0",
+                                                        "intr": "0.0"
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    },
+                                    "pdcash_dtls": {
+                                        "pdcash_list": null,
+                                        "pditc": {
+                                            "i_pdi": "0.0",
+                                            "i_pdc": "0.0",
+                                            "i_pds": "0.0",
+                                            "c_pdi": "0.0",
+                                            "c_pdc": "0.0",
+                                            "s_pdi": "0.0",
+                                            "s_pds": "0.0",
+                                            "cs_pdcs": "0.0",
+                                            "trans_desc": "0"
+                                        }
+                                    }
+                                },
+                                {
+                                    "ret_prd": "102025",
+                                    "dof": "22-Nov-2025",
+                                    "status": "FIL",
+                                    "filingFrequency": "MONTHLY",
+                                    "sup_details": {
+                                        "osup_det": {
+                                            "txval": "0.0",
+                                            "iamt": "0.0",
+                                            "camt": "0.0",
+                                            "samt": "0.0",
+                                            "csamt": "0.0"
+                                        },
+                                        "osup_zero": {
+                                            "txval": "0.0",
+                                            "iamt": "0.0",
+                                            "csamt": "0.0"
+                                        },
+                                        "osup_nil_exmp": {
+                                            "txval": "0.0"
+                                        },
+                                        "isup_rev": {
+                                            "txval": "0.0",
+                                            "iamt": "0.0",
+                                            "camt": "0.0",
+                                            "samt": "0.0",
+                                            "csamt": "0.0"
+                                        },
+                                        "osup_nongst": {
+                                            "txval": "0.0"
+                                        }
+                                    },
+                                    "sup_inter": {
+                                        "unreg_details_list": null,
+                                        "comp_details_list": null,
+                                        "uin_details_list": null
+                                    },
+                                    "eco_dtls": {
+                                        "eco_sup": {
+                                            "txval": "0.0",
+                                            "iamt": "0.0",
+                                            "camt": "0.0",
+                                            "samt": "0.0",
+                                            "csamt": "0.0"
+                                        },
+                                        "eco_reg_sup": {
+                                            "txval": "0.0"
+                                        }
+                                    },
+                                    "itc_elg": {
+                                        "itc_avl_list": null,
+                                        "itc_rev_list": null,
+                                        "itc_net": {
+                                            "iamt": "0.0",
+                                            "camt": "0.0",
+                                            "samt": "0.0",
+                                            "csamt": "0.0"
+                                        },
+                                        "itc_inelg_list": null
+                                    },
+                                    "inward_sup": {
+                                        "isup_details_list": null
+                                    },
+                                    "intr_ltfee": {
+                                        "intr_details": {
+                                            "iamt": "0.0",
+                                            "camt": "0.0",
+                                            "samt": "0.0",
+                                            "csamt": "0.0"
+                                        },
+                                        "ltfee_details": {
+                                            "camt": "250.0",
+                                            "samt": "250.0"
+                                        }
+                                    },
+                                    "tx_pmt": {
+                                        "tx_py_list": {
+                                            "tx_py": [
+                                                {
+                                                    "trans_desc": "Other than Reverse Charge",
+                                                    "sgst": {
+                                                        "tx": "0.0",
+                                                        "intr": "0.0",
+                                                        "fee": "0.0"
+                                                    },
+                                                    "igst": {
+                                                        "tx": "0.0",
+                                                        "intr": "0.0"
+                                                    },
+                                                    "cgst": {
+                                                        "tx": "0.0",
+                                                        "intr": "0.0",
+                                                        "fee": "0.0"
+                                                    },
+                                                    "cess": {
+                                                        "tx": "0.0",
+                                                        "intr": "0.0"
+                                                    }
+                                                },
+                                                {
+                                                    "trans_desc": "Reverse charge and supplies made u/s 9(5)",
+                                                    "sgst": {
+                                                        "tx": "0.0",
+                                                        "intr": "0.0",
+                                                        "fee": "0.0"
+                                                    },
+                                                    "igst": {
+                                                        "tx": "0.0",
+                                                        "intr": "0.0"
+                                                    },
+                                                    "cgst": {
+                                                        "tx": "0.0",
+                                                        "intr": "0.0",
+                                                        "fee": "0.0"
+                                                    },
+                                                    "cess": {
+                                                        "tx": "0.0",
+                                                        "intr": "0.0"
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    },
+                                    "pdcash_dtls": {
+                                        "pdcash_list": {
+                                            "pdcash": {
+                                                "ipd": "0.0",
+                                                "cpd": "0.0",
+                                                "spd": "0.0",
+                                                "cspd": "0.0",
+                                                "i_intrpd": "0.0",
+                                                "c_intrpd": "0.0",
+                                                "s_intrpd": "0.0",
+                                                "cs_intrpd": "0.0",
+                                                "c_lfeepd": "250.0",
+                                                "s_lfeepd": "250.0"
+                                            }
+                                        },
+                                        "pditc": {
+                                            "i_pdi": "0.0",
+                                            "i_pdc": "0.0",
+                                            "i_pds": "0.0",
+                                            "c_pdi": "0.0",
+                                            "c_pdc": "0.0",
+                                            "s_pdi": "0.0",
+                                            "s_pds": "0.0",
+                                            "cs_pdcs": "0.0",
+                                            "trans_desc": "0"
+                                        }
+                                    }
+                                }
+                            ]
+                        }
+                    }
+                }
+            }
+        }
+    ]
+}

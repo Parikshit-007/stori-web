@@ -1,0 +1,2 @@
+monthly_income,monthly_expense,income_stability,spending_to_income,avg_balance,min_balance,balance_volatility,survivability_months,late_night_txn_ratio,weekend_txn_ratio,estimated_emi,emi_to_income,data_confidence,num_bank_accounts,txn_count,months_of_data,bounce_rate,max_inflow,max_outflow
+48406.42,48449.65000000001,0.887336629627098,1.000893063358125,14967.303925438597,0.05,1.5160648486918913,0.30892491329531985,1.0,0.31359649122807015,0.0,0.0,1.0,1,456,10,0.01078167115902965,45000.0,45000.0

@@ -1,0 +1,78 @@
+{
+  "policies": [
+    {
+      "type": "LIC",
+      "policyName": "LIC Jeevan Anand",
+      "policyNumber": "782345678",
+      "insurer": "Life Insurance Corporation of India",
+      "hasInvestmentValue": true,
+      "sumAssured": 1000000.00,
+      "premiumAmount": 45000.00,
+      "premiumFrequency": "annual",
+      "startDate": "2015-04-01",
+      "maturityDate": "2040-04-01",
+      "tenure": 25,
+      "totalPremiumPaid": 405000.00,
+      "surrenderValue": 350000.00,
+      "maturityValue": 1800000.00,
+      "bonusAccrued": 125000.00
+    },
+    {
+      "type": "ULIP",
+      "policyName": "HDFC Life Click 2 Invest",
+      "policyNumber": "UL9876543",
+      "insurer": "HDFC Life Insurance",
+      "hasInvestmentValue": true,
+      "sumAssured": 500000.00,
+      "premiumAmount": 25000.00,
+      "premiumFrequency": "annual",
+      "startDate": "2020-01-15",
+      "maturityDate": "2035-01-15",
+      "tenure": 15,
+      "totalPremiumPaid": 125000.00,
+      "surrenderValue": 138000.00,
+      "fundValue": 145000.00,
+      "maturityValue": 0.00,
+      "fundsAllocated": {
+        "equity": 70,
+        "debt": 30
+      }
+    },
+    {
+      "type": "ENDOWMENT",
+      "policyName": "LIC New Endowment Plan",
+      "policyNumber": "EN12345789",
+      "insurer": "Life Insurance Corporation of India",
+      "hasInvestmentValue": true,
+      "sumAssured": 750000.00,
+      "premiumAmount": 32000.00,
+      "premiumFrequency": "annual",
+      "startDate": "2018-08-10",
+      "maturityDate": "2038-08-10",
+      "tenure": 20,
+      "totalPremiumPaid": 224000.00,
+      "surrenderValue": 195000.00,
+      "maturityValue": 1200000.00,
+      "bonusAccrued": 85000.00
+    },
+    {
+      "type": "TERM",
+      "policyName": "HDFC Life Click 2 Protect",
+      "policyNumber": "TM45678901",
+      "insurer": "HDFC Life Insurance",
+      "hasInvestmentValue": false,
+      "sumAssured": 5000000.00,
+      "premiumAmount": 12000.00,
+      "premiumFrequency": "annual",
+      "startDate": "2022-05-01",
+      "maturityDate": "2052-05-01",
+      "tenure": 30,
+      "totalPremiumPaid": 36000.00,
+      "surrenderValue": 0.00,
+      "maturityValue": 0.00,
+      "note": "Pure protection, no investment value"
+    }
+  ]
+}
+
+

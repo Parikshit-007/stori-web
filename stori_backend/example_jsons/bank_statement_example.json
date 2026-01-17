@@ -1,0 +1,47 @@
+{
+    "transactions": [
+        {
+            "date": "2024-01-15",
+            "description": "SALARY CREDIT",
+            "debit": 0,
+            "credit": 75000,
+            "balance": 80000
+        },
+        {
+            "date": "2024-01-16",
+            "description": "UPI-SWIGGY",
+            "debit": 500,
+            "credit": 0,
+            "balance": 79500
+        },
+        {
+            "date": "2024-01-17",
+            "description": "ATM WITHDRAWAL",
+            "debit": 5000,
+            "credit": 0,
+            "balance": 74500
+        },
+        {
+            "date": "2024-01-18",
+            "description": "NEFT-RENT PAYMENT",
+            "debit": 15000,
+            "credit": 0,
+            "balance": 59500
+        },
+        {
+            "date": "2024-01-20",
+            "description": "UPI-AMAZON",
+            "debit": 2000,
+            "credit": 0,
+            "balance": 57500
+        }
+    ],
+    "account_info": {
+        "account_number": "1234567890",
+        "bank_name": "HDFC Bank",
+        "ifsc": "HDFC0001234",
+        "holder_name": "John Doe",
+        "account_type": "Savings"
+    }
+}
+

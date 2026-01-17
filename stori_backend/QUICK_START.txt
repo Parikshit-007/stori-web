@@ -1,0 +1,128 @@
+STORI NBFC - QUICKEST START EVER! 🚀
+=====================================
+
+OPTION 1: AUTOMATED SETUP (RECOMMENDED)
+========================================
+
+1. Run the setup script:
+   setup_with_api_key.bat
+
+2. Copy your API key from the output (starts with "stori_")
+
+3. Start the server:
+   python manage.py runserver 8000
+
+4. Test immediately:
+   curl -H "X-API-Key: your_key" http://localhost:8000/api/customer/itr/
+
+DONE! ✅
+
+
+OPTION 2: MANUAL SETUP (3 COMMANDS)
+====================================
+
+1. Setup:
+   python -m venv venv
+   venv\Scripts\activate
+   pip install -r requirements.txt
+
+2. Database and API Key:
+   copy env_template.txt .env
+   python manage.py migrate
+   python manage.py generate_api_key admin "My Key"
+
+3. Run:
+   python manage.py runserver 8000
+
+DONE! ✅
+
+
+YOUR PERMANENT API KEY
+=======================
+
+After setup, you'll get an API key like:
+stori_xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+
+Save this key! Use it in ALL requests:
+
+Header: X-API-Key: stori_xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+
+
+IMMEDIATE TESTING
+==================
+
+Python Test:
+------------
+import requests
+
+headers = {"X-API-Key": "your_key_here"}
+
+# Test connection
+response = requests.get(
+    "http://localhost:8000/api/customer/itr/",
+    headers=headers
+)
+print(response.json())
+
+# Upload and analyze ITR
+files = {'file': open('itr.json', 'rb')}
+data = {'file_type': 'json', 'assessment_year': '2024-25'}
+
+upload = requests.post(
+    "http://localhost:8000/api/customer/itr/",
+    headers=headers,
+    files=files,
+    data=data
+)
+print("Uploaded:", upload.json())
+
+# Analyze
+itr_id = upload.json()['id']
+result = requests.post(
+    f"http://localhost:8000/api/customer/itr/{itr_id}/analyze/",
+    headers=headers
+)
+print("Result:", result.json())
+
+
+Postman Test:
+-------------
+1. Add header: X-API-Key = your_key
+2. GET http://localhost:8000/api/customer/itr/
+3. Done!
+
+
+ALL AVAILABLE ENDPOINTS
+========================
+
+ITR Analysis:
+- POST   /api/customer/itr/
+- POST   /api/customer/itr/{id}/analyze/
+- GET    /api/customer/itr/{id}/result/
+
+Bank Statement:
+- POST   /api/customer/bank-statement/
+- POST   /api/customer/bank-statement/{id}/analyze/
+- GET    /api/customer/bank-statement/{id}/result/
+
+Credit Report:
+- POST   /api/customer/credit-report/
+- POST   /api/customer/credit-report/{id}/analyze/
+- GET    /api/customer/credit-report/{id}/result/
+
+Face Matching:
+- POST   /api/customer/ocr/documents/
+- POST   /api/customer/ocr/face-match/quick_verify/
+
+
+REMEMBER
+========
+✅ One API key for ALL endpoints
+✅ No login required
+✅ Permanent access
+✅ Add header: X-API-Key: your_key
+
+For detailed docs: AUTHENTICATION_GUIDE.txt
+For API reference: API_DOCUMENTATION.txt
+
+

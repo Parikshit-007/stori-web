@@ -1,6 +1,6 @@
 "use client"
 
-import { User, Phone, CreditCard, MapPin, Wallet, TrendingUp, Brain, Sparkles, AlertTriangle, Receipt, Target, Heart, Clock } from "lucide-react"
+import { User, Phone, CreditCard, MapPin, Wallet, TrendingUp, Brain, Sparkles, AlertTriangle, Receipt, Clock, ShoppingBag, Shield, CheckCircle, XCircle } from "lucide-react"
 
 interface DirectorDetailsCardProps {
   msme: any
@@ -71,8 +71,88 @@ export default function DirectorDetailsCard({ msme }: DirectorDetailsCardProps) 
         </div>
       </div>
 
+      {/* Individual Asset Value & Key Financials */}
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-6">
+        <div className="bg-gradient-to-br from-green-50 to-emerald-50 rounded-xl p-4 border border-green-200">
+          <div className="flex items-center justify-between">
+            <div>
+              <p className="text-xs font-semibold uppercase text-gray-700 mb-1">Individual Asset Value</p>
+              <p className="text-3xl font-bold text-green-600">{formatCurrency(directorDetails.individualAssets)}</p>
+              <p className="text-xs text-gray-600 mt-1">Personal wealth holdings</p>
+            </div>
+            <Wallet className="w-8 h-8 text-green-500" />
+          </div>
+        </div>
+        <div className="bg-gradient-to-br from-blue-50 to-indigo-50 rounded-xl p-4 border border-blue-200">
+          <div className="flex items-center justify-between">
+            <div>
+              <p className="text-xs font-semibold uppercase text-gray-700 mb-1">Average Account Balance</p>
+              <p className="text-3xl font-bold text-blue-600">{formatCurrency(directorDetails.avgBalance)}</p>
+              <p className="text-xs text-gray-600 mt-1">Personal banking liquidity</p>
+            </div>
+            <TrendingUp className="w-8 h-8 text-blue-500" />
+          </div>
+        </div>
+      </div>
+
+      {/* Psychological Behaviour Analysis */}
+      {/* <div className="mb-6 bg-gradient-to-br from-purple-50 to-pink-50 rounded-xl p-5 border border-purple-200">
+        <div className="flex items-center gap-2 mb-4">
+          <Brain className="w-5 h-5 text-purple-600" />
+          <h4 className="font-semibold text-gray-900 text-base">Psychological Behaviour Analysis</h4>
+        </div>
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+          <div className="bg-white rounded-lg p-3 border border-purple-100">
+            <p className="text-xs text-gray-600 mb-1">Risk Tolerance</p>
+            <p className="text-lg font-bold text-purple-600">{director.risk_tolerance || 'Moderate'}</p>
+            <div className="mt-2 bg-gray-100 rounded-full h-2 overflow-hidden">
+              <div 
+                className="bg-gradient-to-r from-purple-500 to-pink-500 h-2 rounded-full"
+                style={{ width: `${director.risk_tolerance_score || 65}%` }}
+              />
+            </div>
+          </div>
+          <div className="bg-white rounded-lg p-3 border border-purple-100">
+            <p className="text-xs text-gray-600 mb-1">Decision Speed</p>
+            <p className="text-lg font-bold text-indigo-600">{director.decision_speed || 'Fast'}</p>
+            <p className="text-xs text-gray-500 mt-1">
+              {director.decision_time || '2-3'} days avg
+            </p>
+          </div>
+          <div className="bg-white rounded-lg p-3 border border-purple-100">
+            <p className="text-xs text-gray-600 mb-1">Stress Handling</p>
+            <p className={`text-lg font-bold ${(director.stress_handling_score || 80) >= 75 ? 'text-green-600' : (director.stress_handling_score || 80) >= 50 ? 'text-amber-600' : 'text-red-600'}`}>
+              {director.stress_handling || 'Good'}
+            </p>
+            <p className="text-xs text-gray-500 mt-1">
+              Score: {director.stress_handling_score || 80}/100
+            </p>
+          </div>
+        </div>
+        <div className="mt-4 pt-4 border-t border-purple-200">
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
+            <div className="text-center">
+              <p className="text-xs text-gray-600">Financial Literacy</p>
+              <p className="text-sm font-bold text-purple-600">{director.financial_literacy || 'High'}</p>
+            </div>
+            <div className="text-center">
+              <p className="text-xs text-gray-600">Planning Horizon</p>
+              <p className="text-sm font-bold text-indigo-600">{director.planning_horizon || 'Long-term'}</p>
+            </div>
+            <div className="text-center">
+              <p className="text-xs text-gray-600">Innovation Mindset</p>
+              <p className="text-sm font-bold text-pink-600">{director.innovation_mindset || 'Progressive'}</p>
+            </div>
+            <div className="text-center">
+              <p className="text-xs text-gray-600">Leadership Style</p>
+              <p className="text-sm font-bold text-purple-600">{director.leadership_style || 'Collaborative'}</p>
+            </div>
+          </div>
+        </div>
+      </div> */}
+
       {/* (A) Business Decision Making Style */}
-      <div className="mb-5">
+      {/* <div className="mb-5">
         <div className="flex items-center gap-2 mb-2">
           <Sparkles className="w-4 h-4 text-gray-500" />
           <h4 className="font-semibold text-gray-800 text-sm">(A) Business Decision Making Style</h4>
@@ -90,7 +170,7 @@ export default function DirectorDetailsCard({ msme }: DirectorDetailsCardProps) 
             ))}
           </div>
         </div>
-      </div>
+      </div> */}
 
       {/* (B) Financial Discipline & (C) Payment Behavior */}
       <div className="grid grid-cols-2 gap-3 mb-5">
@@ -149,39 +229,11 @@ export default function DirectorDetailsCard({ msme }: DirectorDetailsCardProps) 
         </div>
       </div>
 
-      {/* (D) Business Expansion, (E) Investment, (F) Diversification, (G) Liquidity */}
-      <div className="grid grid-cols-4 gap-2 mb-5">
-        <div className="bg-gray-50 rounded-lg p-2">
-          <p className="text-xs font-semibold text-gray-600">(D) Expansion</p>
-          <p className="text-lg font-bold">{director.expansion_appetite || 'Medium'}</p>
-          <p className="text-xs text-gray-500">New ventures: {director.new_ventures || 1}</p>
-        </div>
-        <div className="bg-gray-50 rounded-lg p-2">
-          <p className="text-xs font-semibold text-gray-600">(E) Reinvestment</p>
-          <p className="text-lg font-bold">{director.reinvestment_rate || '18'}%</p>
-          <p className="text-xs text-gray-500">Of profits</p>
-        </div>
-        <div className="bg-gray-50 rounded-lg p-2">
-          <p className="text-xs font-semibold text-gray-600">(F) Diversification</p>
-          <p className={`text-sm font-bold ${(director.diversification_score || 65) >= 70 ? 'text-green-600' : 'text-amber-600'}`}>
-            {director.diversification_level || 'Moderate'}
-          </p>
-          <p className="text-xs text-gray-500">Streams: {director.income_streams || 2}</p>
-        </div>
-        <div className="bg-gray-50 rounded-lg p-2">
-          <p className="text-xs font-semibold text-gray-600">(G) Liquidity</p>
-          <p className={`text-lg font-bold ${(director.liquidity_ratio || 1.5) >= 1.5 ? 'text-green-600' : 'text-red-600'}`}>
-            {(director.liquidity_ratio || 1.5).toFixed(1)}x
-          </p>
-          <p className="text-xs text-gray-500">Current ratio</p>
-        </div>
-      </div>
-
-      {/* (H) Utility Payment Consistency */}
+      {/* (D) Utility Payment Consistency */}
       <div className="mb-5">
         <div className="flex items-center gap-1 mb-2">
           <Clock className="w-3 h-3 text-gray-500" />
-          <h4 className="font-semibold text-gray-800 text-xs">(H) Utility Payment Consistency</h4>
+          <h4 className="font-semibold text-gray-800 text-xs">(D) Utility Payment Consistency</h4>
         </div>
         <div className="grid grid-cols-3 gap-2 text-center bg-gray-50 rounded-lg p-2">
           <div>
@@ -205,11 +257,11 @@ export default function DirectorDetailsCard({ msme }: DirectorDetailsCardProps) 
         </div>
       </div>
 
-      {/* (I) Personal Financial Health */}
+      {/* (E) Personal Financial Health */}
       <div className="mb-5">
         <div className="flex items-center gap-1 mb-2">
           <Wallet className="w-3 h-3 text-gray-500" />
-          <h4 className="font-semibold text-gray-800 text-xs">(I) Personal Financial Health</h4>
+          <h4 className="font-semibold text-gray-800 text-xs">(E) Personal Financial Health</h4>
         </div>
         <div className="grid grid-cols-2 gap-3 bg-gray-50 rounded-lg p-3">
           <div>
@@ -223,31 +275,161 @@ export default function DirectorDetailsCard({ msme }: DirectorDetailsCardProps) 
         </div>
       </div>
 
-      {/* (J) Financial Stability & (K) Risk Appetite */}
-      <div className="grid grid-cols-2 gap-3">
-        <div className="bg-gray-50 rounded-lg p-2">
-          <div className="flex items-center gap-1 mb-1">
-            <Heart className="w-3 h-3 text-gray-500" />
-            <p className="text-xs font-semibold text-gray-600">(J) Business Stability</p>
-          </div>
-          <p className={`font-bold ${director.business_stability === 'Very Stable' || director.business_stability === 'Stable' ? 'text-green-600' : 'text-amber-600'}`}>
-            {director.business_stability || 'Stable'}
-          </p>
-          <p className="text-xs text-gray-500">{director.major_changes || 0} major changes/yr</p>
+      {/* (F) Spending Personality */}
+      <div className="mb-5">
+        <div className="flex items-center gap-2 mb-2">
+          <ShoppingBag className="w-4 h-4 text-gray-500" />
+          <h4 className="font-semibold text-gray-800 text-sm">(F) Spending Personality & Behavior</h4>
         </div>
-        <div className="bg-gray-50 rounded-lg p-2">
-          <div className="flex items-center gap-1 mb-1">
-            <Target className="w-3 h-3 text-gray-500" />
-            <p className="text-xs font-semibold text-gray-600">(K) Risk Appetite</p>
+        <div className={`p-4 rounded-xl border ${getArchetypeColor(director.spending_archetype || 'Conservative Spender')}`}>
+          <div className="flex justify-between items-start mb-2">
+            <div>
+              <p className="font-bold text-lg">{director.spending_archetype || 'Conservative Spender'}</p>
+              <p className="text-sm opacity-80">{director.spending_confidence || 78}% confidence</p>
+            </div>
           </div>
-          <p className={`font-bold ${director.risk_appetite === 'Conservative' ? 'text-blue-600' : director.risk_appetite === 'Moderate' ? 'text-green-600' : 'text-red-600'}`}>
-            {director.risk_appetite || 'Moderate'}
-          </p>
-          <p className="text-xs text-gray-500">
-            {director.high_risk_ventures || 0} high-risk ventures
-          </p>
+          <div className="flex flex-wrap gap-1 mt-2 mb-3">
+            {(director.spending_traits || ['Budget-conscious', 'Planned purchases', 'Value-driven']).map((trait: string, idx: number) => (
+              <span key={idx} className="px-2 py-0.5 bg-white/50 rounded text-xs">{trait}</span>
+            ))}
+          </div>
+          <div className="grid grid-cols-3 gap-2 text-xs mt-3 pt-3 border-t border-black/10">
+            <div className="text-center">
+              <p className="text-gray-600 mb-1">Impulse Score</p>
+              <p className={`font-bold ${(director.impulse_spending_score || 25) <= 30 ? 'text-green-600' : (director.impulse_spending_score || 25) <= 50 ? 'text-amber-600' : 'text-red-600'}`}>
+                {director.impulse_spending_score || 25}/100
+              </p>
+            </div>
+            <div className="text-center">
+              <p className="text-gray-600 mb-1">Luxury Tendency</p>
+              <p className="font-bold text-purple-600">{director.luxury_spending_tendency || 'Low'}</p>
+            </div>
+            <div className="text-center">
+              <p className="text-gray-600 mb-1">Savings Rate</p>
+              <p className="font-bold text-blue-600">{director.personal_savings_rate || 22}%</p>
+            </div>
+          </div>
         </div>
       </div>
+
+      {/* (G) Fraud & Identity Verification Checks */}
+      <div className="mb-5">
+        <div className="flex items-center gap-2 mb-3">
+          <Shield className="w-4 h-4 text-gray-500" />
+          <h4 className="font-semibold text-gray-800 text-sm">(G) Fraud & Identity Verification</h4>
+        </div>
+        <div className="space-y-2">
+          <div className="flex items-center justify-between p-3 bg-gray-50 rounded-lg border border-gray-200">
+            <div className="flex items-center gap-2">
+              <span className="text-gray-700 font-medium text-sm">PAN Verification</span>
+            </div>
+            <div className="flex items-center gap-2">
+              {(director.pan_verified ?? features.owner_pan_verified ?? true) ? (
+                <>
+                  <span className="text-green-600 font-semibold text-xs">Verified</span>
+                  <CheckCircle className="w-5 h-5 text-green-600" />
+                </>
+              ) : (
+                <>
+                  <span className="text-red-600 font-semibold text-xs">Not Verified</span>
+                  <XCircle className="w-5 h-5 text-red-600" />
+                </>
+              )}
+            </div>
+          </div>
+          <div className="flex items-center justify-between p-3 bg-gray-50 rounded-lg border border-gray-200">
+            <div className="flex items-center gap-2">
+              <span className="text-gray-700 font-medium text-sm">Aadhaar Verification</span>
+            </div>
+            <div className="flex items-center gap-2">
+              {(director.aadhaar_verified ?? features.owner_aadhaar_verified ?? true) ? (
+                <>
+                  <span className="text-green-600 font-semibold text-xs">Verified</span>
+                  <CheckCircle className="w-5 h-5 text-green-600" />
+                </>
+              ) : (
+                <>
+                  <span className="text-red-600 font-semibold text-xs">Not Verified</span>
+                  <XCircle className="w-5 h-5 text-red-600" />
+                </>
+              )}
+            </div>
+          </div>
+          <div className="flex items-center justify-between p-3 bg-gray-50 rounded-lg border border-gray-200">
+            <div className="flex items-center gap-2">
+              <span className="text-gray-700 font-medium text-sm">Bank Account Verification</span>
+            </div>
+            <div className="flex items-center gap-2">
+              {(director.bank_account_verified ?? features.owner_bank_verified ?? true) ? (
+                <>
+                  <span className="text-green-600 font-semibold text-xs">Verified</span>
+                  <CheckCircle className="w-5 h-5 text-green-600" />
+                </>
+              ) : (
+                <>
+                  <span className="text-red-600 font-semibold text-xs">Not Verified</span>
+                  <XCircle className="w-5 h-5 text-red-600" />
+                </>
+              )}
+            </div>
+          </div>
+          {/* <div className="flex items-center justify-between p-3 bg-gray-50 rounded-lg border border-gray-200">
+            <div className="flex items-center gap-2">
+              <span className="text-gray-700 font-medium text-sm">Credit History Check</span>
+            </div>
+            <div className="flex items-center gap-2">
+              {(director.credit_history_clean ?? true) ? (
+                <>
+                  <span className="text-green-600 font-semibold text-xs">Clean</span>
+                  <CheckCircle className="w-5 h-5 text-green-600" />
+                </>
+              ) : (
+                <>
+                  <span className="text-red-600 font-semibold text-xs">Issues Found</span>
+                  <XCircle className="w-5 h-5 text-red-600" />
+                </>
+              )}
+            </div>
+          </div> */}
+          <div className="flex items-center justify-between p-3 bg-gray-50 rounded-lg border border-gray-200">
+            <div className="flex items-center gap-2">
+              <span className="text-gray-700 font-medium text-sm">Address Mismatch Check</span>
+            </div>
+            <div className="flex items-center gap-2">
+              {!(director.address_mismatch ?? features.pan_address_bank_mismatch ?? false) ? (
+                <>
+                  <span className="text-green-600 font-semibold text-xs">No Mismatch</span>
+                  <CheckCircle className="w-5 h-5 text-green-600" />
+                </>
+              ) : (
+                <>
+                  <span className="text-red-600 font-semibold text-xs">Mismatch Detected</span>
+                  <XCircle className="w-5 h-5 text-red-600" />
+                </>
+              )}
+            </div>
+          </div>
+          <div className="flex items-center justify-between p-3 bg-gray-50 rounded-lg border border-gray-200">
+            <div className="flex items-center gap-2">
+              <span className="text-gray-700 font-medium text-sm">Fraudulent Activity</span>
+            </div>
+            <div className="flex items-center gap-2">
+              {!(director.fraudulent_activity ?? features.fraud_flag ?? false) ? (
+                <>
+                  <span className="text-green-600 font-semibold text-xs">None Detected</span>
+                  <CheckCircle className="w-5 h-5 text-green-600" />
+                </>
+              ) : (
+                <>
+                  <span className="text-red-600 font-semibold text-xs">⚠ Detected</span>
+                  <XCircle className="w-5 h-5 text-red-600" />
+                </>
+              )}
+            </div>
+          </div>
+        </div>
+      </div>
+
     </div>
   )
 }

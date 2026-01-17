@@ -1,0 +1,1146 @@
+{
+    "txn_id": "saf4ead",
+    "client_ref_num": "test123",
+    "source_of_data": "accountaggregator",
+    "request_id": "",
+    "FIPS": [
+        {
+            "source_of_fip": "CAMSRTAFIP",
+            "multiple_accounts_found": "YES",
+            "account_holder_information": [
+                {
+                    "name": "Somnath Pani",
+                    "address": "S-O KAMALA KANTA PANI,SHAILASHREE VIHAR JYOTIVIHAR BURLA,BURLA",
+                    "dob": "2000-09-01",
+                    "mobile": "+919439416915",
+                    "pan": "FOQPP4784H",
+                    "email": "pani10somnath@gmail.com"
+                }
+            ],
+            "accounts": [
+                {
+                    "masked_account_number": "HDFC-XXXX1760",
+                    "investment_details": {
+                        "mutualfunds": {
+                            "amc": "HDFC Asset Management Company Limited",
+                            "nominee": "NOT-REGISTERED",
+                            "masked_demat_id": "",
+                            "masked_folio_number": "HDFC-XXXX1760",
+                            "register_name": "CAMS",
+                            "scheme_options": "Growth",
+                            "scheme_type": "Equity(G)",
+                            "scheme_category": "Flexi Cap Fund",
+                            "holdings": [
+                                {
+                                    "isinDescription": null,
+                                    "isin_id": "INF179K01UT0",
+                                    "qty": 4.927,
+                                    "Rate": 2192.2062106758676,
+                                    "total invested": 10801.0,
+                                    "current_value": 11131.428217,
+                                    "current rate": 2259.271,
+                                    "net p&l": 330.4282170000006,
+                                    "net p&l %": 3.0592372650680546,
+                                    "transactions": [
+                                        {
+                                            "isinid": "INF179K01UT0",
+                                            "txnId": "42710353255",
+                                            "transactionDate": null,
+                                            "isinDescription": null,
+                                            "narration": "Purchase -BSE - Online",
+                                            "ordertype": "BUY",
+                                            "qty": 0.32,
+                                            "invested value": 0.0,
+                                            "class": "mutualfunds"
+                                        },
+                                        {
+                                            "isinid": "INF179K01UT0",
+                                            "txnId": "45662886944",
+                                            "transactionDate": null,
+                                            "isinDescription": null,
+                                            "narration": "SIP Purchase -BSE - Instalment No - 1 Online",
+                                            "ordertype": "BUY",
+                                            "qty": 1.12,
+                                            "invested value": 0.0,
+                                            "class": "mutualfunds"
+                                        },
+                                        {
+                                            "isinid": "INF179K01UT0",
+                                            "txnId": "43479994682",
+                                            "transactionDate": null,
+                                            "isinDescription": null,
+                                            "narration": "SIP Purchase -BSE - Instalment No - 2/999 Online",
+                                            "ordertype": "BUY",
+                                            "qty": 0.55,
+                                            "invested value": 0.0,
+                                            "class": "mutualfunds"
+                                        },
+                                        {
+                                            "isinid": "INF179K01UT0",
+                                            "txnId": "44246862557",
+                                            "transactionDate": null,
+                                            "isinDescription": null,
+                                            "narration": "SIP Purchase -BSE - Instalment No - 3/999 Online",
+                                            "ordertype": "BUY",
+                                            "qty": 0.55,
+                                            "invested value": 0.0,
+                                            "class": "mutualfunds"
+                                        },
+                                        {
+                                            "isinid": "INF179K01UT0",
+                                            "txnId": "41306319396",
+                                            "transactionDate": null,
+                                            "isinDescription": null,
+                                            "narration": "SIP Purchase -BSE - Instalment No - 1 Online",
+                                            "ordertype": "BUY",
+                                            "qty": 0.05,
+                                            "invested value": 0.0,
+                                            "class": "mutualfunds"
+                                        },
+                                        {
+                                            "isinid": "INF179K01UT0",
+                                            "txnId": "42942368517",
+                                            "transactionDate": null,
+                                            "isinDescription": null,
+                                            "narration": "SIP Purchase -BSE - Instalment No - 1 Online",
+                                            "ordertype": "BUY",
+                                            "qty": 0.56,
+                                            "invested value": 0.0,
+                                            "class": "mutualfunds"
+                                        },
+                                        {
+                                            "isinid": "INF179K01UT0",
+                                            "txnId": "44980104583",
+                                            "transactionDate": null,
+                                            "isinDescription": null,
+                                            "narration": "SIP Purchase -BSE - Instalment No - 4/999 Online",
+                                            "ordertype": "BUY",
+                                            "qty": 0.55,
+                                            "invested value": 0.0,
+                                            "class": "mutualfunds"
+                                        },
+                                        {
+                                            "isinid": "INF179K01UT0",
+                                            "txnId": "41778256439",
+                                            "transactionDate": null,
+                                            "isinDescription": null,
+                                            "narration": "SIP Purchase -BSE - Instalment No - 2/999 Online",
+                                            "ordertype": "BUY",
+                                            "qty": 0.04,
+                                            "invested value": 0.0,
+                                            "class": "mutualfunds"
+                                        },
+                                        {
+                                            "isinid": "INF179K01UT0",
+                                            "txnId": "42156552300",
+                                            "transactionDate": null,
+                                            "isinDescription": null,
+                                            "narration": "SIP Purchase -BSE - Instalment No - 3/999 Online",
+                                            "ordertype": "BUY",
+                                            "qty": 0.04,
+                                            "invested value": 0.0,
+                                            "class": "mutualfunds"
+                                        }
+                                    ]
+                                }
+                            ]
+                        }
+                    },
+                    "account_summary_details": [
+                        {
+                            "etf": {},
+                            "equities": {},
+                            "mutualfunds": {
+                                "qty": 4.927,
+                                "rate": 2192.2062106758676,
+                                "current_rate": 2259.271,
+                                "total_invested": 10801.0,
+                                "current_value": 11131.428217,
+                                "net p&l": 330.4282170000006,
+                                "net p&l%": 3.0592372650680546
+                            }
+                        }
+                    ]
+                },
+                {
+                    "masked_account_number": "PPFAS-XXXX7176",
+                    "investment_details": {
+                        "mutualfunds": {
+                            "amc": "PPFAS Asset Management Pvt. Ltd.",
+                            "nominee": "NOT-REGISTERED",
+                            "masked_demat_id": "",
+                            "masked_folio_number": "PPFAS-XXXX7176",
+                            "register_name": "CAMS",
+                            "scheme_options": "Growth",
+                            "scheme_type": "Equity(G)",
+                            "scheme_category": "Flexi Cap Fund",
+                            "holdings": [
+                                {
+                                    "isinDescription": null,
+                                    "isin_id": "INF879O01027",
+                                    "qty": 127.935,
+                                    "Rate": 92.23433774963848,
+                                    "total invested": 11800.0,
+                                    "current_value": 12004.6655835,
+                                    "current rate": 93.8341,
+                                    "net p&l": 204.66558350000014,
+                                    "net p&l %": 1.7344540974576284,
+                                    "transactions": [
+                                        {
+                                            "isinid": "INF879O01027",
+                                            "txnId": "4616794941",
+                                            "transactionDate": null,
+                                            "isinDescription": null,
+                                            "narration": "Purchase Systematic -BSE - Instalment No - 1",
+                                            "ordertype": "BUY",
+                                            "qty": 22.15,
+                                            "invested value": 0.0,
+                                            "class": "mutualfunds"
+                                        },
+                                        {
+                                            "isinid": "INF879O01027",
+                                            "txnId": "4691814866",
+                                            "transactionDate": null,
+                                            "isinDescription": null,
+                                            "narration": "Purchase Systematic -BSE - Instalment No - 1",
+                                            "ordertype": "BUY",
+                                            "qty": 13.3,
+                                            "invested value": 0.0,
+                                            "class": "mutualfunds"
+                                        },
+                                        {
+                                            "isinid": "INF879O01027",
+                                            "txnId": "4935998956",
+                                            "transactionDate": null,
+                                            "isinDescription": null,
+                                            "narration": "Purchase Systematic -BSE - Instalment No - 3/999",
+                                            "ordertype": "BUY",
+                                            "qty": 13.11,
+                                            "invested value": 0.0,
+                                            "class": "mutualfunds"
+                                        },
+                                        {
+                                            "isinid": "INF879O01027",
+                                            "txnId": "4827077694",
+                                            "transactionDate": null,
+                                            "isinDescription": null,
+                                            "narration": "Purchase Systematic -BSE - Instalment No - 2/999",
+                                            "ordertype": "BUY",
+                                            "qty": 12.95,
+                                            "invested value": 0.0,
+                                            "class": "mutualfunds"
+                                        },
+                                        {
+                                            "isinid": "INF879O01027",
+                                            "txnId": "5046150933",
+                                            "transactionDate": null,
+                                            "isinDescription": null,
+                                            "narration": "Purchase Systematic -BSE - Instalment No - 4/999",
+                                            "ordertype": "BUY",
+                                            "qty": 12.97,
+                                            "invested value": 0.0,
+                                            "class": "mutualfunds"
+                                        },
+                                        {
+                                            "isinid": "INF879O01027",
+                                            "txnId": "5139558536",
+                                            "transactionDate": null,
+                                            "isinDescription": null,
+                                            "narration": "Purchase Systematic -BSE - Instalment No - 1",
+                                            "ordertype": "BUY",
+                                            "qty": 26.98,
+                                            "invested value": 0.0,
+                                            "class": "mutualfunds"
+                                        }
+                                    ]
+                                }
+                            ]
+                        }
+                    },
+                    "account_summary_details": [
+                        {
+                            "etf": {},
+                            "equities": {},
+                            "mutualfunds": {
+                                "qty": 127.935,
+                                "rate": 92.23433774963848,
+                                "current_rate": 93.8341,
+                                "total_invested": 11800.0,
+                                "current_value": 12004.6655835,
+                                "net p&l": 204.66558350000014,
+                                "net p&l%": 1.7344540974576284
+                            }
+                        }
+                    ]
+                },
+                {
+                    "masked_account_number": "ICIC-XXXX5547",
+                    "investment_details": {
+                        "mutualfunds": {
+                            "amc": "",
+                            "nominee": "NOT-REGISTERED",
+                            "masked_demat_id": "",
+                            "masked_folio_number": "ICIC-XXXX5547",
+                            "register_name": "",
+                            "scheme_options": "",
+                            "scheme_type": null,
+                            "scheme_category": null,
+                            "holdings": [
+                                {
+                                    "isinDescription": null,
+                                    "isin_id": "INF109K013N3",
+                                    "qty": 0.0,
+                                    "Rate": 0,
+                                    "total invested": 0,
+                                    "current_value": 0.0,
+                                    "current rate": 67.345,
+                                    "net p&l": 0.0,
+                                    "net p&l %": 0,
+                                    "transactions": [
+                                        {
+                                            "isinid": "INF109K013N3",
+                                            "txnId": "39265597310",
+                                            "transactionDate": null,
+                                            "isinDescription": null,
+                                            "narration": "Purchase  - INZ000208032",
+                                            "ordertype": "BUY",
+                                            "qty": 754.66,
+                                            "invested value": 0.0,
+                                            "class": "mutualfunds"
+                                        },
+                                        {
+                                            "isinid": "INF109K013N3",
+                                            "txnId": "39806142701",
+                                            "transactionDate": null,
+                                            "isinDescription": null,
+                                            "narration": "Redemption  - ELECTRONIC PAYMENT",
+                                            "ordertype": "SELL",
+                                            "qty": 754.66,
+                                            "invested value": 0.0,
+                                            "class": "mutualfunds"
+                                        }
+                                    ]
+                                },
+                                {
+                                    "isinDescription": null,
+                                    "isin_id": "INF109K01T04",
+                                    "qty": 0.0,
+                                    "Rate": 0,
+                                    "total invested": 0,
+                                    "current_value": 0.0,
+                                    "current rate": 30.6736,
+                                    "net p&l": 0.0,
+                                    "net p&l %": 0,
+                                    "transactions": [
+                                        {
+                                            "isinid": "INF109K01T04",
+                                            "txnId": "39764183281",
+                                            "transactionDate": null,
+                                            "isinDescription": null,
+                                            "narration": "Purchase  - INZ000208032",
+                                            "ordertype": "BUY",
+                                            "qty": 1645.01,
+                                            "invested value": 0.0,
+                                            "class": "mutualfunds"
+                                        },
+                                        {
+                                            "isinid": "INF109K01T04",
+                                            "txnId": "39806141924",
+                                            "transactionDate": null,
+                                            "isinDescription": null,
+                                            "narration": "Redemption  - ELECTRONIC PAYMENT",
+                                            "ordertype": "SELL",
+                                            "qty": 4967.87,
+                                            "invested value": 0.0,
+                                            "class": "mutualfunds"
+                                        },
+                                        {
+                                            "isinid": "INF109K01T04",
+                                            "txnId": "39422045288",
+                                            "transactionDate": null,
+                                            "isinDescription": null,
+                                            "narration": "Purchase  - INZ000208032",
+                                            "ordertype": "BUY",
+                                            "qty": 1650.78,
+                                            "invested value": 0.0,
+                                            "class": "mutualfunds"
+                                        },
+                                        {
+                                            "isinid": "INF109K01T04",
+                                            "txnId": "38223028109",
+                                            "transactionDate": null,
+                                            "isinDescription": null,
+                                            "narration": "Purchase  - INZ000208032",
+                                            "ordertype": "BUY",
+                                            "qty": 1672.07,
+                                            "invested value": 0.0,
+                                            "class": "mutualfunds"
+                                        }
+                                    ]
+                                }
+                            ]
+                        }
+                    },
+                    "account_summary_details": [
+                        {
+                            "etf": {},
+                            "equities": {},
+                            "mutualfunds": {
+                                "qty": 0,
+                                "rate": 0,
+                                "current_rate": 98.01859999999999,
+                                "total_invested": 0,
+                                "current_value": 0,
+                                "net p&l": 0,
+                                "net p&l%": 0.0
+                            }
+                        }
+                    ]
+                },
+                {
+                    "masked_account_number": "IDFC-XXX3607",
+                    "investment_details": {
+                        "mutualfunds": {
+                            "amc": "Bandhan AMC Limited",
+                            "nominee": "NOT-REGISTERED",
+                            "masked_demat_id": "",
+                            "masked_folio_number": "IDFC-XXX3607",
+                            "register_name": "CAMS",
+                            "scheme_options": "Growth",
+                            "scheme_type": "Equity(G)",
+                            "scheme_category": "Small Cap Fund",
+                            "holdings": [
+                                {
+                                    "isinDescription": null,
+                                    "isin_id": "INF194KB1AL4",
+                                    "qty": 191.272,
+                                    "Rate": 51.23593625831277,
+                                    "total invested": 9800.0,
+                                    "current_value": 10074.29624,
+                                    "current rate": 52.67,
+                                    "net p&l": 274.29623999999967,
+                                    "net p&l %": 2.7989412244897927,
+                                    "transactions": [
+                                        {
+                                            "isinid": "INF194KB1AL4",
+                                            "txnId": "6480855487",
+                                            "transactionDate": null,
+                                            "isinDescription": null,
+                                            "narration": "Net  Systematic Purchase -BSE - Instalment No - 1 via Online",
+                                            "ordertype": "BUY",
+                                            "qty": 49.03,
+                                            "invested value": 0.0,
+                                            "class": "mutualfunds"
+                                        },
+                                        {
+                                            "isinid": "INF194KB1AL4",
+                                            "txnId": "6130777580",
+                                            "transactionDate": null,
+                                            "isinDescription": null,
+                                            "narration": "Net  Systematic Purchase -BSE - Instalment No - 1 via Online",
+                                            "ordertype": "BUY",
+                                            "qty": 24.1,
+                                            "invested value": 0.0,
+                                            "class": "mutualfunds"
+                                        },
+                                        {
+                                            "isinid": "INF194KB1AL4",
+                                            "txnId": "6403899578",
+                                            "transactionDate": null,
+                                            "isinDescription": null,
+                                            "narration": "Net  Systematic Purchase -BSE - Instalment No - 4/999 via Online",
+                                            "ordertype": "BUY",
+                                            "qty": 23.88,
+                                            "invested value": 0.0,
+                                            "class": "mutualfunds"
+                                        },
+                                        {
+                                            "isinid": "INF194KB1AL4",
+                                            "txnId": "6238594005",
+                                            "transactionDate": null,
+                                            "isinDescription": null,
+                                            "narration": "Net  Systematic Purchase -BSE - Instalment No - 2/999 via Online",
+                                            "ordertype": "BUY",
+                                            "qty": 23.36,
+                                            "invested value": 0.0,
+                                            "class": "mutualfunds"
+                                        },
+                                        {
+                                            "isinid": "INF194KB1AL4",
+                                            "txnId": "6319760434",
+                                            "transactionDate": null,
+                                            "isinDescription": null,
+                                            "narration": "Net  Systematic Purchase -BSE - Instalment No - 3/999 via Online",
+                                            "ordertype": "BUY",
+                                            "qty": 23.76,
+                                            "invested value": 0.0,
+                                            "class": "mutualfunds"
+                                        }
+                                    ]
+                                }
+                            ]
+                        }
+                    },
+                    "account_summary_details": [
+                        {
+                            "etf": {},
+                            "equities": {},
+                            "mutualfunds": {
+                                "qty": 191.272,
+                                "rate": 51.23593625831277,
+                                "current_rate": 52.67,
+                                "total_invested": 9800.0,
+                                "current_value": 10074.29624,
+                                "net p&l": 274.29623999999967,
+                                "net p&l%": 2.7989412244897927
+                            }
+                        }
+                    ]
+                },
+                {
+                    "masked_account_number": "ICIC-XXXX7569",
+                    "investment_details": {
+                        "mutualfunds": {
+                            "amc": "ICICI Prudential Mutual Fund",
+                            "nominee": "NOT-REGISTERED",
+                            "masked_demat_id": "",
+                            "masked_folio_number": "ICIC-XXXX7569",
+                            "register_name": "CAMS",
+                            "scheme_options": "Growth",
+                            "scheme_type": "Balanced",
+                            "scheme_category": "Balanced Hybrid Fund/Aggressive Hybrid Fund",
+                            "holdings": [
+                                {
+                                    "isinDescription": null,
+                                    "isin_id": "INF109K01Y07",
+                                    "qty": 0.0,
+                                    "Rate": 0,
+                                    "total invested": 0,
+                                    "current_value": 0.0,
+                                    "current rate": 451.35,
+                                    "net p&l": 0.0,
+                                    "net p&l %": 0,
+                                    "transactions": [
+                                        {
+                                            "isinid": "INF109K01Y07",
+                                            "txnId": "36935143290",
+                                            "transactionDate": null,
+                                            "isinDescription": null,
+                                            "narration": "SIP Purchase -BSE - Instalment No - 1 - INZ000208032",
+                                            "ordertype": "BUY",
+                                            "qty": 0.25,
+                                            "invested value": 0.0,
+                                            "class": "mutualfunds"
+                                        },
+                                        {
+                                            "isinid": "INF109K01Y07",
+                                            "txnId": "37446509632",
+                                            "transactionDate": null,
+                                            "isinDescription": null,
+                                            "narration": "SIP Purchase -BSE - Instalment No - 2/999 - INZ000208032",
+                                            "ordertype": "BUY",
+                                            "qty": 0.24,
+                                            "invested value": 0.0,
+                                            "class": "mutualfunds"
+                                        },
+                                        {
+                                            "isinid": "INF109K01Y07",
+                                            "txnId": "37973988082",
+                                            "transactionDate": null,
+                                            "isinDescription": null,
+                                            "narration": "Redemption  - ELECTRONIC PAYMENT-BSE - - HDFCN52025052755019832",
+                                            "ordertype": "SELL",
+                                            "qty": 0.23,
+                                            "invested value": 0.0,
+                                            "class": "mutualfunds"
+                                        },
+                                        {
+                                            "isinid": "INF109K01Y07",
+                                            "txnId": "37907464928",
+                                            "transactionDate": null,
+                                            "isinDescription": null,
+                                            "narration": "Redemption  - ELECTRONIC PAYMENT-BSE - - HDFCN52025052145883082",
+                                            "ordertype": "SELL",
+                                            "qty": 0.49,
+                                            "invested value": 0.0,
+                                            "class": "mutualfunds"
+                                        },
+                                        {
+                                            "isinid": "INF109K01Y07",
+                                            "txnId": "37920545051",
+                                            "transactionDate": null,
+                                            "isinDescription": null,
+                                            "narration": "SIP Purchase -BSE - Instalment No - 3/999 - INZ000208032",
+                                            "ordertype": "BUY",
+                                            "qty": 0.23,
+                                            "invested value": 0.0,
+                                            "class": "mutualfunds"
+                                        }
+                                    ]
+                                }
+                            ]
+                        }
+                    },
+                    "account_summary_details": [
+                        {
+                            "etf": {},
+                            "equities": {},
+                            "mutualfunds": {
+                                "qty": 0,
+                                "rate": 0,
+                                "current_rate": 451.35,
+                                "total_invested": 0,
+                                "current_value": 0,
+                                "net p&l": 0,
+                                "net p&l%": 0.0
+                            }
+                        }
+                    ]
+                },
+                {
+                    "masked_account_number": "IDFC-XXX9862",
+                    "investment_details": {
+                        "mutualfunds": {
+                            "amc": "Bandhan AMC Limited",
+                            "nominee": "NOT-REGISTERED",
+                            "masked_demat_id": "",
+                            "masked_folio_number": "IDFC-XXX9862",
+                            "register_name": "CAMS",
+                            "scheme_options": "Growth",
+                            "scheme_type": "Equity(G)",
+                            "scheme_category": "Small Cap Fund",
+                            "holdings": [
+                                {
+                                    "isinDescription": null,
+                                    "isin_id": "INF194KB1AL4",
+                                    "qty": 994.414,
+                                    "Rate": 51.28648631254186,
+                                    "total invested": 51000.0,
+                                    "current_value": 52375.78538,
+                                    "current rate": 52.67,
+                                    "net p&l": 1375.7853800000012,
+                                    "net p&l %": 2.697618392156865,
+                                    "transactions": [
+                                        {
+                                            "isinid": "INF194KB1AL4",
+                                            "txnId": "6130417921",
+                                            "transactionDate": null,
+                                            "isinDescription": null,
+                                            "narration": "Net  Purchase  via Online",
+                                            "ordertype": "BUY",
+                                            "qty": 20.08,
+                                            "invested value": 0.0,
+                                            "class": "mutualfunds"
+                                        },
+                                        {
+                                            "isinid": "INF194KB1AL4",
+                                            "txnId": "6152687015",
+                                            "transactionDate": null,
+                                            "isinDescription": null,
+                                            "narration": "Net  Purchase  via Online",
+                                            "ordertype": "BUY",
+                                            "qty": 974.32,
+                                            "invested value": 0.0,
+                                            "class": "mutualfunds"
+                                        }
+                                    ]
+                                }
+                            ]
+                        }
+                    },
+                    "account_summary_details": [
+                        {
+                            "etf": {},
+                            "equities": {},
+                            "mutualfunds": {
+                                "qty": 994.414,
+                                "rate": 51.28648631254186,
+                                "current_rate": 52.67,
+                                "total_invested": 51000.0,
+                                "current_value": 52375.78538,
+                                "net p&l": 1375.7853800000012,
+                                "net p&l%": 2.697618392156865
+                            }
+                        }
+                    ]
+                },
+                {
+                    "masked_account_number": "TATA-XXXX3716",
+                    "investment_details": {
+                        "mutualfunds": {
+                            "amc": "Tata Asset Management Private Limited",
+                            "nominee": "NOT-REGISTERED",
+                            "masked_demat_id": "",
+                            "masked_folio_number": "TATA-XXXX3716",
+                            "register_name": "CAMS",
+                            "scheme_options": "Growth",
+                            "scheme_type": "Equity(G)",
+                            "scheme_category": "Small Cap Fund",
+                            "holdings": [
+                                {
+                                    "isinDescription": null,
+                                    "isin_id": "INF277K011O1",
+                                    "qty": 250.837,
+                                    "Rate": 43.853179554850364,
+                                    "total invested": 11000.0,
+                                    "current_value": 11072.1458496,
+                                    "current rate": 44.1408,
+                                    "net p&l": 72.14584959999956,
+                                    "net p&l %": 0.655871359999996,
+                                    "transactions": [
+                                        {
+                                            "isinid": "INF277K011O1",
+                                            "txnId": "10268239993",
+                                            "transactionDate": null,
+                                            "isinDescription": null,
+                                            "narration": "Purchase SIP -BSE - Instalment No - 1 Online - INZ000208032",
+                                            "ordertype": "BUY",
+                                            "qty": 22.64,
+                                            "invested value": 0.0,
+                                            "class": "mutualfunds"
+                                        },
+                                        {
+                                            "isinid": "INF277K011O1",
+                                            "txnId": "10136116384",
+                                            "transactionDate": null,
+                                            "isinDescription": null,
+                                            "narration": "Purchase SIP -BSE - Instalment No - 1 Online - INZ000208032",
+                                            "ordertype": "BUY",
+                                            "qty": 50.11,
+                                            "invested value": 0.0,
+                                            "class": "mutualfunds"
+                                        },
+                                        {
+                                            "isinid": "INF277K011O1",
+                                            "txnId": "10568604307",
+                                            "transactionDate": null,
+                                            "isinDescription": null,
+                                            "narration": "Purchase SIP -BSE - Instalment No - 3/999 Online - INZ000208032",
+                                            "ordertype": "BUY",
+                                            "qty": 22.11,
+                                            "invested value": 0.0,
+                                            "class": "mutualfunds"
+                                        },
+                                        {
+                                            "isinid": "INF277K011O1",
+                                            "txnId": "10698818432",
+                                            "transactionDate": null,
+                                            "isinDescription": null,
+                                            "narration": "Purchase SIP -BSE - Instalment No - 4/999 Online - INZ000208032",
+                                            "ordertype": "BUY",
+                                            "qty": 22.2,
+                                            "invested value": 0.0,
+                                            "class": "mutualfunds"
+                                        },
+                                        {
+                                            "isinid": "INF277K011O1",
+                                            "txnId": "10815462559",
+                                            "transactionDate": null,
+                                            "isinDescription": null,
+                                            "narration": "Purchase - SIP -BSE - Instalment No - 1 Online - INZ000208032",
+                                            "ordertype": "BUY",
+                                            "qty": 55.66,
+                                            "invested value": 0.0,
+                                            "class": "mutualfunds"
+                                        },
+                                        {
+                                            "isinid": "INF277K011O1",
+                                            "txnId": "10435534740",
+                                            "transactionDate": null,
+                                            "isinDescription": null,
+                                            "narration": "Purchase SIP -BSE - Instalment No - 2/999 Online - INZ000208032",
+                                            "ordertype": "BUY",
+                                            "qty": 21.9,
+                                            "invested value": 0.0,
+                                            "class": "mutualfunds"
+                                        }
+                                    ]
+                                }
+                            ]
+                        }
+                    },
+                    "account_summary_details": [
+                        {
+                            "etf": {},
+                            "equities": {},
+                            "mutualfunds": {
+                                "qty": 250.837,
+                                "rate": 43.853179554850364,
+                                "current_rate": 44.1408,
+                                "total_invested": 11000.0,
+                                "current_value": 11072.1458496,
+                                "net p&l": 72.14584959999956,
+                                "net p&l%": 0.655871359999996
+                            }
+                        }
+                    ]
+                }
+            ],
+            "fip_summary_details": [
+                {
+                    "etf": {},
+                    "equities": {},
+                    "mutualfunds": {
+                        "qty": 1569.385,
+                        "total_invested": 94401.0,
+                        "current_value": 96658.3212701,
+                        "net p&l": 2257.321270100001,
+                        "net p&l%": 2.3912048284446152
+                    }
+                }
+            ]
+        },
+        {
+            "source_of_fip": "kfinmf-fip",
+            "multiple_accounts_found": "YES",
+            "account_holder_information": [
+                {
+                    "name": "SOMNATH PANI",
+                    "address": "S O KAMALA KANTA PANI SHAILASHREE VI, JYOTIVIHAR BURLA BURLA JYOTI VIHAR B, SAMBALPUR ODISHA, SAMBALPUR, ODISHA",
+                    "dob": "2000-09-01",
+                    "mobile": "9439416915",
+                    "pan": "FOQPP4784H",
+                    "email": "PANI10SOMNATH@GMAIL.COM"
+                }
+            ],
+            "accounts": [
+                {
+                    "masked_account_number": "118-XXXXXXX3033",
+                    "investment_details": {
+                        "mutualfunds": {
+                            "amc": "Edelweiss Mutual Fund",
+                            "nominee": "NOT-REGISTERED",
+                            "masked_demat_id": "",
+                            "masked_folio_number": "118-XXXXXXX3033",
+                            "register_name": "KFinTech",
+                            "scheme_options": "D1",
+                            "scheme_type": "EQUITY SCHEMES",
+                            "scheme_category": null,
+                            "holdings": [
+                                {
+                                    "isinDescription": "Edelweiss Mid Cap Fund Direct Plan Growth",
+                                    "isin_id": "INF843K01AO4",
+                                    "qty": 42.079,
+                                    "Rate": 118.8241165426935,
+                                    "total invested": 5000.0,
+                                    "current_value": 5112.009394000001,
+                                    "current rate": 121.486,
+                                    "net p&l": 112.00939400000061,
+                                    "net p&l %": 2.240187880000012,
+                                    "transactions": [
+                                        {
+                                            "isinid": "INF843K01AO4",
+                                            "txnId": "11539180",
+                                            "transactionDate": null,
+                                            "isinDescription": null,
+                                            "narration": null,
+                                            "ordertype": "ADD  ",
+                                            "qty": 21.307,
+                                            "invested value": 0.0,
+                                            "class": "mutualfunds"
+                                        },
+                                        {
+                                            "isinid": "INF843K01AO4",
+                                            "txnId": "11323006",
+                                            "transactionDate": null,
+                                            "isinDescription": null,
+                                            "narration": null,
+                                            "ordertype": "SIN",
+                                            "qty": 20.772,
+                                            "invested value": 0.0,
+                                            "class": "mutualfunds"
+                                        }
+                                    ]
+                                }
+                            ]
+                        }
+                    },
+                    "account_summary_details": [
+                        {
+                            "etf": {},
+                            "equities": {},
+                            "mutualfunds": {
+                                "qty": 42.079,
+                                "rate": 118.8241165426935,
+                                "current_rate": 121.486,
+                                "total_invested": 5000.0,
+                                "current_value": 5112.009394000001,
+                                "net p&l": 112.00939400000061,
+                                "net p&l%": 2.240187880000012
+                            }
+                        }
+                    ]
+                },
+                {
+                    "masked_account_number": "127-XXXXXXXX6832",
+                    "investment_details": {
+                        "mutualfunds": {
+                            "amc": "MOTILAL OSWAL MUTUAL FUND",
+                            "nominee": "NOT-REGISTERED",
+                            "masked_demat_id": "",
+                            "masked_folio_number": "127-XXXXXXXX6832",
+                            "register_name": "KFinTech",
+                            "scheme_options": "GD",
+                            "scheme_type": "EQUITY SCHEMES",
+                            "scheme_category": null,
+                            "holdings": [
+                                {
+                                    "isinDescription": "Motilal Oswal Midcap Fund Direct Plan",
+                                    "isin_id": "INF247L01445",
+                                    "qty": 128.239,
+                                    "Rate": 116.96909676463478,
+                                    "total invested": 15000.0,
+                                    "current_value": 15227.5348726,
+                                    "current rate": 118.7434,
+                                    "net p&l": 227.5348725999993,
+                                    "net p&l %": 1.516899150666662,
+                                    "transactions": [
+                                        {
+                                            "isinid": "INF247L01445",
+                                            "txnId": "61346735",
+                                            "transactionDate": null,
+                                            "isinDescription": null,
+                                            "narration": null,
+                                            "ordertype": "SIN",
+                                            "qty": 21.58,
+                                            "invested value": 0.0,
+                                            "class": "mutualfunds"
+                                        },
+                                        {
+                                            "isinid": "INF247L01445",
+                                            "txnId": "58519813",
+                                            "transactionDate": null,
+                                            "isinDescription": null,
+                                            "narration": null,
+                                            "ordertype": "SIN",
+                                            "qty": 16.757,
+                                            "invested value": 0.0,
+                                            "class": "mutualfunds"
+                                        },
+                                        {
+                                            "isinid": "INF247L01445",
+                                            "txnId": "55353871",
+                                            "transactionDate": null,
+                                            "isinDescription": null,
+                                            "narration": null,
+                                            "ordertype": "SIN",
+                                            "qty": 16.984,
+                                            "invested value": 0.0,
+                                            "class": "mutualfunds"
+                                        },
+                                        {
+                                            "isinid": "INF247L01445",
+                                            "txnId": "52224167",
+                                            "transactionDate": null,
+                                            "isinDescription": null,
+                                            "narration": null,
+                                            "ordertype": "SIN",
+                                            "qty": 16.857,
+                                            "invested value": 0.0,
+                                            "class": "mutualfunds"
+                                        },
+                                        {
+                                            "isinid": "INF247L01445",
+                                            "txnId": "49091589",
+                                            "transactionDate": null,
+                                            "isinDescription": null,
+                                            "narration": null,
+                                            "ordertype": "SIN",
+                                            "qty": 17.403,
+                                            "invested value": 0.0,
+                                            "class": "mutualfunds"
+                                        },
+                                        {
+                                            "isinid": "INF247L01445",
+                                            "txnId": "47258089",
+                                            "transactionDate": null,
+                                            "isinDescription": null,
+                                            "narration": null,
+                                            "ordertype": "SIN",
+                                            "qty": 17.775,
+                                            "invested value": 0.0,
+                                            "class": "mutualfunds"
+                                        }
+                                    ]
+                                }
+                            ]
+                        }
+                    },
+                    "account_summary_details": [
+                        {
+                            "etf": {},
+                            "equities": {},
+                            "mutualfunds": {
+                                "qty": 128.239,
+                                "rate": 116.96909676463478,
+                                "current_rate": 118.7434,
+                                "total_invested": 15000.0,
+                                "current_value": 15227.5348726,
+                                "net p&l": 227.5348725999993,
+                                "net p&l%": 1.516899150666662
+                            }
+                        }
+                    ]
+                }
+            ],
+            "fip_summary_details": [
+                {
+                    "etf": {},
+                    "equities": {},
+                    "mutualfunds": {
+                        "qty": 170.318,
+                        "total_invested": 20000.0,
+                        "current_value": 20339.5442666,
+                        "net p&l": 339.5442666000017,
+                        "net p&l%": 1.6977213330000087
+                    }
+                }
+            ]
+        },
+        {
+            "source_of_fip": "CDSLFIP",
+            "multiple_accounts_found": "NO",
+            "account_holder_information": [
+                {
+                    "name": "SOMNATH  PANI",
+                    "address": "S O KAMALA KANTA PANI SHAILASHREE VIHAR JYOTIVIHAR BURLA BURLA JYOTI VIHAR BURLA SAMBALPUR ODISHA",
+                    "dob": "2000-09-01",
+                    "mobile": "9439416915",
+                    "pan": "FOQPP4784H",
+                    "email": "pani10somnath@gmail.com"
+                }
+            ],
+            "accounts": [
+                {
+                    "masked_account_number": "XXXXXXXXXXXX2412",
+                    "investment_details": {
+                        "mutualfunds": {
+                            "amc": "",
+                            "nominee": "NOT-REGISTERED",
+                            "masked_demat_id": "",
+                            "masked_folio_number": "",
+                            "register_name": "",
+                            "scheme_options": "",
+                            "scheme_type": null,
+                            "scheme_category": null,
+                            "holdings": [
+                                {
+                                    "isinDescription": "EDELW MIDCF DP GR",
+                                    "isin_id": "INF843K01AO4",
+                                    "qty": 62.559,
+                                    "Rate": 0.0,
+                                    "total invested": 0.0,
+                                    "current_value": 7636.201775999999,
+                                    "current rate": 122.064,
+                                    "net p&l": 7636.201775999999,
+                                    "net p&l %": 0,
+                                    "transactions": [
+                                        {
+                                            "isinid": "INF843K01AO4",
+                                            "txnId": "19092025185056-2623458388929011",
+                                            "transactionDate": null,
+                                            "isinDescription": "EDELW MIDCF DP GR",
+                                            "narration": "BSECH-CR IN001150 11 19092025C001 SETT 1110142526117",
+                                            "ordertype": "BUY",
+                                            "qty": 20.772,
+                                            "invested value": 0.0,
+                                            "class": "mutualfunds"
+                                        },
+                                        {
+                                            "isinid": "INF843K01AO4",
+                                            "txnId": "06102025203729-2793556949031011",
+                                            "transactionDate": null,
+                                            "isinDescription": "EDELW MIDCF DP GR",
+                                            "narration": "BSECH-CR IN001150 11 06102025C004 SETT 1110142526127",
+                                            "ordertype": "BUY",
+                                            "qty": 21.307,
+                                            "invested value": 0.0,
+                                            "class": "mutualfunds"
+                                        }
+                                    ]
+                                },
+                                {
+                                    "isinDescription": "BNDH SCP D-GROW",
+                                    "isin_id": "INF194KB1AL4",
+                                    "qty": 994.414,
+                                    "Rate": 0.0,
+                                    "total invested": 0.0,
+                                    "current_value": 52762.612426,
+                                    "current rate": 53.059,
+                                    "net p&l": 52762.612426,
+                                    "net p&l %": 0,
+                                    "transactions": [
+                                        {
+                                            "isinid": "INF194KB1AL4",
+                                            "txnId": "03062025200827-1542761345086011",
+                                            "transactionDate": null,
+                                            "isinDescription": "BNDH SCP D-GROW",
+                                            "narration": "BSECH-CR IN001150 11 03062025C004 SETT 1110142526041",
+                                            "ordertype": "BUY",
+                                            "qty": 20.089,
+                                            "invested value": 0.0,
+                                            "class": "mutualfunds"
+                                        },
+                                        {
+                                            "isinid": "INF194KB1AL4",
+                                            "txnId": "10062025190726-1612812320370011",
+                                            "transactionDate": null,
+                                            "isinDescription": "BNDH SCP D-GROW",
+                                            "narration": "BSECH-CR IN001150 11 10062025C003 SETT 1110142526046",
+                                            "ordertype": "BUY",
+                                            "qty": 974.325,
+                                            "invested value": 0.0,
+                                            "class": "mutualfunds"
+                                        }
+                                    ]
+                                }
+                            ]
+                        }
+                    },
+                    "account_summary_details": [
+                        {
+                            "etf": {},
+                            "equities": {},
+                            "mutualfunds": {
+                                "qty": 1056.973,
+                                "rate": 0,
+                                "current_rate": 175.123,
+                                "total_invested": 0,
+                                "current_value": 60398.814202,
+                                "net p&l": 60398.814202,
+                                "net p&l%": 0.0
+                            }
+                        }
+                    ]
+                }
+            ],
+            "fip_summary_details": [
+                {
+                    "etf": {},
+                    "equities": {},
+                    "mutualfunds": {
+                        "qty": 1056.973,
+                        "total_invested": 0.0,
+                        "current_value": 60398.814202,
+                        "net p&l": 60398.814202,
+                        "net p&l%": 0.0
+                    }
+                }
+            ]
+        }
+    ],
+    "overall_fip_summary_analysis": "",
+    "overall_fip_Summary_analysis": [
+        {
+            "etf": {},
+            "equities": {},
+            "mutualfunds": {
+                "qty": 2796.676,
+                "total_invested": 114401.0,
+                "current_value": 177396.6797387,
+                "net p&l": 62995.67973870001,
+                "net p&l%": 55.06567227445566
+            }
+        }
+    ]
+}

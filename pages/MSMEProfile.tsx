@@ -15,6 +15,7 @@ import FraudVerificationCard from "@/components/msme/FraudVerificationCard"
 import ExternalSignalsCard from "@/components/msme/ExternalSignalsCard"
 import MSMESummaryCard from "@/components/msme/MSMESummaryCard"
 import DirectorDetailsCard from "@/components/msme/DirectorDetailsCard"
+import VendorPaymentsCard from "@/components/msme/VendorPaymentsCard"
 import { downloadMSMEPDF } from "@/components/msme/MSMEPDFReport"
 
 export default function MSMEProfile() {
@@ -409,6 +410,11 @@ export default function MSMEProfile() {
       {/* 7. External Signals (Full Width) */}
       <div className="grid grid-cols-1 gap-6">
         <ExternalSignalsCard msme={msme} />
+      </div>
+
+      {/* 8. Vendor Payments and Expenses (Full Width) */}
+      <div className="grid grid-cols-1 gap-6">
+        <VendorPaymentsCard msme={msme} />
       </div>
 
       {/* Category Contributions (shown when scored) */}

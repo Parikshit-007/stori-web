@@ -1,0 +1,57 @@
+{
+    "score": 750,
+    "bureau": "CIBIL",
+    "report_date": "2024-01-15",
+    "personal_info": {
+        "name": "John Doe",
+        "pan": "ABCDE1234F",
+        "dob": "1990-01-15"
+    },
+    "accounts": [
+        {
+            "account_type": "credit_card",
+            "bank": "HDFC Bank",
+            "status": "active",
+            "outstanding": 25000,
+            "credit_limit": 100000,
+            "dpd": 0,
+            "opened_date": "2020-01-15",
+            "last_payment_date": "2024-01-10"
+        },
+        {
+            "account_type": "personal_loan",
+            "bank": "ICICI Bank",
+            "status": "active",
+            "outstanding": 150000,
+            "credit_limit": 200000,
+            "dpd": 0,
+            "opened_date": "2022-06-01",
+            "emi": 8500
+        },
+        {
+            "account_type": "credit_card",
+            "bank": "SBI",
+            "status": "closed",
+            "outstanding": 0,
+            "credit_limit": 50000,
+            "dpd": 0,
+            "opened_date": "2018-03-10",
+            "closed_date": "2023-12-15"
+        }
+    ],
+    "enquiries": [
+        {
+            "bank": "Axis Bank",
+            "date": "2024-01-10",
+            "type": "credit_card",
+            "months_ago": 0
+        },
+        {
+            "bank": "Kotak Bank",
+            "date": "2023-11-05",
+            "type": "personal_loan",
+            "months_ago": 2
+        }
+    ]
+}
+

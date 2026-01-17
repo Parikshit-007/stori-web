@@ -1,0 +1,53 @@
+{
+  "gold_holdings": [
+    {
+      "type": "PHYSICAL",
+      "name": "Physical Gold Bars",
+      "weightGrams": 25.0,
+      "units": 0,
+      "purity": 24,
+      "purchasePrice": 5600.00,
+      "purchaseDate": "2020-05-15",
+      "currentPrice": 6400.00,
+      "currentValue": 160000.00,
+      "investedValue": 140000.00
+    },
+    {
+      "type": "DIGITAL",
+      "name": "PhonePe Digital Gold",
+      "weightGrams": 8.5,
+      "units": 0,
+      "purchasePrice": 5800.00,
+      "purchaseDate": "2023-08-20",
+      "currentPrice": 6400.00,
+      "currentValue": 54400.00,
+      "investedValue": 49300.00
+    },
+    {
+      "type": "ETF",
+      "name": "HDFC Gold ETF",
+      "weightGrams": 0,
+      "units": 45.0,
+      "purchasePrice": 4850.00,
+      "purchaseDate": "2022-11-10",
+      "currentPrice": 5320.00,
+      "currentValue": 239400.00,
+      "investedValue": 218250.00
+    },
+    {
+      "type": "SGB",
+      "name": "Sovereign Gold Bond 2020 Series",
+      "weightGrams": 10.0,
+      "units": 10,
+      "purchasePrice": 5177.00,
+      "purchaseDate": "2020-09-01",
+      "currentPrice": 6400.00,
+      "currentValue": 64000.00,
+      "investedValue": 51770.00,
+      "maturityDate": "2028-09-01",
+      "interestRate": 2.5
+    }
+  ]
+}
+
+

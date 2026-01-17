@@ -1,0 +1,119 @@
+STORI NBFC - Django REST API Backend Setup
+===========================================
+
+1. CREATE VIRTUAL ENVIRONMENT:
+   python -m venv venv
+   
+2. ACTIVATE VIRTUAL ENVIRONMENT:
+   Windows: venv\Scripts\activate
+   Linux/Mac: source venv/bin/activate
+
+3. INSTALL DEPENDENCIES:
+   pip install -r requirements.txt
+
+4. SETUP ENVIRONMENT:
+   - Copy .env.example to .env
+   - Update database credentials and other settings
+
+5. SETUP DATABASE:
+   - Create PostgreSQL database: stori_nbfc
+   - Update DB credentials in .env
+
+6. RUN MIGRATIONS:
+   python manage.py makemigrations
+   python manage.py migrate
+
+7. CREATE SUPERUSER:
+   python manage.py createsuperuser
+
+8. RUN DEVELOPMENT SERVER:
+   python manage.py runserver 8000
+
+9. ACCESS ADMIN PANEL:
+   http://localhost:8000/admin
+
+API ENDPOINTS:
+==============
+
+Authentication:
+- POST /api/auth/login/ - Login and get token
+- POST /api/auth/logout/ - Logout
+- POST /api/auth/logoutall/ - Logout from all devices
+
+ITR Analysis:
+- POST /api/customer/itr/ - Upload ITR
+- POST /api/customer/itr/{id}/analyze/ - Analyze ITR
+- GET /api/customer/itr/{id}/result/ - Get analysis result
+- GET /api/customer/itr/all_results/ - Get all results
+
+Bank Statement Analysis:
+- POST /api/customer/bank-statement/ - Upload bank statement
+- POST /api/customer/bank-statement/{id}/analyze/ - Analyze
+- GET /api/customer/bank-statement/{id}/result/ - Get result
+- GET /api/customer/bank-statement/all_results/ - Get all results
+
+Credit Report Analysis:
+- POST /api/customer/credit-report/ - Upload credit report
+- POST /api/customer/credit-report/{id}/analyze/ - Analyze
+- GET /api/customer/credit-report/{id}/result/ - Get result
+- GET /api/customer/credit-report/all_results/ - Get all results
+
+OCR & Face Matching:
+- POST /api/customer/ocr/documents/ - Upload document
+- POST /api/customer/ocr/face-match/ - Create face match request
+- POST /api/customer/ocr/face-match/{id}/verify/ - Verify faces
+- GET /api/customer/ocr/face-match/{id}/result/ - Get result
+- POST /api/customer/ocr/face-match/quick_verify/ - Quick verification
+
+PROJECT STRUCTURE:
+==================
+stori_backend/
+├── config/                    # Django project settings
+│   ├── settings.py
+│   ├── urls.py
+│   ├── wsgi.py
+│   └── asgi.py
+├── apps/
+│   └── customer/              # Customer analysis apps
+│       ├── itr_analysis/
+│       │   ├── models.py
+│       │   ├── views.py
+│       │   ├── serializers.py
+│       │   ├── urls.py
+│       │   ├── admin.py
+│       │   └── analyzer.py    # Core ITR analysis logic
+│       ├── bank_statement_analysis/
+│       │   ├── models.py
+│       │   ├── views.py
+│       │   ├── serializers.py
+│       │   ├── urls.py
+│       │   ├── admin.py
+│       │   ├── analyzer.py    # Core bank analysis logic
+│       │   └── merchant_classifier.py
+│       ├── credit_report_analysis/
+│       │   ├── models.py
+│       │   ├── views.py
+│       │   ├── serializers.py
+│       │   ├── urls.py
+│       │   ├── admin.py
+│       │   └── analyzer.py    # Core credit analysis logic
+│       └── ocr_analysis/
+│           ├── models.py
+│           ├── views.py
+│           ├── serializers.py
+│           ├── urls.py
+│           ├── admin.py
+│           └── face_match.py  # Face matching logic
+├── manage.py
+├── requirements.txt
+└── .env
+
+NOTES:
+======
+- All existing analysis code has been preserved
+- Face matching uses DeepFace with high accuracy models
+- Knox token authentication is configured
+- CORS is enabled for frontend integration
+- Admin panel available for data management
+
+

@@ -1,0 +1,42 @@
+{
+  "fixed_deposits": [
+    {
+      "bank": "HDFC Bank",
+      "type": "BANK_FD",
+      "fdNumber": "FD12345678",
+      "principal": 250000.00,
+      "interestRate": 7.0,
+      "tenureMonths": 36,
+      "startDate": "2023-06-15",
+      "maturityDate": "2026-06-15",
+      "maturityAmount": 306787.50,
+      "compoundingFrequency": "quarterly"
+    },
+    {
+      "bank": "State Bank of India",
+      "type": "BANK_FD",
+      "fdNumber": "FD87654321",
+      "principal": 150000.00,
+      "interestRate": 7.5,
+      "tenureMonths": 60,
+      "startDate": "2022-01-10",
+      "maturityDate": "2027-01-10",
+      "maturityAmount": 215625.00,
+      "compoundingFrequency": "quarterly"
+    },
+    {
+      "bank": "Bajaj Finance",
+      "type": "CORPORATE_FD",
+      "fdNumber": "CFD98765432",
+      "principal": 100000.00,
+      "interestRate": 8.5,
+      "tenureMonths": 24,
+      "startDate": "2024-03-01",
+      "maturityDate": "2026-03-01",
+      "maturityAmount": 118496.00,
+      "compoundingFrequency": "cumulative"
+    }
+  ]
+}
+
+

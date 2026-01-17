@@ -1,0 +1,57 @@
+{
+  "pf_accounts": [
+    {
+      "type": "EPF",
+      "name": "Employee Provident Fund",
+      "accountNumber": "MH/MUM/0012345/000/0001234",
+      "uan": "101234567890",
+      "employer": "Zell Education Private Limited",
+      "startDate": "2020-06-01",
+      "currentBalance": 185000.00,
+      "employeeContribution": 95000.00,
+      "employerContribution": 75000.00,
+      "interestEarned": 15000.00,
+      "totalContribution": 170000.00,
+      "lastUpdated": "2025-12-31",
+      "interestRate": 8.15,
+      "withdrawalEligibility": false,
+      "yearsOfService": 4.5
+    },
+    {
+      "type": "PPF",
+      "name": "Public Provident Fund",
+      "accountNumber": "PPF1234567890",
+      "bank": "State Bank of India",
+      "branch": "Andheri East",
+      "startDate": "2019-04-01",
+      "currentBalance": 280000.00,
+      "employeeContribution": 240000.00,
+      "employerContribution": 0.00,
+      "interestEarned": 40000.00,
+      "totalContribution": 240000.00,
+      "lastUpdated": "2025-03-31",
+      "interestRate": 7.1,
+      "maturityDate": "2034-04-01",
+      "withdrawalEligibility": false,
+      "yearsCompleted": 6,
+      "lockInRemaining": 9
+    },
+    {
+      "type": "VPF",
+      "name": "Voluntary Provident Fund",
+      "accountNumber": "MH/MUM/0012345/000/0001234",
+      "employer": "Zell Education Private Limited",
+      "startDate": "2022-01-01",
+      "currentBalance": 45000.00,
+      "employeeContribution": 42000.00,
+      "employerContribution": 0.00,
+      "interestEarned": 3000.00,
+      "totalContribution": 42000.00,
+      "lastUpdated": "2025-12-31",
+      "interestRate": 8.15,
+      "monthlyContribution": 1500.00
+    }
+  ]
+}
+
+

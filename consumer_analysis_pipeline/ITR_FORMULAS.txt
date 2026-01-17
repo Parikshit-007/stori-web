@@ -1,0 +1,382 @@
+================================================================================
+ITR ANALYSIS - FORMULA GUIDE (SIMPLE)
+================================================================================
+Income Tax Return Feature Extraction for Credit Underwriting
+Last Updated: Jan 2026
+================================================================================
+
+TOTAL FEATURES: 19
+================================================================================
+
+
+================================================================================
+SECTION 1: INCOME FEATURES (5 features)
+================================================================================
+
+1. itr_net_taxable_income
+   -----------------------
+   Definition: Final taxable income after all deductions
+   
+   Formula: TotalIncome from ITR form
+   
+   Example: ₹5,38,790
+   Interpretation: Primary income metric for loan eligibility
+
+
+2. itr_gross_total_income
+   ----------------------
+   Definition: Income before deductions
+   
+   Formula: GrossTotIncome from ITR
+   
+   Example: ₹5,08,031
+   Interpretation: Total earning capacity
+
+
+3. itr_income_growth_yoy
+   ----------------------
+   Definition: Year-over-year income growth %
+   
+   Formula: (Current Year Income - Last Year Income) / Last Year Income
+   
+   Example:
+   Current: ₹5,38,790
+   Last Year: ₹2,00,530
+   Growth = (538790 - 200530) / 200530 = 1.69 (169%)
+   
+   Interpretation:
+   - > 20% = Growing income (positive)
+   - -10% to +20% = Stable
+   - < -20% = Declining (red flag)
+
+
+4. itr_income_stability
+   ---------------------
+   Definition: How consistent is income across years? (0-1 scale)
+   
+   Formula: 1.0 - (StdDev of incomes / Mean of incomes)
+   
+   Example:
+   Incomes: ₹2L, ₹3L, ₹5L
+   Mean = ₹3.33L, StdDev = ₹1.25L
+   Stability = 1.0 - (1.25/3.33) = 0.62 (62%)
+   
+   Interpretation:
+   - > 0.8 = Very stable
+   - 0.5 - 0.8 = Moderate
+   - < 0.5 = Unstable
+
+
+5. itr_income_to_bank_income_ratio
+   ---------------------------------
+   Definition: ITR income vs Bank statement income (reconciliation)
+   
+   Formula: ITR Annual Income / Bank Statement Annual Income
+   
+   Example:
+   ITR Income = ₹5,38,790
+   Bank Income = ₹5,80,872
+   Ratio = 538790 / 580872 = 0.93
+   
+   Interpretation:
+   - 0.8 - 1.2 = Good match (honest reporting)
+   - < 0.6 = Under-reporting in ITR (red flag)
+   - > 1.5 = Bank statement under-represents (possible)
+
+
+================================================================================
+SECTION 2: TAX COMPLIANCE (4 features)
+================================================================================
+
+6. itr_filed_current_year
+   ----------------------
+   Definition: Filed ITR this year? (1 = Yes, 0 = No)
+   
+   Formula: Binary flag from filing status
+   
+   Interpretation:
+   - 1 = Compliant
+   - 0 = Non-filer (red flag)
+
+
+7. itr_filed_last_3_years
+   -----------------------
+   Definition: Filed ITR for last 3 consecutive years? (1 = Yes, 0 = No)
+   
+   Formula: Check if all 3 years are filed
+   
+   Interpretation:
+   - 1 = Consistent filer (positive)
+   - 0 = Irregular filing (concern)
+
+
+8. tax_compliance_score
+   ---------------------
+   Definition: Overall tax compliance (0-1 scale)
+   
+   Formula:
+   score = 1.0
+   IF not filed: score -= 0.5
+   IF tax outstanding > 0: score -= 0.3
+   IF filing delay > 30 days: score -= 0.2
+   IF assessment pending: score -= 0.2
+   IF tax paid > 0: score += 0.1 (bonus)
+   
+   Example:
+   Filed: Yes (+1.0)
+   Tax outstanding: ₹0 (no penalty)
+   Delay: 0 days (no penalty)
+   Tax paid: ₹4,240 (+0.1 bonus)
+   Final Score = 1.1 → capped at 1.0
+   
+   Interpretation:
+   - > 0.8 = Excellent compliance
+   - 0.5 - 0.8 = Good
+   - < 0.5 = Poor (red flag)
+
+
+9. itr_tax_outstanding
+   --------------------
+   Definition: Unpaid tax amount
+   
+   Formula: BalTaxPayable from ITR
+   
+   Example: ₹0
+   Interpretation:
+   - ₹0 = Clean (good)
+   - > 0 = Red flag (government claim)
+
+
+================================================================================
+SECTION 3: INCOME TYPE (3 features)
+================================================================================
+
+10. itr_salary_income
+    -----------------
+    Definition: Salary income declared in ITR
+    
+    Formula: GrossSalary or Salary from ITR
+    
+    Example: ₹5,28,900
+    Interpretation: Primary income source
+
+
+11. itr_business_income
+    -------------------
+    Definition: Business/professional income
+    
+    Formula: Business income from ITR-3/ITR-4
+    
+    Example: ₹50,000
+    Interpretation: Additional income source
+
+
+12. income_type_salaried
+    ---------------------
+    Definition: Is customer salaried? (1 = Yes, 0 = No)
+    
+    Formula: 1 if (Salary Income / Total Income) > 0.8 else 0
+    
+    Example:
+    Salary = ₹5,28,900
+    Total = ₹5,38,790
+    Ratio = 528900/538790 = 0.98
+    income_type_salaried = 1 (Yes)
+    
+    Interpretation:
+    - 1 = Salaried (lower risk)
+    - 0 = Business/self-employed (higher risk)
+
+
+================================================================================
+SECTION 4: DEDUCTIONS (2 features)
+================================================================================
+
+13. itr_total_deductions
+    --------------------
+    Definition: Total tax deductions claimed
+    
+    Formula: TotalChapVIADeductions from ITR
+    
+    Example: ₹0
+    Interpretation: Financial planning indicator
+
+
+14. itr_deductions_to_income_ratio
+    -------------------------------
+    Definition: Deductions as % of income
+    
+    Formula: Total Deductions / Net Taxable Income
+    
+    Example: 0 / 538790 = 0%
+    Interpretation:
+    - 10-30% = Normal (planning for future)
+    - > 50% = Aggressive tax planning
+
+
+================================================================================
+SECTION 5: FILING BEHAVIOR (2 features)
+================================================================================
+
+15. itr_filing_delay_days
+    ----------------------
+    Definition: Days late from due date
+    
+    Formula: Filing Date - Due Date
+    
+    Example: 0 days (filed on time)
+    Interpretation:
+    - 0 = On time (good)
+    - 1-30 = Minor delay
+    - > 30 = Late filer (concern)
+
+
+16. itr_revision_filed
+    -------------------
+    Definition: Revised return filed? (1 = Yes, 0 = No)
+    
+    Formula: Binary flag
+    Interpretation:
+    - 0 = Original filing (good)
+    - 1 = Revised (may indicate errors)
+
+
+================================================================================
+SECTION 6: ADDITIONAL (3 features)
+================================================================================
+
+17. itr_tax_paid
+    ------------
+    Definition: Total tax paid (TDS + Advance Tax + Self Assessment)
+    
+    Formula: TotalTaxesPaid from ITR
+    
+    Example: ₹4,240
+    Interpretation: Tax-paying = earning well
+
+
+18. itr_house_property_income
+    ---------------------------
+    Definition: Rental income/loss from house property
+    
+    Formula: TotalIncomeOfHP from ITR
+    
+    Example: ₹0
+    Interpretation:
+    - Positive = Rental income
+    - Negative = Home loan interest (deduction)
+
+
+19. itr_capital_gains
+    ------------------
+    Definition: Long-term/short-term capital gains
+    
+    Formula: Capital gains from ITR
+    
+    Example: ₹30,762
+    Interpretation: One-time income (not recurring)
+
+
+================================================================================
+QUICK REFERENCE: FEATURE IMPORTANCE
+================================================================================
+
+CRITICAL (Tier 1):
+1. itr_net_taxable_income          ⭐⭐⭐⭐⭐
+2. itr_income_to_bank_income_ratio  ⭐⭐⭐⭐⭐
+3. tax_compliance_score             ⭐⭐⭐⭐⭐
+4. itr_filed_last_3_years          ⭐⭐⭐⭐
+
+IMPORTANT (Tier 2):
+5. itr_income_growth_yoy           ⭐⭐⭐⭐
+6. income_type_salaried             ⭐⭐⭐
+7. itr_tax_outstanding             ⭐⭐⭐
+8. itr_income_stability            ⭐⭐⭐
+
+SUPPORTING (Tier 3):
+9-19. Other features               ⭐⭐
+
+
+================================================================================
+EXAMPLE: NISHIL'S ITR ANALYSIS
+================================================================================
+
+Input: 2 years of ITR data (2024 & 2025)
+
+Results:
+--------
+Current Year Income:     ₹5,38,790
+Last Year Income:         ₹2,00,530
+Income Growth:            +168.68% (excellent growth)
+Income Stability:        54.25% (moderate)
+
+Tax Compliance:          100% (perfect)
+Filed Last 3 Years:       Yes
+Tax Outstanding:          ₹0
+
+Income Type:             Salaried (98% salary)
+ITR/Bank Reconciliation: 0.93 (good match)
+
+Assessment:              Excellent profile
+                         - Strong income growth
+                         - Perfect tax compliance
+                         - Good reconciliation with bank
+
+
+================================================================================
+USAGE IN LIGHTGBM MODEL
+================================================================================
+
+Python Code:
+------------
+import pandas as pd
+
+# Load ITR features
+itr_features = pd.read_csv('itr_features.csv')
+
+# Combine with bank statement features
+bank_features = pd.read_csv('bank_features.csv')
+
+# Merge all features
+all_features = pd.concat([bank_features, itr_features], axis=1)
+
+# Total: 27 (bank) + 19 (ITR) = 46 features
+assert all_features.shape[1] == 46
+
+# Use in model
+prediction = lgbm_model.predict(all_features)
+
+
+================================================================================
+KEY INSIGHTS FOR CREDIT DECISION
+================================================================================
+
+GREEN FLAGS (Approve):
+- Income growth > 20%
+- Tax compliance score > 0.8
+- ITR/Bank ratio 0.8-1.2
+- Filed last 3 years
+- No tax outstanding
+
+YELLOW FLAGS (Approve with conditions):
+- Income growth -10% to +20%
+- Tax compliance 0.5-0.8
+- ITR/Bank ratio 0.6-0.8 or 1.2-1.5
+- Filed 1-2 years only
+
+RED FLAGS (Reject/High risk):
+- Income declining > 20%
+- Tax compliance < 0.5
+- ITR/Bank ratio < 0.6 (under-reporting)
+- Not filed current year
+- Tax outstanding > 10% of income
+
+
+================================================================================
+END OF ITR FORMULA GUIDE
+================================================================================
+For detailed code: See itr_analysis.py
+All features have zero-division protection.
+Feature names are STABLE - do not change (ML model dependency).
+================================================================================
+

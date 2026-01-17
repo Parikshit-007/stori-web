@@ -208,10 +208,12 @@ export function generateMSMEPDFContent(msme: any): string {
               <div class="metric-value ${(features.profit_margin || 0) >= 0.1 ? 'green' : 'yellow'}">${((features.profit_margin || 0) * 100).toFixed(1)}%</div>
             </div>
           </div>
+          <div class="info-row"><span class="info-label">Gross Profit Margin</span><span class="info-value" style="color: ${(features.gross_profit_margin || 0.25) >= 0.2 ? '#10b981' : (features.gross_profit_margin || 0.25) >= 0.1 ? '#f59e0b' : '#ef4444'};">${((features.gross_profit_margin || 0.25) * 100).toFixed(1)}%</span></div>
+          <div class="info-row"><span class="info-label">Net Profit Margin</span><span class="info-value" style="color: ${(features.profit_margin || 0) >= 0.1 ? '#10b981' : (features.profit_margin || 0) >= 0.05 ? '#f59e0b' : '#ef4444'};">${((features.profit_margin || 0) * 100).toFixed(1)}%</span></div>
           <div class="info-row"><span class="info-label">MoM Growth</span><span class="info-value" style="color: ${(features.revenue_growth_rate_mom || 0) >= 0 ? '#10b981' : '#ef4444'};">${((features.revenue_growth_rate_mom || 0) * 100).toFixed(1)}%</span></div>
           <div class="info-row"><span class="info-label">QoQ Growth</span><span class="info-value" style="color: ${(features.revenue_growth_rate_qoq || 0) >= 0 ? '#10b981' : '#ef4444'};">${((features.revenue_growth_rate_qoq || 0) * 100).toFixed(1)}%</span></div>
           <div class="info-row"><span class="info-label">Daily Transactions</span><span class="info-value">${features.transaction_count_daily || 0}</span></div>
-          <div class="info-row"><span class="info-label">Inventory Turnover</span><span class="info-value">${(features.inventory_turnover_ratio || 0).toFixed(1)}x</span></div>
+          // <div class="info-row"><span class="info-label">Inventory Turnover</span><span class="info-value">${(features.inventory_turnover_ratio || 0).toFixed(1)}x</span></div>
         </div>
 
         <!-- Cashflow & Banking -->
@@ -250,8 +252,15 @@ export function generateMSMEPDFContent(msme: any): string {
         <div class="section">
           <div class="section-title">E. Compliance & Taxation</div>
           <div class="info-row"><span class="info-label">GST Filing Regularity</span><span class="info-value" style="color: ${(features.gst_filing_regularity || 0) >= 0.9 ? '#10b981' : '#ef4444'};">${((features.gst_filing_regularity || 0) * 100).toFixed(0)}%</span></div>
+          <div class="info-row"><span class="info-label">GST Filing On-Time Ratio</span><span class="info-value">${((features.gst_filing_ontime_ratio || 0) * 100).toFixed(0)}%</span></div>
           <div class="info-row"><span class="info-label">ITR Filed</span><span class="info-value" style="color: ${features.itr_filed ? '#10b981' : '#ef4444'};">${features.itr_filed ? '✓ Yes' : '✗ No'}</span></div>
-          <div class="info-row"><span class="info-label">Tax Compliance Score</span><span class="info-value">${((features.tax_compliance_score || 0) * 100).toFixed(0)}%</span></div>
+          ${features.itr_income_declared > 0 ? `<div class="info-row"><span class="info-label">ITR Income Declared</span><span class="info-value">${formatCurrency(features.itr_income_declared || 0)}</span></div>` : ''}
+          <div class="info-row"><span class="info-label">Outstanding Taxes</span><span class="info-value" style="color: ${(features.outstanding_taxes_amount || 0) > 0 ? '#ef4444' : '#10b981'};">${formatCurrency(features.outstanding_taxes_amount || 0)}</span></div>
+          <div class="info-row"><span class="info-label">Tax Payment Regularity</span><span class="info-value">${((features.tax_payment_regularity || 0) * 100).toFixed(0)}%</span></div>
+          <div class="info-row"><span class="info-label">Tax Payment On-Time Ratio</span><span class="info-value">${((features.tax_payment_ontime_ratio || 0) * 100).toFixed(0)}%</span></div>
+          <div class="info-row"><span class="info-label">GST vs Platform Sales Mismatch</span><span class="info-value" style="color: ${(features.gst_vs_platform_sales_mismatch || 0) > 0.1 ? '#ef4444' : '#10b981'};">${((features.gst_vs_platform_sales_mismatch || 0) * 100).toFixed(1)}%</span></div>
+          <div class="info-row"><span class="info-label">GST R1 vs ITR Mismatch</span><span class="info-value" style="color: ${(features.gst_r1_vs_itr_mismatch || 0) > 0.1 ? '#ef4444' : '#10b981'};">${((features.gst_r1_vs_itr_mismatch || 0) * 100).toFixed(1)}%</span></div>
+          <div class="info-row"><span class="info-label">Refund/Chargeback Rate</span><span class="info-value">${((features.refund_chargeback_rate || 0) * 100).toFixed(1)}%</span></div>
           <div class="info-row"><span class="info-label">Legal Proceedings</span><span class="info-value" style="color: ${features.legal_proceedings_flag ? '#ef4444' : '#10b981'};">${features.legal_proceedings_flag ? '⚠ Yes' : 'None'}</span></div>
         </div>
 
@@ -271,7 +280,6 @@ export function generateMSMEPDFContent(msme: any): string {
           <div class="section-title">G. External Signals</div>
           <div class="info-row"><span class="info-label">Google Reviews</span><span class="info-value">${(features.google_reviews_rating || 0).toFixed(1)}⭐ (${features.google_reviews_count || 0})</span></div>
           <div class="info-row"><span class="info-label">Social Media Presence</span><span class="info-value">${((features.social_media_presence_score || 0) * 100).toFixed(0)}%</span></div>
-          <div class="info-row"><span class="info-label">Website Quality</span><span class="info-value">${((features.website_quality_score || 0) * 100).toFixed(0)}%</span></div>
           <div class="info-row"><span class="info-label">Business Listing</span><span class="info-value" style="color: ${features.business_listing_verified ? '#10b981' : '#6b7280'};">${features.business_listing_verified ? 'Verified' : 'Not Verified'}</span></div>
         </div>
 

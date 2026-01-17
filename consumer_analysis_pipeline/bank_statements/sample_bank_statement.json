@@ -1,0 +1,360 @@
+{
+  "transactions": [
+    {
+      "date": "2024-01-04",
+      "description": "UPIAR/445993887289/DR/VIJAYSHA/YESB/paytmqr2810050",
+      "debit": 23.0,
+      "credit": 0.0,
+      "balance": 13413.94
+    },
+    {
+      "date": "2024-01-05",
+      "description": "UPI-RAJUL HIREN MARU-RAJULMARU18@OKICICI-BARB0DAHEAS-448833410165-TAX FEES",
+      "debit": 0.0,
+      "credit": 10000.0,
+      "balance": 14540.87
+    },
+    {
+      "date": "2024-01-05",
+      "description": "UPI-DHRUVIL PHARMA-NISHIL2002@OKAXIS-UBIN0558231-412282695745-NAMAN BALANCE CLEA",
+      "debit": 3170.0,
+      "credit": 0.0,
+      "balance": 11370.87
+    },
+    {
+      "date": "2024-01-05",
+      "description": "UPI-DHRUVIL PHARMA-NISHIL2002@OKAXIS-UBIN0558231-412282701747-KRISH EXAM FEES",
+      "debit": 10000.0,
+      "credit": 0.0,
+      "balance": 1370.87
+    },
+    {
+      "date": "2024-01-05",
+      "description": "UPI-NISHIL RAJEN PAREKH-NISHILPAREKH29-1@OKAXIS-UBIN0904309-412227888719-UPI",
+      "debit": 0.0,
+      "credit": 77.0,
+      "balance": 1447.87
+    },
+    {
+      "date": "2024-01-05",
+      "description": "UPI-KAILASSH RAGHUNATH M-KESHAVM2007@OKSBI-KKBK0001410-412284695518-UPI",
+      "debit": 700.0,
+      "credit": 0.0,
+      "balance": 747.87
+    },
+    {
+      "date": "2024-01-05",
+      "description": "UPI-ASHOK DRY FRUIT AND -PAY8850767052@PAYTM-YESB0PTMUPI-448872905534-OID202405011310520",
+      "debit": 10.0,
+      "credit": 0.0,
+      "balance": 737.87
+    },
+    {
+      "date": "2024-01-05",
+      "description": "UPI-MOHAMMED LQBAL-PAYTMQRWRRX62XE93@PAYTM-YESB0PTMUPI-412203863257-UPI",
+      "debit": 70.0,
+      "credit": 0.0,
+      "balance": 667.87
+    },
+    {
+      "date": "2024-01-05",
+      "description": "UPI-ASHOK DRY FRUIT AND -PAY8850767052@PAYTM-YESB0PTMUPI-448849151823-OID202405012010300",
+      "debit": 5.0,
+      "credit": 0.0,
+      "balance": 662.87
+    },
+    {
+      "date": "2024-01-05",
+      "description": "UPI-SHREE RAM MEDICAL AN-PAYTMQR1U3CFEXAL2@PAYTM-YESB0PTMUPI-412204328670-UPI",
+      "debit": 60.0,
+      "credit": 0.0,
+      "balance": 602.87
+    },
+    {
+      "date": "2024-01-05",
+      "description": "UPI-HAIR AFFAIR-PAYTMQR2810050501012GH2DBRM2X6V@PAYTM-YESB0PTMUPI-412207113940-UPI",
+      "debit": 400.0,
+      "credit": 0.0,
+      "balance": 202.87
+    },
+    {
+      "date": "2024-01-05",
+      "description": "UPIAR/412227888719/DR/NISHIL R/HDFC/nishilparekh29",
+      "debit": 77.0,
+      "credit": 0.0,
+      "balance": 15000.37
+    },
+    {
+      "date": "2024-01-06",
+      "description": "UPI-ASHOK DRY FRUIT AND -PAYTMQR2810050501013WJIQCTYXORM@PAYTM-YESB0PTMUPI-415309196213-UPI",
+      "debit": 20.0,
+      "credit": 0.0,
+      "balance": 96.42
+    },
+    {
+      "date": "2024-01-06",
+      "description": "UPI-SANKET SACHIN SHAHI-SANKETSHAHI4444@OKSBI-BARB0ASHOKV-415309202600-UPI",
+      "debit": 50.0,
+      "credit": 0.0,
+      "balance": 46.42
+    },
+    {
+      "date": "2024-01-06",
+      "description": "UPI-DHRUVIL PHARMA-NISHIL2002@OKAXIS-UBIN0558231-415384891853-AC",
+      "debit": 0.0,
+      "credit": 1500.0,
+      "balance": 1546.42
+    },
+    {
+      "date": "2024-01-06",
+      "description": "UPIAR/451989197732/DRMd/. Soh/AIRP/deadxcola@oksb",
+      "debit": 2500.0,
+      "credit": 0.0,
+      "balance": 3950.37
+    },
+    {
+      "date": "2024-01-07",
+      "description": "INTEREST PAID TILL 30-JUN-2024",
+      "debit": 0.0,
+      "credit": 28.0,
+      "balance": 36.42
+    },
+    {
+      "date": "2024-01-07",
+      "description": "NEFT CR-KKBK0000958-ZELL EDUCATION PRIVATE LIMITED-NISHIL RAJEN PAREKH-CMS1832430966429",
+      "debit": 0.0,
+      "credit": 41050.0,
+      "balance": 41086.42
+    },
+    {
+      "date": "2024-01-07",
+      "description": "UPI-NAMAN LATESH JOSHI-NAMANJOSHI2713@OKICICI-UBIN0531685-418332829149-SIMON GO BACK",
+      "debit": 1374.0,
+      "credit": 0.0,
+      "balance": 39712.42
+    },
+    {
+      "date": "2024-01-07",
+      "description": "UPI-KAILASSH RAGHUNATH M-KESHAVM2007@OKSBI-KKBK0001410-418333157977-5 VIDEOS PENDING P",
+      "debit": 2300.0,
+      "credit": 0.0,
+      "balance": 37412.42
+    },
+    {
+      "date": "2024-01-07",
+      "description": "UPI-NISHIL RAJEN PAREKH-NISHILPAREKH29@OKHDFCBANK-UBIN0904309-418333295126-UPI",
+      "debit": 24525.0,
+      "credit": 0.0,
+      "balance": 12887.42
+    },
+    {
+      "date": "2024-01-07",
+      "description": "NWD-526099XXXXXX7210-MUOP3130-MUMBAI",
+      "debit": 1000.0,
+      "credit": 0.0,
+      "balance": 11887.42
+    },
+    {
+      "date": "2024-01-07",
+      "description": "UPI-NISHIL RAJEN PAREKH-NISHILPAREKH29@OKHDFCBANK-UBIN0904309-418335784626-UPI",
+      "debit": 3000.0,
+      "credit": 0.0,
+      "balance": 8887.42
+    },
+    {
+      "date": "2024-01-07",
+      "description": "UPI-NISHIL RAJEN PAREKH-NISHILPAREKH29@OKHDFCBANK-UBIN0904309-418335783231-UPI",
+      "debit": 500.0,
+      "credit": 0.0,
+      "balance": 8387.42
+    },
+    {
+      "date": "2024-01-07",
+      "description": "UPI-ROYAL DRYFRUIT-PAYTMQR281005050101R182C50GYESQ@PAYTM-YESB0PTMUPI-418337871795-UPI",
+      "debit": 20.0,
+      "credit": 0.0,
+      "balance": 8367.42
+    },
+    {
+      "date": "2024-01-07",
+      "description": "UPI-NEW PATEL MEDICO-PAYTMQR1JJZHJZ7JI@PAYTM-YESB0PTMUPI-418337946115-UPI",
+      "debit": 50.0,
+      "credit": 0.0,
+      "balance": 8317.42
+    },
+    {
+      "date": "2024-01-07",
+      "description": "UPIAB/418333295126/CR/NISHIL R/HDFC/nishilparekh29",
+      "debit": 0.0,
+      "credit": 24525.0,
+      "balance": 36500.9
+    },
+    {
+      "date": "2024-01-07",
+      "description": "UPIAB/418335784626/CR/NISHIL R/HDFC/nishilparekh29",
+      "debit": 0.0,
+      "credit": 3000.0,
+      "balance": 39500.9
+    },
+    {
+      "date": "2024-01-07",
+      "description": "UPIAB/418335783231/CR/NISHIL R/HDFC/nishilparekh29",
+      "debit": 0.0,
+      "credit": 500.0,
+      "balance": 40000.9
+    },
+    {
+      "date": "2024-01-07",
+      "description": "UPIAR/418486819855/DR/dhruvilp/UBIN/dhruvilparekh9",
+      "debit": 21500.0,
+      "credit": 0.0,
+      "balance": 18500.9
+    },
+    {
+      "date": "2024-01-08",
+      "description": "NEFT CR-KKBK0000958-ZELL EDUCATION PRIVATE LIMITED-NISHIL RAJEN PAREKH-CMS2142439020231",
+      "debit": 0.0,
+      "credit": 41075.0,
+      "balance": 41079.33
+    },
+    {
+      "date": "2024-01-08",
+      "description": "UPI-NISHIL RAJEN PAREKH-NISHILPAREKH29@OKHDFCBANK-UBIN0904309-421498894859-UPI",
+      "debit": 22547.0,
+      "credit": 0.0,
+      "balance": 18532.33
+    },
+    {
+      "date": "2024-01-08",
+      "description": "UPI-NISHIL RAJEN PAREKH-NISHILPAREKH29@OKHDFCBANK-UBIN0904309-421499056127-UPI",
+      "debit": 5000.0,
+      "credit": 0.0,
+      "balance": 13532.33
+    },
+    {
+      "date": "2024-01-08",
+      "description": "UPI-DHRUVIL RAJEN PAREKH-DHRUVILPAREKH98-2@OKICICI-UBIN0904309-421499091576-PROTEIN",
+      "debit": 1400.0,
+      "credit": 0.0,
+      "balance": 12132.33
+    },
+    {
+      "date": "2024-01-08",
+      "description": "UPI-LIFE LINE MEDICAL CH-62513524@IDFCBANK-IDFB0040101-421499509883-UPI",
+      "debit": 10.0,
+      "credit": 0.0,
+      "balance": 12122.33
+    },
+    {
+      "date": "2024-01-08",
+      "description": "UPI-JYOTI JITENDRA GUPTA-PAYTMQRHYINETJ3OZ@PAYTM-YESB0PTMUPI-421405972695-UPI",
+      "debit": 24.0,
+      "credit": 0.0,
+      "balance": 12098.33
+    },
+    {
+      "date": "2024-01-08",
+      "description": "UPIAR/458027894000/DR/PRAVIN D/YESB/q372455560@yb",
+      "debit": 10.0,
+      "credit": 0.0,
+      "balance": 2573.8
+    },
+    {
+      "date": "2024-01-08",
+      "description": "UPIAR/458055997023/DR/sbipmopa/SBIP/sbipmopad.0220",
+      "debit": 100.0,
+      "credit": 0.0,
+      "balance": 2473.8
+    },
+    {
+      "date": "2024-01-08",
+      "description": "UPIAR/421487008262/DR/Rehana A/YESB/paytmqr580g19@",
+      "debit": 20.0,
+      "credit": 0.0,
+      "balance": 2453.8
+    },
+    {
+      "date": "2024-01-08",
+      "description": "UPIAB/421498894859/CR/NISHIL R/HDFC/nishilparekh29",
+      "debit": 0.0,
+      "credit": 22547.0,
+      "balance": 25000.8
+    },
+    {
+      "date": "2024-01-08",
+      "description": "UPIAB/421499056127/CR/NISHIL R/HDFC/nishilparekh29",
+      "debit": 0.0,
+      "credit": 5000.0,
+      "balance": 30000.8
+    },
+    {
+      "date": "2024-01-09",
+      "description": "UPIAR/461187377444/DR/MOHAMMAD/YESB/q069295808@yb",
+      "debit": 50.0,
+      "credit": 0.0,
+      "balance": 11315.71
+    },
+    {
+      "date": "2024-01-09",
+      "description": "UPIAR/461145991468/DR/KARAN UM/UBIN/kp989190@okaxi",
+      "debit": 501.0,
+      "credit": 0.0,
+      "balance": 10814.71
+    },
+    {
+      "date": "2024-01-09",
+      "description": "UPIAR/424588309363/DR/IRCTC_AP/YESB/paytm-76208552",
+      "debit": 584.0,
+      "credit": 0.0,
+      "balance": 10230.66
+    },
+    {
+      "date": "2024-01-09",
+      "description": "UPIAR/424588509594/DR/IRCTC_AP/YESB/paytm-76208552",
+      "debit": 704.0,
+      "credit": 0.0,
+      "balance": 9526.61
+    },
+    {
+      "date": "2024-01-10",
+      "description": "INTEREST PAID TILL 30-SEP-2024",
+      "debit": 0.0,
+      "credit": 27.0,
+      "balance": 237.88
+    },
+    {
+      "date": "2024-01-10",
+      "description": "UPI-ANDAWALA-Q599920427@YBL-YESB0YBLUPI-427523007513-UPI",
+      "debit": 72.0,
+      "credit": 0.0,
+      "balance": 165.88
+    },
+    {
+      "date": "2024-01-10",
+      "description": "UPI-MOBIKWIKMERCHANT-OMBK.AADY778905X50WSIKQ5@MBK-PPIW0881822-427523406672-UPI",
+      "debit": 160.0,
+      "credit": 0.0,
+      "balance": 5.88
+    },
+    {
+      "date": "2024-01-10",
+      "description": "UPI-DHRUVIL RAJEN PAREKH-DHRUVILPAREKH98@OKHDFCBANK-HDFC0000443-427548181008-UPI",
+      "debit": 0.0,
+      "credit": 3400.0,
+      "balance": 3405.88
+    },
+    {
+      "date": "2024-01-10",
+      "description": "UPI-RAJIV SANTOSH MAURYA-RAJIVMAURYA0405@OKHDFCBANK-KKBK0001485-427555546147-UPI",
+      "debit": 3400.0,
+      "credit": 0.0,
+      "balance": 5.88
+    }
+  ],
+  "account_info": {
+    "account_number": "50100548903109",
+    "bank_name": "HDFC Bank",
+    "ifsc": "HDFC0000000",
+    "holder_name": "Nishil"
+  }
+}

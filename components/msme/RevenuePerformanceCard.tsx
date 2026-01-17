@@ -47,6 +47,22 @@ export default function RevenuePerformanceCard({ msme }: RevenuePerformanceCardP
         </div>
       </div>
 
+      {/* Profit Margins */}
+      <div className="grid grid-cols-2 gap-4 mb-6">
+        <div className="bg-gradient-to-br from-emerald-50 to-teal-50 rounded-xl p-4 border border-emerald-200">
+          <p className="text-xs font-semibold text-emerald-900 uppercase">Gross Profit Margin</p>
+          <p className={`text-2xl font-bold mt-1 ${(features.gross_profit_margin || revenue.gross_profit_margin || 0.25) >= 0.2 ? 'text-emerald-600' : (features.gross_profit_margin || revenue.gross_profit_margin || 0.25) >= 0.1 ? 'text-yellow-600' : 'text-red-600'}`}>
+            {formatPercent(features.gross_profit_margin || revenue.gross_profit_margin || 0.25)}
+          </p>
+        </div>
+        <div className="bg-gradient-to-br from-cyan-50 to-blue-50 rounded-xl p-4 border border-cyan-200">
+          <p className="text-xs font-semibold text-cyan-900 uppercase">Net Profit Margin</p>
+          <p className={`text-2xl font-bold mt-1 ${profitMargin >= 0.1 ? 'text-cyan-600' : profitMargin >= 0.05 ? 'text-yellow-600' : 'text-red-600'}`}>
+            {formatPercent(profitMargin)}
+          </p>
+        </div>
+      </div>
+
       {/* Cash In Hand */}
       <div className="grid grid-cols-2 gap-4 mb-6">
         <div className="bg-gradient-to-br from-purple-50 to-pink-50 rounded-xl p-4">

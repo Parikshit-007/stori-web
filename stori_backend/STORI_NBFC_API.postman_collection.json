@@ -1,0 +1,816 @@
+{
+	"info": {
+		"_postman_id": "stori-nbfc-api-2026",
+		"name": "STORI NBFC - Complete API Collection",
+		"description": "Complete API collection for STORI NBFC Backend with permanent API key authentication.\n\nAPI Key: stori_6CFocXsPyo4tJDxq8MkVE6Iy-aii0_7eN59VJvUlfmU\n\nAll endpoints are pre-configured with the API key in headers.",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "1. ITR Analysis",
+			"item": [
+				{
+					"name": "Upload ITR",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "X-API-Key",
+								"value": "stori_6CFocXsPyo4tJDxq8MkVE6Iy-aii0_7eN59VJvUlfmU",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "file",
+									"type": "file",
+									"src": []
+								},
+								{
+									"key": "file_type",
+									"value": "json",
+									"type": "text"
+								},
+								{
+									"key": "assessment_year",
+									"value": "2024-25",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "http://localhost:8000/api/customer/itr/",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8000",
+							"path": [
+								"api",
+								"customer",
+								"itr",
+								""
+							]
+						},
+						"description": "Upload ITR JSON file for analysis"
+					},
+					"response": []
+				},
+				{
+					"name": "Get All ITR Uploads",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "X-API-Key",
+								"value": "stori_6CFocXsPyo4tJDxq8MkVE6Iy-aii0_7eN59VJvUlfmU",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "http://localhost:8000/api/customer/itr/",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8000",
+							"path": [
+								"api",
+								"customer",
+								"itr",
+								""
+							]
+						},
+						"description": "Get list of all ITR uploads"
+					},
+					"response": []
+				},
+				{
+					"name": "Analyze ITR",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "X-API-Key",
+								"value": "stori_6CFocXsPyo4tJDxq8MkVE6Iy-aii0_7eN59VJvUlfmU",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "http://localhost:8000/api/customer/itr/1/analyze/",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8000",
+							"path": [
+								"api",
+								"customer",
+								"itr",
+								"1",
+								"analyze",
+								""
+							]
+						},
+						"description": "Analyze uploaded ITR file (replace 1 with actual ID)"
+					},
+					"response": []
+				},
+				{
+					"name": "Get ITR Analysis Result",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "X-API-Key",
+								"value": "stori_6CFocXsPyo4tJDxq8MkVE6Iy-aii0_7eN59VJvUlfmU",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "http://localhost:8000/api/customer/itr/1/result/",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8000",
+							"path": [
+								"api",
+								"customer",
+								"itr",
+								"1",
+								"result",
+								""
+							]
+						},
+						"description": "Get analysis result for specific ITR (replace 1 with actual ID)"
+					},
+					"response": []
+				},
+				{
+					"name": "Get All ITR Results",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "X-API-Key",
+								"value": "stori_6CFocXsPyo4tJDxq8MkVE6Iy-aii0_7eN59VJvUlfmU",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "http://localhost:8000/api/customer/itr/all_results/",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8000",
+							"path": [
+								"api",
+								"customer",
+								"itr",
+								"all_results",
+								""
+							]
+						},
+						"description": "Get all ITR analysis results"
+					},
+					"response": []
+				}
+			],
+			"description": "ITR (Income Tax Return) Analysis APIs"
+		},
+		{
+			"name": "2. Bank Statement Analysis",
+			"item": [
+				{
+					"name": "Upload Bank Statement",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "X-API-Key",
+								"value": "stori_6CFocXsPyo4tJDxq8MkVE6Iy-aii0_7eN59VJvUlfmU",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "file",
+									"type": "file",
+									"src": []
+								},
+								{
+									"key": "file_type",
+									"value": "xlsx",
+									"type": "text"
+								},
+								{
+									"key": "bank_name",
+									"value": "HDFC Bank",
+									"type": "text"
+								},
+								{
+									"key": "account_number",
+									"value": "1234567890",
+									"type": "text"
+								},
+								{
+									"key": "statement_period",
+									"value": "Jan 2024 - Dec 2024",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "http://localhost:8000/api/customer/bank-statement/",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8000",
+							"path": [
+								"api",
+								"customer",
+								"bank-statement",
+								""
+							]
+						},
+						"description": "Upload bank statement (Excel/PDF)"
+					},
+					"response": []
+				},
+				{
+					"name": "Get All Bank Statements",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "X-API-Key",
+								"value": "stori_6CFocXsPyo4tJDxq8MkVE6Iy-aii0_7eN59VJvUlfmU",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "http://localhost:8000/api/customer/bank-statement/",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8000",
+							"path": [
+								"api",
+								"customer",
+								"bank-statement",
+								""
+							]
+						},
+						"description": "Get list of all bank statement uploads"
+					},
+					"response": []
+				},
+				{
+					"name": "Analyze Bank Statement",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "X-API-Key",
+								"value": "stori_6CFocXsPyo4tJDxq8MkVE6Iy-aii0_7eN59VJvUlfmU",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "http://localhost:8000/api/customer/bank-statement/1/analyze/",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8000",
+							"path": [
+								"api",
+								"customer",
+								"bank-statement",
+								"1",
+								"analyze",
+								""
+							]
+						},
+						"description": "Analyze uploaded bank statement (replace 1 with actual ID)"
+					},
+					"response": []
+				},
+				{
+					"name": "Get Bank Statement Result",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "X-API-Key",
+								"value": "stori_6CFocXsPyo4tJDxq8MkVE6Iy-aii0_7eN59VJvUlfmU",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "http://localhost:8000/api/customer/bank-statement/1/result/",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8000",
+							"path": [
+								"api",
+								"customer",
+								"bank-statement",
+								"1",
+								"result",
+								""
+							]
+						},
+						"description": "Get analysis result (replace 1 with actual ID)"
+					},
+					"response": []
+				},
+				{
+					"name": "Get All Bank Statement Results",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "X-API-Key",
+								"value": "stori_6CFocXsPyo4tJDxq8MkVE6Iy-aii0_7eN59VJvUlfmU",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "http://localhost:8000/api/customer/bank-statement/all_results/",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8000",
+							"path": [
+								"api",
+								"customer",
+								"bank-statement",
+								"all_results",
+								""
+							]
+						},
+						"description": "Get all bank statement analysis results"
+					},
+					"response": []
+				}
+			],
+			"description": "Bank Statement Analysis APIs"
+		},
+		{
+			"name": "3. Credit Report Analysis",
+			"item": [
+				{
+					"name": "Upload Credit Report",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "X-API-Key",
+								"value": "stori_6CFocXsPyo4tJDxq8MkVE6Iy-aii0_7eN59VJvUlfmU",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "file",
+									"type": "file",
+									"src": []
+								},
+								{
+									"key": "file_type",
+									"value": "json",
+									"type": "text"
+								},
+								{
+									"key": "bureau_name",
+									"value": "cibil",
+									"type": "text",
+									"description": "cibil, experian, equifax, or crif"
+								},
+								{
+									"key": "report_date",
+									"value": "2024-01-15",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "http://localhost:8000/api/customer/credit-report/",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8000",
+							"path": [
+								"api",
+								"customer",
+								"credit-report",
+								""
+							]
+						},
+						"description": "Upload credit report (PDF/JSON)"
+					},
+					"response": []
+				},
+				{
+					"name": "Get All Credit Reports",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "X-API-Key",
+								"value": "stori_6CFocXsPyo4tJDxq8MkVE6Iy-aii0_7eN59VJvUlfmU",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "http://localhost:8000/api/customer/credit-report/",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8000",
+							"path": [
+								"api",
+								"customer",
+								"credit-report",
+								""
+							]
+						},
+						"description": "Get list of all credit report uploads"
+					},
+					"response": []
+				},
+				{
+					"name": "Analyze Credit Report",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "X-API-Key",
+								"value": "stori_6CFocXsPyo4tJDxq8MkVE6Iy-aii0_7eN59VJvUlfmU",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "http://localhost:8000/api/customer/credit-report/1/analyze/",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8000",
+							"path": [
+								"api",
+								"customer",
+								"credit-report",
+								"1",
+								"analyze",
+								""
+							]
+						},
+						"description": "Analyze uploaded credit report (replace 1 with actual ID)"
+					},
+					"response": []
+				},
+				{
+					"name": "Get Credit Report Result",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "X-API-Key",
+								"value": "stori_6CFocXsPyo4tJDxq8MkVE6Iy-aii0_7eN59VJvUlfmU",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "http://localhost:8000/api/customer/credit-report/1/result/",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8000",
+							"path": [
+								"api",
+								"customer",
+								"credit-report",
+								"1",
+								"result",
+								""
+							]
+						},
+						"description": "Get analysis result (replace 1 with actual ID)"
+					},
+					"response": []
+				},
+				{
+					"name": "Get All Credit Report Results",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "X-API-Key",
+								"value": "stori_6CFocXsPyo4tJDxq8MkVE6Iy-aii0_7eN59VJvUlfmU",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "http://localhost:8000/api/customer/credit-report/all_results/",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8000",
+							"path": [
+								"api",
+								"customer",
+								"credit-report",
+								"all_results",
+								""
+							]
+						},
+						"description": "Get all credit report analysis results"
+					},
+					"response": []
+				}
+			],
+			"description": "Credit Report Analysis APIs"
+		},
+		{
+			"name": "4. OCR & Face Matching",
+			"item": [
+				{
+					"name": "Upload Document",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "X-API-Key",
+								"value": "stori_6CFocXsPyo4tJDxq8MkVE6Iy-aii0_7eN59VJvUlfmU",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "file",
+									"type": "file",
+									"src": []
+								},
+								{
+									"key": "document_type",
+									"value": "aadhaar",
+									"type": "text",
+									"description": "aadhaar, pan, voter_id, passport, user_photo, etc."
+								}
+							]
+						},
+						"url": {
+							"raw": "http://localhost:8000/api/customer/ocr/documents/",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8000",
+							"path": [
+								"api",
+								"customer",
+								"ocr",
+								"documents",
+								""
+							]
+						},
+						"description": "Upload document image (Aadhaar, PAN, Voter ID, etc.)"
+					},
+					"response": []
+				},
+				{
+					"name": "Get All Documents",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "X-API-Key",
+								"value": "stori_6CFocXsPyo4tJDxq8MkVE6Iy-aii0_7eN59VJvUlfmU",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "http://localhost:8000/api/customer/ocr/documents/",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8000",
+							"path": [
+								"api",
+								"customer",
+								"ocr",
+								"documents",
+								""
+							]
+						},
+						"description": "Get list of all uploaded documents"
+					},
+					"response": []
+				},
+				{
+					"name": "Quick Face Verification",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "X-API-Key",
+								"value": "stori_6CFocXsPyo4tJDxq8MkVE6Iy-aii0_7eN59VJvUlfmU",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "user_photo",
+									"type": "file",
+									"src": [],
+									"description": "User's selfie/photo (Required)"
+								},
+								{
+									"key": "aadhaar_photo",
+									"type": "file",
+									"src": [],
+									"description": "Aadhaar photo (Optional)"
+								},
+								{
+									"key": "pan_photo",
+									"type": "file",
+									"src": [],
+									"description": "PAN photo (Optional)"
+								},
+								{
+									"key": "voter_id_photo",
+									"type": "file",
+									"src": [],
+									"description": "Voter ID photo (Optional)"
+								}
+							]
+						},
+						"url": {
+							"raw": "http://localhost:8000/api/customer/ocr/face-match/quick_verify/",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8000",
+							"path": [
+								"api",
+								"customer",
+								"ocr",
+								"face-match",
+								"quick_verify",
+								""
+							]
+						},
+						"description": "Quick face verification - upload and verify in one step"
+					},
+					"response": []
+				},
+				{
+					"name": "Create Face Match Request",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "X-API-Key",
+								"value": "stori_6CFocXsPyo4tJDxq8MkVE6Iy-aii0_7eN59VJvUlfmU",
+								"type": "text"
+							},
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"user_photo\": 1,\n    \"aadhaar_photo\": 2,\n    \"pan_photo\": 3,\n    \"voter_id_photo\": 4\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8000/api/customer/ocr/face-match/",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8000",
+							"path": [
+								"api",
+								"customer",
+								"ocr",
+								"face-match",
+								""
+							]
+						},
+						"description": "Create face match request with document IDs"
+					},
+					"response": []
+				},
+				{
+					"name": "Verify Face Match",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "X-API-Key",
+								"value": "stori_6CFocXsPyo4tJDxq8MkVE6Iy-aii0_7eN59VJvUlfmU",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "http://localhost:8000/api/customer/ocr/face-match/1/verify/",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8000",
+							"path": [
+								"api",
+								"customer",
+								"ocr",
+								"face-match",
+								"1",
+								"verify",
+								""
+							]
+						},
+						"description": "Verify face match request (replace 1 with actual ID)"
+					},
+					"response": []
+				},
+				{
+					"name": "Get Face Match Result",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "X-API-Key",
+								"value": "stori_6CFocXsPyo4tJDxq8MkVE6Iy-aii0_7eN59VJvUlfmU",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "http://localhost:8000/api/customer/ocr/face-match/1/result/",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8000",
+							"path": [
+								"api",
+								"customer",
+								"ocr",
+								"face-match",
+								"1",
+								"result",
+								""
+							]
+						},
+						"description": "Get face match result (replace 1 with actual ID)"
+					},
+					"response": []
+				}
+			],
+			"description": "OCR and Face Matching APIs"
+		}
+	],
+	"variable": [
+		{
+			"key": "baseUrl",
+			"value": "http://localhost:8000/api",
+			"type": "string"
+		},
+		{
+			"key": "apiKey",
+			"value": "stori_6CFocXsPyo4tJDxq8MkVE6Iy-aii0_7eN59VJvUlfmU",
+			"type": "string"
+		}
+	]
+}

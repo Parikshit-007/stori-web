@@ -1,0 +1,110 @@
+╔═══════════════════════════════════════════════════════════════════════╗
+║                                                                       ║
+║                    ✅ YOUR API IS READY! ✅                           ║
+║                                                                       ║
+╚═══════════════════════════════════════════════════════════════════════╝
+
+
+🔑 YOUR PERMANENT API KEY
+==========================
+
+API Key: stori_6CFocXsPyo4tJDxq8MkVE6Iy-aii0_7eN59VJvUlfmU
+
+Admin User: admin
+Admin Password: admin123
+
+
+📝 HOW TO USE
+=============
+
+Add this header to EVERY API request:
+
+X-API-Key: stori_6CFocXsPyo4tJDxq8MkVE6Iy-aii0_7eN59VJvUlfmU
+
+
+🚀 QUICK TEST
+=============
+
+Run the test script:
+python test_api.py
+
+OR test with curl:
+curl -H "X-API-Key: stori_6CFocXsPyo4tJDxq8MkVE6Iy-aii0_7eN59VJvUlfmU" http://localhost:8000/api/customer/itr/
+
+
+💻 PYTHON EXAMPLE
+==================
+
+import requests
+
+headers = {"X-API-Key": "stori_6CFocXsPyo4tJDxq8MkVE6Iy-aii0_7eN59VJvUlfmU"}
+
+# Upload ITR
+files = {'file': open('itr.json', 'rb')}
+data = {'file_type': 'json', 'assessment_year': '2024-25'}
+
+response = requests.post(
+    'http://localhost:8000/api/customer/itr/',
+    headers=headers,
+    files=files,
+    data=data
+)
+
+print(response.json())
+
+
+📡 ALL ENDPOINTS
+================
+
+ITR Analysis:
+POST   http://localhost:8000/api/customer/itr/
+POST   http://localhost:8000/api/customer/itr/{id}/analyze/
+GET    http://localhost:8000/api/customer/itr/{id}/result/
+
+Bank Statement:
+POST   http://localhost:8000/api/customer/bank-statement/
+POST   http://localhost:8000/api/customer/bank-statement/{id}/analyze/
+GET    http://localhost:8000/api/customer/bank-statement/{id}/result/
+
+Credit Report:
+POST   http://localhost:8000/api/customer/credit-report/
+POST   http://localhost:8000/api/customer/credit-report/{id}/analyze/
+GET    http://localhost:8000/api/customer/credit-report/{id}/result/
+
+OCR & Face Matching:
+POST   http://localhost:8000/api/customer/ocr/documents/
+POST   http://localhost:8000/api/customer/ocr/face-match/quick_verify/
+
+
+⚙️ SERVER STATUS
+================
+
+✅ Server is running on: http://localhost:8000
+✅ Admin panel: http://localhost:8000/admin
+✅ Database: SQLite (db.sqlite3)
+
+
+📚 IMPORTANT FILES
+==================
+
+- test_api.py           → Quick test script
+- YOUR_API_KEY.txt      → This file
+- START_HERE.txt        → Getting started guide
+- AUTHENTICATION_GUIDE.txt  → API key usage details
+- API_DOCUMENTATION.txt → Complete API reference
+
+
+🎉 YOU'RE ALL SET!
+==================
+
+1. Your API key NEVER expires
+2. NO login required
+3. Just add the X-API-Key header
+4. Use on ALL endpoints
+
+Have fun building! 🚀
+
+
+═══════════════════════════════════════════════════════════════════════
+
+

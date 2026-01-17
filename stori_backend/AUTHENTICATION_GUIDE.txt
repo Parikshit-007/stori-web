@@ -1,0 +1,309 @@
+STORI NBFC - Authentication Guide
+==================================
+
+THREE AUTHENTICATION METHODS AVAILABLE:
+========================================
+
+1. API KEY (RECOMMENDED - PERMANENT ACCESS)
+2. CLIENT ID (SESSION-BASED)
+3. KNOX TOKEN (LOGIN-BASED)
+
+
+METHOD 1: API KEY AUTHENTICATION (PERMANENT)
+=============================================
+
+✅ No login required
+✅ Permanent access
+✅ Single key for all endpoints
+✅ Easy to use
+
+SETUP:
+------
+1. Run migrations:
+   python manage.py makemigrations
+   python manage.py migrate
+
+2. Generate API Key:
+   python manage.py generate_api_key admin "Production API Key"
+
+3. You'll receive output like:
+   ======================================================================
+   API KEY GENERATED SUCCESSFULLY
+   ======================================================================
+   
+   User: admin
+   Key Name: Production API Key
+   
+   API Key: stori_xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+   
+   Created: 2026-01-14 19:30:00
+   ======================================================================
+
+4. SAVE THIS KEY! You'll use it for all requests.
+
+USAGE:
+------
+Add header to all API requests:
+X-API-Key: stori_xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+
+Example with curl:
+curl -H "X-API-Key: stori_xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx" \
+     http://localhost:8000/api/customer/itr/
+
+Example with Python:
+import requests
+
+headers = {
+    "X-API-Key": "stori_xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"
+}
+
+# Upload ITR
+files = {'file': open('itr.json', 'rb')}
+data = {'file_type': 'json', 'assessment_year': '2024-25'}
+
+response = requests.post(
+    'http://localhost:8000/api/customer/itr/',
+    headers=headers,
+    files=files,
+    data=data
+)
+
+Example with JavaScript/Fetch:
+const headers = {
+    'X-API-Key': 'stori_xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx'
+};
+
+fetch('http://localhost:8000/api/customer/itr/', {
+    method: 'GET',
+    headers: headers
+})
+.then(response => response.json())
+.then(data => console.log(data));
+
+Example with Postman:
+1. Open Postman
+2. Create new request
+3. Go to Headers tab
+4. Add: Key = "X-API-Key", Value = "stori_xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"
+5. Make request to any endpoint
+
+
+METHOD 2: CLIENT ID AUTHENTICATION
+===================================
+
+✅ Session-based
+✅ Can have expiration
+✅ Multiple sessions per user
+
+SETUP:
+------
+1. Generate Client ID:
+   python manage.py generate_client_id admin
+
+2. You'll receive:
+   ======================================================================
+   CLIENT ID GENERATED SUCCESSFULLY
+   ======================================================================
+   
+   User: admin
+   
+   Client ID: client_xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+   
+   Created: 2026-01-14 19:30:00
+   ======================================================================
+
+USAGE:
+------
+Add header to all API requests:
+X-Client-ID: client_xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+
+Example:
+curl -H "X-Client-ID: client_xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx" \
+     http://localhost:8000/api/customer/itr/
+
+
+METHOD 3: KNOX TOKEN (REQUIRES LOGIN)
+======================================
+
+Traditional login-based authentication
+
+SETUP:
+------
+1. Create user (if not exists):
+   python manage.py createsuperuser
+
+2. Login to get token:
+   POST http://localhost:8000/api/auth/login/
+   Body: {"username": "admin", "password": "your_password"}
+   
+   Response: {"token": "xxxxx"}
+
+USAGE:
+------
+Add header to all API requests:
+Authorization: Token xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+
+
+COMPARISON
+==========
+
+| Method      | Login Required | Permanent | Best For           |
+|-------------|---------------|-----------|-------------------|
+| API Key     | ❌ No          | ✅ Yes     | Production APIs   |
+| Client ID   | ❌ No          | ⚠️ Config  | Sessions          |
+| Knox Token  | ✅ Yes         | ⏰ 10hrs   | User-based access |
+
+
+RECOMMENDED FOR YOU: API KEY
+=============================
+
+Since you want permanent access without login:
+
+STEP 1: Setup
+-------------
+cd stori_backend
+python manage.py makemigrations
+python manage.py migrate
+
+STEP 2: Generate API Key
+-------------------------
+python manage.py generate_api_key admin "My Development Key"
+
+STEP 3: Copy the API Key
+-------------------------
+Copy the key that starts with "stori_"
+
+STEP 4: Use in All Requests
+----------------------------
+Always add this header:
+X-API-Key: <your_api_key>
+
+
+COMPLETE WORKING EXAMPLE
+=========================
+
+Python Script:
+--------------
+import requests
+import json
+
+# Your permanent API key
+API_KEY = "stori_xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"
+BASE_URL = "http://localhost:8000/api"
+
+# Headers for all requests
+headers = {
+    "X-API-Key": API_KEY
+}
+
+# Example 1: Upload ITR
+files = {'file': open('itr.json', 'rb')}
+data = {'file_type': 'json', 'assessment_year': '2024-25'}
+
+response = requests.post(
+    f'{BASE_URL}/customer/itr/',
+    headers=headers,
+    files=files,
+    data=data
+)
+print("Upload:", response.json())
+
+# Example 2: Analyze ITR
+itr_id = response.json()['id']
+response = requests.post(
+    f'{BASE_URL}/customer/itr/{itr_id}/analyze/',
+    headers=headers
+)
+print("Analysis:", response.json())
+
+# Example 3: Get Results
+response = requests.get(
+    f'{BASE_URL}/customer/itr/{itr_id}/result/',
+    headers=headers
+)
+print("Result:", response.json())
+
+# Example 4: Face Matching
+files = {
+    'user_photo': open('user.jpg', 'rb'),
+    'aadhaar_photo': open('aadhaar.jpg', 'rb'),
+    'pan_photo': open('pan.jpg', 'rb')
+}
+
+response = requests.post(
+    f'{BASE_URL}/customer/ocr/face-match/quick_verify/',
+    headers=headers,
+    files=files
+)
+print("Face Match:", response.json())
+
+
+SECURITY NOTES
+==============
+
+1. Keep your API key secure
+2. Don't commit API keys to version control
+3. Use environment variables in production
+4. Rotate keys periodically
+5. Monitor API key usage in admin panel
+
+
+MANAGING API KEYS
+=================
+
+View all keys:
+- Access admin panel: http://localhost:8000/admin
+- Go to "API Keys" section
+- See all keys, usage stats, and activity
+
+Deactivate a key:
+- In admin panel, uncheck "Is active"
+- Key will stop working immediately
+
+Generate new key:
+- Run generate_api_key command again
+- Old keys remain valid unless deactivated
+
+
+TROUBLESHOOTING
+===============
+
+Error: "Invalid API Key"
+- Check you're using correct header name: X-API-Key
+- Verify key is copied correctly (no spaces)
+- Check key is active in admin panel
+
+Error: "User account is disabled"
+- User associated with key is inactive
+- Activate user in admin panel
+
+No error but not working:
+- Make sure you're running the server
+- Check URL is correct
+- Verify authentication classes are in settings.py
+
+
+QUICK REFERENCE
+===============
+
+Generate API Key:
+python manage.py generate_api_key <username> <key_name>
+
+Generate Client ID:
+python manage.py generate_client_id <username>
+
+Use API Key:
+curl -H "X-API-Key: your_key" http://localhost:8000/api/endpoint
+
+Use Client ID:
+curl -H "X-Client-ID: your_client_id" http://localhost:8000/api/endpoint
+
+Use Knox Token:
+curl -H "Authorization: Token your_token" http://localhost:8000/api/endpoint
+
+
+DONE! 🎉
+========
+You now have permanent API access without needing to login!
+
+

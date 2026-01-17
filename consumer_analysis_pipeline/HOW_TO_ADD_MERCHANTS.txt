@@ -1,0 +1,166 @@
+================================================================================
+HOW TO ADD NEW MERCHANT KEYWORDS (For Non-Technical Team)
+================================================================================
+
+FILE TO EDIT: merchant_keywords.json
+
+STEP-BY-STEP GUIDE:
+-------------------
+
+1. Open "merchant_keywords.json" in any text editor (Notepad, VS Code, etc.)
+
+2. Find the category you want to add to (e.g., "ELECTRICITY", "FOOD_DELIVERY")
+
+3. Add your new keyword inside the "keywords" list:
+
+   BEFORE:
+   -------
+   "ELECTRICITY": {
+     "keywords": [
+       "TATA POWER",
+       "ADANI ELECTRICITY"
+     ]
+   }
+
+   AFTER (adding new merchant):
+   ----------------------------
+   "ELECTRICITY": {
+     "keywords": [
+       "TATA POWER",
+       "ADANI ELECTRICITY",
+       "RELIANCE ENERGY"     <-- NEW keyword added here
+     ]
+   }
+
+4. IMPORTANT RULES:
+   ----------------
+   - Keep keywords in UPPERCASE (e.g., "TATA POWER" not "tata power")
+   - Each keyword must be in quotes "like this"
+   - Separate keywords with commas (,)
+   - Last keyword in list should NOT have a comma after it
+   - Keywords are case-insensitive in matching (will match "tata power", "TATA POWER", etc.)
+
+5. COMMON MISTAKES TO AVOID:
+   --------------------------
+   ❌ Missing comma:
+      "TATA POWER"
+      "ADANI POWER"    <-- Missing comma after TATA POWER
+   
+   ✅ Correct:
+      "TATA POWER",
+      "ADANI POWER"
+
+   ❌ Extra comma on last item:
+      "TATA POWER",
+      "ADANI POWER",   <-- Remove this comma
+   ]
+
+   ✅ Correct:
+      "TATA POWER",
+      "ADANI POWER"
+   ]
+
+6. TESTING YOUR CHANGES:
+   ---------------------
+   After adding keywords, run:
+   
+   python validate_merchants.py
+   
+   This will check for:
+   - Missing commas
+   - Duplicate keywords
+   - Invalid JSON format
+
+7. NEED TO ADD A NEW CATEGORY?
+   ---------------------------
+   Contact the tech team to add a new category structure.
+   (Categories: ELECTRICITY, WATER, GAS, TELECOM, FOOD_DELIVERY, etc.)
+
+================================================================================
+
+EXAMPLES:
+---------
+
+Example 1: Adding electricity provider
+---------------------------------------
+Category: ELECTRICITY
+Keyword to add: "CESC KOLKATA"
+
+Find this section:
+  "ELECTRICITY": {
+    "keywords": [
+      "TATA POWER",
+      "ADANI ELECTRICITY"    <-- Add comma here
+    ]
+  }
+
+Change to:
+  "ELECTRICITY": {
+    "keywords": [
+      "TATA POWER",
+      "ADANI ELECTRICITY",
+      "CESC KOLKATA"        <-- New keyword added
+    ]
+  }
+
+
+Example 2: Adding food delivery app
+------------------------------------
+Category: FOOD_DELIVERY
+Keyword to add: "SHADOWFAX"
+
+Find this section:
+  "FOOD_DELIVERY": {
+    "keywords": [
+      "ZOMATO",
+      "SWIGGY"    <-- Add comma here
+    ]
+  }
+
+Change to:
+  "FOOD_DELIVERY": {
+    "keywords": [
+      "ZOMATO",
+      "SWIGGY",
+      "SHADOWFAX"  <-- New keyword added
+    ]
+  }
+
+
+Example 3: Adding multiple keywords at once
+--------------------------------------------
+Category: ECOMMERCE
+Keywords to add: "MEESHO", "SHOPSY", "FLIPKART GROCERY"
+
+Find this section:
+  "ECOMMERCE": {
+    "keywords": [
+      "AMAZON",
+      "FLIPKART"    <-- Add comma here
+    ]
+  }
+
+Change to:
+  "ECOMMERCE": {
+    "keywords": [
+      "AMAZON",
+      "FLIPKART",
+      "MEESHO",
+      "SHOPSY",
+      "FLIPKART GROCERY"    <-- Last one has no comma
+    ]
+  }
+
+================================================================================
+
+NEED HELP?
+----------
+If you see any errors after editing:
+1. Check for missing or extra commas
+2. Make sure all keywords are in "quotes"
+3. Run: python validate_merchants.py
+4. Contact tech team with error message
+
+================================================================================
+
+

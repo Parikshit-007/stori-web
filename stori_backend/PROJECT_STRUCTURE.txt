@@ -1,0 +1,350 @@
+STORI NBFC - Django REST API Backend
+=====================================
+Professional Django REST Framework project with Knox authentication
+for customer data analysis services.
+
+PROJECT OVERVIEW
+================
+✅ Django 4.2+ with REST Framework
+✅ Knox Token Authentication
+✅ PostgreSQL Database
+✅ CORS enabled for frontend integration
+✅ Celery for async tasks
+✅ All existing analysis code preserved and integrated
+✅ Professional project structure
+
+DIRECTORY STRUCTURE
+===================
+
+stori_backend/
+│
+├── config/                          # Main Django project configuration
+│   ├── __init__.py
+│   ├── settings.py                  # Project settings (DB, Knox, CORS, etc.)
+│   ├── urls.py                      # Main URL configuration
+│   ├── wsgi.py                      # WSGI application
+│   ├── asgi.py                      # ASGI application
+│   └── exceptions.py                # Custom exception handlers
+│
+├── apps/                            # All Django applications
+│   ├── __init__.py
+│   │
+│   └── customer/                    # Customer analysis apps
+│       ├── __init__.py
+│       │
+│       ├── itr_analysis/            # ITR Analysis App
+│       │   ├── __init__.py
+│       │   ├── apps.py
+│       │   ├── models.py            # ITRUpload, ITRAnalysisResult
+│       │   ├── serializers.py       # DRF serializers
+│       │   ├── views.py             # API viewsets
+│       │   ├── urls.py              # URL routing
+│       │   ├── admin.py             # Django admin configuration
+│       │   ├── analyzer.py          # *** CORE ITR ANALYSIS LOGIC ***
+│       │   ├── ITR_FORMULAS.txt     # Feature formulas reference
+│       │   └── migrations/
+│       │
+│       ├── bank_statement_analysis/    # Bank Statement Analysis App
+│       │   ├── __init__.py
+│       │   ├── apps.py
+│       │   ├── models.py                # BankStatementUpload, BankStatementAnalysisResult
+│       │   ├── serializers.py
+│       │   ├── views.py
+│       │   ├── urls.py
+│       │   ├── admin.py
+│       │   ├── analyzer.py              # *** CORE BANK ANALYSIS LOGIC ***
+│       │   ├── merchant_classifier.py   # Merchant categorization
+│       │   ├── merchant_keywords.json   # Merchant keywords data
+│       │   └── migrations/
+│       │
+│       ├── credit_report_analysis/      # Credit Report Analysis App
+│       │   ├── __init__.py
+│       │   ├── apps.py
+│       │   ├── models.py                # CreditReportUpload, CreditReportAnalysisResult
+│       │   ├── serializers.py
+│       │   ├── views.py
+│       │   ├── urls.py
+│       │   ├── admin.py
+│       │   ├── analyzer.py              # *** CORE CREDIT ANALYSIS LOGIC ***
+│       │   └── migrations/
+│       │
+│       └── ocr_analysis/                # OCR & Face Matching App
+│           ├── __init__.py
+│           ├── apps.py
+│           ├── models.py                # DocumentUpload, OCRResult, FaceMatchRequest, FaceMatchResult
+│           ├── serializers.py
+│           ├── views.py
+│           ├── urls.py
+│           ├── admin.py
+│           ├── face_match.py            # *** HIGH-ACCURACY FACE MATCHING ***
+│           └── migrations/
+│
+├── manage.py                        # Django management script
+├── requirements.txt                 # Python dependencies
+├── .gitignore                       # Git ignore rules
+├── env_template.txt                 # Environment variables template
+│
+├── SETUP_INSTRUCTIONS.txt           # Setup guide
+├── API_DOCUMENTATION.txt            # Complete API documentation
+├── PROJECT_STRUCTURE.txt            # This file
+└── quick_start.bat                  # Quick setup script (Windows)
+
+
+FEATURES BY APP
+===============
+
+1. ITR ANALYSIS (apps.customer.itr_analysis)
+   ✅ Upload ITR JSON/PDF files
+   ✅ Extract 19 financial features
+   ✅ Income verification and trend analysis
+   ✅ Tax compliance scoring
+   ✅ Multi-year analysis support
+   
+   Core Logic: analyzer.py (from consumer_analysis_pipeline/itr_analysis.py)
+
+2. BANK STATEMENT ANALYSIS (apps.customer.bank_statement_analysis)
+   ✅ Upload bank statements (PDF, Excel, CSV)
+   ✅ Transaction extraction and categorization
+   ✅ Merchant classification
+   ✅ Cash flow analysis
+   ✅ Banking behavior features
+   
+   Core Logic: 
+   - analyzer.py (from consumer_analysis_pipeline/bank_analysis.py)
+   - merchant_classifier.py (preserved from original)
+
+3. CREDIT REPORT ANALYSIS (apps.customer.credit_report_analysis)
+   ✅ Upload credit reports (PDF, JSON)
+   ✅ Account analysis
+   ✅ Credit utilization calculation
+   ✅ Delinquency detection
+   ✅ Enquiry analysis
+   
+   Core Logic: analyzer.py (from consumer_analysis_pipeline/credit_report_analysis.py)
+
+4. OCR & FACE MATCHING (apps.customer.ocr_analysis)
+   ✅ Document upload (Aadhaar, PAN, Voter ID, etc.)
+   ✅ High-accuracy face matching using DeepFace
+   ✅ Multiple model support (Facenet512, ArcFace, VGG-Face)
+   ✅ Multi-document verification
+   ✅ Quick verification API
+   
+   Core Logic: face_match.py (high-accuracy implementation)
+   Models: Facenet512, ArcFace, VGG-Face, etc.
+   Detection: RetinaFace, MTCNN, SSD
+
+
+DATABASE MODELS
+===============
+
+ITR Analysis:
+- ITRUpload: Stores uploaded ITR files
+- ITRAnalysisResult: Stores extracted features and analysis
+
+Bank Statement Analysis:
+- BankStatementUpload: Stores uploaded bank statements
+- BankStatementAnalysisResult: Stores features, summary, and transactions
+
+Credit Report Analysis:
+- CreditReportUpload: Stores uploaded credit reports
+- CreditReportAnalysisResult: Stores features, accounts, and enquiries
+
+OCR & Face Matching:
+- DocumentUpload: Stores uploaded documents/images
+- OCRResult: Stores OCR extraction results
+- FaceMatchRequest: Stores face matching requests
+- FaceMatchResult: Stores face verification results
+
+
+API ENDPOINTS
+=============
+
+Authentication:
+- POST   /api/auth/login/          - Login and get token
+- POST   /api/auth/logout/         - Logout
+- POST   /api/auth/logoutall/      - Logout from all devices
+
+ITR Analysis:
+- POST   /api/customer/itr/                      - Upload ITR
+- POST   /api/customer/itr/{id}/analyze/         - Analyze ITR
+- GET    /api/customer/itr/{id}/result/          - Get result
+- GET    /api/customer/itr/all_results/          - Get all results
+
+Bank Statement:
+- POST   /api/customer/bank-statement/                      - Upload
+- POST   /api/customer/bank-statement/{id}/analyze/         - Analyze
+- GET    /api/customer/bank-statement/{id}/result/          - Get result
+- GET    /api/customer/bank-statement/all_results/          - Get all
+
+Credit Report:
+- POST   /api/customer/credit-report/                      - Upload
+- POST   /api/customer/credit-report/{id}/analyze/         - Analyze
+- GET    /api/customer/credit-report/{id}/result/          - Get result
+- GET    /api/customer/credit-report/all_results/          - Get all
+
+OCR & Face Matching:
+- POST   /api/customer/ocr/documents/                       - Upload document
+- POST   /api/customer/ocr/face-match/                      - Create request
+- POST   /api/customer/ocr/face-match/{id}/verify/          - Verify faces
+- GET    /api/customer/ocr/face-match/{id}/result/          - Get result
+- POST   /api/customer/ocr/face-match/quick_verify/         - Quick verify
+
+
+AUTHENTICATION
+==============
+- Knox Token Authentication
+- Token TTL: 10 hours (configurable)
+- Max tokens per user: 10
+- Auto-refresh enabled
+
+Usage:
+1. Login: POST /api/auth/login/ with username and password
+2. Receive token in response
+3. Add header to all requests: Authorization: Token <your-token>
+
+
+SETUP STEPS
+===========
+
+1. Create virtual environment:
+   python -m venv venv
+
+2. Activate virtual environment:
+   Windows: venv\Scripts\activate
+   Linux/Mac: source venv/bin/activate
+
+3. Install dependencies:
+   pip install -r requirements.txt
+
+4. Configure environment:
+   - Copy env_template.txt to .env
+   - Update database credentials
+
+5. Setup database:
+   - Create PostgreSQL database: stori_nbfc
+   - Update .env with credentials
+
+6. Run migrations:
+   python manage.py makemigrations
+   python manage.py migrate
+
+7. Create superuser:
+   python manage.py createsuperuser
+
+8. Run development server:
+   python manage.py runserver 8000
+
+9. Access admin panel:
+   http://localhost:8000/admin
+
+OR use quick_start.bat for automated setup (Windows)
+
+
+TECHNOLOGY STACK
+================
+Backend Framework:
+- Django 4.2+
+- Django REST Framework 3.14+
+- Django REST Knox 4.2+ (Token Auth)
+
+Database:
+- PostgreSQL (recommended)
+- SQLite (development)
+
+Analysis Libraries:
+- pandas, numpy (data processing)
+- openpyxl, xlrd (Excel files)
+- pdfplumber, PyPDF2 (PDF processing)
+
+Face Matching:
+- DeepFace (face recognition)
+- TensorFlow (deep learning)
+- OpenCV (computer vision)
+
+Task Queue:
+- Celery (async processing)
+- Redis (message broker)
+
+
+SECURITY FEATURES
+=================
+✅ Token-based authentication
+✅ CSRF protection
+✅ CORS configuration
+✅ File upload validation
+✅ Size limits on uploads
+✅ SQL injection protection (Django ORM)
+✅ XSS protection
+
+
+CODE PRESERVATION
+=================
+All existing analysis code has been safely integrated:
+
+✓ consumer_analysis_pipeline/itr_analysis.py
+  → apps/customer/itr_analysis/analyzer.py
+
+✓ consumer_analysis_pipeline/bank_analysis.py
+  → apps/customer/bank_statement_analysis/analyzer.py
+
+✓ consumer_analysis_pipeline/merchant_classifier.py
+  → apps/customer/bank_statement_analysis/merchant_classifier.py
+
+✓ consumer_analysis_pipeline/credit_report_analysis.py
+  → apps/customer/credit_report_analysis/analyzer.py
+
+✓ consumer_analysis_pipeline/ocr/face_match.py
+  → apps/customer/ocr_analysis/face_match.py
+
+✓ All supporting files (formulas, keywords, etc.) preserved
+
+
+ADMIN PANEL
+===========
+Access: http://localhost:8000/admin
+
+Features:
+- User management
+- View all uploads and analysis results
+- Search and filter capabilities
+- Data export options
+- Processing status tracking
+
+
+NEXT STEPS
+==========
+1. Setup the database
+2. Run migrations
+3. Create superuser
+4. Test APIs using Postman/curl
+5. Integrate with frontend
+6. Setup Celery for async processing
+7. Configure production settings
+8. Deploy to server
+
+
+SUPPORT FILES
+=============
+- SETUP_INSTRUCTIONS.txt: Detailed setup guide
+- API_DOCUMENTATION.txt: Complete API reference
+- env_template.txt: Environment configuration template
+- quick_start.bat: Automated setup script
+
+
+NOTES
+=====
+✓ Professional Django project structure
+✓ RESTful API design
+✓ All original code preserved
+✓ No unnecessary files created
+✓ Production-ready architecture
+✓ Scalable and maintainable
+✓ Well-documented
+✓ Ready for deployment
+
+For questions or issues, refer to:
+- SETUP_INSTRUCTIONS.txt
+- API_DOCUMENTATION.txt
+- Django documentation: https://docs.djangoproject.com/
+
+

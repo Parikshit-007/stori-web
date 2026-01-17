@@ -1,0 +1,204 @@
+╔══════════════════════════════════════════════════════════════════════════════╗
+║              STORI NBFC - COMPLETE API v2 POSTMAN COLLECTION                 ║
+║                  (Account Aggregator + Credit Scoring)                       ║
+╚══════════════════════════════════════════════════════════════════════════════╝
+
+🎯 YEH KYON BANAAYA?
+─────────────────────
+Ab system JSON-based hai (Account Aggregator se data aayega)
+Aur Credit Scoring (GBM Model) bhi add ho gaya hai!
+File upload ab optional hai - direct JSON bhejo, JSON response paao!
+
+
+📦 POSTMAN ME KAISE IMPORT KAREIN?
+──────────────────────────────────
+
+1. Postman app kholo
+
+2. Left sidebar me "Import" button pe click karo
+
+3. "STORI_NBFC_API_v2.postman_collection.json" file select karo
+   Location: C:\Users\ASUS\OneDrive\Desktop\stori-nbfc\stori_backend\
+
+4. Import button click karo
+
+5. Done! Saare endpoints ready hain!
+
+
+🔑 API KEY ALREADY SET HAI!
+────────────────────────────
+Collection me automatically yeh API key set hai:
+stori_6CFocXsPyo4tJDxq8MkVE6Iy-aii0_7eN59VJvUlfmU
+
+Har request me header automatically add hoga:
+X-API-Key: stori_6CFocXsPyo4tJDxq8MkVE6Iy-aii0_7eN59VJvUlfmU
+
+
+📂 COLLECTION ME KYA HAI?
+─────────────────────────
+
+Folder 1: CREDIT SCORING (GBM Model) ⭐ NEW!
+────────────────────────────────────────────
+✅ Calculate Credit Score - Person ka data bhejo, score aur default probability milega
+✅ Get Credit Score History - Past scores dekhlo
+✅ Model Health Check - Check karo model loaded hai ya nahi
+
+Folder 2: BANK STATEMENT (JSON - Account Aggregator) ⭐ NEW!
+──────────────────────────────────────────────────────────
+✅ Analyze Bank Statement (JSON) - Direct JSON bhejo (no file!)
+   - Account Aggregator se jo data aayega, wahi format
+   - Response me saare banking features milenge
+
+Folder 3: ITR ANALYSIS (JSON - Account Aggregator) ⭐ NEW!
+────────────────────────────────────────────────────────
+✅ Analyze ITR (JSON) - Income Tax Return JSON directly
+   - Standard ITR portal format
+   - Response me income/tax analysis
+
+Folder 4: CREDIT REPORT (JSON - Account Aggregator) ⭐ NEW!
+─────────────────────────────────────────────────────────
+✅ Analyze Credit Report (JSON) - CIBIL/Experian JSON
+   - Bureau report JSON
+   - Response me credit analysis
+
+Folder 5: COMPLETE WORKFLOW EXAMPLE ⭐ RECOMMENDED!
+──────────────────────────────────────────────────
+Complete flow dikhaata hai:
+  Step 1: Bank Statement analyze karo
+  Step 2: Credit Report analyze karo
+  Step 3: Combine karke Credit Score calculate karo
+
+Folder 6: OCR & FACE MATCHING
+─────────────────────────────
+✅ Quick Face Verification - Face match for KYC
+
+Folder 7: FILE UPLOAD APIs (Optional - Legacy)
+──────────────────────────────────────────────
+Old file upload endpoints (ab zaroorat nahi, but kept for backward compatibility)
+
+
+🚀 KAISE USE KAREIN?
+────────────────────
+
+OPTION 1: Complete Workflow (RECOMMENDED!)
+──────────────────────────────────────────
+1. "Complete Workflow Example" folder kholo
+2. Step 1 (Bank Statement) run karo - response copy karo
+3. Step 2 (Credit Report) run karo - response copy karo  
+4. Step 3 (Credit Score) me dono ka data combine karke bhejo
+5. Final credit score aur default probability mil jaayega! 🎉
+
+
+OPTION 2: Individual Analysis
+──────────────────────────────
+Agar sirf ek analysis chahiye:
+
+Bank Statement:
+- "Bank Statement" folder kholo
+- "Analyze Bank Statement (JSON)" pe click karo
+- "Send" button dabaao
+- Response me banking features milenge
+
+ITR Analysis:
+- "ITR Analysis" folder kholo
+- "Analyze ITR (JSON)" pe click karo
+- "Send" button dabaao
+
+Credit Report:
+- "Credit Report" folder kholo
+- "Analyze Credit Report (JSON)" pe click karo
+- "Send" button dabaao
+
+
+OPTION 3: Direct Credit Scoring
+────────────────────────────────
+Agar tumhare paas already features hain:
+- "Credit Scoring" folder kholo
+- "Calculate Credit Score" pe click karo
+- Request body me apne features daalo
+- "Send" button dabaao
+- Score (0-100) aur default probability milega!
+
+
+📝 JSON FORMAT EXAMPLE
+──────────────────────
+
+Bank Statement JSON:
+{
+    "transactions": [
+        {
+            "date": "2024-01-15",
+            "description": "SALARY CREDIT",
+            "debit": 0,
+            "credit": 75000,
+            "balance": 80000
+        }
+    ],
+    "account_info": {
+        "account_number": "1234567890",
+        "bank_name": "HDFC Bank"
+    }
+}
+
+Credit Scoring JSON:
+{
+    "age": 32,
+    "monthly_income": 75000,
+    "credit_score": 720,
+    "avg_monthly_credits": 80000,
+    "avg_balance": 125000
+}
+
+
+💡 PRO TIPS
+───────────
+✅ Server chalao pehle: python manage.py runserver 8000
+✅ JSON body me proper format use karo (examples already set hain!)
+✅ Response me "status": "success" dekho
+✅ Credit Score 0-100 hoga (100 = best)
+✅ Default probability 0-1 hoga (0 = safe, 1 = risky)
+✅ Har request automatically authenticated hai (API key)
+
+
+🔧 TROUBLESHOOTING
+──────────────────
+
+❌ "Connection refused" aa raha hai?
+   → Server chalu karo: python manage.py runserver 8000
+
+❌ "Authentication failed"?
+   → Check karo X-API-Key header hai ya nahi
+
+❌ "Invalid JSON"?
+   → Body me JSON format check karo (already examples set hain!)
+
+❌ "Model not loaded"?
+   → Check karo model file exist karti hai:
+     C:\Users\ASUS\OneDrive\Desktop\stori-nbfc\credit_scoring_pipeline\consumer\consumer_model_artifacts\consumer_credit_model.joblib
+
+
+📞 API ENDPOINTS QUICK REFERENCE
+─────────────────────────────────
+
+POST /api/customer/credit-scoring/score/          - Credit Score calculate karo
+GET  /api/customer/credit-scoring/history/        - Past scores dekho
+GET  /api/customer/credit-scoring/health/         - Model status check karo
+
+POST /api/customer/bank-statement/analyze-json/   - Bank statement JSON analysis
+POST /api/customer/itr/analyze-json/              - ITR JSON analysis
+POST /api/customer/credit-report/analyze-json/    - Credit report JSON analysis
+
+POST /api/customer/ocr/face-match/quick_verify/   - Face matching
+
+
+🎉 ALL THE BEST!
+────────────────
+Ab tumhara complete NBFC system JSON-based hai with GBM credit scoring!
+Account Aggregator se data aayega → Analysis hoga → Credit Score milega!
+
+Koi problem aaye to dekho:
+- JSON_API_GUIDE.txt
+- CREDIT_SCORING_API_GUIDE.txt
+- COMPLETE_API_SUMMARY.txt
+
+

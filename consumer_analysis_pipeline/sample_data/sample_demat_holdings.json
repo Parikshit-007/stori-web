@@ -1,0 +1,50 @@
+{
+  "holdings": [
+    {
+      "companyName": "Reliance Industries Limited",
+      "symbol": "RELIANCE",
+      "isin": "INE002A01018",
+      "exchange": "NSE",
+      "quantity": 10,
+      "avgPrice": 2650.50,
+      "ltp": 2800.00,
+      "currentValue": 28000.00,
+      "investedValue": 26505.00
+    },
+    {
+      "companyName": "Tata Consultancy Services",
+      "symbol": "TCS",
+      "isin": "INE467B01029",
+      "exchange": "NSE",
+      "quantity": 5,
+      "avgPrice": 3450.00,
+      "ltp": 3600.00,
+      "currentValue": 18000.00,
+      "investedValue": 17250.00
+    },
+    {
+      "companyName": "HDFC Bank Limited",
+      "symbol": "HDFCBANK",
+      "isin": "INE040A01034",
+      "exchange": "NSE",
+      "quantity": 15,
+      "avgPrice": 1580.00,
+      "ltp": 1650.00,
+      "currentValue": 24750.00,
+      "investedValue": 23700.00
+    },
+    {
+      "companyName": "Infosys Limited",
+      "symbol": "INFY",
+      "isin": "INE009A01021",
+      "exchange": "NSE",
+      "quantity": 20,
+      "avgPrice": 1425.00,
+      "ltp": 1480.00,
+      "currentValue": 29600.00,
+      "investedValue": 28500.00
+    }
+  ]
+}
+
+

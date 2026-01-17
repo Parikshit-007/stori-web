@@ -1,0 +1,195 @@
+╔═══════════════════════════════════════════════════════════════════════╗
+║                                                                       ║
+║              POSTMAN COLLECTION - IMPORT KARNE KA GUIDE               ║
+║                                                                       ║
+╚═══════════════════════════════════════════════════════════════════════╝
+
+
+🎯 POSTMAN COLLECTION READY HAI!
+================================
+
+File: STORI_NBFC_API.postman_collection.json
+
+Isme sab kuch pre-configured hai:
+✅ 30+ API endpoints
+✅ Tumhara API key already set
+✅ Request bodies with examples
+✅ Proper headers
+✅ Organized folders
+
+
+📥 KAISE IMPORT KAREIN
+======================
+
+Step 1: Postman Open Karo
+--------------------------
+Postman application kholo (Download: https://www.postman.com/downloads/)
+
+
+Step 2: Import Karo
+-------------------
+1. Postman me "Import" button par click karo (top-left)
+2. "Upload Files" choose karo
+3. Yeh file select karo:
+   STORI_NBFC_API.postman_collection.json
+4. "Import" button click karo
+
+
+Step 3: Collection Check Karo
+------------------------------
+Left sidebar me "STORI NBFC - Complete API Collection" dikhega
+Usme 4 folders honge:
+1. ITR Analysis (5 requests)
+2. Bank Statement Analysis (5 requests)
+3. Credit Report Analysis (5 requests)
+4. OCR & Face Matching (6 requests)
+
+
+🚀 KAISE USE KAREIN
+===================
+
+Sabhi Requests Me API Key Already Set Hai!
+-------------------------------------------
+Har request me yeh header automatically hai:
+X-API-Key: stori_6CFocXsPyo4tJDxq8MkVE6Iy-aii0_7eN59VJvUlfmU
+
+
+Example 1: ITR Upload Karna
+----------------------------
+1. "1. ITR Analysis" folder open karo
+2. "Upload ITR" request click karo
+3. Body tab me file select karo
+4. "Send" button press karo
+5. Response me ID milega (e.g., {"id": 1})
+
+
+Example 2: Bank Statement Analyze Karna
+----------------------------------------
+1. "2. Bank Statement Analysis" folder open karo
+2. "Upload Bank Statement" click karo
+3. Body tab me:
+   - file: Apni Excel file select karo
+   - file_type: xlsx
+   - bank_name: HDFC Bank
+   - Other fields fill karo
+4. "Send" press karo
+5. ID note karo (e.g., {"id": 1})
+6. "Analyze Bank Statement" request kholo
+7. URL me "1" ko apni ID se replace karo
+8. "Send" press karo
+
+
+Example 3: Face Matching (Sabse Easy!)
+---------------------------------------
+1. "4. OCR & Face Matching" folder open karo
+2. "Quick Face Verification" click karo
+3. Body tab me files select karo:
+   - user_photo: User ki photo
+   - aadhaar_photo: Aadhaar image (optional)
+   - pan_photo: PAN image (optional)
+   - voter_id_photo: Voter ID image (optional)
+4. "Send" press karo
+5. Result me match status milega
+
+
+📋 COLLECTION ME KYA HAI
+=========================
+
+1. ITR Analysis:
+   - Upload ITR ✅
+   - Get All ITR Uploads ✅
+   - Analyze ITR ✅
+   - Get ITR Result ✅
+   - Get All Results ✅
+
+2. Bank Statement Analysis:
+   - Upload Bank Statement ✅
+   - Get All Statements ✅
+   - Analyze Statement ✅
+   - Get Result ✅
+   - Get All Results ✅
+
+3. Credit Report Analysis:
+   - Upload Credit Report ✅
+   - Get All Reports ✅
+   - Analyze Report ✅
+   - Get Result ✅
+   - Get All Results ✅
+
+4. OCR & Face Matching:
+   - Upload Document ✅
+   - Get All Documents ✅
+   - Quick Face Verification ✅ (ONE-STEP!)
+   - Create Face Match Request ✅
+   - Verify Face Match ✅
+   - Get Face Match Result ✅
+
+
+💡 TIPS
+=======
+
+1. ID Replace Karna:
+   Jab bhi URL me {id} ya /1/ dikhe, use apni actual ID se replace karo
+
+2. File Upload:
+   Body tab me formdata me file select karne ke liye:
+   - File field par click karo
+   - "Select Files" choose karo
+   - Apni file select karo
+
+3. Response Dekhna:
+   Send button press karne ke baad niche response tab me result dikhega
+
+4. Variables:
+   Collection me 2 variables set hain:
+   - {{baseUrl}} = http://localhost:8000/api
+   - {{apiKey}} = Tumhara API key
+
+5. Environment:
+   Agar port change karni ho:
+   - Collection settings me jao
+   - Variables tab kholo
+   - baseUrl edit karo
+
+
+🔧 COMMON ISSUES
+================
+
+Error: "Connection refused"
+---------------------------
+Server running nahi hai!
+Fix: Terminal me run karo:
+cd C:\Users\ASUS\OneDrive\Desktop\stori-nbfc\stori_backend
+python manage.py runserver 8000
+
+
+Error: "Invalid API Key"
+------------------------
+API key galat hai
+Fix: Collection me har request ke Headers check karo
+
+
+Error: "File too large"
+-----------------------
+File 10MB se badi hai
+Fix: Chhoti file use karo
+
+
+🎉 READY TO USE!
+================
+
+1. Import kar lo
+2. Koi bhi request kholo
+3. Send press karo
+4. Response dekho!
+
+Sabkuch pre-configured hai, bas use karo! 🚀
+
+
+═══════════════════════════════════════════════════════════════════════
+
+Questions? Sab requests test karo!
+
+═══════════════════════════════════════════════════════════════════════
+
+

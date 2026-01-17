@@ -1,0 +1,290 @@
+╔═══════════════════════════════════════════════════════════════════════╗
+║                                                                       ║
+║            STORI NBFC - Django REST API Backend                      ║
+║            =====================================                      ║
+║                                                                       ║
+║                    🚀 START HERE! 🚀                                  ║
+║                                                                       ║
+╚═══════════════════════════════════════════════════════════════════════╝
+
+
+✨ WHAT'S BEEN CREATED FOR YOU
+================================
+
+✅ Complete Django REST Framework project
+✅ Knox Token + API Key authentication
+✅ Permanent API access (no login needed!)
+✅ All your analysis code integrated safely:
+   - ITR Analysis
+   - Bank Statement Analysis  
+   - Credit Report Analysis
+   - OCR & Face Matching
+✅ PostgreSQL database ready
+✅ Admin panel configured
+✅ CORS enabled for frontend
+
+
+🎯 QUICKEST WAY TO START (2 MINUTES)
+=====================================
+
+1. Run automated setup:
+   
+   cd stori_backend
+   setup_with_api_key.bat
+
+2. Copy the API key shown (starts with "stori_")
+
+3. Start server:
+   
+   python manage.py runserver 8000
+
+4. Test immediately:
+   
+   curl -H "X-API-Key: your_key" http://localhost:8000/api/customer/itr/
+
+THAT'S IT! ✅
+
+
+🔑 YOUR PERMANENT API KEY
+==========================
+
+After running setup_with_api_key.bat, you'll get:
+
+   API Key: stori_xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+
+This is your PERMANENT ACCESS KEY!
+
+✅ Use it for ALL API requests
+✅ No login required
+✅ Never expires (unless you deactivate it)
+✅ Works on all endpoints
+
+
+📝 HOW TO USE THE API KEY
+==========================
+
+Add this header to EVERY request:
+
+   X-API-Key: stori_xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+
+
+Python Example:
+---------------
+import requests
+
+headers = {"X-API-Key": "stori_xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"}
+
+response = requests.get(
+    "http://localhost:8000/api/customer/itr/",
+    headers=headers
+)
+
+
+JavaScript Example:
+-------------------
+const headers = {
+    'X-API-Key': 'stori_xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx'
+};
+
+fetch('http://localhost:8000/api/customer/itr/', {
+    method: 'GET',
+    headers: headers
+});
+
+
+Postman:
+--------
+Headers tab → Add:
+Key: X-API-Key
+Value: stori_xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+
+
+🔧 PROJECT STRUCTURE
+=====================
+
+stori_backend/
+├── config/                          # Django settings
+├── apps/
+│   ├── authentication/              # ✨ API Key system
+│   └── customer/
+│       ├── itr_analysis/            # ITR analysis
+│       ├── bank_statement_analysis/ # Bank statements
+│       ├── credit_report_analysis/  # Credit reports
+│       └── ocr_analysis/            # Face matching
+├── manage.py
+├── requirements.txt
+└── setup_with_api_key.bat          # ⚡ Run this first!
+
+
+📚 API ENDPOINTS (Use your API key with ALL of these)
+======================================================
+
+ITR Analysis:
+-------------
+POST   /api/customer/itr/                     Upload ITR
+POST   /api/customer/itr/{id}/analyze/        Analyze ITR
+GET    /api/customer/itr/{id}/result/         Get result
+GET    /api/customer/itr/all_results/         All results
+
+Bank Statement:
+---------------
+POST   /api/customer/bank-statement/          Upload
+POST   /api/customer/bank-statement/{id}/analyze/
+GET    /api/customer/bank-statement/{id}/result/
+GET    /api/customer/bank-statement/all_results/
+
+Credit Report:
+--------------
+POST   /api/customer/credit-report/           Upload
+POST   /api/customer/credit-report/{id}/analyze/
+GET    /api/customer/credit-report/{id}/result/
+GET    /api/customer/credit-report/all_results/
+
+Face Matching:
+--------------
+POST   /api/customer/ocr/documents/           Upload document
+POST   /api/customer/ocr/face-match/          Create request
+POST   /api/customer/ocr/face-match/{id}/verify/
+POST   /api/customer/ocr/face-match/quick_verify/  ⚡ One-step
+
+
+📖 COMPLETE DOCUMENTATION FILES
+================================
+
+1. QUICK_START.txt              ← Start here for basics
+2. AUTHENTICATION_GUIDE.txt     ← All about API keys
+3. API_DOCUMENTATION.txt        ← Complete API reference
+4. SETUP_INSTRUCTIONS.txt       ← Detailed setup guide
+5. PROJECT_STRUCTURE.txt        ← Project overview
+
+
+🧪 COMPLETE WORKING EXAMPLE
+============================
+
+Save this as test_api.py:
+
+```python
+import requests
+
+# Your permanent API key (get from setup)
+API_KEY = "stori_your_key_here"
+BASE_URL = "http://localhost:8000/api"
+headers = {"X-API-Key": API_KEY}
+
+# Test 1: Upload ITR
+print("1. Uploading ITR...")
+files = {'file': open('itr.json', 'rb')}
+data = {'file_type': 'json', 'assessment_year': '2024-25'}
+response = requests.post(
+    f'{BASE_URL}/customer/itr/',
+    headers=headers,
+    files=files,
+    data=data
+)
+itr_id = response.json()['id']
+print(f"✅ Uploaded! ID: {itr_id}")
+
+# Test 2: Analyze ITR
+print("2. Analyzing ITR...")
+response = requests.post(
+    f'{BASE_URL}/customer/itr/{itr_id}/analyze/',
+    headers=headers
+)
+print("✅ Analysis complete!")
+print(response.json())
+
+# Test 3: Face Matching
+print("3. Face matching...")
+files = {
+    'user_photo': open('user.jpg', 'rb'),
+    'aadhaar_photo': open('aadhaar.jpg', 'rb')
+}
+response = requests.post(
+    f'{BASE_URL}/customer/ocr/face-match/quick_verify/',
+    headers=headers,
+    files=files
+)
+print("✅ Face verified!")
+print(response.json())
+```
+
+Run: python test_api.py
+
+
+⚙️ MANUAL SETUP (If not using automated script)
+================================================
+
+1. Create virtual environment:
+   python -m venv venv
+   venv\Scripts\activate
+
+2. Install dependencies:
+   pip install -r requirements.txt
+
+3. Setup environment:
+   copy env_template.txt .env
+
+4. Run migrations:
+   python manage.py migrate
+
+5. Generate API key:
+   python manage.py generate_api_key admin "My Key"
+
+6. Start server:
+   python manage.py runserver 8000
+
+
+🔐 MANAGING API KEYS
+=====================
+
+View all keys:
+- Go to: http://localhost:8000/admin
+- Login with: admin / admin123 (if auto-created)
+- Navigate to: API Keys
+
+Generate new key:
+python manage.py generate_api_key <username> <key_name>
+
+Deactivate key:
+- In admin panel, uncheck "Is active"
+
+
+❓ TROUBLESHOOTING
+==================
+
+"Invalid API Key":
+- Check header name is exactly: X-API-Key
+- Verify key has no spaces
+- Ensure key is active in admin
+
+Can't connect:
+- Make sure server is running: python manage.py runserver 8000
+- Check URL is correct: http://localhost:8000
+- Try curl first to test
+
+Migrations error:
+- Run: python manage.py migrate
+- If issues: Delete db.sqlite3 and run migrate again
+
+
+🎉 YOU'RE ALL SET!
+==================
+
+Next steps:
+1. Run: setup_with_api_key.bat
+2. Copy your API key
+3. Start using the APIs!
+
+Need help?
+- Check AUTHENTICATION_GUIDE.txt
+- Check API_DOCUMENTATION.txt
+- Look at PROJECT_STRUCTURE.txt
+
+
+═══════════════════════════════════════════════════════════════════════
+
+                    Happy Coding! 🚀
+
+═══════════════════════════════════════════════════════════════════════
+
+

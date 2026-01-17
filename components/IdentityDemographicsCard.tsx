@@ -1,6 +1,6 @@
 "use client"
 
-import { Shield, Smartphone, Home, Users, CheckCircle, User, MapPin, Phone } from "lucide-react"
+import { Shield, Smartphone, Users, CheckCircle, User, MapPin, Phone } from "lucide-react"
 
 interface IdentityDemographicsCardProps {
   consumer: any
@@ -8,12 +8,6 @@ interface IdentityDemographicsCardProps {
 
 export default function IdentityDemographicsCard({ consumer }: IdentityDemographicsCardProps) {
   const { identity } = consumer
-
-  const getScoreColor = (score: number) => {
-    if (score >= 80) return "text-emerald-600 bg-emerald-50"
-    if (score >= 60) return "text-amber-600 bg-amber-50"
-    return "text-red-600 bg-red-50"
-  }
 
   const getSocialCapitalLevel = (score: number) => {
     if (score >= 75) return "High"
@@ -65,58 +59,11 @@ export default function IdentityDemographicsCard({ consumer }: IdentityDemograph
         </div>
       </div>
 
-      {/* Life Stability Index */}
-      <div className="mb-6">
-        <div className="flex items-center gap-2 mb-3">
-          <Home className="w-4 h-4 text-gray-500" />
-          <h4 className="font-semibold text-gray-800 text-sm">(A) Life Stability Index</h4>
-          <span className={`ml-auto px-2 py-1 rounded-full text-xs font-bold ${getScoreColor(identity.lifeStability?.overallScore || 0)}`}>
-            {identity.lifeStability?.overallScore || 0}/100
-          </span>
-        </div>
-        <div className="space-y-2 text-sm">
-          <div className="p-2 bg-gray-50 rounded-lg">
-            <div className="flex justify-between items-center">
-              <span className="text-gray-600 font-medium">Job Stability</span>
-              <span className={`font-bold ${(identity.lifeStability?.jobStability?.score || 0) >= 70 ? 'text-green-600' : 'text-amber-600'}`}>
-                {identity.lifeStability?.jobStability?.score || 0}
-              </span>
-            </div>
-            <p className="text-xs text-gray-400 mt-1">
-              Avg Duration: {identity.lifeStability?.jobStability?.avgEmploymentDuration || 0}y • 
-              Salary Hikes: {identity.lifeStability?.jobStability?.salaryHikes || 0}
-              {identity.lifeStability?.jobStability?.currentEmployer && ` • ${identity.lifeStability.jobStability.currentEmployer}`}
-            </p>
-          </div>
-          <div className="p-2 bg-gray-50 rounded-lg">
-            <div className="flex justify-between items-center">
-              <span className="text-gray-600 font-medium">Residence Stability</span>
-              <span className={`font-bold ${(identity.lifeStability?.residenceStability?.score || 0) >= 70 ? 'text-green-600' : 'text-amber-600'}`}>
-                {identity.lifeStability?.residenceStability?.score || 0}
-              </span>
-            </div>
-            <p className="text-xs text-gray-400 mt-1">
-              {identity.lifeStability?.residenceStability?.yearsAtCurrentAddress || 0}y at address • 
-              Landlord: {identity.lifeStability?.residenceStability?.landlordVerified ? '✓ Verified' : 'Not Verified'} • 
-              Rent: {identity.lifeStability?.residenceStability?.rentPaymentPattern || 'N/A'}
-            </p>
-          </div>
-          <div className="p-2 bg-gray-50 rounded-lg">
-            <div className="flex justify-between items-center">
-              <span className="text-gray-600 font-medium">Household Stability</span>
-              <span className={`font-bold ${(identity.lifeStability?.householdStability?.score || 0) >= 70 ? 'text-green-600' : 'text-amber-600'}`}>
-                {identity.lifeStability?.householdStability?.status || 'N/A'}
-              </span>
-            </div>
-          </div>
-        </div>
-      </div>
-
       {/* Social Capital Proxy */}
       <div>
         <div className="flex items-center gap-2 mb-3">
           <Users className="w-4 h-4 text-gray-500" />
-          <h4 className="font-semibold text-gray-800 text-sm">(B) Social Capital Proxy</h4>
+          <h4 className="font-semibold text-gray-800 text-sm">(A) Social Capital Proxy</h4>
           <span className={`ml-auto px-2 py-1 rounded-full text-xs font-bold ${
             (identity.socialCapital?.level || getSocialCapitalLevel(identity.socialCapital?.overallScore || 0)) === 'High' 
               ? 'bg-green-100 text-green-700' 
@@ -132,10 +79,10 @@ export default function IdentityDemographicsCard({ consumer }: IdentityDemograph
             <p className="text-gray-500 text-xs">Regular Peer Transactions</p>
             <p className="font-bold text-lg">{identity.socialCapital?.regularPeerTransactions || 0}%</p>
           </div>
-          <div className="bg-gray-50 rounded-lg p-3">
+          {/* <div className="bg-gray-50 rounded-lg p-3">
             <p className="text-gray-500 text-xs">Professional Network</p>
             <p className="font-bold text-lg">{identity.socialCapital?.professionalNetworkPayments || 0}%</p>
-          </div>
+          </div> */}
         </div>
       </div>
     </div>

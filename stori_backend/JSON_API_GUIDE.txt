@@ -1,0 +1,299 @@
+╔═══════════════════════════════════════════════════════════════════════╗
+║                                                                       ║
+║           JSON-BASED API ENDPOINTS (Account Aggregator)               ║
+║                  Direct JSON Input - No File Upload!                  ║
+║                                                                       ║
+╚═══════════════════════════════════════════════════════════════════════╝
+
+
+🎯 NEW ENDPOINTS FOR ACCOUNT AGGREGATOR DATA
+=============================================
+
+Ab tum directly JSON send kar sakte ho - No file upload needed!
+
+
+📋 AVAILABLE ENDPOINTS
+======================
+
+1. Bank Statement Analysis (JSON)
+   POST /api/customer/bank-statement/analyze-json/
+
+2. ITR Analysis (JSON)
+   POST /api/customer/itr/analyze-json/
+
+3. Credit Report Analysis (JSON)
+   POST /api/customer/credit-report/analyze-json/
+
+
+🔑 AUTHENTICATION
+==================
+
+Same API key use karo:
+X-API-Key: stori_6CFocXsPyo4tJDxq8MkVE6Iy-aii0_7eN59VJvUlfmU
+
+
+📝 REQUEST FORMATS
+==================
+
+1. BANK STATEMENT JSON
+----------------------
+POST http://localhost:8000/api/customer/bank-statement/analyze-json/
+
+Headers:
+  X-API-Key: stori_6CFocXsPyo4tJDxq8MkVE6Iy-aii0_7eN59VJvUlfmU
+  Content-Type: application/json
+
+Body:
+{
+    "transactions": [
+        {
+            "date": "2024-01-15",
+            "description": "SALARY CREDIT",
+            "debit": 0,
+            "credit": 75000,
+            "balance": 80000
+        },
+        {
+            "date": "2024-01-16",
+            "description": "UPI-SWIGGY",
+            "debit": 500,
+            "credit": 0,
+            "balance": 79500
+        }
+    ],
+    "account_info": {
+        "account_number": "1234567890",
+        "bank_name": "HDFC Bank",
+        "ifsc": "HDFC0001234",
+        "holder_name": "John Doe"
+    }
+}
+
+Response:
+{
+    "success": true,
+    "message": "Bank statement analyzed successfully",
+    "data": {
+        "features": {
+            "total_credits": 75000,
+            "total_debits": 500,
+            "avg_balance": 79750,
+            "monthly_income": 75000,
+            ...
+        },
+        "summary": {
+            "total_transactions": 2,
+            "account_number": "1234567890",
+            "bank_name": "HDFC Bank",
+            ...
+        },
+        "insights": {
+            "top_credits": [...],
+            "top_debits": [...]
+        }
+    }
+}
+
+
+2. ITR JSON
+-----------
+POST http://localhost:8000/api/customer/itr/analyze-json/
+
+Headers:
+  X-API-Key: stori_6CFocXsPyo4tJDxq8MkVE6Iy-aii0_7eN59VJvUlfmU
+  Content-Type: application/json
+
+Body: Standard ITR JSON from Income Tax Portal
+{
+    "ITR": {
+        "ITR1": {
+            "Form_ITR1": {
+                "AssessmentYear": "2024-25",
+                ...
+            },
+            "ITR1_IncomeDeductions": {
+                "GrossSalary": 1200000,
+                ...
+            }
+        }
+    }
+}
+
+Response:
+{
+    "success": true,
+    "message": "ITR analyzed successfully",
+    "data": {
+        "features": {
+            "itr_net_taxable_income": 1000000,
+            "itr_gross_total_income": 1200000,
+            ...
+        },
+        "summary": {
+            "assessment_year": "2024-25",
+            "form_type": "ITR-1",
+            ...
+        }
+    }
+}
+
+
+3. CREDIT REPORT JSON
+---------------------
+POST http://localhost:8000/api/customer/credit-report/analyze-json/
+
+Headers:
+  X-API-Key: stori_6CFocXsPyo4tJDxq8MkVE6Iy-aii0_7eN59VJvUlfmU
+  Content-Type: application/json
+
+Body:
+{
+    "score": 750,
+    "bureau": "CIBIL",
+    "report_date": "2024-01-15",
+    "accounts": [
+        {
+            "account_type": "credit_card",
+            "bank": "HDFC Bank",
+            "status": "active",
+            "outstanding": 25000,
+            "credit_limit": 100000,
+            "dpd": 0
+        }
+    ],
+    "enquiries": [
+        {
+            "bank": "ICICI",
+            "date": "2024-01-10",
+            "type": "credit_card",
+            "months_ago": 1
+        }
+    ]
+}
+
+Response:
+{
+    "success": true,
+    "message": "Credit report analyzed successfully",
+    "data": {
+        "features": {
+            "credit_score": 750,
+            "total_accounts": 1,
+            "credit_utilization": 25,
+            ...
+        },
+        "summary": {
+            "bureau": "CIBIL",
+            "total_outstanding": 25000,
+            ...
+        },
+        "account_breakdown": {...}
+    }
+}
+
+
+💻 PYTHON EXAMPLE
+==================
+
+import requests
+import json
+
+API_KEY = "stori_6CFocXsPyo4tJDxq8MkVE6Iy-aii0_7eN59VJvUlfmU"
+BASE_URL = "http://localhost:8000/api"
+
+headers = {
+    "X-API-Key": API_KEY,
+    "Content-Type": "application/json"
+}
+
+# Example 1: Bank Statement Analysis
+bank_data = {
+    "transactions": [
+        {
+            "date": "2024-01-15",
+            "description": "SALARY",
+            "debit": 0,
+            "credit": 75000,
+            "balance": 80000
+        }
+    ],
+    "account_info": {
+        "account_number": "1234567890",
+        "bank_name": "HDFC Bank"
+    }
+}
+
+response = requests.post(
+    f"{BASE_URL}/customer/bank-statement/analyze-json/",
+    headers=headers,
+    json=bank_data
+)
+
+print(response.json())
+
+
+# Example 2: Credit Report Analysis
+credit_data = {
+    "score": 750,
+    "bureau": "CIBIL",
+    "accounts": [
+        {
+            "account_type": "credit_card",
+            "outstanding": 25000,
+            "credit_limit": 100000
+        }
+    ]
+}
+
+response = requests.post(
+    f"{BASE_URL}/customer/credit-report/analyze-json/",
+    headers=headers,
+    json=credit_data
+)
+
+print(response.json())
+
+
+🔄 OLD vs NEW ENDPOINTS
+========================
+
+OLD (File Upload):
+------------------
+POST /api/customer/bank-statement/
+     → Upload file, get ID
+POST /api/customer/bank-statement/{id}/analyze/
+     → Analyze file
+
+NEW (Direct JSON):
+------------------
+POST /api/customer/bank-statement/analyze-json/
+     → Send JSON, get instant analysis
+
+✅ Advantages of JSON endpoints:
+- No file upload
+- Instant analysis
+- Direct from Account Aggregator
+- Single API call
+- Faster response
+
+
+📁 EXAMPLE FILES
+================
+
+Check these files for complete examples:
+- example_jsons/bank_statement_example.json
+- example_jsons/credit_report_example.json
+
+
+🎉 READY TO USE!
+================
+
+Ab tum Account Aggregator se jo bhi JSON data milega, 
+directly bhej do - instant analysis mil jayega!
+
+No file upload, no hassle! 🚀
+
+
+═══════════════════════════════════════════════════════════════════════
+
+

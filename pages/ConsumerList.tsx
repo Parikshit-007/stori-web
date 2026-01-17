@@ -22,7 +22,7 @@ export default function ConsumerList() {
   const [searchQuery, setSearchQuery] = useState("")
   const [selectedPersona, setSelectedPersona] = useState("All")
   const [selectedRisk, setSelectedRisk] = useState("All")
-  const [scoreRange, setScoreRange] = useState<[number, number]>([300, 900])
+  const [scoreRange, setScoreRange] = useState<[number, number]>([0, 100])
   const [currentPage, setCurrentPage] = useState(1)
   
   // Extraction state

@@ -1,0 +1,270 @@
+{
+    "txn_id": "saf4eb3",
+    "client_ref_num": "test123",
+    "source_of_data": "accountaggregator",
+    "request_id": "",
+    "FIPS": [
+        {
+            "source_of_fip": "CDSLFIP",
+            "multiple_accounts_found": "YES",
+            "account_holder_information": [
+                {
+                    "name": "Abhishek  Ghoshal",
+                    "address": "UKHRA, Ukhra, Ukhra, Bardhaman, West Bengal, 713363, In dia ",
+                    "dob": "1987-01-21",
+                    "mobile": "9614956225",
+                    "pan": "AOBPG8535R",
+                    "email": "abhishekghoshal1987@gmail.com"
+                }
+            ],
+            "accounts": [
+                {
+                    "masked_account_number": "XXXXXXXXXXXX8852",
+                    "investment_details": {
+                        "equities": {
+                            "asset_class": "equities",
+                            "holdings": [
+                                {
+                                    "isinDescription": "JAIPRAKASH POWER -EQ",
+                                    "isin_id": "INE351F01018",
+                                    "qty": 50.0,
+                                    "Rate": 17.93,
+                                    "total_invested": 896.5,
+                                    "current_rate": 0.0,
+                                    "current_value": 0.0,
+                                    "net p&l": 0.0,
+                                    "net p&l%": 0.0,
+                                    "transactions": []
+                                },
+                                {
+                                    "isinDescription": "RELIANCE POWER - EQ",
+                                    "isin_id": "INE614G01033",
+                                    "qty": 2.0,
+                                    "Rate": 40.72,
+                                    "total_invested": 81.44,
+                                    "current_rate": 0.0,
+                                    "current_value": 0.0,
+                                    "net p&l": 0.0,
+                                    "net p&l%": 0.0,
+                                    "transactions": []
+                                },
+                                {
+                                    "isinDescription": "UJJIVAN SMALL FIN-EQ",
+                                    "isin_id": "INE551W01018",
+                                    "qty": 20.0,
+                                    "Rate": 51.97,
+                                    "total_invested": 1039.4,
+                                    "current_rate": 0.0,
+                                    "current_value": 0.0,
+                                    "net p&l": 0.0,
+                                    "net p&l%": 0.0,
+                                    "transactions": []
+                                }
+                            ]
+                        },
+                        "etf": {
+                            "asset_class": "etf",
+                            "holdings": [
+                                {
+                                    "isinDescription": "NIPPO NFTY PHRMA ETF",
+                                    "isin_id": "INF204KC1089",
+                                    "qty": 200.0,
+                                    "Rate": 0.0,
+                                    "total_invested": 0.0,
+                                    "current_rate": 22.86,
+                                    "current_value": 4572.0,
+                                    "net p&l": 0.0,
+                                    "net p&l%": 0.0,
+                                    "transactions": [
+                                        {
+                                            "isin_id": "INF204KC1089",
+                                            "txnId": "29102025121650-3023722664294011",
+                                            "transactionDate": "2025-10-29T12:16:50.0",
+                                            "isinDescription": "NIPPO NFTY PHRMA ETF",
+                                            "narration": "PAYOUT-CR CM 6779     TM/CP 6779         SETT 1110232526744",
+                                            "ordertype": "BUY",
+                                            "qty": 200.0,
+                                            "invested_value": 0.0,
+                                            "class": "etf"
+                                        }
+                                    ]
+                                },
+                                {
+                                    "isinDescription": "ICICI NFS EX-BNK ETF",
+                                    "isin_id": "INF109KC17L8",
+                                    "qty": 200.0,
+                                    "Rate": 0.0,
+                                    "total_invested": 0.0,
+                                    "current_rate": 32.1,
+                                    "current_value": 6420.0,
+                                    "net p&l": 0.0,
+                                    "net p&l%": 0.0,
+                                    "transactions": [
+                                        {
+                                            "isin_id": "INF109KC17L8",
+                                            "txnId": "30102025123529-3031159074527011",
+                                            "transactionDate": "2025-10-30T12:35:29.0",
+                                            "isinDescription": "ICICI NFS EX-BNK ETF",
+                                            "narration": "INTDEP-CR CM 6779     TM/CP 6779         SETT 1110232526745",
+                                            "ordertype": "BUY",
+                                            "qty": 200.0,
+                                            "invested_value": 0.0,
+                                            "class": "etf"
+                                        }
+                                    ]
+                                },
+                                {
+                                    "isinDescription": "ICICI NIFTYMETAL ETF",
+                                    "isin_id": "INF109KC19W1",
+                                    "qty": 1000.0,
+                                    "Rate": 0.0,
+                                    "total_invested": 0.0,
+                                    "current_rate": 10.56,
+                                    "current_value": 10560.0,
+                                    "net p&l": 0.0,
+                                    "net p&l%": 0.0,
+                                    "transactions": [
+                                        {
+                                            "isin_id": "INF109KC19W1",
+                                            "txnId": "28102025121612-3011132959894011",
+                                            "transactionDate": "2025-10-28T12:16:12.0",
+                                            "isinDescription": "ICICI NIFTYMETAL ETF",
+                                            "narration": "INTDEP-CR CM 6779     TM/CP 6779         SETT 1110232526743",
+                                            "ordertype": "BUY",
+                                            "qty": 950.0,
+                                            "invested_value": 0.0,
+                                            "class": "etf"
+                                        }
+                                    ]
+                                },
+                                {
+                                    "isinDescription": "ICICI NIFTY FMCG ETF",
+                                    "isin_id": "INF109KC19V3",
+                                    "qty": 100.0,
+                                    "Rate": 0.0,
+                                    "total_invested": 0.0,
+                                    "current_rate": 59.63,
+                                    "current_value": 5963.0,
+                                    "net p&l": 0.0,
+                                    "net p&l%": 0.0,
+                                    "transactions": [
+                                        {
+                                            "isin_id": "INF109KC19V3",
+                                            "txnId": "29102025121650-3023722664230011",
+                                            "transactionDate": "2025-10-29T12:16:50.0",
+                                            "isinDescription": "ICICI NIFTY FMCG ETF",
+                                            "narration": "PAYOUT-CR CM 6779     TM/CP 6779         SETT 1110232526744",
+                                            "ordertype": "BUY",
+                                            "qty": 100.0,
+                                            "invested_value": 0.0,
+                                            "class": "etf"
+                                        }
+                                    ]
+                                }
+                            ]
+                        }
+                    },
+                    "account_summary_details": [
+                        {
+                            "etf": {
+                                "qty": 1500.0,
+                                "rate": 0.0,
+                                "total_invested": 0.0,
+                                "current_rate": 125.15,
+                                "current_value": 27515.0,
+                                "net p&l": 0.0,
+                                "net p&l%": 0
+                            },
+                            "equities": {
+                                "qty": 72.0,
+                                "rate": 110.62,
+                                "total_invested": 2017.3400000000001,
+                                "current_rate": 0.0,
+                                "current_value": 0.0,
+                                "net p&l": 0.0,
+                                "net p&l%": 0
+                            },
+                            "mutualfunds": {}
+                        }
+                    ]
+                },
+                {
+                    "masked_account_number": "XXXXXXXXXXXX3054",
+                    "investment_details": {
+                        "equities": {
+                            "asset_class": "equities",
+                            "holdings": [
+                                {
+                                    "isinDescription": "NTPC GREEN ENERGY-EQ",
+                                    "isin_id": "INE0ONG01011",
+                                    "qty": 138.0,
+                                    "Rate": 100.45,
+                                    "total_invested": 13862.1,
+                                    "current_rate": 0.0,
+                                    "current_value": 0.0,
+                                    "net p&l": 0.0,
+                                    "net p&l%": 0.0,
+                                    "transactions": []
+                                }
+                            ]
+                        }
+                    },
+                    "account_summary_details": [
+                        {
+                            "etf": {},
+                            "equities": {
+                                "qty": 138.0,
+                                "rate": 100.45,
+                                "total_invested": 13862.1,
+                                "current_rate": 0.0,
+                                "current_value": 0.0,
+                                "net p&l": 0.0,
+                                "net p&l%": 0
+                            },
+                            "mutualfunds": {}
+                        }
+                    ]
+                }
+            ],
+            "fip_summary_details": [
+                {
+                    "etf": {
+                        "qty": 1500.0,
+                        "total_invested": 0.0,
+                        "current_value": 27515.0,
+                        "net p&l": 0.0,
+                        "net p&l%": 0
+                    },
+                    "equities": {
+                        "qty": 210.0,
+                        "total_invested": 15879.44,
+                        "current_value": 0.0,
+                        "net p&l": 0.0,
+                        "net p&l%": 0
+                    },
+                    "mutualfunds": {}
+                }
+            ]
+        }
+    ],
+    "overall_fip_summary_analysis": "",
+    "overall_fip_Summary_analysis": [
+        {
+            "etf": {
+                "qty": 1500.0,
+                "total_invested": 0.0,
+                "current_value": 27515.0,
+                "net p&l": 0.0,
+                "net p&l%": 0
+            },
+            "equities": {
+                "qty": 210.0,
+                "total_invested": 15879.44,
+                "current_value": 0.0,
+                "net p&l": 0.0,
+                "net p&l%": 0
+            },
+            "mutualfunds": {}
+        }
+    ]
+}

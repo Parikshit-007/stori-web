@@ -1,0 +1,373 @@
+╔═══════════════════════════════════════════════════════════════════════╗
+║                                                                       ║
+║              CREDIT SCORING API - GBM MODEL INTEGRATION              ║
+║            Get Credit Score & Default Probability (0-100)             ║
+║                                                                       ║
+╚═══════════════════════════════════════════════════════════════════════╝
+
+
+🎯 CREDIT SCORING ENDPOINTS
+===========================
+
+1. Calculate Credit Score
+   POST /api/customer/credit-scoring/score/
+   → Send consumer data, get instant credit score
+
+2. Get Score History
+   GET /api/customer/credit-scoring/history/
+   → View all past credit scores
+
+3. Model Health Check
+   GET /api/customer/credit-scoring/health/
+   → Check if GBM model is loaded
+
+
+🔐 AUTHENTICATION
+=================
+
+Same API key for all endpoints:
+X-API-Key: stori_6CFocXsPyo4tJDxq8MkVE6Iy-aii0_7eN59VJvUlfmU
+
+
+📊 WHAT YOU GET
+================
+
+Response includes:
+✅ Credit Score (0-100)
+✅ Default Probability (0-1)
+✅ Risk Tier (Excellent/Good/Fair/Poor/Very Poor)
+✅ Risk Description
+✅ Recommendation (Approve/Manual Review/Decline)
+✅ Top 10 Feature Importance
+✅ Model Metrics
+
+
+🎯 RISK TIERS
+=============
+
+Score   | Tier       | Description          | Recommendation
+--------|------------|---------------------|---------------------------
+80-100  | Excellent  | Prime - Very low    | Approve with best rates
+65-79   | Good       | Near-prime - Low    | Approve standard rates
+50-64   | Fair       | Subprime - Medium   | Manual review recommended
+35-49   | Poor       | Deep subprime-High  | Additional verification
+0-34    | Very Poor  | Very high risk      | Decline or collateral
+
+
+📝 REQUEST FORMAT
+=================
+
+POST /api/customer/credit-scoring/score/
+
+Headers:
+  X-API-Key: stori_6CFocXsPyo4tJDxq8MkVE6Iy-aii0_7eN59VJvUlfmU
+  Content-Type: application/json
+
+Body (All fields optional - defaults will be used):
+{
+    "name_dob_verified": 1,
+    "pan_verified": 1,
+    "aadhaar_verified": 1,
+    "phone_verified": 1,
+    "phone_age_months": 36,
+    "email_verified": 1,
+    "email_age_months": 48,
+    "age": 32,
+    "education_level": 4,
+    "dependents_count": 2,
+    
+    "employment_type": 3,
+    "employment_tenure_months": 48,
+    "job_changes_3y": 1,
+    "monthly_income": 75000,
+    "monthly_income_stability": 0.9,
+    "income_cv": 0.15,
+    "income_source_verification": 1,
+    "employment_history_score": 85,
+    
+    "total_financial_assets": 500000,
+    "liquid_assets": 150000,
+    "property_owned": 0,
+    "vehicle_owned": 1,
+    
+    "credit_score": 720,
+    "credit_accounts_total": 5,
+    "credit_accounts_active": 4,
+    "credit_utilization_ratio": 0.35,
+    "dpd_30_count": 0,
+    "dpd_60_count": 0,
+    "dpd_90_count": 0,
+    "credit_enquiries_3m": 1,
+    "credit_enquiries_6m": 2,
+    
+    "avg_monthly_credits": 80000,
+    "avg_monthly_debits": 55000,
+    "avg_balance": 125000,
+    "min_balance": 15000,
+    "balance_volatility": 0.2,
+    "negative_balance_days_ratio": 0
+}
+
+
+💡 RESPONSE FORMAT
+==================
+
+{
+    "success": true,
+    "credit_score": 78,
+    "default_probability": 0.0543,
+    "risk_tier": "Good",
+    "risk_description": "Near-prime borrower - Low risk",
+    "recommendation": "Approve with standard rates",
+    "feature_importance": [
+        {
+            "feature": "credit_score",
+            "importance": 0.15,
+            "rank": 1
+        },
+        {
+            "feature": "monthly_income",
+            "importance": 0.12,
+            "rank": 2
+        },
+        ...
+    ],
+    "model_info": {
+        "model_type": "LightGBM",
+        "version": "1.0.0",
+        "score_range": "0-100",
+        "metrics": {
+            "auc": 0.85,
+            "accuracy": 0.82
+        }
+    }
+}
+
+
+💻 PYTHON EXAMPLE
+=================
+
+import requests
+
+API_KEY = "stori_6CFocXsPyo4tJDxq8MkVE6Iy-aii0_7eN59VJvUlfmU"
+BASE_URL = "http://localhost:8000/api"
+
+headers = {
+    "X-API-Key": API_KEY,
+    "Content-Type": "application/json"
+}
+
+# Consumer data (can be from any source)
+consumer_data = {
+    "age": 32,
+    "monthly_income": 75000,
+    "credit_score": 720,
+    "employment_tenure_months": 48,
+    "credit_utilization_ratio": 0.35,
+    "dpd_30_count": 0,
+    "avg_monthly_credits": 80000,
+    "avg_balance": 125000
+}
+
+# Get credit score
+response = requests.post(
+    f"{BASE_URL}/customer/credit-scoring/score/",
+    headers=headers,
+    json=consumer_data
+)
+
+result = response.json()
+if result['success']:
+    print(f"Credit Score: {result['credit_score']}")
+    print(f"Default Probability: {result['default_probability']:.2%}")
+    print(f"Risk Tier: {result['risk_tier']}")
+    print(f"Recommendation: {result['recommendation']}")
+
+
+📈 INTEGRATION WITH ANALYSIS APIS
+==================================
+
+You can combine analysis APIs to get all data for scoring:
+
+Step 1: Get Bank Statement Analysis
+response = requests.post(
+    f"{BASE_URL}/customer/bank-statement/analyze-json/",
+    headers=headers,
+    json=bank_data
+)
+bank_features = response.json()['data']['features']
+
+Step 2: Get Credit Report Analysis
+response = requests.post(
+    f"{BASE_URL}/customer/credit-report/analyze-json/",
+    headers=headers,
+    json=credit_data
+)
+credit_features = response.json()['data']['features']
+
+Step 3: Get ITR Analysis
+response = requests.post(
+    f"{BASE_URL}/customer/itr/analyze-json/",
+    headers=headers,
+    json=itr_data
+)
+itr_features = response.json()['data']['features']
+
+Step 4: Combine and Calculate Credit Score
+combined_features = {
+    **bank_features,
+    **credit_features,
+    **itr_features,
+    "age": 32,
+    "education_level": 4,
+    # ... other features
+}
+
+response = requests.post(
+    f"{BASE_URL}/customer/credit-scoring/score/",
+    headers=headers,
+    json=combined_features
+)
+
+credit_score = response.json()
+
+
+🔄 COMPLETE WORKFLOW EXAMPLE
+=============================
+
+# 1. User submits application with documents
+user_data = {
+    "age": 32,
+    "employment_type": 3,
+    "monthly_income": 75000
+}
+
+# 2. Get bank statement from Account Aggregator
+bank_json = get_from_account_aggregator()
+bank_analysis = analyze_bank_statement(bank_json)
+
+# 3. Get credit report from bureau
+credit_json = get_from_credit_bureau()
+credit_analysis = analyze_credit_report(credit_json)
+
+# 4. Combine all data
+scoring_input = {
+    **user_data,
+    **bank_analysis['features'],
+    **credit_analysis['features']
+}
+
+# 5. Get credit score
+response = requests.post(
+    f"{BASE_URL}/customer/credit-scoring/score/",
+    headers=headers,
+    json=scoring_input
+)
+
+# 6. Make lending decision
+score_result = response.json()
+if score_result['credit_score'] >= 65:
+    # Approve loan
+    pass
+elif score_result['credit_score'] >= 50:
+    # Manual review
+    pass
+else:
+    # Decline
+    pass
+
+
+📝 FEATURE CATEGORIES
+=====================
+
+Identity & Demographics:
+- name_dob_verified, pan_verified, aadhaar_verified
+- age, education_level, dependents_count
+
+Employment & Income:
+- employment_type, employment_tenure_months
+- monthly_income, income_stability
+- job_changes_3y
+
+Assets & Liabilities:
+- total_financial_assets, liquid_assets
+- property_owned, vehicle_owned
+
+Credit Bureau:
+- credit_score, credit_accounts_total
+- credit_utilization_ratio
+- dpd_30/60/90_count
+
+Banking Behavior:
+- avg_monthly_credits, avg_monthly_debits
+- avg_balance, balance_volatility
+- negative_balance_days_ratio
+
+
+🧪 TESTING
+==========
+
+1. Test with example file:
+   curl -X POST http://localhost:8000/api/customer/credit-scoring/score/ \
+     -H "X-API-Key: stori_6CFocXsPyo4tJDxq8MkVE6Iy-aii0_7eN59VJvUlfmU" \
+     -H "Content-Type: application/json" \
+     -d @example_jsons/credit_score_request_example.json
+
+2. Check model health:
+   curl -X GET http://localhost:8000/api/customer/credit-scoring/health/ \
+     -H "X-API-Key: stori_6CFocXsPyo4tJDxq8MkVE6Iy-aii0_7eN59VJvUlfmU"
+
+3. View history:
+   curl -X GET http://localhost:8000/api/customer/credit-scoring/history/ \
+     -H "X-API-Key: stori_6CFocXsPyo4tJDxq8MkVE6Iy-aii0_7eN59VJvUlfmU"
+
+
+⚙️ MODEL INFO
+=============
+
+- Model Type: LightGBM (Gradient Boosting Machine)
+- Training Data: 25,000 synthetic consumer samples
+- Features: 100+ financial and behavioral features
+- Score Range: 0-100 (lower prob = higher score)
+- Default Threshold: 90 DPD (Days Past Due)
+
+
+🔧 TROUBLESHOOTING
+==================
+
+Error: "Credit scoring model not available"
+- Model file not found
+- Check if consumer_credit_model.joblib exists
+- Path: credit_scoring_pipeline/consumer/consumer_model_artifacts/
+
+Error: "Invalid input data"
+- Check JSON format
+- All fields are optional
+- Defaults will be used for missing fields
+
+Low credit score:
+- Check feature values
+- Review feature importance in response
+- Top features have most impact
+
+
+📊 BUSINESS LOGIC
+=================
+
+Use cases:
+1. Loan Approval: Score >= 65 → Auto-approve
+2. Interest Rates: Higher score → Lower rate
+3. Credit Limit: Score determines limit
+4. Manual Review: 50-64 range
+5. Auto-Decline: Score < 50
+
+
+═══════════════════════════════════════════════════════════════════════
+
+           CREDIT SCORING API READY! 🎉
+
+      GBM Model → Credit Score (0-100) → Lending Decision
+
+═══════════════════════════════════════════════════════════════════════
+
+

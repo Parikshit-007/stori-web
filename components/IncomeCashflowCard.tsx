@@ -54,6 +54,16 @@ export default function IncomeCashflowCard({ consumer }: IncomeCashflowCardProps
           <h4 className="font-semibold text-gray-800 text-sm">(A) Account Balances</h4>
           <span className="ml-auto text-sm font-bold text-green-600">Avg: {formatAmount(income.averageBalance || income.totalBalance)}</span>
         </div>
+        {/* <div className="bg-gray-50 rounded-lg p-3">
+            <p className="text-xs text-gray-500">Balance Drop Alert</p>
+            <p className={`text-xl font-bold flex items-center gap-1 ${transactions.spikeDetector?.balanceDropAlert ? 'text-red-600' : 'text-green-600'}`}>
+              {transactions.spikeDetector?.balanceDropAlert ? (
+                <><AlertTriangle className="w-5 h-5" /> Yes</>
+              ) : (
+                <><CheckCircle className="w-5 h-5" /> No</>
+              )}
+            </p>
+          </div> */}
         <div className="space-y-2 mb-2">
           {income.accountBalances?.map((acc: any, idx: number) => (
             <div key={idx} className="flex justify-between items-center p-2 bg-gray-50 rounded-lg text-sm">
